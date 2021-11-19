@@ -1,4 +1,7 @@
-# corella
+# Corella
+
+## General information
+Domain: [corella.website](https://corella.website)
 
 ## Project setup
 ```
