@@ -1,0 +1,51 @@
+.default-modal {
+
+  .default-modal__title {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    text-transform: capitalize;
+    color: #2A2A2A;
+  }
+
+  .default-modal__separator {
+    height: 2px;
+    background: linear-gradient(90deg, #3AAACA 2.19%, #43BEB1 50%);
+    border-radius: 2px;
+    margin-top: 18px;
+    margin-bottom: 24px;
+  }
+
+  .default-modal__form-group {
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    > label {
+      display: block;
+      margin-bottom: 8px;
+
+      font-family: Open Sans, sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+
+      text-transform: capitalize;
+
+      color: #3E3E3E;
+    }
+
+    &--flex {
+      display: flex;
+
+      > .default-modal__form-group {
+        width: 100%;
+      }
+
+    }
+
+  }
+
+
+}
