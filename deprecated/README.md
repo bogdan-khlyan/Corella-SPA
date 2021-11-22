@@ -1,4 +1,9 @@
-# corella-spa
+# Corella
+
+## General information
+Domain: [corella.website](https://corella.website)
+####
+[Backend repository](https://github.com/QuisEgoSum/corella)
 
 ## Project setup
 ```
@@ -13,11 +18,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
