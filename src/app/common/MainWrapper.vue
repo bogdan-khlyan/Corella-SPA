@@ -31,8 +31,18 @@ export default {
 .main-wrapper {
   display: flex;
 
+  &__sidebar {
+    width: 80px;
+    height: auto;
+  }
+
   &__content {
-    width: 100%;
+    width: calc(100vw - 80px);
+  }
+
+  &__view {
+    padding: 30px;
+    box-sizing: border-box;
   }
 
 }
