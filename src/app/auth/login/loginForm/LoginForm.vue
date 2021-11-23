@@ -1,5 +1,5 @@
 <template>
-  <form class="login-form">
+  <form @submit.prevent="submitForm" class="login-form">
     <login-form-input class="login-form__input"
                       placeholder="Email or username"
                       v-model="credentials.email"/>
@@ -20,6 +20,8 @@
 <script>
 import LoginFormInput from "@/app/auth/login/loginForm/LoginFormInput";
 
+// TODO добавить валидацию
+// TODO проходить авторизацию на бэке используя user-service.controller
 export default {
   name: 'login-form',
   components: {
@@ -31,6 +33,11 @@ export default {
         email: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    submitForm() {
+      this.$emit('submit', this.credentials)
     }
   }
 }

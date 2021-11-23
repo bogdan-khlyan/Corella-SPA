@@ -15,6 +15,7 @@
 import LoginFormWrapper from "@/app/auth/login/loginForm/LoginFormWrapper";
 import Banner from "@/app/auth/login/banner/Banner";
 
+// TODO если юзер уже авторизован переводить его на домашнюю страницу
 export default {
   name: 'login',
   components: {

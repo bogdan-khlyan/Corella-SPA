@@ -1,5 +1,7 @@
 <template>
-  <div class="login-form-wrapper">
+  <div class="login-form-wrapper"
+       v-loading="loading"
+       element-loading-background="rgba(0, 0, 0, 0.6)">
     <div class="login-form-wrapper__content">
       <div class="login-form-wrapper__logo">
         <img src="@/assets/images/corella_icon.svg" alt="">
@@ -15,7 +17,7 @@
         </div>
       </div>
       <div class="login-form-wrapper__form">
-        <login-form/>
+        <login-form @submit="submitForm"/>
       </div>
     </div>
   </div>
@@ -28,6 +30,19 @@ export default {
   name: 'login-form-wrapper',
   components: {
     LoginForm
+  },
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    submitForm() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
+    }
   }
 }
 </script>
