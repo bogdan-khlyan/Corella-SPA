@@ -30,7 +30,7 @@ export default {
 
   &__content {
     position: relative;
-    display: flex;
+    display: flex
   }
 
   &__column {
