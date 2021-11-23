@@ -28,11 +28,16 @@ export default {
 .login-page {
 
   &__content {
+    position: relative;
     display: flex;
   }
 
   &__column {
-
+    &:first-child {
+      @media screen and (max-width: 1280px) {
+        width: 100%;
+      }
+    }
   }
 
 }

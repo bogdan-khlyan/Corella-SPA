@@ -64,6 +64,11 @@ export default {
   &__button {
     text-align: left;
     margin-top: 50px;
+
+    @media screen and (max-height: 920px) {
+      margin-top: 30px;
+    }
+
     > button {
       width: 335px;
       height: 86px;
@@ -82,6 +87,12 @@ export default {
 
       cursor: pointer;
       transition: 200ms;
+
+      @media screen and (max-height: 920px) {
+        width: 280px;
+        height: 70px;
+        font-size: 24px;
+      }
 
       &:hover {
         background-color: #61dd93;
