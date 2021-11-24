@@ -20,6 +20,7 @@
 </template>
 
 <script>
+// TODO добавить v-model, испрвить анимацию placeholder
 export default {
   name: 'login-form-input',
   props: {

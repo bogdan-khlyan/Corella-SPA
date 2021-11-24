@@ -9,47 +9,36 @@
       </div>
 
       <transition appear name="el-fade-in" mode="out-in">
-        <div class="login-form-wrapper__oauth" v-if="typeForm !== 'recovery'">
+        <div class="login-form-wrapper__oauth" v-if="showOauthButtons">
           <socials/>
         </div>
       </transition>
 
       <div class="login-form-wrapper__form">
         <transition appear name="el-fade-in" mode="out-in">
-          <login-form v-if="typeForm === 'login'"
-                      @submit="submitForm"
-                      @changeTypeForm="changeTypeForm"/>
-          <registration v-else-if="typeForm === 'register'"
-                        @submit="submitForm"
-                        @changeTypeForm="changeTypeForm"/>
-          <recovery-password v-else
-                             @submit="submitForm"
-                             @changeTypeForm="changeTypeForm"/>
+          <router-view/>
         </transition>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import LoginForm from "@/app/auth/login/loginForm/LoginForm";
-import Registration from "./Registration";
-import RecoveryPassword from "./RecoveryPassword";
 import Socials from "../../oauth/Socials";
 
 export default {
   name: 'login-form-wrapper',
   components: {
-    Socials,
-    LoginForm,
-    Registration,
-    RecoveryPassword
+    Socials
   },
   data() {
     return {
-      loading: false,
-      typeForm: 'login'
+      loading: false
+    }
+  },
+  computed: {
+    showOauthButtons() {
+      return this.$route.name !== 'recover-form'
     }
   },
   methods: {
@@ -58,9 +47,6 @@ export default {
       setTimeout(() => {
         this.loading = false
       }, 2000)
-    },
-    changeTypeForm(type) {
-      this.typeForm = type
     }
   }
 }

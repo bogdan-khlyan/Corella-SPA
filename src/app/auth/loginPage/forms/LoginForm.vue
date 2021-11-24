@@ -1,30 +1,32 @@
 <template>
-  <form @submit.prevent="submitForm" class="register-form">
-    <login-form-input class="register-form__input"
-                      placeholder="E-mail"
+  <form @submit.prevent="submitForm" class="login-form">
+    <login-form-input class="login-form__input"
+                      placeholder="Email or username"
                       v-model="credentials.email"/>
-    <login-form-input class="register-form__input"
-                      placeholder="User name"
-                      v-model="credentials.name"/>
-    <login-form-input class="register-form__input"
+    <login-form-input class="login-form__input"
                       placeholder="Password"
                       type="password"
                       v-model="credentials.password"/>
 
-    <div class="register-form__button">
-      <button>Registration</button>
+    <router-link to="/login/recover" class="login-form__forgot">
+      Forgot my password?
+    </router-link>
+    <div class="login-form__button">
+      <button>Log in</button>
     </div>
-    <div class="register-form__login">
-      Already have an account?<span @click="$emit('changeTypeForm','login')">Log in</span>
+    <div class="login-form__register">
+      Don't have an account yet?<router-link to="/login/register">Register</router-link>
     </div>
   </form>
 </template>
 
 <script>
-import LoginFormInput from "@/app/auth/login/loginForm/LoginFormInput";
+import LoginFormInput from "@/app/auth/loginPage/common/LoginFormInput";
 
+// TODO добавить валидацию
+// TODO проходить авторизацию на бэке используя user-service.controller
 export default {
-  name: "register",
+  name: 'login-form',
   components: {
     LoginFormInput
   },
@@ -32,7 +34,6 @@ export default {
     return {
       credentials: {
         email: '',
-        name:'',
         password: ''
       }
     }
@@ -45,14 +46,39 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.register-form {
+<style scoped lang="scss">
+.login-form {
 
   &__input {
-    margin-bottom: 30px;
-    &:last-child {
-      margin-bottom: 0px;
+    &:first-child {
+      margin-bottom: 30px;
     }
+  }
+
+  &__forgot {
+    display: block;
+
+    margin-top: 24px;
+    margin-left: auto;
+
+    width: max-content;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration: none;
+
+    color: #878787;
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    &:hover {
+      color: #0AB258;
+    }
+
   }
 
   &__button {
@@ -95,7 +121,7 @@ export default {
     }
   }
 
-  &__login {
+  &__register {
     font-family: Rubik, sans-serif;
     font-size: 18px;
     font-style: normal;
@@ -107,9 +133,10 @@ export default {
 
     margin-top: 18px;
 
-    > span {
+    > a {
       font-weight: 500;
       color: #0AB258;
+      text-decoration: none;
 
       margin-left: 10px;
       cursor: pointer;

@@ -12,17 +12,17 @@
       <button>Continue</button>
     </div>
 
-    <div class="recovery-form__login" @click="$emit('changeTypeForm', 'login')">
+    <router-link to="/login" class="recovery-form__login">
       Go back to the sign in page
-    </div>
+    </router-link>
   </form>
 </template>
 
 <script>
-import LoginFormInput from "./LoginFormInput";
+import LoginFormInput from "../common/LoginFormInput";
 
 export default {
-  name: "RecoveryPassword",
+  name: "RecoveryPasswordForm",
   components: {LoginFormInput},
   data() {
     return {
@@ -40,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 .recovery-form {
   &__title {
-    font-family: Rubik;
+    font-family: Rubik, sans-serif;
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
@@ -52,7 +52,7 @@ export default {
     margin-bottom: 38px;
   }
   &__description {
-    font-family: Rubik;
+    font-family: Rubik, sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -103,14 +103,16 @@ export default {
     }
   }
   &__login {
-    font-family: Rubik;
+    font-family: Rubik, sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
+    text-decoration: none;
     color: #393939;
+
     cursor: pointer;
     transition: 0.2s;
     &:hover {
