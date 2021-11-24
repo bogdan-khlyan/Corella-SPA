@@ -1,22 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
+import {loginPageRoutes} from '@/app/auth/loginPage/router'
+
 const routes = [{
     path: '/login',
     name: 'login-page',
     component: () => import('@/app/auth/loginPage/LoginPage'),
-    children: [{
-        path: '',
-        name: 'login-form',
-        component: () => import('@/app/auth/loginPage/forms/LoginForm')
-    }, {
-        path: 'register',
-        name: 'register-form',
-        component: () => import('@/app/auth/loginPage/forms/RegisterForm')
-    }, {
-        path: 'recover',
-        name: 'recover-form',
-        component: () => import('@/app/auth/loginPage/forms/RecoveryPasswordForm')
-    }]
+    children: loginPageRoutes
 }, {
     path: '/',
     name: 'main-wrapper',
