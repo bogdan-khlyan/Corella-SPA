@@ -8,13 +8,13 @@
          v-show="!visible"
          @click="visible = !visible"
          class="login-form-input__eye"
-         src="@/assets/images/icons/visible-eye.svg"
+         src="@/assets/images/icons/login/visible-eye.svg"
          alt="">
     <img v-if="type === 'password'"
          v-show="visible"
          @click="visible = !visible"
          class="login-form-input__eye"
-         src="@/assets/images/icons/no-visible-eye.svg"
+         src="@/assets/images/icons/login/no-visible-eye.svg"
          alt="">
   </label>
 </template>
@@ -76,6 +76,7 @@ export default {
     bottom: 0;
     right: 0;
     margin: auto;
+    cursor: pointer;
   }
 
   // todo move to global styles ?
