@@ -1,0 +1,124 @@
+<template>
+  <form @submit.prevent="submitForm" class="recovery-form">
+
+    <div class="recovery-form__title">Forgot your password?</div>
+    <div class="recovery-form__description">Please, enter your email address</div>
+
+    <login-form-input class="recovery-form__input"
+                      placeholder="E-mail"
+                      v-model="email"/>
+
+    <div class="recovery-form__button">
+      <button>Continue</button>
+    </div>
+
+    <router-link to="/login" class="recovery-form__login">
+      Go back to the sign in page
+    </router-link>
+  </form>
+</template>
+
+<script>
+import LoginFormInput from "../common/LoginFormInput";
+
+export default {
+  name: "RecoveryPasswordForm",
+  components: {LoginFormInput},
+  data() {
+    return {
+      email: '',
+    }
+  },
+  methods: {
+    submitForm() {
+      this.$emit('submit', this.credentials)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.recovery-form {
+  &__title {
+    font-family: Rubik, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #393939;
+
+    margin-bottom: 38px;
+  }
+  &__description {
+    font-family: Rubik, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #878787;
+
+    margin-bottom: 52px;
+  }
+  &__button {
+    text-align: left;
+    margin-top: 100px;
+    margin-bottom: 18px;
+
+    @media screen and (max-height: 920px) {
+      margin-top: 50px;
+    }
+
+    > button {
+      width: 335px;
+      height: 86px;
+
+      font-family: Roboto, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 37px;
+
+      color: #FFFFFF;
+
+      border-radius: 8px;
+      border: none;
+      background-color: #20C462;
+
+      cursor: pointer;
+      transition: 200ms;
+
+      @media screen and (max-height: 920px) {
+        width: 280px;
+        height: 70px;
+        font-size: 24px;
+      }
+
+      &:hover {
+        background-color: #61dd93;
+      }
+    }
+  }
+  &__login {
+    font-family: Rubik, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-decoration: none;
+    color: #393939;
+
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      color: #0AB258;
+    }
+  }
+
+}
+</style>

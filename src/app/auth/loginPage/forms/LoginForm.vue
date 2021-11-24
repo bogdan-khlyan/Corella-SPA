@@ -6,19 +6,22 @@
     <login-form-input class="login-form__input"
                       placeholder="Password"
                       type="password"
-                      v-model="credentials.email"/>
+                      v-model="credentials.password"/>
 
-    <div class="login-form__forgot">
-      <a href="#">Forgot my password?</a>
-    </div>
+    <router-link to="/login/recover" class="login-form__forgot">
+      Forgot my password?
+    </router-link>
     <div class="login-form__button">
       <button>Log in</button>
+    </div>
+    <div class="login-form__register">
+      Don't have an account yet?<router-link to="/login/register">Register</router-link>
     </div>
   </form>
 </template>
 
 <script>
-import LoginFormInput from "@/app/auth/login/loginForm/LoginFormInput";
+import LoginFormInput from "@/app/auth/loginPage/common/LoginFormInput";
 
 // TODO добавить валидацию
 // TODO проходить авторизацию на бэке используя user-service.controller
@@ -53,19 +56,29 @@ export default {
   }
 
   &__forgot {
+    display: block;
+
     margin-top: 24px;
-    text-align: right;
+    margin-left: auto;
 
-    > a {
-      font-family: Roboto, sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 21px;
-      text-decoration: none;
+    width: max-content;
 
-      color: #878787;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration: none;
+
+    color: #878787;
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    &:hover {
+      color: #0AB258;
     }
+
   }
 
   &__button {
@@ -108,5 +121,26 @@ export default {
     }
   }
 
+  &__register {
+    font-family: Rubik, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #393939;
+
+    margin-top: 18px;
+
+    > a {
+      font-weight: 500;
+      color: #0AB258;
+      text-decoration: none;
+
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
 }
 </style>

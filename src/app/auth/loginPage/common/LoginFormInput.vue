@@ -8,18 +8,19 @@
          v-show="!visible"
          @click="visible = !visible"
          class="login-form-input__eye"
-         src="@/assets/images/icons/visible-eye.svg"
+         src="@/assets/images/icons/login/visible-eye.svg"
          alt="">
     <img v-if="type === 'password'"
          v-show="visible"
          @click="visible = !visible"
          class="login-form-input__eye"
-         src="@/assets/images/icons/no-visible-eye.svg"
+         src="@/assets/images/icons/login/no-visible-eye.svg"
          alt="">
   </label>
 </template>
 
 <script>
+// TODO добавить v-model, испрвить анимацию placeholder
 export default {
   name: 'login-form-input',
   props: {
@@ -38,10 +39,11 @@ export default {
 .login-form-input {
   position: relative;
   display: block;
+  padding-top: 10px;
 
   > input {
     width: 100%;
-    height: 50px;
+    height: 52px;
 
     padding-left: 12px;
 
@@ -58,14 +60,34 @@ export default {
 
     color: #000000;
 
+    transition: 0.2s;
+
     &::placeholder {
+      position: absolute;
+      bottom: 9px;
+
       font-family: Roboto, sans-serif;
       font-style: normal;
       font-weight: normal;
       font-size: 24px;
       line-height: 32px;
 
+      transition: 0.2s;
       color: #878787;
+    }
+
+    &:focus {
+      border-color: #20C561;
+
+      &::placeholder {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+
+        bottom: 32px;
+        left: 0px;
+        color: #878787;
+      }
     }
 
   }
@@ -76,6 +98,7 @@ export default {
     bottom: 0;
     right: 0;
     margin: auto;
+    cursor: pointer;
   }
 
   // todo move to global styles ?
