@@ -41,7 +41,7 @@ export default {
   }
 
   &__view {
-    padding: 30px;
+    padding: 20px;
     box-sizing: border-box;
   }
 

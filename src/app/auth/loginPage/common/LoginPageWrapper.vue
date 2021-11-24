@@ -25,7 +25,7 @@
 
 <script>
 import Socials from "../../oauth/Socials";
-import {state} from "@/app/auth/loginPage/login-page.state";
+import {loginPageState} from "@/app/auth/loginPage/login-page.state";
 
 export default {
   name: 'login-form-wrapper',
@@ -34,10 +34,10 @@ export default {
   },
   computed: {
     loading() {
-      return state.loading
+      return loginPageState.loading
     },
     showOauthButtons() {
-      return this.$route.name !== 'recover-form'
+      return this.loginPageState.name !== 'recover-form'
     }
   }
 }

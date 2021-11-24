@@ -14,7 +14,7 @@ const routes = [{
     children: [{
         path: '/',
         name: 'project-list',
-        component: () => import('@/app/projectList/ProjectList')
+        component: () => import('@/app/projects/projectList/ProjectList')
     }]
 }]
 
