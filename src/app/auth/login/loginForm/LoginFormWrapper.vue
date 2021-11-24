@@ -8,18 +8,23 @@
         <h1>Corella</h1>
       </div>
 
-      <div class="login-form-wrapper__oauth">
-        <socials/>
-      </div>
+      <transition appear name="el-fade-in" mode="out-in">
+        <div class="login-form-wrapper__oauth" v-if="typeForm !== 'recovery'">
+          <socials/>
+        </div>
+      </transition>
 
       <div class="login-form-wrapper__form">
         <transition appear name="el-fade-in" mode="out-in">
-          <login-form v-if="typeForm"
+          <login-form v-if="typeForm === 'login'"
                       @submit="submitForm"
-                      @changeTypeForm="typeForm = !typeForm"/>
-          <registration v-else
+                      @changeTypeForm="changeTypeForm"/>
+          <registration v-else-if="typeForm === 'register'"
                         @submit="submitForm"
-                        @changeTypeForm="typeForm = !typeForm"/>
+                        @changeTypeForm="changeTypeForm"/>
+          <recovery-password v-else
+                             @submit="submitForm"
+                             @changeTypeForm="changeTypeForm"/>
         </transition>
 
       </div>
@@ -30,6 +35,7 @@
 <script>
 import LoginForm from "@/app/auth/login/loginForm/LoginForm";
 import Registration from "./Registration";
+import RecoveryPassword from "./RecoveryPassword";
 import Socials from "../../oauth/Socials";
 
 export default {
@@ -37,12 +43,13 @@ export default {
   components: {
     Socials,
     LoginForm,
-    Registration
+    Registration,
+    RecoveryPassword
   },
   data() {
     return {
       loading: false,
-      typeForm: true
+      typeForm: 'login'
     }
   },
   methods: {
@@ -51,6 +58,9 @@ export default {
       setTimeout(() => {
         this.loading = false
       }, 2000)
+    },
+    changeTypeForm(type) {
+      this.typeForm = type
     }
   }
 }

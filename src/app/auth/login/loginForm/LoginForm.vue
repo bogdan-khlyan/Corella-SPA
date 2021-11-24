@@ -8,14 +8,14 @@
                       type="password"
                       v-model="credentials.password"/>
 
-    <div class="login-form__forgot">
-      <a href="#">Forgot my password?</a>
+    <div class="login-form__forgot" @click="$emit('changeTypeForm','recovery')">
+      Forgot my password?
     </div>
     <div class="login-form__button">
       <button>Log in</button>
     </div>
     <div class="login-form__register">
-      Don't have an account yet?<span @click="$emit('changeTypeForm')">Register</span>
+      Don't have an account yet?<span @click="$emit('changeTypeForm','register')">Register</span>
     </div>
   </form>
 </template>
@@ -59,21 +59,22 @@ export default {
     margin-top: 24px;
     text-align: right;
 
-    > a {
-      font-family: Roboto, sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 21px;
-      text-decoration: none;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration: none;
 
-      color: #878787;
+    color: #878787;
+    cursor: pointer;
 
-      transition: 0.2s;
-      &:hover {
-        color: #0AB258;
-      }
+    transition: 0.2s;
+
+    &:hover {
+      color: #0AB258;
     }
+
   }
 
   &__button {
@@ -127,6 +128,7 @@ export default {
     color: #393939;
 
     margin-top: 18px;
+
     > span {
       font-weight: 500;
       color: #0AB258;

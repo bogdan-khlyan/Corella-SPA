@@ -38,10 +38,11 @@ export default {
 .login-form-input {
   position: relative;
   display: block;
+  padding-top: 10px;
 
   > input {
     width: 100%;
-    height: 50px;
+    height: 52px;
 
     padding-left: 12px;
 
@@ -58,14 +59,34 @@ export default {
 
     color: #000000;
 
+    transition: 0.2s;
+
     &::placeholder {
+      position: absolute;
+      bottom: 9px;
+
       font-family: Roboto, sans-serif;
       font-style: normal;
       font-weight: normal;
       font-size: 24px;
       line-height: 32px;
 
+      transition: 0.2s;
       color: #878787;
+    }
+
+    &:focus {
+      border-color: #20C561;
+
+      &::placeholder {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+
+        bottom: 32px;
+        left: 0px;
+        color: #878787;
+      }
     }
 
   }

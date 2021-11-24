@@ -15,7 +15,7 @@
       <button>Registration</button>
     </div>
     <div class="register-form__login">
-      Already have an account?<span @click="$emit('changeTypeForm')">Log in</span>
+      Already have an account?<span @click="$emit('changeTypeForm','login')">Log in</span>
     </div>
   </form>
 </template>
