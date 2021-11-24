@@ -13,7 +13,15 @@
       </div>
 
       <div class="login-form-wrapper__form">
-        <login-form @submit="submitForm"/>
+        <transition appear name="el-fade-in" mode="out-in">
+          <login-form v-if="typeForm"
+                      @submit="submitForm"
+                      @changeTypeForm="typeForm = !typeForm"/>
+          <registration v-else
+                        @submit="submitForm"
+                        @changeTypeForm="typeForm = !typeForm"/>
+        </transition>
+
       </div>
     </div>
   </div>
@@ -21,17 +29,20 @@
 
 <script>
 import LoginForm from "@/app/auth/login/loginForm/LoginForm";
+import Registration from "./Registration";
 import Socials from "../../oauth/Socials";
 
 export default {
   name: 'login-form-wrapper',
   components: {
     Socials,
-    LoginForm
+    LoginForm,
+    Registration
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      typeForm: true
     }
   },
   methods: {
@@ -97,11 +108,11 @@ export default {
   }
 
   &__oauth {
-    margin-top: 80px;
+    margin-top: 60px;
   }
 
   &__form {
-    margin-top: 100px;
+    margin-top: 50px;
 
     @media screen and (max-height: 920px) {
       margin-top: 60px;
