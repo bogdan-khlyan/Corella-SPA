@@ -25,28 +25,19 @@
 
 <script>
 import Socials from "../../oauth/Socials";
+import {state} from "@/app/auth/loginPage/login-page.state";
 
 export default {
   name: 'login-form-wrapper',
   components: {
     Socials
   },
-  data() {
-    return {
-      loading: false
-    }
-  },
   computed: {
+    loading() {
+      return state.loading
+    },
     showOauthButtons() {
       return this.$route.name !== 'recover-form'
-    }
-  },
-  methods: {
-    submitForm() {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
     }
   }
 }

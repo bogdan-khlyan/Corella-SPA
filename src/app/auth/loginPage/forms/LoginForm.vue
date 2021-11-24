@@ -22,6 +22,7 @@
 
 <script>
 import LoginFormInput from "@/app/auth/loginPage/common/LoginFormInput";
+import {state} from "@/app/auth/loginPage/login-page.state";
 
 // TODO добавить валидацию
 // TODO проходить авторизацию на бэке используя user-service.controller
@@ -40,7 +41,10 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$emit('submit', this.credentials)
+      state.loading = true
+      setTimeout(() => {
+        state.loading = false
+      }, 2000)
     }
   }
 }
