@@ -1,10 +1,10 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
-import router from './router/router'
-import ElementPlus from 'element-plus'
+
+import plugins from './plugins'
 
 const app = createApp(App)
 
-app.use(router)
-   .use(ElementPlus)
-   .mount('#app')
+plugins.forEach(plugin => app.use(plugin))
+
+app.mount('#app')
