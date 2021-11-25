@@ -15,9 +15,11 @@
       </transition>
 
       <div class="login-form-wrapper__form">
-        <transition appear name="el-fade-in" mode="out-in">
-          <router-view/>
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition appear name="el-fade-in" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </div>
     </div>
   </div>
