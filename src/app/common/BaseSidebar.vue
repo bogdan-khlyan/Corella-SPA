@@ -9,13 +9,13 @@
     <nav class="base-sidebar__nav">
       <div class="base-sidebar__nav--item">
         <a href="#">
-          <img src="@/assets/images/icons/plus.svg" alt="">
+          <svg-icon icon-name="plus"></svg-icon>
         </a>
       </div>
       <hr>
       <div class="base-sidebar__nav--item">
         <a href="#">
-          <img src="@/assets/images/icons/project.svg" alt="">
+          <svg-icon icon-name="project"></svg-icon>
         </a>
       </div>
     </nav>
@@ -48,6 +48,11 @@ export default {
   //  border-bottom-right-radius: 8px;
   //  box-shadow: 3px 0px 7px rgba(14, 56, 41, 0.26);
   //}
+
+  .svg-icon {
+    width: 24px;
+    height: 24px;
+  }
 
   &__logo {
     display: flex;
