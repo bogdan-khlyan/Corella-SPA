@@ -1,7 +1,9 @@
 <template>
   <label class="login-form-input">
 
-      <input required :type="visible ? 'text' : type">
+      <input required
+             :type="visible ? 'text' : type"
+             @input="inputTemp">
       <span class="login-form-input__bar"></span>
       <label class="login-form-input__placeholder">{{ placeholder }}</label>
 
@@ -22,16 +24,25 @@
 </template>
 
 <script>
-// TODO добавить v-model, испрвить анимацию placeholder
 export default {
   name: 'login-form-input',
+  model: {
+    prop: 'modelValue',
+    event: 'update'
+  },
   props: {
+    modelValue: String,
     type: {type: String, default: 'text'},
     placeholder: {type: String, default: 'Enter'}
   },
   data() {
     return {
       visible: false
+    }
+  },
+  methods: {
+    inputTemp($event) {
+      this.$emit('update:modelValue', $event.target.value)
     }
   }
 }
