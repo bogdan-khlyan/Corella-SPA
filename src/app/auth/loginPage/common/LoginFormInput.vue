@@ -54,6 +54,15 @@ export default {
   display: block;
   padding-top: 10px;
 
+  input:-webkit-autofill {
+    & ~ label {
+      top: -5px;
+      left: 2px;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
   > input {
     width: 100%;
     height: 52px;
