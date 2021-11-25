@@ -1,8 +1,10 @@
 <template>
   <label class="login-form-input">
-    <input
-        :type="visible ? 'text' : type"
-        :placeholder="placeholder">
+
+      <input required :type="visible ? 'text' : type">
+      <span class="login-form-input__bar"></span>
+      <label class="login-form-input__placeholder">{{ placeholder }}</label>
+
 
     <img v-if="type === 'password'"
          v-show="!visible"
@@ -24,8 +26,8 @@
 export default {
   name: 'login-form-input',
   props: {
-    type: { type: String, default: 'text' },
-    placeholder: { type: String, default: 'Enter' }
+    type: {type: String, default: 'text'},
+    placeholder: {type: String, default: 'Enter'}
   },
   data() {
     return {
@@ -47,10 +49,7 @@ export default {
 
     padding-left: 12px;
 
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #C4C4C4;
+    border: none;
 
     font-family: Roboto, sans-serif;
     font-style: normal;
@@ -59,37 +58,71 @@ export default {
     line-height: 32px;
 
     color: #000000;
+    border-bottom: 1px solid #C4C4C4;
 
     transition: 0.2s;
 
-    &::placeholder {
+    &:focus ~ label, &:valid ~ label {
+      top: -5px;
+      left: 2px;
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    &:focus .login-form-input__input-container:after {
+      top: -5px;
+      left: 2px;
+      font-size: 18px;
+      line-height: 24px;
+    }
+    &:focus ~ .login-form-input__bar:after {
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #20C561;
+    }
+  }
+
+  .login-form-input__bar {
+    &:after {
       position: absolute;
-      bottom: 9px;
+      content: '';
+      width: 0px;
+      height: 1px;
 
-      font-family: Roboto, sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 24px;
-      line-height: 32px;
+      background: #C4C4C4;
 
-      transition: 0.2s;
-      color: #878787;
+      left: 49%;
+      right: 0;
+      bottom: 0;
+      transition: all 0.4s ease-in-out;
     }
+  }
 
-    &:focus {
-      border-color: #20C561;
+  label {
+    position: absolute;
+    left: 11px;
+    top: 26px;
 
-      &::placeholder {
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 24px;
+    pointer-events: none;
 
-        bottom: 32px;
-        left: 0px;
-        color: #878787;
-      }
+    font-family: Rubik,sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    color: #878787;
+
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+
+    @media screen and (max-width: 420px) {
+      font-size: 14px;
     }
-
   }
 
   &__eye {
