@@ -1,5 +1,5 @@
 <template>
-  <router-link class="project-card" to="#">
+  <router-link class="project-card" :to="`/${project.id}`">
 
     <div class="project-card__content">
       <div class="project-card__name">
@@ -39,6 +39,12 @@ export default {
   position: relative;
   text-decoration: none;
 
+  &:hover {
+    .project-card__content {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0.0);
+    }
+  }
+
   &__content {
     display: block;
 
@@ -53,6 +59,8 @@ export default {
     box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.25), -6px -6px 16px rgba(255, 255, 255, 0.5);
 
     z-index: 0;
+
+    transition: 300ms;
   }
 
   &__name {

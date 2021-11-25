@@ -1,4 +1,4 @@
-// import http from "@/app/httpConfig/base-axios-config";
+import http from "@/app/httpConfig/base-axios-config";
 
 export default class ProjectsRepository {
     
@@ -30,6 +30,21 @@ export default class ProjectsRepository {
             membersCount: 7,
             tasksCount: 0
         }]
+    }
+    
+    async createProject(project) {
+        const response = await http.post('/project', project)
+        return response.data
+    }
+    
+    async updateProject(project) {
+        const response = await http.patch('/project', project)
+        return response.data
+    }
+    
+    async deleteProject(projectId) {
+        const response = await http.delete('/project', projectId)
+        return response.data
     }
     
 }

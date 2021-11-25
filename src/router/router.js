@@ -15,6 +15,10 @@ const routes = [{
         path: '/',
         name: 'project-list',
         component: () => import('@/app/projects/projectList/ProjectList')
+    }, {
+        path: '/:projectId/board',
+        name: 'board',
+        component: () => import('@/app/projects/board/Board')
     }]
 }]
 

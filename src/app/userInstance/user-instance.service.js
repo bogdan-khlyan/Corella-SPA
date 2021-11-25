@@ -1,4 +1,6 @@
 /**
+ * ОБРАБАТЫВАЕМ ДАННЫЕ В НУЖНЫЙ ВИД ДЛЯ ПРИЛОЖЕНИЯ И СОХРАНЯЕМ
+ *
  * Слой сервиса предназначен для обработки данных полученных репозиторием или выполнения бизнес-логики.
  *
  * В этом слое преобразуем данные, которые пришли из репозитория в нужный вид.
@@ -9,6 +11,7 @@
  * Экземпляр сервиса является приватным полем контроллера, вызывать методы сервиса может только контроллер.
  */
 import UserInstanceRepository from "@/app/userInstance/user-instance.repository";
+import {userInstanceState} from "@/app/userInstance/user-instance.state";
 
 export default class UserInstanceService {
 
@@ -16,7 +19,8 @@ export default class UserInstanceService {
     
     async login(credentials) {
         const data = await this.#repository.login(credentials)
-        // TODO store.commit(login, data)
+        userInstanceState.isLoggedIn = true
+        userInstanceState.info = data
         return data
     }
     
