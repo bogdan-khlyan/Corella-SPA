@@ -26,7 +26,7 @@ export default {
   components: {LoginFormInput},
   data() {
     return {
-      email: '',
+      email: String()
     }
   },
   methods: {

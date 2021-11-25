@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       credentials: {
-        email: '',
-        password: ''
+        email: String(),
+        password: String()
       }
     }
   },

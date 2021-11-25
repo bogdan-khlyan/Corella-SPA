@@ -32,9 +32,9 @@ export default {
   data() {
     return {
       credentials: {
-        email: '',
-        name:'',
-        password: ''
+        email: String(),
+        name: String(),
+        password: String()
       }
     }
   },
