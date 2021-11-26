@@ -1,9 +1,11 @@
 <template>
   <div class="main-wrapper">
-    <div class="main-wrapper__sidebar">
-      <base-sidebar/>
+    <div class="main-wrapper__sidebar"
+         :class="isAllContentShow?'main-wrapper__sidebar--all':'main-wrapper__sidebar--not-all'">
+      <base-sidebar @openSidebar="openSidebar"/>
     </div>
-    <div class="main-wrapper__content">
+    <div class="main-wrapper__content"
+         :class="isAllContentShow?'main-wrapper__content--not-all':'main-wrapper__content--all'">
       <div class="main-wrapper__header">
         <base-header/>
       </div>
@@ -23,6 +25,16 @@ export default {
   components: {
     BaseHeader,
     BaseSidebar
+  },
+  methods: {
+    openSidebar(val) {
+      this.isAllContentShow = val
+    }
+  },
+  data() {
+    return {
+      isAllContentShow: true
+    }
   }
 }
 </script>
@@ -32,12 +44,27 @@ export default {
   display: flex;
 
   &__sidebar {
-    width: 80px;
-    height: auto;
+    transition: all 350ms linear;
+    &--all {
+      width: 300px;
+    }
+
+    &--not-all {
+      width: 80px;
+    }
+
+    height: 100vh;
   }
 
   &__content {
-    width: calc(100vw - 80px);
+    transition: all 350ms linear;
+    &--all {
+      width: calc(100vw - 80px);
+    }
+
+    &--not-all {
+      width: calc(100vw - 300px);
+    }
   }
 
   &__view {
