@@ -1,10 +1,10 @@
 import {imgToSvgByRef} from "@/helpers/imgToSvg";
 
 const SvgIcon = (props, context) => {
-    const onload = (e) => {
+    const onload = e => {
         imgToSvgByRef(e.path[0])
             .then(svg => {
-                    svg.addEventListener('click', (e) => context.emit('click', e))
+                    svg.addEventListener('click', e => context.emit('click', e))
                 }
             )
     }
@@ -14,10 +14,13 @@ const SvgIcon = (props, context) => {
         <img
             alt=""
             src={props.icon}
+            className={props.customClass}
+            width={props.width}
+            height={props.height}
             onLoad={onload}/>
     )
 }
 
-SvgIcon.props = ['icon']
+SvgIcon.props = ['icon', 'custom-class', 'width', 'height']
 
 export default SvgIcon

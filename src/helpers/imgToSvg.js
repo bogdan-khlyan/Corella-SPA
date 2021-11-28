@@ -1,6 +1,8 @@
 function convertImgToSvg(img) {
     const imgURL = img.src
     const className = img.className
+    const width = img.width
+    const height = img.height
 
     return fetch(imgURL)
         .then(r => r.text())
@@ -9,9 +11,9 @@ function convertImgToSvg(img) {
             const xmlDoc = parser.parseFromString(text, 'text/xml')
             const svg = xmlDoc.getElementsByTagName('svg')[0]
 
-            if (typeof className !== 'undefined') {
-                svg.setAttribute('class', className)
-            }
+            if (className) svg.setAttribute('class', className)
+            if (width) svg.setAttribute('width', width)
+            if (height) svg.setAttribute('height', height)
 
             img.parentNode.replaceChild(svg, img)
 
