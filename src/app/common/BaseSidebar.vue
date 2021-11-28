@@ -93,7 +93,7 @@
 
       <div class="base-sidebar__block-menu base-sidebar__block-menu--end">
         <a href="#">
-          <img src="@/assets/images/icons/sidebar/icon-add.png" alt="">
+          <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
           <span>Create New Task</span>
         </a>
       </div>
