@@ -33,8 +33,11 @@ export default {
   },
   data() {
     return {
-      isAllContentShow: true
+      isAllContentShow: false
     }
+  },
+  mounted() {
+    console.log(this.isAllContentShow)
   }
 }
 </script>
