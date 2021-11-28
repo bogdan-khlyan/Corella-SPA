@@ -124,7 +124,7 @@ export default {
   methods: {
     toggleSidebarMenu() {
       this.isOpenMenu = !this.isOpenMenu
-      this.$emit('openSidebar', this.isOpenMenu)
+      this.$emit('toggleSidebar', this.isOpenMenu)
     }
   }
 }
