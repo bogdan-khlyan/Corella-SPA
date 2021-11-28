@@ -5,72 +5,67 @@
     <div class="base-sidebar__logo">
       <a href="#">
         <img src="@/assets/images/corella_icon.svg" alt="">
-        <span :class="isOpenMenu?'base-sidebar__logo--show':'base-sidebar__logo--close'">Corella</span>
+        <span class="base-sidebar__logo--show base-sidebar__logo--close">Corella</span>
+        <!--        <span :class="isOpenMenu?'base-sidebar__logo&#45;&#45;show':'base-sidebar__logo&#45;&#45;close'">Corella</span>-->
       </a>
     </div>
 
     <div class="base-sidebar__arrow">
-      <div class="base-sidebar__arrow--circle"
-           :class="isOpenMenu?'base-sidebar__arrow--circle--show':'base-sidebar__arrow--circle--close'"
-           @click="clickHandler()">
-        <img src="@/assets/images/icons/sidebar/vector.png">
+      <div class="arrow-circle arrow-circle--show arrow-circle--close"
+           @click="openSidebarMenu()">
+        <img src="@/assets/images/icons/sidebar/icon-arrow.svg">
       </div>
     </div>
 
     <nav class="base-sidebar__nav">
 
-      <div class="base-sidebar__nav--menu">
+      <div class="base-sidebar__menu">
 
-        <div class="base-sidebar__nav--top-block"
-             :class="isOpenMenu?'base-sidebar__nav--top-block--show':'base-sidebar__nav--top-block--close'">
+        <div class="base-sidebar__block-menu base-sidebar__block-menu--top">
 
-          <div class="base-sidebar__nav--top-block--item"
-               :class="isOpenMenu?'base-sidebar__nav--top-block--item--open':'base-sidebar__nav--top-block--item--close'">
+          <div class="base-sidebar__item base-sidebar__item--top">
             <a href="#">
-              <img src="@/assets/images/icons/sidebar/icon-projects.png" alt="">
-              <span :class="isOpenMenu?'show':'close'">Projects</span>
+              <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
+              <span>Projects</span>
             </a>
           </div>
 
-          <div class="base-sidebar__nav--top-block--item"
-               :class="isOpenMenu?'base-sidebar__nav--top-block--item--open':'base-sidebar__nav--top-block--item--close'">
+          <div class="base-sidebar__item base-sidebar__item--top">
             <a href="#">
-              <img src="@/assets/images/icons/sidebar/icon-user-managament.png" alt="">
-              <span :class="isOpenMenu?'show':'close'">user Management</span>
+              <img src="@/assets/images/icons/sidebar/icon-user-managament.svg" alt="">
+              <span>user Management</span>
             </a>
           </div>
 
         </div>
 
-        <div class="base-sidebar__nav--title">menu</div>
-        <div class="base-sidebar__nav--item"
-             :class="isOpenMenu?'base-sidebar__nav--item--open':'base-sidebar__nav--item--close'">
+        <div class="base-sidebar__title">menu</div>
+
+        <div class="base-sidebar__item base-sidebar__item--ordinary">
           <a href="#">
-            <img src="@/assets/images/icons/sidebar/icon-board.png" alt="">
-            <span :class="isOpenMenu?'show':'close'">Board</span>
+            <img src="@/assets/images/icons/sidebar/icon-board.svg" alt="">
+            <span>Board</span>
           </a>
         </div>
-        <div class="base-sidebar__nav--item"
-             :class="isOpenMenu?'base-sidebar__nav--item--open':'base-sidebar__nav--item--close'">
+
+        <div class="base-sidebar__item base-sidebar__item--ordinary">
           <a href="#">
             <img src="@/assets/images/icons/sidebar/icon-hotfix-wrapper.png" alt="">
-            <span :class="isOpenMenu?'show':'close'">Hot-fixes</span>
+            <span>Hot-fixes</span>
           </a>
         </div>
 
-        <hr :class="isOpenMenu?'hr--show':'hr--close'">
+        <hr>
 
-        <div class="base-sidebar__nav--title">Other</div>
-        <div class="base-sidebar__nav--item"
-             :class="isOpenMenu?'base-sidebar__nav--item--open':'base-sidebar__nav--item--close'">
+        <div class="base-sidebar__title">Other</div>
+
+        <div class="base-sidebar__item base-sidebar__item--ordinary">
           <a href="#">
-            <img src="@/assets/images/icons/sidebar/tab-messages-wrapper.png" alt="">
+            <img src="@/assets/images/icons/sidebar/icon-messages.svg" alt="">
 
-            <span :class="isOpenMenu?'show':'close'">Messages</span>
+            <span>Messages</span>
 
-            <div :class="isOpenMenu?'base-sidebar__nav--item--avatars--show'
-            :'base-sidebar__nav--item--avatars--close'"
-                 class="base-sidebar__nav--item--avatars">
+            <div class="base-sidebar__item-avatars">
               <div>
                 <img v-for="photo of photoMessages"
                      :key="photo.id"
@@ -78,35 +73,28 @@
               </div>
             </div>
 
-            <div class="base-sidebar__nav--item--count"
-                 :class="isOpenMenu?'base-sidebar__nav--item--count--show'
-            :'base-sidebar__nav--item--count--close'">6
-            </div>
+            <div class="base-sidebar__item-count">6</div>
 
           </a>
         </div>
 
-        <div class="base-sidebar__nav--item"
-             :class="isOpenMenu?'base-sidebar__nav--item--open':'base-sidebar__nav--item--close'">
+        <div class="base-sidebar__item base-sidebar__item--ordinary">
           <a href="#">
+
             <img src="@/assets/images/icons/sidebar/icon-notification-wrapper.png" alt="">
 
-            <span :class="isOpenMenu?'show':'close'">Notification</span>
+            <span>Notification</span>
 
-            <div class="base-sidebar__nav--item--count"
-                 :class="isOpenMenu?'base-sidebar__nav--item--count--show'
-            :'base-sidebar__nav--item--count--close'">
-              36
-            </div>
+            <div class="base-sidebar__item-count">36</div>
+
           </a>
         </div>
       </div>
 
-      <div class="base-sidebar__nav--block"
-           :class="isOpenMenu?'base-sidebar__nav--block--show':'base-sidebar__nav--block--close'">
+      <div class="base-sidebar__block-menu base-sidebar__block-menu--end">
         <a href="#">
           <img src="@/assets/images/icons/sidebar/icon-add.png" alt="">
-          <span :class="isOpenMenu?'show':'close'">Create New Task</span>
+          <span>Create New Task</span>
         </a>
       </div>
 
@@ -133,8 +121,8 @@ export default {
         {'base-sidebar--close': !this.isOpenMenu}]
     }
   },
-  methods:{
-    clickHandler(){
+  methods: {
+    openSidebarMenu() {
       this.isOpenMenu = !this.isOpenMenu
       this.$emit('openSidebar', this.isOpenMenu)
     }
@@ -143,32 +131,214 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.show {
-  left: 55px;
-  opacity: 1;
-}
-
-.close {
-  left: 0px;
-  opacity: 0;
-}
-
 .base-sidebar {
   position: fixed;
   padding-top: 12px;
   height: 100vh;
   z-index: 10;
-
   background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
   transition: all 350ms linear;
 
   &--open {
     width: 300px;
+
+    .base-sidebar__logo--show {
+      left: 70px;
+      opacity: 1;
+    }
+
+    .arrow-circle--show {
+      transform: rotate(180deg);
+    }
+
+    hr {
+      width: 268px;
+    }
+
+    .base-sidebar__item {
+
+      &--ordinary {
+        > a {
+          width: 268px;
+          border-radius: 7px;
+
+          > span {
+            left: 55px;
+            opacity: 1;
+          }
+        }
+      }
+
+      &--top {
+        height: 102px;
+        width: 134px;
+
+        > a {
+          justify-content: center;
+          gap: 8px;
+          height: 102px;
+          border-radius: 8px;
+          width: 134px;
+
+          > span {
+            left: 55px;
+            opacity: 1;
+          }
+        }
+      }
+
+      &--top:nth-of-type(1) {
+        left: 16px;
+        top: 75px;
+      }
+
+      &--top:nth-of-type(2) {
+        left: 150px;
+        top: 75px;
+      }
+
+      &-avatars {
+        opacity: 1;
+        left: 158px;
+      }
+
+      &-count {
+        height: 24px;
+        padding: 0 8px;
+        color: #FFFFFF;
+        border-radius: 20px;
+        //left: 253px;
+        right: 13px;
+      }
+    }
+
+    .base-sidebar__block-menu {
+
+      &--top {
+        width: 268px;
+        height: 102px;
+        flex-direction: row;
+        background-color: rgba(4, 165, 128, 0.39);
+        border-radius: 8px;
+        transition-delay: 200ms;
+      }
+
+      &--end {
+        > a {
+          background: rgba(24, 187, 105, 0.52);
+          width: 268px;
+          border-radius: 7px;
+          height: 102px;
+
+          > img {
+            margin-top: 0;
+          }
+
+          > span {
+            opacity: 1;
+          }
+        }
+      }
+    }
   }
 
   &--close {
     width: 80px;
+
+    .base-sidebar__logo--close {
+      left: 40px;
+      opacity: 0;
+    }
+
+    .arrow-circle--close {
+      transform: rotate(0deg);
+    }
+
+    hr {
+      width: 52px;
+    }
+
+    .base-sidebar__item {
+
+      &--ordinary {
+        > a {
+          width: 48px;
+          border-radius: 16px;
+
+          > span {
+            left: 0px;
+            opacity: 0;
+          }
+        }
+      }
+
+      &--top {
+        height: 48px;
+        width: 48px;
+
+        > a {
+          height: 48px;
+          width: 48px;
+          border-radius: 16px;
+          padding-top: 11px;
+
+          > span {
+            left: 0px;
+            opacity: 0;
+          }
+        }
+      }
+
+      &--top:nth-of-type(1) {
+        left: 16px;
+        top: 75px;
+      }
+
+      &--top:nth-of-type(2) {
+        left: 16px;
+        top: 135px;
+      }
+
+      &-avatars {
+        opacity: 0;
+        left: 8px;
+      }
+
+      &-count {
+        width: 6px;
+        height: 6px;
+        color: transparent;
+        border-radius: 50%;
+        right: 11px;
+        top: 13px;
+      }
+    }
+
+    .base-sidebar__block-menu {
+      &--top {
+        background-color: transparent;
+        height: 102px;
+        flex-direction: column;
+        transition: all 350ms linear;
+      }
+
+      &--end {
+        > a {
+          background: rgba(24, 187, 105, 0);
+          width: 48px;
+          height: 48px;
+          border-radius: 16px;
+
+          > img {
+            margin-top: 32px;
+          }
+
+          > span {
+            opacity: 0;
+          }
+        }
+      }
+    }
   }
 
   &__logo {
@@ -202,13 +372,11 @@ export default {
     }
 
     &--show {
-      left: 70px;
-      opacity: 1;
+
     }
 
     &--close {
-      left: 40px;
-      opacity: 0;
+
     }
   }
 
@@ -219,243 +387,54 @@ export default {
     align-items: center;
     flex-direction: column;
 
-    &--item {
-      display: flex;
-      margin: 4px auto;
-      transition: 200ms linear;
-
-      > a {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        text-decoration: none;
-        padding: 0 13px;
-        height: 48px;
-        cursor: pointer;
-        transition: all 350ms linear;
-
-        &:hover {
-          background: #1B1A18;
-        }
-
-        > img {
-          height: 24px;
-          min-width: 23.6px;
-        }
-
-        > span {
-          font-family: Rubik;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 14px;
-          line-height: 20px;
-          text-transform: capitalize;
-          color: #FFFFFF;
-          position: absolute;
-          transition: 300ms linear;
-          width: 200px;
-        }
-
-      }
-
-      &--avatars {
-        flex-basis: 56px;
-        height: 24px;
-        position: absolute;
-        transition: 300ms linear;
-
-        > div {
-          display: flex;
-          box-sizing: border-box;
-          position: relative;
-          flex-direction: row;
-          width: 56px;
-          height: 24px;
-
-          > img {
-            position: absolute;
-          }
-
-          > img:nth-of-type(1) {
-            right: 32px;
-          }
-
-          > img:nth-of-type(2) {
-            right: 16px;
-          }
-
-          > img:nth-of-type(3) {
-            right: 0px;
-          }
-        }
-
-        &--show {
-          opacity: 1;
-          left: 158px;
-        }
-
-        &--close {
-          opacity: 0;
-          left: 8px;
-        }
-      }
-
-      &--count {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #E53C0E;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 16px;
-        text-align: center;
-        text-transform: capitalize;
-        transition: 350ms linear;
-
-        &--show {
-          height: 24px;
-          padding: 0 8px;
-          color: #FFFFFF;
-          border-radius: 20px;
-          //left: 253px;
-          right: 13px;
-        }
-
-        &--close {
-          width: 6px;
-          height: 6px;
-          color: transparent;
-          border-radius: 50%;
-          right: 11px;
-          top: 13px;
-        }
-      }
-
-      &--open {
-        > a {
-          width: 268px;
-          border-radius: 7px;
-        }
-      }
-
-      &--close {
-        > a {
-          width: 48px;
-          border-radius: 16px;
-        }
-      }
+    hr {
+      //width: 70%;
+      height: 1px;
+      border: none;
+      border-radius: 2px;
+      background-color: #FFFFFF;
+      //margin: 10px 15px 14px 15px;
+      transition: 350ms linear;
     }
+  }
 
-    &--top-block {
-      margin: auto;
+  &__arrow {
+    position: absolute;
+    right: -19px;
+    top: 26px;
+    cursor: pointer;
+
+    .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: #323232;
       display: flex;
+      justify-content: center;
       align-items: center;
-      transition:all 350ms linear;
+      transition: 350ms linear;
+    }
+  }
 
-      &--show {
-        width: 268px;
-        height: 102px;
-        flex-direction: row;
-        background-color: rgba(4, 165, 128, 0.39);
-        border-radius: 8px;
-        transition-delay:200ms;
-      }
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+  }
 
-      &--close {
-        background-color: transparent;
-        height: 102px;
-        flex-direction: column;
-        transition:background-color 350ms linear;
-      }
+  &__block-menu {
+    display: flex;
 
-      &--item {
-        display: flex;
-        position: absolute;
-        transition: 350ms linear;
-
-        > a {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-decoration: none;
-          padding: 0 13px;
-          cursor: pointer;
-          transition: all 350ms linear;
-
-          &:hover {
-            background: #1B1A18;
-          }
-
-          > img {
-            height: 24px;
-            min-width: 23.6px;
-          }
-
-          > span {
-            font-family: Rubik;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 20px;
-            text-transform: capitalize;
-            color: #FFFFFF;
-            transition: 300ms linear;
-            width: 96px;
-            text-align: center;
-          }
-        }
-
-        &--open {
-          height: 102px;
-          width: 134px;
-
-          >a{
-            justify-content: center;
-            gap: 8px;
-            height: 102px;
-            border-radius: 8px;
-            width: 134px;
-          }
-
-        }
-
-        &--close {
-          height: 48px;
-          width: 48px;
-
-          > a {
-            height: 48px;
-            width: 48px;
-            border-radius: 16px;
-            padding-top:11px
-          }
-        }
-        &--close:nth-of-type(1) {
-          left: 16px;
-          top: 75px;
-        }
-        &--close:nth-of-type(2) {
-          left: 16px;
-          top: 135px;
-        }
-
-        &--open:nth-of-type(1) {
-          left: 16px;
-          top: 75px;
-        }
-        &--open:nth-of-type(2) {
-          left: 150px;
-          top: 75px;
-        }
-      }
+    &--top {
+      margin: auto;
+      align-items: center;
+      transition: all 350ms linear;
     }
 
-    &--block {
-      display: flex;
+    &--end {
       position: absolute;
       flex-direction: column;
       justify-content: center;
@@ -496,191 +475,217 @@ export default {
           width: 107px;
         }
       }
-
-      &--show {
-        > a {
-          background: rgba(24, 187, 105, 0.52);
-          width: 268px;
-          border-radius: 7px;
-          height: 102px;
-
-          > img {
-            margin-top: 0;
-          }
-
-          > span {
-            opacity: 1;
-          }
-        }
-      }
-
-      &--close {
-        > a {
-          background: rgba(24, 187, 105, 0);
-          width: 48px;
-          height: 48px;
-          border-radius: 16px;
-
-          > img {
-            margin-top: 32px;
-          }
-
-          > span {
-            opacity: 0;
-          }
-        }
-      }
-    }
-
-    &--menu {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-direction: column;
-      width: 100%;
-    }
-
-    hr {
-      //width: 70%;
-      height: 1px;
-      border: none;
-      border-radius: 2px;
-      background-color: #FFFFFF;
-      //margin: 10px 15px 14px 15px;
-      transition: 350ms linear;
-    }
-
-    .hr--close {
-      width: 52px;
-    }
-
-    .hr--show {
-      width: 268px;
-    }
-
-    &--title {
-      margin: 24px auto 10px 18px;
-      text-align: center;
-      font-family: Rubik;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-      /* identical to box height, or 143% */
-      text-transform: uppercase;
-      color: #FFFFFF;
-
-      :nth-of-type(1) {
-        padding-left: 5px;
-      }
     }
   }
 
-  &__arrow {
-    position: absolute;
-    right: -19px;
-    top: 26px;
-    cursor: pointer;
+  &__title {
+    margin: 24px auto 10px 18px;
+    text-align: center;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    text-transform: uppercase;
+    color: #FFFFFF;
 
-    &--circle {
-      width: 32px;
-      height: 32px;
-      border: none;
-      border-radius: 50%;
-      background: #323232;
+    :nth-of-type(1) {
+      padding-left: 5px;
+    }
+  }
+
+  &__item {
+    display: flex;
+
+    > a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 0 13px;
+      cursor: pointer;
+      transition: all 350ms linear;
+
+      &:hover {
+        background: #1B1A18;
+      }
+
+      > img {
+        height: 24px;
+        min-width: 23.6px;
+      }
+
+      > span {
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        text-transform: capitalize;
+        color: #FFFFFF;
+        transition: 300ms linear;
+      }
+    }
+
+    &--ordinary {
+      margin: 4px auto;
+      transition: 200ms linear;
+
+      > a {
+        justify-content: space-between;
+        position: relative;
+        height: 48px;
+
+        > span {
+          position: absolute;
+          width: 200px;
+        }
+      }
+    }
+
+    &--top {
+      position: absolute;
+      transition: 350ms linear;
+
+      > a {
+        //display: flex;
+        flex-direction: column;
+        //align-items: center;
+        //text-decoration: none;
+        //padding: 0 13px;
+        //cursor: pointer;
+        //transition: all 350ms linear;
+
+        > span {
+          //font-family: Rubik;
+          //font-style: normal;
+          //font-weight: normal;
+          //font-size: 14px;
+          //line-height: 20px;
+          //text-transform: capitalize;
+          //color: #FFFFFF;
+          //transition: 300ms linear;
+          width: 96px;
+          text-align: center;
+        }
+      }
+    }
+
+    &-avatars {
+      flex-basis: 56px;
+      height: 24px;
+      position: absolute;
+      transition: 300ms linear;
+
+      > div {
+        display: flex;
+        box-sizing: border-box;
+        position: relative;
+        flex-direction: row;
+        width: 56px;
+        height: 24px;
+
+        > img {
+          position: absolute;
+        }
+
+        > img:nth-of-type(1) {
+          right: 32px;
+        }
+
+        > img:nth-of-type(2) {
+          right: 16px;
+        }
+
+        > img:nth-of-type(3) {
+          right: 0px;
+        }
+      }
+    }
+
+    &-count {
+      position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
+      background: #E53C0E;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      text-align: center;
+      text-transform: capitalize;
       transition: 350ms linear;
-
-      &--show{
-        transform: rotate(180deg);
-      }
-
-      &--close{
-        transform: rotate(0);
-      }
     }
   }
-
 }
 
 @media screen and (max-height: 650px){
   .base-sidebar {
 
-    &__nav {
-      margin-top: 10px;
+    &--open {
 
-      &--item {
-        margin: 0px auto;
+      .base-sidebar__item {
+        &--top {
+          height: 94px;
+
+          > a {
+            gap: 4px;
+            height: 94px;
+          }
+        }
       }
 
-      &--top-block {
+      .base-sidebar__block-menu {
 
-        &--show {
-          height: 90px;
+        &--top {
+          height: 94px;
         }
 
-        &--close {
-          height: 90px;
-        }
-
-        &--item {
-
-          &--open {
+        &--end {
+          > a {
             height: 90px;
-            width: 134px;
-
-            >a{
-              height: 90px;
-            }
-
-          }
-
-          &--close:nth-of-type(2) {
-            top: 125px;
           }
         }
-      }
-
-      hr {
-        margin-bottom: -2px;
-        margin-top: 4px;
-      }
-
-      &--block {
-        height: 80px;
-        bottom: 10px;
-
-        > a {
-          gap: 5px;
-        }
-
-        &--show {
-          > a {
-            height: 80px;
-          }
-        }
-
-        &--close {
-          > a {
-            width: 48px;
-            height: 48px;
-
-            >img{
-              margin-top: 23px;
-            }
-          }
-        }
-      }
-
-      &--title {
-        margin: 20px auto 9px 18px;
-        line-height: 15px;
       }
     }
 
+    &--close {
+
+      .base-sidebar__item {
+
+        &--top:nth-of-type(2) {
+          top: 128px;
+        }
+      }
+
+      .base-sidebar__block-menu {
+        &--top {
+          height: 94px;
+        }
+      }
+    }
+
+    &__block-menu {
+      &--end {
+        height: 90px;
+        bottom: 10px;
+
+        > a {
+          gap: 8px;
+        }
+      }
+    }
+
+    &__title {
+      margin: 10px auto 5px 18px;
+
+      &:nth-of-type(2) {
+        padding-left: 3px;
+        margin: 18px auto 5px 18px;
+      }
+    }
   }
 }
-
 </style>

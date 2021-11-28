@@ -1,11 +1,11 @@
 <template>
   <div class="main-wrapper">
     <div class="main-wrapper__sidebar"
-         :class="isAllContentShow?'main-wrapper__sidebar--all':'main-wrapper__sidebar--not-all'">
+         :class="isCollapsedSidebar?'main-wrapper__sidebar--all':'main-wrapper__sidebar--not-all'">
       <base-sidebar @openSidebar="openSidebar"/>
     </div>
     <div class="main-wrapper__content"
-         :class="isAllContentShow?'main-wrapper__content--not-all':'main-wrapper__content--all'">
+         :class="isCollapsedSidebar?'main-wrapper__content--not-all':'main-wrapper__content--all'">
       <div class="main-wrapper__header">
         <base-header/>
       </div>
@@ -27,18 +27,15 @@ export default {
     BaseSidebar
   },
   methods: {
-    openSidebar(val) {
-      this.isAllContentShow = val
+    openSidebar(value) {
+      this.isCollapsedSidebar = value
     }
   },
   data() {
     return {
-      isAllContentShow: false
+      isCollapsedSidebar: false
     }
   },
-  mounted() {
-    console.log(this.isAllContentShow)
-  }
 }
 </script>
 
@@ -51,7 +48,6 @@ export default {
     &--all {
       width: 300px;
     }
-
     &--not-all {
       width: 80px;
     }
