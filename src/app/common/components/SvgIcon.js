@@ -1,10 +1,20 @@
 import {imgToSvgByRef} from "@/helpers/imgToSvg";
 
-const SvgIcon = (props) => {
-    const onload = (e) => imgToSvgByRef(e.path[0])
+const SvgIcon = (props, context) => {
+    const onload = (e) => {
+        imgToSvgByRef(e.path[0])
+            .then(svg => {
+                    svg.addEventListener('click', (e) => context.emit('click', e))
+                }
+            )
+    }
+
 
     return (
-        <img ref="svg-icon" src={props.icon} onLoad={onload} alt=""/>
+        <img
+            alt=""
+            src={props.icon}
+            onLoad={onload}/>
     )
 }
 

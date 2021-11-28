@@ -8,13 +8,13 @@
     </div>
     <nav class="base-sidebar__nav">
       <div class="base-sidebar__nav--item">
-        <a href="#">
+        <a>
           <svg-icon :icon="require('@/assets/images/icons/sidebar/plus.svg')"></svg-icon>
         </a>
       </div>
       <hr>
       <div class="base-sidebar__nav--item">
-        <a href="#">
+        <a>
           <svg-icon :icon="require('@/assets/images/icons/sidebar/project.svg')"></svg-icon>
         </a>
       </div>
