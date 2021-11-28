@@ -1,12 +1,12 @@
 @import "../variables";
 
-// Desktop
-
 @mixin default-h {
   font-family: $font;
   font-weight: 500;
   color: $text-title;
 }
+
+// Desktop
 
 @mixin desktop-h {
   h1 {
