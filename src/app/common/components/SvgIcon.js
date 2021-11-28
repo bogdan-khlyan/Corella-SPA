@@ -4,7 +4,8 @@ const SvgIcon = (props, context) => {
     const onload = e => {
         imgToSvgByRef(e.path[0])
             .then(svg => {
-                    svg.addEventListener('click', e => context.emit('click', e))
+                    svg.addEventListener('click',
+                        e => context.emit('click', e))
                 }
             )
     }
