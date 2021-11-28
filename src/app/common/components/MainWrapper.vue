@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import BaseHeader from "@/app/common/BaseHeader";
-import BaseSidebar from "@/app/common/BaseSidebar";
+import BaseHeader from "@/app/common/components/BaseHeader";
+import BaseSidebar from "@/app/common/components/BaseSidebar";
 
 export default {
   name: 'main-wrapper',

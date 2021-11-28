@@ -9,13 +9,13 @@
     <nav class="base-sidebar__nav">
       <div class="base-sidebar__nav--item">
         <a href="#">
-          <svg-icon icon-name="plus"></svg-icon>
+          <svg-icon :icon="require('@/assets/images/icons/sidebar/plus.svg')"></svg-icon>
         </a>
       </div>
       <hr>
       <div class="base-sidebar__nav--item">
         <a href="#">
-          <svg-icon icon-name="project"></svg-icon>
+          <svg-icon :icon="require('@/assets/images/icons/sidebar/project.svg')"></svg-icon>
         </a>
       </div>
     </nav>

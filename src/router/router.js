@@ -13,7 +13,7 @@ const routes = [{
 }, {
     path: '/',
     name: 'main-wrapper',
-    component: () => import('@/app/common/MainWrapper'),
+    component: () => import('@/app/common/components/MainWrapper'),
     children: [{
         path: '/',
         name: 'project-list',

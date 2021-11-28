@@ -1,7 +1,7 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 
-import SvgIcon from "./app/shared/components/SvgIcon";
+import SvgIcon from "./app/common/components/SvgIcon.js";
 
 import plugins from './plugins/index'
 
