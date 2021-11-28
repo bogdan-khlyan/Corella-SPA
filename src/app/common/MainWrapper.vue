@@ -1,11 +1,11 @@
 <template>
   <div class="main-wrapper">
     <div class="main-wrapper__sidebar"
-         :class="{'main-wrapper__sidebar--collapsed':isCollapsedSidebar}">
-      <base-sidebar @toggleSidebar="openSidebar"/>
+         :class="{'main-wrapper__sidebar--collapsed':isCollapse}">
+      <base-sidebar/>
     </div>
     <div class="main-wrapper__content"
-         :style="{width : isCollapsedSidebar?'calc(100vw - 300px)':'calc(100vw - 80px)'}">
+         :style="{width : isCollapse?'calc(100vw - 300px)':'calc(100vw - 80px)'}">
       <div class="main-wrapper__header">
         <base-header/>
       </div>
@@ -18,7 +18,8 @@
 
 <script>
 import BaseHeader from "@/app/common/BaseHeader";
-import BaseSidebar from "@/app/common/BaseSidebar";
+import BaseSidebar from "@/app/common/baseSidebar/BaseSidebar";
+import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
 
 export default {
   name: 'main-wrapper',
@@ -26,16 +27,11 @@ export default {
     BaseHeader,
     BaseSidebar
   },
-  methods: {
-    openSidebar(value) {
-      this.isCollapsedSidebar = value
+  computed: {
+    isCollapse() {
+      return baseSidebarState.isCollapse
     }
-  },
-  data() {
-    return {
-      isCollapsedSidebar: false
-    }
-  },
+  }
 }
 </script>
 

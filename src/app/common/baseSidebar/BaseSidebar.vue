@@ -1,6 +1,7 @@
 <template>
   <div class="base-sidebar"
-       :class="isOpenSidebarMenu">
+       :class="[{'base-sidebar--open': this.isCollapse},
+                {'base-sidebar--close': !this.isCollapse}]">
 
     <div class="base-sidebar__logo">
       <a href="#">
@@ -54,41 +55,6 @@
             <span>Hot-fixes</span>
           </a>
         </div>
-
-        <hr>
-
-        <div class="base-sidebar__title">Other</div>
-
-        <div class="base-sidebar__item base-sidebar__item--ordinary">
-          <a href="#">
-            <img src="@/assets/images/icons/sidebar/icon-messages.svg" alt="">
-
-            <span>Messages</span>
-
-            <div class="base-sidebar__item-avatars">
-              <div>
-                <img v-for="photo of photoMessages"
-                     :key="photo.id"
-                     :src="require(`@/assets/images/icons/sidebar/${photo.img}`)" alt="">
-              </div>
-            </div>
-
-            <div class="base-sidebar__item-count">6</div>
-
-          </a>
-        </div>
-
-        <div class="base-sidebar__item base-sidebar__item--ordinary">
-          <a href="#">
-
-            <img src="@/assets/images/icons/sidebar/icon-notification-wrapper.png" alt="">
-
-            <span>Notification</span>
-
-            <div class="base-sidebar__item-count">36</div>
-
-          </a>
-        </div>
       </div>
 
       <div class="base-sidebar__block-menu base-sidebar__block-menu--end">
@@ -103,28 +69,19 @@
 </template>
 
 <script>
+import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
+import {setSidebarCollapse} from "@/app/common/baseSidebar/base-sidebar.state";
+
 export default {
   name: 'base-sidebar',
-  data() {
-    return {
-      isOpenMenu: false,
-      photoMessages: [
-        {id: 1, img: 'photo-mes1.png'},
-        {id: 2, img: 'img2.png'},
-        {id: 3, img: 'img3.png'},
-      ]
-    }
-  },
   computed: {
-    isOpenSidebarMenu() {
-      return [{'base-sidebar--open': this.isOpenMenu},
-        {'base-sidebar--close': !this.isOpenMenu}]
+    isCollapse() {
+      return baseSidebarState.isCollapse
     }
   },
   methods: {
     toggleSidebarMenu() {
-      this.isOpenMenu = !this.isOpenMenu
-      this.$emit('toggleSidebar', this.isOpenMenu)
+      setSidebarCollapse(!this.isCollapse)
     }
   }
 }
@@ -470,7 +427,7 @@ export default {
           text-transform: capitalize;
           color: #FFFFFF;
           transition: 300ms linear;
-          width: 107px;
+          width: max-content;
         }
       }
     }
