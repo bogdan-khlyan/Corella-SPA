@@ -1,0 +1,78 @@
+@import "../variables";
+
+// Desktop
+
+@mixin default-h {
+  font-family: $font;
+  font-weight: 500;
+  color: $text-title;
+}
+
+@mixin desktop-h($level) {
+  @include default-h;
+
+  @if $level == 1 {
+    font-size: 56px;
+    line-height: 110%;
+  } @else if ($level == 2) {
+    font-size: 48px;
+    line-height: 120%;
+  } @else if ($level == 3) {
+    font-size: 32px;
+    line-height: 120%;
+  } @else if ($level == 4) {
+    font-size: 24px;
+    line-height: 120%;
+  } @else if ($level == 5) {
+    font-size: 18px;
+    line-height: 120%;
+  }
+}
+
+// Tablet
+
+@mixin tablet-h($level) {
+  @include default-h;
+
+  @if $level == 1 {
+    font-size: 56px;
+    line-height: 110%;
+  } @else if ($level == 2) {
+    font-size: 32px;
+    line-height: 120%;
+  } @else if ($level == 3) {
+    font-size: 24px;
+    line-height: 120%;
+  } @else if ($level == 4) {
+    font-size: 18px;
+    line-height: 120%;
+  } @else if ($level == 5) {
+    font-size: 16px;
+    line-height: 120%;
+  }
+}
+
+// Mobile
+
+@mixin mobile-h($level) {
+  @include default-h;
+
+  @if $level == 1 {
+    font-size: 24px;
+    line-height: 120%;
+  } @else if ($level == 2) {
+    font-size: 20px;
+    line-height: 120%;
+  } @else if ($level == 3) {
+    font-size: 18px;
+    line-height: 120%;
+  } @else if ($level == 4) {
+    font-size: 16px;
+    line-height: 110%;
+  } @else if ($level == 5) {
+    font-size: 16px;
+    line-height: 120%;
+  }
+}
+
+
