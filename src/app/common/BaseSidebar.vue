@@ -12,7 +12,7 @@
 
     <div class="base-sidebar__arrow">
       <div class="arrow-circle arrow-circle--show arrow-circle--close"
-           @click="openSidebarMenu()">
+           @click="toggleSidebarMenu()">
         <img src="@/assets/images/icons/sidebar/icon-arrow.svg">
       </div>
     </div>
@@ -122,7 +122,7 @@ export default {
     }
   },
   methods: {
-    openSidebarMenu() {
+    toggleSidebarMenu() {
       this.isOpenMenu = !this.isOpenMenu
       this.$emit('openSidebar', this.isOpenMenu)
     }
@@ -131,6 +131,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .base-sidebar {
   position: fixed;
   padding-top: 12px;
@@ -388,12 +389,10 @@ export default {
     flex-direction: column;
 
     hr {
-      //width: 70%;
       height: 1px;
       border: none;
       border-radius: 2px;
       background-color: #FFFFFF;
-      //margin: 10px 15px 14px 15px;
       transition: 350ms linear;
     }
   }
@@ -451,7 +450,6 @@ export default {
         text-decoration: none;
         gap: 12px;
         box-sizing: border-box;
-
         cursor: pointer;
         transition: 300ms linear;
 
@@ -486,7 +484,6 @@ export default {
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;
-    /* identical to box height, or 143% */
     text-transform: uppercase;
     color: #FFFFFF;
 

@@ -1,11 +1,11 @@
 <template>
   <div class="main-wrapper">
     <div class="main-wrapper__sidebar"
-         :class="isCollapsedSidebar?'main-wrapper__sidebar--all':'main-wrapper__sidebar--not-all'">
-      <base-sidebar @openSidebar="openSidebar"/>
+         :class="{'main-wrapper__sidebar--collapsed':isCollapsedSidebar}">
+      <base-sidebar @toggleSidebar="openSidebar"/>
     </div>
     <div class="main-wrapper__content"
-         :class="isCollapsedSidebar?'main-wrapper__content--not-all':'main-wrapper__content--all'">
+         :style="{width : isCollapsedSidebar?'calc(100vw - 300px)':'calc(100vw - 80px)'}">
       <div class="main-wrapper__header">
         <base-header/>
       </div>
@@ -45,11 +45,10 @@ export default {
 
   &__sidebar {
     transition: all 350ms linear;
-    &--all {
+    width: 80px;
+
+    &--collapsed {
       width: 300px;
-    }
-    &--not-all {
-      width: 80px;
     }
 
     height: 100vh;
@@ -57,13 +56,6 @@ export default {
 
   &__content {
     transition: all 350ms linear;
-    &--all {
-      width: calc(100vw - 80px);
-    }
-
-    &--not-all {
-      width: calc(100vw - 300px);
-    }
   }
 
   &__view {
