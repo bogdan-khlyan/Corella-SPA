@@ -1,9 +1,12 @@
 <template>
-  <header class="base-header">
+  <header class="base-header"
+          :style="{minWidth : isCollapse?'calc(100% - 300px)':'calc(100% - 80px)'}">
 
     <div class="base-header__search">
 
-      <input type="text" placeholder="search...">
+      <input type="text" placeholder="search..."
+             v-model="searchText"
+             @input="setSearchText">
 
       <div>
         <img src="@/assets/images/icons/header/loupe.svg">
@@ -11,55 +14,87 @@
 
     </div>
 
-    <div class="base-header__icons-wrapper">
+    <div class="base-header__info">
 
-      <div class="base-header__icon base-header__icon--message">
-        <a href="#">
-          <img src="@/assets/images/icons/header/icon-messages.svg">
-          <span>2</span>
-        </a>
+      <div class="base-header__icons-wrapper">
+
+        <div class="base-header__icon base-header__icon--message">
+          <a href="#">
+            <img src="@/assets/images/icons/header/icon-messages.svg">
+            <span>2</span>
+          </a>
+        </div>
+
+        <div class="base-header__icon base-header__icon--notification">
+          <a href="#">
+            <img src="@/assets/images/icons/header/icon-notification.svg">
+            <span>16</span>
+          </a>
+        </div>
       </div>
 
-      <div class="base-header__icon base-header__icon--notification">
-        <a href="#">
-          <img src="@/assets/images/icons/header/icon-notification.svg">
-          <span>16</span>
-        </a>
-      </div>
+      <current-user/>
     </div>
-
-    <current-user/>
-
   </header>
 </template>
 
 <script>
 import CurrentUser from "./currentUser";
+import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
+import {setHeaderSearchValue} from "@/app/common/baseHeader/base-header.state";
 
 export default {
   name: 'base-header',
   components: {CurrentUser},
   data() {
-    return {}
+    return {
+      searchText: ''
+    }
+  },
+  computed: {
+    isCollapse() {
+      return baseSidebarState.isCollapse
+    }
+  },
+  methods:{
+    setSearchText(){
+      if(this.searchText.trim()!=='') {
+        setHeaderSearchValue(this.searchText)
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+
 .base-header {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 3;
   height: 70px;
   padding: 0 24px 0 88px;
   border-bottom: 2px #E6E6E6 solid;
   display: flex;
   box-sizing: border-box;
+  justify-content: space-between;
   align-items: center;
-  gap: 26px;
+  transition: 350ms linear;
+  background-color: rgba(255, 255, 255, .96);
+
+  &__info {
+    width: 360px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 26px;
+    float: right;
+  }
 
   &__search {
     position: relative;
     margin-top: 10px;
-    width: calc(100% - 339px);
+    min-width: calc(100% - 400px);
 
     > div {
       position: absolute;
@@ -69,14 +104,12 @@ export default {
 
       > img {
         width: 32px;
-        transition: all 250ms linear;
+        transition: all 150ms ease-in-out;
       }
     }
 
-    > div:hover {
-      > img {
-        width: 35px;
-      }
+    > div > img:hover {
+      width: 35px;
     }
 
     input {
@@ -131,12 +164,27 @@ export default {
         border-radius: 20px;
         top: -8px;
         left: 13px;
-        transition: all 200ms linear;
+        transition: all 50ms linear;
       }
 
       > img {
         width: 24px;
-        transition: width 250ms linear;
+        transition: width 150ms linear;
+      }
+
+      > img:hover {
+        width: 28px;
+      }
+
+      > img:hover ~ span {
+        padding: 0;
+        border-radius: 50%;
+        color: transparent;
+        width: 8px;
+        height: 8px;
+        font-size: 0;
+        top: 0px;
+        left: 20px;
       }
     }
 
@@ -159,23 +207,7 @@ export default {
         }
       }
     }
-
-    &:hover {
-      > a > img {
-        width: 28px;
-      }
-
-      > a > span {
-        padding: 0;
-        border-radius: 50%;
-        color: transparent;
-        width: 8px;
-        height: 8px;
-        font-size: 0;
-        top: 0px;
-        left: 20px;
-      }
-    }
   }
 }
+
 </style>

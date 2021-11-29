@@ -28,7 +28,7 @@ export default {
   name: "currentUser",
   computed: {
     identicon: function () {
-      return toSvg('Nielll23', 42);
+      return toSvg('Nielldcfgujl23', 42);
     }
   },
   mounted() {

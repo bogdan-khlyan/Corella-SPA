@@ -87,6 +87,7 @@ export default {
 
 <style scoped lang="scss">
 .base-sidebar {
+  width: 80px;
   position: fixed;
   padding-top: 12px;
   height: 100vh;
@@ -145,12 +146,13 @@ export default {
 
       &--top:nth-of-type(1) {
         left: 16px;
-        top: 75px;
+        top: 80px;
+        //animation: test 350ms linear;
       }
 
       &--top:nth-of-type(2) {
         left: 150px;
-        top: 75px;
+        top: 80px;
       }
     }
 
@@ -182,10 +184,18 @@ export default {
         }
       }
     }
+
+    .base-sidebar__nav{
+      margin-top: 15px;
+    }
   }
 
   &--close {
     width: 80px;
+
+    .base-sidebar__nav{
+      margin-top: 25px;
+    }
 
     .base-sidebar__logo--close {
       left: 40px;
@@ -233,12 +243,12 @@ export default {
 
       &--top:nth-of-type(1) {
         left: 16px;
-        top: 75px;
+        top: 95px;
       }
 
       &--top:nth-of-type(2) {
         left: 16px;
-        top: 135px;
+        top: 152px;
       }
     }
 
@@ -301,11 +311,11 @@ export default {
   }
 
   &__nav {
-    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    transition: all 400ms ease-in-out;
 
     hr {
       height: 1px;
@@ -383,7 +393,8 @@ export default {
   }
 
   &__title {
-    margin: 24px auto 10px 18px;
+    //margin: 24px auto 10px 18px;
+    margin: 24px auto 10px 20.5px;
     text-align: center;
     font-family: Rubik;
     font-style: normal;
@@ -392,10 +403,7 @@ export default {
     line-height: 20px;
     text-transform: uppercase;
     color: #FFFFFF;
-
-    :nth-of-type(1) {
-      padding-left: 5px;
-    }
+    transition: all 250ms linear;
   }
 
   &__item {

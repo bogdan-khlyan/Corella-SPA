@@ -5,7 +5,7 @@
       <base-sidebar/>
     </div>
     <div class="main-wrapper__content"
-         :style="{width : isCollapse?'calc(100vw - 300px)':'calc(100vw - 80px)'}">
+         :style="{minWidth : isCollapse?'calc(100% - 300px)':'calc(100% - 80px)'}">
       <div class="main-wrapper__header">
         <base-header/>
       </div>
@@ -41,22 +41,27 @@ export default {
 
   &__sidebar {
     transition: all 350ms linear;
-    width: 80px;
+    min-width: 80px;
 
     &--collapsed {
-      width: 300px;
+      min-width: 300px;
     }
-
     height: 100vh;
   }
 
   &__content {
     transition: all 350ms linear;
+    height: 100vh;
   }
 
   &__view {
     padding: 20px;
     box-sizing: border-box;
+    height: calc(100vh - 70px);
+  }
+
+  &__header{
+    height: 70px;
   }
 
 }
