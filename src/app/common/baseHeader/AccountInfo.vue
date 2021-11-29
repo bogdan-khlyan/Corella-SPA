@@ -1,7 +1,7 @@
 <template>
   <div class="current-user">
 
-    <div class="current-user__photo">
+    <div class="current-user__avatar">
       <!--      <svg width="42" height="42" data-jdenticon-value="tedir"></svg>-->
       <div v-html='identicon'></div>
     </div>
@@ -28,7 +28,7 @@ export default {
   name: "currentUser",
   computed: {
     identicon: function () {
-      return toSvg('Nielldcfgujl23', 42);
+      return toSvg('Nielldcfguji,kumyjnhtbgvfl23', 42);
     }
   },
   mounted() {
@@ -45,7 +45,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  &__photo {
+  &__avatar {
     width: 42px;
     height: 42px;
     border-radius: 50%;

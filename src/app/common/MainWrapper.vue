@@ -19,7 +19,7 @@
 <script>
 import BaseHeader from "@/app/common/baseHeader/BaseHeader";
 import BaseSidebar from "@/app/common/baseSidebar/BaseSidebar";
-import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
+import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
 
 export default {
   name: 'main-wrapper',
@@ -27,11 +27,7 @@ export default {
     BaseHeader,
     BaseSidebar
   },
-  computed: {
-    isCollapse() {
-      return baseSidebarState.isCollapse
-    }
-  }
+  mixins: [sidebarCollapse]
 }
 </script>
 
@@ -46,6 +42,7 @@ export default {
     &--collapsed {
       min-width: 300px;
     }
+
     height: 100vh;
   }
 
@@ -60,7 +57,7 @@ export default {
     height: calc(100vh - 70px);
   }
 
-  &__header{
+  &__header {
     height: 70px;
   }
 

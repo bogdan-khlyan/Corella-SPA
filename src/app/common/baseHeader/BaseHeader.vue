@@ -1,6 +1,6 @@
 <template>
   <header class="base-header"
-          :style="{minWidth : isCollapse?'calc(100% - 300px)':'calc(100% - 80px)'}">
+          :style="{minWidth : isCollapse ?'calc(100% - 300px)':'calc(100% - 80px)'}">
 
     <div class="base-header__search">
 
@@ -18,14 +18,14 @@
 
       <div class="base-header__icons-wrapper">
 
-        <div class="base-header__icon base-header__icon--message">
+        <div class="base-header__icon base-header__icon--green">
           <a href="#">
             <img src="@/assets/images/icons/header/icon-messages.svg">
             <span>2</span>
           </a>
         </div>
 
-        <div class="base-header__icon base-header__icon--notification">
+        <div class="base-header__icon base-header__icon--red">
           <a href="#">
             <img src="@/assets/images/icons/header/icon-notification.svg">
             <span>16</span>
@@ -33,29 +33,25 @@
         </div>
       </div>
 
-      <current-user/>
+      <AccountInfo/>
     </div>
   </header>
 </template>
 
 <script>
-import CurrentUser from "./currentUser";
-import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
+import AccountInfo from "./AccountInfo";
 import {setHeaderSearchValue} from "@/app/common/baseHeader/base-header.state";
+import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
 
 export default {
   name: 'base-header',
-  components: {CurrentUser},
+  components: {AccountInfo},
   data() {
     return {
       searchText: ''
     }
   },
-  computed: {
-    isCollapse() {
-      return baseSidebarState.isCollapse
-    }
-  },
+  mixins:[sidebarCollapse],
   methods:{
     setSearchText(){
       if(this.searchText.trim()!=='') {
@@ -188,17 +184,17 @@ export default {
       }
     }
 
-    &--notification {
+    &--red {
       width: 38px;
 
       > a {
         > span {
-          background: #E53C0E;
+          background: #e53c0e;
         }
       }
     }
 
-    &--message {
+    &--green {
       width: 32px;
 
       > a {
