@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import BaseHeader from "@/app/common/BaseHeader";
+import BaseHeader from "@/app/common/baseHeader/BaseHeader";
 import BaseSidebar from "@/app/common/baseSidebar/BaseSidebar";
 import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
 

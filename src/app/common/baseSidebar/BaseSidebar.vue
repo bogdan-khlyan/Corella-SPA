@@ -7,7 +7,6 @@
       <a href="#">
         <img src="@/assets/images/corella_icon.svg" alt="">
         <span class="base-sidebar__logo--show base-sidebar__logo--close">Corella</span>
-        <!--        <span :class="isOpenMenu?'base-sidebar__logo&#45;&#45;show':'base-sidebar__logo&#45;&#45;close'">Corella</span>-->
       </a>
     </div>
 
@@ -37,7 +36,6 @@
               <span>user Management</span>
             </a>
           </div>
-
         </div>
 
         <div class="base-sidebar__title">menu</div>
@@ -57,7 +55,7 @@
         </div>
       </div>
 
-      <div class="base-sidebar__block-menu base-sidebar__block-menu--end">
+      <div class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
         <a href="#">
           <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
           <span>Create New Task</span>
@@ -88,7 +86,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .base-sidebar {
   position: fixed;
   padding-top: 12px;
@@ -141,6 +138,7 @@ export default {
           > span {
             left: 55px;
             opacity: 1;
+            transition-delay: 100ms;
           }
         }
       }
@@ -153,20 +151,6 @@ export default {
       &--top:nth-of-type(2) {
         left: 150px;
         top: 75px;
-      }
-
-      &-avatars {
-        opacity: 1;
-        left: 158px;
-      }
-
-      &-count {
-        height: 24px;
-        padding: 0 8px;
-        color: #FFFFFF;
-        border-radius: 20px;
-        //left: 253px;
-        right: 13px;
       }
     }
 
@@ -256,20 +240,6 @@ export default {
         left: 16px;
         top: 135px;
       }
-
-      &-avatars {
-        opacity: 0;
-        left: 8px;
-      }
-
-      &-count {
-        width: 6px;
-        height: 6px;
-        color: transparent;
-        border-radius: 50%;
-        right: 11px;
-        top: 13px;
-      }
     }
 
     .base-sidebar__block-menu {
@@ -327,14 +297,6 @@ export default {
         transition: 300ms linear;
         position: absolute;
       }
-    }
-
-    &--show {
-
-    }
-
-    &--close {
-
     }
   }
 
@@ -396,37 +358,24 @@ export default {
       justify-content: center;
       height: 102px;
       bottom: 16px;
-      transition: 200ms linear;
+      transition: 350ms linear;
 
       > a {
-        display: flex;
         justify-content: center;
         flex-direction: column;
-        align-items: center;
         position: relative;
-        text-decoration: none;
+        padding: 0px !important;
         gap: 12px;
         box-sizing: border-box;
-        cursor: pointer;
         transition: 300ms linear;
 
         > img {
           transition: 300ms linear;
-        }
-
-        &:hover {
-          background: #1B1A18;
+          height: 32px;
+          width: 32px;
         }
 
         > span {
-          font-family: Rubik;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 14px;
-          line-height: 20px;
-          text-transform: capitalize;
-          color: #FFFFFF;
-          transition: 300ms linear;
           width: max-content;
         }
       }
@@ -464,11 +413,6 @@ export default {
         background: #1B1A18;
       }
 
-      > img {
-        height: 24px;
-        min-width: 23.6px;
-      }
-
       > span {
         font-family: Rubik;
         font-style: normal;
@@ -490,6 +434,11 @@ export default {
         position: relative;
         height: 48px;
 
+        > img {
+          height: 24px;
+          min-width: 23.6px;
+        }
+
         > span {
           position: absolute;
           width: 200px;
@@ -502,144 +451,89 @@ export default {
       transition: 350ms linear;
 
       > a {
-        //display: flex;
         flex-direction: column;
-        //align-items: center;
-        //text-decoration: none;
-        //padding: 0 13px;
-        //cursor: pointer;
-        //transition: all 350ms linear;
-
-        > span {
-          //font-family: Rubik;
-          //font-style: normal;
-          //font-weight: normal;
-          //font-size: 14px;
-          //line-height: 20px;
-          //text-transform: capitalize;
-          //color: #FFFFFF;
-          //transition: 300ms linear;
-          width: 96px;
-          text-align: center;
-        }
-      }
-    }
-
-    &-avatars {
-      flex-basis: 56px;
-      height: 24px;
-      position: absolute;
-      transition: 300ms linear;
-
-      > div {
-        display: flex;
-        box-sizing: border-box;
-        position: relative;
-        flex-direction: row;
-        width: 56px;
-        height: 24px;
+        transition: 300ms linear;
 
         > img {
-          position: absolute;
+          height: 24px;
+          min-width: 23.6px;
         }
 
-        > img:nth-of-type(1) {
-          right: 32px;
-        }
-
-        > img:nth-of-type(2) {
-          right: 16px;
-        }
-
-        > img:nth-of-type(3) {
-          right: 0px;
+        > span {
+          width: 96px;
+          text-align: center;
+          transition: 200ms linear;
         }
       }
-    }
-
-    &-count {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #E53C0E;
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 16px;
-      text-align: center;
-      text-transform: capitalize;
-      transition: 350ms linear;
     }
   }
 }
 
-@media screen and (max-height: 650px){
-  .base-sidebar {
-
-    &--open {
-
-      .base-sidebar__item {
-        &--top {
-          height: 94px;
-
-          > a {
-            gap: 4px;
-            height: 94px;
-          }
-        }
-      }
-
-      .base-sidebar__block-menu {
-
-        &--top {
-          height: 94px;
-        }
-
-        &--end {
-          > a {
-            height: 90px;
-          }
-        }
-      }
-    }
-
-    &--close {
-
-      .base-sidebar__item {
-
-        &--top:nth-of-type(2) {
-          top: 128px;
-        }
-      }
-
-      .base-sidebar__block-menu {
-        &--top {
-          height: 94px;
-        }
-      }
-    }
-
-    &__block-menu {
-      &--end {
-        height: 90px;
-        bottom: 10px;
-
-        > a {
-          gap: 8px;
-        }
-      }
-    }
-
-    &__title {
-      margin: 10px auto 5px 18px;
-
-      &:nth-of-type(2) {
-        padding-left: 3px;
-        margin: 18px auto 5px 18px;
-      }
-    }
-  }
-}
+//@media screen and (max-height: 650px) {
+//  .base-sidebar {
+//
+//    &--open {
+//
+//      .base-sidebar__item {
+//        &--top {
+//          height: 94px;
+//
+//          > a {
+//            gap: 4px;
+//            height: 94px;
+//          }
+//        }
+//      }
+//
+//      .base-sidebar__block-menu {
+//
+//        &--top {
+//          height: 94px;
+//        }
+//
+//        &--end {
+//          > a {
+//            height: 90px;
+//          }
+//        }
+//      }
+//    }
+//
+//    &--close {
+//
+//      .base-sidebar__item {
+//
+//        &--top:nth-of-type(2) {
+//          top: 128px;
+//        }
+//      }
+//
+//      .base-sidebar__block-menu {
+//        &--top {
+//          height: 94px;
+//        }
+//      }
+//    }
+//
+//    &__block-menu {
+//      &--end {
+//        height: 90px;
+//        bottom: 10px;
+//
+//        > a {
+//          gap: 8px;
+//        }
+//      }
+//    }
+//
+//    &__title {
+//      margin: 10px auto 5px 18px;
+//
+//      &:nth-of-type(2) {
+//        padding-left: 3px;
+//        margin: 18px auto 5px 18px;
+//      }
+//    }
+//  }
+//}
 </style>
