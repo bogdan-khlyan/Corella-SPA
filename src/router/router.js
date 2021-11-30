@@ -20,6 +20,10 @@ const routes = [{
         name: 'board',
         component: () => import('@/app/projects/board/Board')
     }, {
+        path: '/admin/user-management',
+        name: 'user-management',
+        component: () => import('@/app/userManagement/UserManagement')
+    }, {
         path: '/:pathMatch(.*)*',
         name: 'page-404',
         component: () => import('@/app/common/Page404')
