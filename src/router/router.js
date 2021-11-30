@@ -16,6 +16,10 @@ const routes = [{
         name: 'project-list',
         component: () => import('@/app/projects/projectList/ProjectList')
     }, {
+        path: '/create-project',
+        name: 'create-project',
+        component: () => import('@/app/projects/createProject/CreateProject')
+    }, {
         path: '/:projectId/board',
         name: 'board',
         component: () => import('@/app/projects/board/Board')
