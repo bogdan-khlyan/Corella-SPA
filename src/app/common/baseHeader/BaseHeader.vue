@@ -40,7 +40,7 @@
 
 <script>
 import AccountInfo from "./AccountInfo";
-import {setHeaderSearchValue} from "@/app/common/baseHeader/base-header.state";
+import {baseHeaderState} from "@/app/common/baseHeader/base-header.state";
 import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
 
 export default {
@@ -51,11 +51,11 @@ export default {
       searchText: ''
     }
   },
-  mixins:[sidebarCollapse],
-  methods:{
-    setSearchText(){
-      if(this.searchText.trim()!=='') {
-        setHeaderSearchValue(this.searchText)
+  mixins: [sidebarCollapse],
+  methods: {
+    setSearchText() {
+      if (this.searchText.trim() !== '') {
+        baseHeaderState.searchValue = this.searchText
       }
     }
   }
