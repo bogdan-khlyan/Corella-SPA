@@ -42,7 +42,7 @@ export default {
   &__title {
     font-size: 12px;
     line-height: 16px;
-    color: #7C7B86;
+    color: $text-grey;
   }
 
   &__description {

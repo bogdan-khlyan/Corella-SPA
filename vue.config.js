@@ -26,4 +26,11 @@ module.exports = {
             }
         },
     },
+    css: {
+        loaderOptions: {
+            sass: {
+                data: `@import "@/app/assets/scss/_index.scss";`
+            }
+        }
+    }
 }

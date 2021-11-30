@@ -69,7 +69,7 @@ export default {
     color: #121212;
     text-align: center;
     padding-bottom: 20px;
-    border-bottom: 2px solid #0AB258;
+    border-bottom: 2px solid $main-green;
     border-radius: 2px;
   }
 

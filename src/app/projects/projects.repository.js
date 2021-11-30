@@ -56,7 +56,7 @@ export default class ProjectsRepository {
                     },
                     {
                         id: 184,
-                        description: 'As user i want X in order to Y'
+                        description: 'As user i want X in order to Y As user i want X in order to Y'
                     },
                     {
                         id: 185,

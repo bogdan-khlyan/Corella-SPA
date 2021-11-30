@@ -1,12 +1,27 @@
 <template>
   <div class="project-board">
-    <project-board-column
-        class="project-board__column"
-        v-for="(projectColumnData, i) in projectData"
-        :key="i"
-        :loading="loading"
-        :project-column-data="projectColumnData">
-    </project-board-column>
+    <transition name="fade" mode="out-in" appear>
+
+      <div class="project-board__columns-wrapper" v-if="loading">
+        <project-board-column
+            class="project-board__column"
+            v-for="projectColumnData in projectData"
+            :key="projectColumnData.column"
+            :loading="loading"
+            :project-column-data="projectColumnData">
+        </project-board-column>
+      </div>
+
+      <div class="project-board__columns-wrapper" v-else>
+        <project-board-column
+            class="project-board__column"
+            v-for="projectColumnData in projectData"
+            :key="projectColumnData.column"
+            :project-column-data="projectColumnData">
+        </project-board-column>
+      </div>
+
+    </transition>
   </div>
 </template>
 
@@ -17,15 +32,17 @@ import ProjectBoardColumn from "@/app/projects/project-board/components/ProjectB
 
 export default {
   name: 'ProjectBoard',
-  components: {ProjectBoardColumn},
-  created() {
-    this.getProjectById(this.$route.params.projectId)
+  components: {
+    ProjectBoardColumn
   },
   computed: {
     projectData() {
       if (!this.loading) return this.project
       else return projectsController.getProjectTemplate()
     }
+  },
+  created() {
+    this.getProjectById(this.$route.params.projectId)
   },
   data() {
     return {
@@ -48,12 +65,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .project-board {
-  display: flex;
-  justify-content: center;
   height: 100%;
   font-family: Rubik, sans-serif;
+
+  &__columns-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
 
   &__column:not(&__column:last-child) {
     margin-right: 12px;

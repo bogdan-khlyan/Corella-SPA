@@ -14,9 +14,9 @@ class ProjectsController {
 
     getProjectTemplate() {
         return [
-            {tasks: [{}, {}]},
-            {tasks: [{}, {}]},
-            {tasks: [{}, {}]}
+            {column: Math.random(), tasks: [{}, {}]},
+            {column: Math.random(), tasks: [{}, {}]},
+            {column: Math.random(), tasks: [{}, {}]}
         ]
     }
 
