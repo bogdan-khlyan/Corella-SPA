@@ -4,7 +4,6 @@ export default {
     name: 'ColumnsAnimate',
     template: '\
     <transition-group\
-      name="very-special-transition"\
       :css="false"\
       appear\
       @before-enter="beforeEnter"\
