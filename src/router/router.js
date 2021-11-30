@@ -19,7 +19,11 @@ const routes = [{
         path: '/:projectId/board',
         name: 'board',
         component: () => import('@/app/projects/board/Board')
-    }]
+    }, {
+        path: '/:pathMatch(.*)*',
+        name: 'page-404',
+        component: () => import('@/app/common/Page404')
+    }],
 }]
 
 const router = createRouter({
