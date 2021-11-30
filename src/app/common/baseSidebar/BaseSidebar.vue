@@ -4,10 +4,10 @@
                 {'base-sidebar--close': !this.isCollapse}]">
 
     <div class="base-sidebar__logo">
-      <a href="#">
+      <router-link to="/">
         <img src="@/assets/images/corella_icon.svg" alt="">
         <span class="base-sidebar__logo--show base-sidebar__logo--close">Corella</span>
-      </a>
+      </router-link>
     </div>
 
     <div class="base-sidebar__arrow">
@@ -21,45 +21,40 @@
 
       <div class="base-sidebar__menu">
 
-        <div class="base-sidebar__block-menu base-sidebar__block-menu--top">
+        <div v-if="topBlock" class="base-sidebar__block-menu base-sidebar__block-menu--top">
 
-          <div class="base-sidebar__item base-sidebar__item--top">
-            <a href="#">
-              <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
-              <span>Projects</span>
-            </a>
+          <div class="base-sidebar__item base-sidebar__item--top"
+               v-for="item in topBlock" :key="item.icon">
+            <router-link
+                :class="{'active': item.route === route}"
+                :to="item.path">
+              <img :src="item.icon" alt="">
+              <span>{{ item.label }}</span>
+            </router-link>
           </div>
 
-          <div class="base-sidebar__item base-sidebar__item--top">
-            <a href="#">
-              <img src="@/assets/images/icons/sidebar/icon-user-managament.svg" alt="">
-              <span>user Management</span>
-            </a>
+        </div>
+
+
+        <template v-for="option in options.filter(item => !item.top)" :key="option.icon">
+          <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
+          <div v-else class="base-sidebar__item base-sidebar__item--ordinary">
+            <router-link
+                :class="{'active': option.route === route}"
+                :to="option.path">
+              <img :src="option.icon" alt="">
+              <span>{{ option.label }}</span>
+            </router-link>
           </div>
-        </div>
+        </template>
 
-        <div class="base-sidebar__title">menu</div>
-
-        <div class="base-sidebar__item base-sidebar__item--ordinary">
-          <a href="#">
-            <img src="@/assets/images/icons/sidebar/icon-board.svg" alt="">
-            <span>Board</span>
-          </a>
-        </div>
-
-        <div class="base-sidebar__item base-sidebar__item--ordinary">
-          <a href="#">
-            <img src="@/assets/images/icons/sidebar/icon-hotfix-wrapper.png" alt="">
-            <span>Hot-fixes</span>
-          </a>
-        </div>
       </div>
 
-      <div class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
-        <a href="#">
+      <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+        <router-link :to="bottomButton.path">
           <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
-          <span>Create New Task</span>
-        </a>
+          <span>{{ bottomButton.label }}</span>
+        </router-link>
       </div>
 
     </nav>
@@ -69,10 +64,40 @@
 <script>
 import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
 import {setSidebarCollapse} from "@/app/common/baseSidebar/base-sidebar.state";
+import {baseSidebarConfig} from "@/app/common/baseSidebar/base-sidebar.config";
 
 export default {
   name: 'base-sidebar',
   computed: {
+    route() {
+      return this.$route.name
+    },
+    options() {
+      const currentConfig = baseSidebarConfig.get(this.route)
+      if (currentConfig) {
+        return currentConfig
+      } else {
+        return baseSidebarConfig.get('default')
+      }
+    },
+    topBlock() {
+      const tops = this.options.filter(item => item.top === true)
+      if (tops.length > 1) {
+        return tops
+      } else {
+        return null
+      }
+    },
+    bottomButton() {
+      const currentBottomButtonConfig = baseSidebarConfig
+          .get('bottomButton')
+          .get(this.route)
+      if (currentBottomButtonConfig) {
+        return currentBottomButtonConfig
+      } else {
+        return null
+      }
+    },
     isCollapse() {
       return baseSidebarState.isCollapse
     }
@@ -185,7 +210,7 @@ export default {
       }
     }
 
-    .base-sidebar__nav{
+    .base-sidebar__nav {
       margin-top: 15px;
     }
   }
@@ -193,7 +218,7 @@ export default {
   &--close {
     width: 80px;
 
-    .base-sidebar__nav{
+    .base-sidebar__nav {
       margin-top: 25px;
     }
 
@@ -417,7 +442,7 @@ export default {
       cursor: pointer;
       transition: all 350ms linear;
 
-      &:hover {
+      &.active, &:hover {
         background: #1B1A18;
       }
 
