@@ -13,12 +13,15 @@
       </div>
 
       <div class="project-board__columns-wrapper" v-else>
-        <project-board-column
-            class="project-board__column"
-            v-for="projectColumnData in projectData"
-            :key="projectColumnData.column"
-            :project-column-data="projectColumnData">
-        </project-board-column>
+        <columns-animate :last-column-index="projectData.length - 1">
+            <project-board-column
+                class="project-board__column"
+                v-for="(projectColumnData, i) in projectData"
+                :key="projectColumnData.column"
+                :project-column-data="projectColumnData"
+                :data-index="i">
+            </project-board-column>
+        </columns-animate>
       </div>
 
     </transition>
@@ -60,7 +63,7 @@ export default {
       } finally {
         this.loading = false
       }
-    }
+    },
   }
 }
 </script>

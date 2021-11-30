@@ -10,6 +10,7 @@ const name = defaultSettings.title || 'Corella'
 module.exports = {
     lintOnSave: process.env.NODE_ENV === 'development',
     productionSourceMap: false,
+    runtimeCompiler: true,
     devServer: {
         port: '8081',
         open: true,
