@@ -1,8 +1,13 @@
 <template>
   <div class="project-task-card">
     <div class="project-task-card__content">
-      <div class="project-task-card__title"># {{projectTask.id}}</div>
-      <div class="project-task-card__description">{{projectTask.description}}</div>
+
+      <template v-if="!loading">
+        <div class="project-task-card__title"># {{projectTask.id}}</div>
+        <div class="project-task-card__description">{{projectTask.description}}</div>
+      </template>
+
+      <el-skeleton animated :rows="1" v-else></el-skeleton>
     </div>
   </div>
 </template>
@@ -13,6 +18,10 @@ export default {
   props: {
     projectTask: {
       type: Object
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   }
 }

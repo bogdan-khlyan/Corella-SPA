@@ -8,8 +8,16 @@ class ProjectsController {
         return await this.#service.getProjects()
     }
 
-    async getProjectsById(id) {
+    async getProjectById(id) {
         return await this.#service.getProjectById(id)
+    }
+
+    getProjectTemplate() {
+        return [
+            {tasks: [{}, {}]},
+            {tasks: [{}, {}]},
+            {tasks: [{}, {}]}
+        ]
     }
 
     async createProject(project) {

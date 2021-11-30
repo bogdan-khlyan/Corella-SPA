@@ -1,14 +1,25 @@
 <template>
   <div class="project-board-column">
     <h3 class="project-board-column__title project-board-column--inner-content">
-      {{ projectColumnData.column }}
+
+      <template v-if="!loading">
+        {{ projectColumnData.column }}
+      </template>
+
+      <el-skeleton v-else animated>
+        <template #template>
+          <el-skeleton-item variant="text"></el-skeleton-item>
+        </template>
+      </el-skeleton>
+
     </h3>
     <el-scrollbar class="project-board-column__scroll-content">
 
       <div class="project-board-column__task-list project-board-column--inner-content">
         <project-board-column-task-card
-            v-for="projectTask in projectColumnData.tasks"
-            :key="projectTask.id"
+            v-for="(projectTask, i) in projectColumnData.tasks"
+            :key="i"
+            :loading="loading"
             :project-task="projectTask">
         </project-board-column-task-card>
       </div>
@@ -28,6 +39,10 @@ export default {
   props: {
     projectColumnData: {
       type: Object
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   }
 }

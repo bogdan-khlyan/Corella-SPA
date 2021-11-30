@@ -2,8 +2,9 @@
   <div class="project-board">
     <project-board-column
         class="project-board__column"
-        v-for="projectColumnData in project"
-        :key="projectColumnData.column"
+        v-for="(projectColumnData, i) in projectData"
+        :key="i"
+        :loading="loading"
         :project-column-data="projectColumnData">
     </project-board-column>
   </div>
@@ -20,6 +21,12 @@ export default {
   created() {
     this.getProjectById(this.$route.params.projectId)
   },
+  computed: {
+    projectData() {
+      if (!this.loading) return this.project
+      else return projectsController.getProjectTemplate()
+    }
+  },
   data() {
     return {
       project: [],
@@ -31,7 +38,7 @@ export default {
       this.loading = true
 
       try {
-        this.project = await projectsController.getProjectsById(id)
+        this.project = await projectsController.getProjectById(id)
 
       } finally {
         this.loading = false
