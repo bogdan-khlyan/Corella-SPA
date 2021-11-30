@@ -50,7 +50,7 @@ export default {
       let toId = params.to.className
       if(fromId !== toId){
         this.allColumns.columns.forEach(column => {
-          //console.log(column.limit+'|'+column.board.length)
+          //console.log(column.limit+'|'+column.project-board.length)
           if(column._id === toId){
             if(column.limit === column.issues.length){
               // console.log("okey")
@@ -83,7 +83,7 @@ export default {
       }
       try {
         // this.loading = true
-        // await this.$http.post(`/projects/${this.$route.params.id}/board/move`, payload)
+        // await this.$http.post(`/projects/${this.$route.params.id}/project-board/move`, payload)
         // this.loading = false
         this.$store.commit('setLoaderIssue',issueId)
         await this.$http.post(`/projects/${this.$route.params.id}/issues/move`, payload)

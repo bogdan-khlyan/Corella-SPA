@@ -37,12 +37,16 @@ export default {
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
     width: calc(100vw - 80px);
+    min-height: 100vh;
   }
 
   &__view {
     padding: 20px;
     box-sizing: border-box;
+    flex: 1;
   }
 
 }

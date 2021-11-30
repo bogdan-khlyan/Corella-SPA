@@ -3,15 +3,19 @@ import {projectsState} from "@/app/projects/projects.state";
 import {notificationsHelper} from "@/helpers/notifications.helper";
 
 export default class ProjectsService {
-    
+
     #repository = new ProjectsRepository()
-    
+
     async getProjects() {
         const projects = await this.#repository.getProjects()
         projectsState.projects = projects
         return projects
     }
-    
+
+    async getProjectById(id) {
+        return this.#repository.getProjectById(id)
+    }
+
     async createProject(project) {
         try {
             const createdProject = await this.#repository.createProject(project)
@@ -24,7 +28,7 @@ export default class ProjectsService {
             throw error
         }
     }
-    
+
     async updateProject(project) {
         try {
             const updatedProject = await this.#repository.updateProject(project)
@@ -40,7 +44,7 @@ export default class ProjectsService {
             throw error
         }
     }
-    
+
     async deleteProject(projectId) {
         try {
             const updatedProject = await this.#repository.deleteProject(projectId)
@@ -54,5 +58,5 @@ export default class ProjectsService {
             throw error
         }
     }
-    
+
 }

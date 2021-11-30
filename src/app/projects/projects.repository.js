@@ -1,7 +1,7 @@
 import http from "@/app/httpConfig/base-axios-config";
 
 export default class ProjectsRepository {
-    
+
     async getProjects() {
         // const response = await http.get('/projects')
         // return response.data
@@ -31,20 +31,91 @@ export default class ProjectsRepository {
             tasksCount: 0
         }]
     }
-    
+
+    async getProjectById() {
+        const project = [
+            {
+                column: 'Backlog',
+                tasks: [
+                    {
+                        id: 182,
+                        description: 'As user i want X in order to Y'
+                    }
+                ]
+            },
+            {
+                column: 'Discussion',
+                tasks: []
+            },
+            {
+                column: 'In Progress',
+                tasks: [
+                    {
+                        id: 183,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 184,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 185,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 186,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 187,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 189,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 190,
+                        description: 'As user i want X in order to Y'
+                    }
+                ]
+            },
+            {
+                column: 'Review',
+                tasks: [
+                    {
+                        id: 184,
+                        description: 'As user i want X in order to Y'
+                    }
+                ]
+            },
+            {
+                column: 'Done',
+                tasks: [
+                    {
+                        id: 185,
+                        description: 'As user i want X in order to Y'
+                    }
+                ]
+            },
+        ]
+
+        return new Promise(resolve => setTimeout(() => resolve(project), 2000))
+    }
+
     async createProject(project) {
         const response = await http.post('/project', project)
         return response.data
     }
-    
+
     async updateProject(project) {
         const response = await http.patch('/project', project)
         return response.data
     }
-    
+
     async deleteProject(projectId) {
         const response = await http.delete('/project', projectId)
         return response.data
     }
-    
+
 }
