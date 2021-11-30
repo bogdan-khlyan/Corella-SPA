@@ -7,7 +7,7 @@
  *
  * Экземпляр репозитория является приватным полем сервиса, вызывать методы репозитория может только сервис.
  */
-import http from "@/app/httpConfig/base-axios-config";
+import http from "@/axiosConfig/base-axios-config";
 
 export default class UserInstanceRepository {
     
