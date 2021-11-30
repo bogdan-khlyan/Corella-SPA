@@ -20,6 +20,10 @@ const routes = [{
         name: 'board',
         component: () => import('@/app/projects/board/Board')
     }, {
+        path: '/:projectId/create-task',
+        name: 'create-task',
+        component: () => import('@/app/projects/tasks/createTask/CreateTask')
+    }, {
         path: '/admin/user-management',
         name: 'user-management',
         component: () => import('@/app/userManagement/UserManagement')
