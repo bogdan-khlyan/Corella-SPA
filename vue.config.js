@@ -30,7 +30,7 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                data: `@import "@/app/assets/scss/_index.scss";`
+                data: `@import "@/app/assets/scss/variables/_index.scss";`
             }
         }
     }
