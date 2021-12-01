@@ -86,17 +86,12 @@ export default {
       }
     },
     contentBlock() {
-      return this.options.filter(item => !item.top)
+      return this.options.filter(item => !item.top) // ищем элементы для контентного блока (все не из topBlock)
     },
     bottomButton() {
-      const currentBottomButtonConfig = baseSidebarConfig
-          .get('bottomButton')
-          .get(this.route)
-      if (currentBottomButtonConfig) {
-        return currentBottomButtonConfig
-      } else {
-        return null
-      }
+      return baseSidebarConfig
+          .get('bottomButton') // достаем конфиги для нижней кнопки
+          .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
     },
     isCollapse() {
       return baseSidebarState.isCollapse
