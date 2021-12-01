@@ -13,7 +13,9 @@
       </div>
 
       <div class="project-board__columns-wrapper" v-else>
-        <step-animation :wrapper="mainWrapper">
+        <step-animation
+            :wrapper="mainWrapper">
+
             <project-board-column
                 class="project-board__column"
                 v-for="(projectColumnData, i) in projectData"
@@ -21,6 +23,7 @@
                 :project-column-data="projectColumnData"
                 :data-index="i">
             </project-board-column>
+
         </step-animation>
       </div>
 
