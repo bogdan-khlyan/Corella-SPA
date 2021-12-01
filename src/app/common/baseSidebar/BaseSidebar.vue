@@ -70,19 +70,19 @@ export default {
       return this.$route.name
     },
     options() {
-      const currentConfig = baseSidebarConfig.get(this.route)
+      const currentConfig = baseSidebarConfig.get(this.route) // забираем конфиг соответствующий текущему роуту
       if (currentConfig) {
-        return currentConfig
+        return currentConfig // если конфиг есть отдаем его
       } else {
-        return baseSidebarConfig.get('default')
+        return baseSidebarConfig.get('default') // если конфига нет отдаем конфиг по умолчанию
       }
     },
     topBlock() {
-      const tops = this.options.filter(item => item.top === true)
-      if (tops.length > 1) {
+      const tops = this.options.filter(item => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
+      if (tops.length === 2) {
         return tops
       } else {
-        return null
+        throw new Error('asfa')
       }
     },
     contentBlock() {
