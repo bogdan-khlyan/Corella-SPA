@@ -1,7 +1,7 @@
 import SvgIcon from "./app/common/components/SvgIcon.js";
-import ColumnsAnimate from "@/app/common/components/ColumnsAnimate";
+import ColumnsAnimate from "@/app/common/components/StepAnimation";
 
 export default [
     {name: 'svg-icon', component: SvgIcon},
-    {name: 'columns-animate', component: ColumnsAnimate}
+    {name: 'step-animation', component: ColumnsAnimate}
 ]

@@ -13,7 +13,7 @@
       </div>
 
       <div class="project-board__columns-wrapper" v-else>
-        <columns-animate :last-column-index="projectData.length - 1">
+        <step-animation :wrapper="mainWrapper">
             <project-board-column
                 class="project-board__column"
                 v-for="(projectColumnData, i) in projectData"
@@ -21,7 +21,7 @@
                 :project-column-data="projectColumnData"
                 :data-index="i">
             </project-board-column>
-        </columns-animate>
+        </step-animation>
       </div>
 
     </transition>
@@ -42,6 +42,10 @@ export default {
     projectData() {
       if (!this.loading) return this.project
       else return projectsController.getProjectTemplate()
+    },
+
+    mainWrapper() {
+      return document.querySelector('.main-wrapper')
     }
   },
   created() {
