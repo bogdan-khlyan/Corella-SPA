@@ -2,18 +2,9 @@
   <header class="base-header"
           :style="{minWidth : isCollapse ?'calc(100% - 300px)':'calc(100% - 80px)'}">
 
-    <div class="base-header__search">
-
-      <input type="text" placeholder="search..."
-             v-model="searchText"
-             @input="setSearchText">
-
-      <div>
-        <img src="@/assets/images/icons/header/loupe.svg">
-      </div>
-
-    </div>
-
+    <transition name="showInput">
+      <HeaderInput v-if="isShowInput"/>
+    </transition>
     <div class="base-header__info">
 
       <div class="base-header__icons-wrapper">
@@ -39,24 +30,17 @@
 </template>
 
 <script>
-import AccountInfo from "./AccountInfo";
-import {baseHeaderState} from "@/app/common/baseHeader/base-header.state";
+import AccountInfo from "@/app/common/baseHeader/AccountInfo";
 import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
+import HeaderInput from "@/app/common/baseHeader/HeaderInput";
 
 export default {
   name: 'base-header',
-  components: {AccountInfo},
-  data() {
-    return {
-      searchText: ''
-    }
-  },
+  components: {HeaderInput, AccountInfo},
   mixins: [sidebarCollapse],
-  methods: {
-    setSearchText() {
-      if (this.searchText.trim() !== '') {
-        baseHeaderState.searchValue = this.searchText
-      }
+  computed: {
+    isShowInput() {
+      return this.$route.name === 'project-list'
     }
   }
 }
@@ -73,64 +57,19 @@ export default {
   border-bottom: 2px #E6E6E6 solid;
   display: flex;
   box-sizing: border-box;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 39px;
   align-items: center;
   transition: 350ms linear;
   background-color: rgba(255, 255, 255, .96);
 
   &__info {
-    width: 360px;
+    width: 402px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 26px;
     float: right;
-  }
-
-  &__search {
-    position: relative;
-    margin-top: 10px;
-    min-width: calc(100% - 400px);
-
-    > div {
-      position: absolute;
-      cursor: pointer;
-      top: 1px;
-      left: 0;
-
-      > img {
-        width: 32px;
-        transition: all 150ms ease-in-out;
-      }
-    }
-
-    > div > img:hover {
-      width: 35px;
-    }
-
-    input {
-      width: 98%;
-      height: 40px;
-      font-family: Rubik;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 14px;
-      text-transform: capitalize;
-      color: #706f7c;
-      padding-left: 38px;
-      border: none;
-    }
-
-    input::placeholder {
-      font-family: Rubik;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 14px;
-      text-transform: capitalize;
-      color: #BDBCC8;
-    }
   }
 
   &__icons-wrapper {
@@ -204,6 +143,23 @@ export default {
       }
     }
   }
+
+}
+
+.showInput-enter-active, .showInput-leave-active {
+  transition: all 350ms;
+}
+
+.showInput-leave-to /* .fade-leave-active до версии 2.1.8 */
+{
+  opacity: 0;
+  transform: matrix(1, 0, 1.5, 1, -100, 0);
+}
+
+.showInput-enter-from /* .fade-leave-active до версии 2.1.8 */
+{
+  opacity: 0;
+  transform: matrix(1, 0, -1.2, 1, -100, 0);
 }
 
 </style>

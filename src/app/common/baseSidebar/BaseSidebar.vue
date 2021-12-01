@@ -101,7 +101,7 @@ export default {
     toggleSidebarMenu() {
       setSidebarCollapse(!this.isCollapse)
     }
-  }
+  },
 }
 </script>
 

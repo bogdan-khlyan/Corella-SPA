@@ -7,8 +7,8 @@
     </div>
 
     <div class="current-user__data">
-      superadmin2021
-      @gmail.com
+      <span>Lana-lana</span>
+      <span>superadmin2021@gmail.com</span>
     </div>
 
     <div class="current-user__info">
@@ -40,7 +40,7 @@ export default {
 <style scoped lang="scss">
 .current-user {
   height: 42px;
-  width: 240px;
+  width: 282px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,14 +56,25 @@ export default {
   }
 
   &__data {
-    width: 150px;
+    width: 193px;
     box-sizing: border-box;
     font-family: Rubik;
     font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
     line-height: 20px;
     color: #3B3B3B;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+     span:nth-of-type(1) {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+     span:nth-of-type(2) {
+      font-size: 12px;
+      font-weight: normal;
+    }
   }
 
   &__info {
