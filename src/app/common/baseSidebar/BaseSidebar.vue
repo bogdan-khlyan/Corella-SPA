@@ -1,7 +1,6 @@
 <template>
   <div class="base-sidebar"
-       :class="[{'base-sidebar--open': this.isCollapse},
-                {'base-sidebar--close': !this.isCollapse}]">
+       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'">
 
     <div class="base-sidebar__logo">
       <router-link to="/">
@@ -22,26 +21,24 @@
       <div class="base-sidebar__menu">
 
         <div v-if="topBlock" class="base-sidebar__block-menu base-sidebar__block-menu--top">
-
           <div class="base-sidebar__item base-sidebar__item--top"
                v-for="item in topBlock" :key="item.icon">
             <router-link
                 :class="{'active': item.route === route}"
-                :to="item.path">
+                :to="item.path ? item.path : item.getPath(this)">
               <img :src="item.icon" alt="">
               <span>{{ item.label }}</span>
             </router-link>
           </div>
-
         </div>
 
 
-        <template v-for="option in options.filter(item => !item.top)" :key="option.icon">
+        <template v-for="option in contentBlock" :key="option.icon">
           <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
           <div v-else class="base-sidebar__item base-sidebar__item--ordinary">
             <router-link
                 :class="{'active': option.route === route}"
-                :to="option.path">
+                :to="option.path ? option.path : option.getPath(this)">
               <img :src="option.icon" alt="">
               <span>{{ option.label }}</span>
             </router-link>
@@ -51,7 +48,7 @@
       </div>
 
       <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
-        <router-link :to="bottomButton.path">
+        <router-link :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
           <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
           <span>{{ bottomButton.label }}</span>
         </router-link>
@@ -87,6 +84,9 @@ export default {
       } else {
         return null
       }
+    },
+    contentBlock() {
+      return this.options.filter(item => !item.top)
     },
     bottomButton() {
       const currentBottomButtonConfig = baseSidebarConfig

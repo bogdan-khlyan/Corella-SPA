@@ -20,7 +20,7 @@ const menuTitle = {
 }
 
 const boardButton = {
-    path: '/{currentProjectId??}/board',
+    getPath: (context) => `/${context.$route.params.projectId}/board`,
     route: 'board',
     label: 'Board',
     icon: require('@/assets/images/icons/sidebar/icon-board.svg')
@@ -33,7 +33,7 @@ const bottomButton = new Map()
     })
     .set('board', {
         label: 'Create New Task',
-        path: '/1/create-task' // TODO id
+        getPath: (context) => `/${context.$route.params.projectId}/create-task`
     })
 
 export const baseSidebarConfig = new Map()
