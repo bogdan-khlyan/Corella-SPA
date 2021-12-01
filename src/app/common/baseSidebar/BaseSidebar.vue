@@ -82,7 +82,7 @@ export default {
       if (tops.length === 2) {
         return tops
       } else {
-        throw new Error('asfa')
+        throw new Error('There can be only 2 elements in upper block')
       }
     },
     contentBlock() {
