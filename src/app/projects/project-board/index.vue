@@ -2,7 +2,9 @@
   <div class="project-board">
     <transition name="fade" mode="out-in" appear>
 
-      <div class="project-board__columns-wrapper" v-if="loading">
+      <div class="project-board__columns-wrapper"
+           v-if="loading"
+      >
         <project-board-column
             class="project-board__column"
             v-for="projectColumnData in projectData"
@@ -12,7 +14,9 @@
         </project-board-column>
       </div>
 
-      <div class="project-board__columns-wrapper" v-else>
+      <div class="project-board__columns-wrapper"
+           v-else
+      >
         <step-animation
             :wrapper="mainWrapper">
 
