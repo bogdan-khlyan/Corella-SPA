@@ -79,14 +79,21 @@ export default {
     },
     topBlock() {
       const tops = this.options.filter(item => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
-      if (tops.length === 2) {
-        return tops
+      if (tops.length === 0) {
+        return null
+      } if (tops.length === 2) {
+        return tops.slice(0, 2)
       } else {
-        throw new Error('There can be only 2 elements in upper block')
+        return null
       }
     },
     contentBlock() {
-      return this.options.filter(item => !item.top) // ищем элементы для контентного блока (все не из topBlock)
+      if (this.topBlock) {
+        const ids = this.topBlock.map(item => item.id)
+        return this.options.filter(option => ids.indexOf(option.id) === -1)
+      } else {
+        return this.options
+      }
     },
     bottomButton() {
       return baseSidebarConfig

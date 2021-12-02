@@ -1,5 +1,6 @@
 const projectListButton = {
-    top: true, // TODO
+    id: 1,
+    top: true,
     path: '/',
     route: 'project-list',
     label: 'Projects',
@@ -7,7 +8,8 @@ const projectListButton = {
 }
 
 const userManagementButton = {
-    top: true, // TODO
+    id: 2,
+    top: true,
     path: '/admin/user-management',
     route: 'user-management',
     label: 'User Management',
@@ -15,11 +17,13 @@ const userManagementButton = {
 }
 
 const menuTitle = {
+    id: 3,
     type: 'TITLE',
     title: 'menu'
 }
 
 const boardButton = {
+    id: 4,
     getPath: (context) => `/${context.$route.params.projectId}/board`,
     route: 'board',
     label: 'Board',
@@ -28,10 +32,12 @@ const boardButton = {
 
 const bottomButton = new Map()
     .set('project-list', {
+        id: 5,
         label: 'Create New Project',
         path: '/create-project'
     })
     .set('board', {
+        id: 6,
         label: 'Create New Task',
         getPath: (context) => `/${context.$route.params.projectId}/create-task`
     })
