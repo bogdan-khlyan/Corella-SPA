@@ -28,7 +28,6 @@
           class="project-board-column__task-list project-board-column--inner-content"
           v-model="columnData.tasks"
           v-bind="dragOptions"
-          :component-data="draggableComponentOptions"
           @start="drag = true"
           @end="drag = false"
           @change="$emit('status-task-changed', $event)"
@@ -74,16 +73,14 @@ export default {
         group: "tasks",
         disabled: false,
         itemKey: 'order',
-        ghostClass: "ghost"
+        ghostClass: "ghost",
+        componentOptions: {
+          tag: 'div',
+          name: !this.drag ? 'flip-list' : null,
+          type: 'transition-group',
+        }
       };
     },
-    draggableComponentOptions() {
-      return {
-        tag: 'div',
-        name: !this.drag ? 'flip-list' : null,
-        type: 'transition-group',
-      }
-    }
   },
   created() {
     this.columnData = this.projectColumnData
