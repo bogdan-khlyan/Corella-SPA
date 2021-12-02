@@ -173,7 +173,7 @@ export default {
 
       &--top:nth-of-type(1) {
         left: 16px;
-        top: 80px;
+        top: 90px;
         >a{
           >img{
             transition: 300ms ease-in 100ms;
@@ -183,7 +183,7 @@ export default {
 
       &--top:nth-of-type(2) {
         left: 150px;
-        top: 80px;
+        top: 90px;
       }
     }
 
@@ -217,7 +217,7 @@ export default {
     }
 
     .base-sidebar__nav {
-      margin-top: 15px;
+      //margin-top: 15px;
     }
   }
 
@@ -225,7 +225,7 @@ export default {
     width: 80px;
 
     .base-sidebar__nav {
-      margin-top: 25px;
+      //margin-top: 25px;
     }
 
     .base-sidebar__logo--close {
@@ -349,6 +349,7 @@ export default {
   }
 
   &__nav {
+    margin-top: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -478,7 +479,7 @@ export default {
         justify-content: space-between;
         position: relative;
         height: 48px;
-        transition: 300ms linear;
+        transition: 350ms linear;
 
         > img {
           height: 23px;
