@@ -28,8 +28,6 @@
           class="project-board-column__task-list project-board-column--inner-content"
           v-model="columnData.tasks"
           v-bind="dragOptions"
-          @start="drag = true"
-          @end="drag = false"
           @change="$emit('status-task-changed', $event)"
       >
         <template
@@ -76,7 +74,6 @@ export default {
         ghostClass: "ghost",
         componentOptions: {
           tag: 'div',
-          name: !this.drag ? 'flip-list' : null,
           type: 'transition-group',
         }
       };
@@ -88,7 +85,6 @@ export default {
   data() {
     return {
       columnData: null,
-      drag: false,
     }
   },
 }
