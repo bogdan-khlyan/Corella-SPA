@@ -1,9 +1,11 @@
 <template>
   <div class="main-wrapper">
-    <div class="main-wrapper__sidebar">
+    <div class="main-wrapper__sidebar"
+         :class="{'main-wrapper__sidebar--collapsed':isCollapse}">
       <base-sidebar/>
     </div>
-    <div class="main-wrapper__content">
+    <div class="main-wrapper__content"
+         :style="{width : isCollapse?'calc(100vw - 300px)':'calc(100vw - 80px)'}">
       <div class="main-wrapper__header">
         <base-header/>
       </div>
@@ -15,14 +17,20 @@
 </template>
 
 <script>
-import BaseHeader from "@/app/common/components/BaseHeader";
-import BaseSidebar from "@/app/common/components/BaseSidebar";
+import BaseHeader from "@/app/common/BaseHeader";
+import BaseSidebar from "@/app/common/baseSidebar/BaseSidebar";
+import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
 
 export default {
   name: 'main-wrapper',
   components: {
     BaseHeader,
     BaseSidebar
+  },
+  computed: {
+    isCollapse() {
+      return baseSidebarState.isCollapse
+    }
   }
 }
 </script>
@@ -32,21 +40,23 @@ export default {
   display: flex;
 
   &__sidebar {
+    transition: all 350ms linear;
     width: 80px;
-    height: auto;
+
+    &--collapsed {
+      width: 300px;
+    }
+
+    height: 100vh;
   }
 
   &__content {
-    display: flex;
-    flex-direction: column;
-    width: calc(100vw - 80px);
-    min-height: 100vh;
+    transition: all 350ms linear;
   }
 
   &__view {
     padding: 20px;
     box-sizing: border-box;
-    flex: 1;
   }
 
 }

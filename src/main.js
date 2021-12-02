@@ -1,12 +1,12 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-
-import globals from "@/globals"
-import plugins from '@/plugins'
+import router from './router/router'
+import Vuex from "vuex";
+import ElementPlus from 'element-plus'
 
 const app = createApp(App)
 
-globals.forEach(global => app.component(global.name, global.component))
-plugins.forEach(plugin => app.use(plugin))
-
-app.mount('#app')
+app.use(Vuex)
+   .use(router)
+   .use(ElementPlus)
+   .mount('#app')
