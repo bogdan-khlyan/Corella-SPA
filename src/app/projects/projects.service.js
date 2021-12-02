@@ -13,7 +13,7 @@ export default class ProjectsService {
     }
 
     async getProjectById(id) {
-        return this.#repository.getProjectById(id)
+        return await this.#repository.getProjectById(id)
     }
 
     async createProject(project) {

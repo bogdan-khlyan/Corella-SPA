@@ -2,39 +2,62 @@
   <div class="project-board-column">
     <h3 class="project-board-column__title project-board-column--inner-content">
 
-      <template v-if="!loading">
+      <template
+          v-if="!loading"
+      >
         {{ projectColumnData.column }}
       </template>
 
-      <el-skeleton v-else animated>
-        <template #template>
+      <el-skeleton
+          v-else
+          animated
+      >
+        <template
+            #template
+        >
           <el-skeleton-item variant="text"></el-skeleton-item>
         </template>
       </el-skeleton>
 
     </h3>
-    <el-scrollbar class="project-board-column__scroll-content">
 
-      <div class="project-board-column__task-list project-board-column--inner-content">
-        <project-board-column-task-card
-            v-for="(projectTask, i) in projectColumnData.tasks"
-            :key="i"
-            :loading="loading"
-            :project-task="projectTask">
-        </project-board-column-task-card>
-      </div>
+    <perfect-scrollbar
+        class="project-board-column__scroll-content"
+    >
 
-    </el-scrollbar>
+      <draggable
+          class="project-board-column__task-list project-board-column--inner-content"
+          v-model="columnData.tasks"
+          v-bind="dragOptions"
+          :component-data="draggableComponentOptions"
+          @start="drag = true"
+          @end="drag = false"
+          @change="$emit('status-task-changed', $event)"
+      >
+        <template
+            #item="{element}"
+        >
+          <project-board-column-task-card
+              :loading="loading"
+              :project-task="element">
+          </project-board-column-task-card>
+
+        </template>
+      </draggable>
+
+    </perfect-scrollbar>
   </div>
 </template>
 
 <script>
 import ProjectBoardColumnTaskCard from "@/app/projects/project-board/components/ProjectBoardColumnTaskCard";
+import draggable from 'vuedraggable'
 
 export default {
   name: "ProjectBoardColumn",
   components: {
     ProjectBoardColumnTaskCard,
+    draggable,
   },
   props: {
     projectColumnData: {
@@ -44,7 +67,34 @@ export default {
       type: Boolean,
       default: false
     }
-  }
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "tasks",
+        disabled: false,
+        itemKey: 'order',
+        ghostClass: "ghost"
+      };
+    },
+    draggableComponentOptions() {
+      return {
+        tag: 'div',
+        name: !this.drag ? 'flip-list' : null,
+        type: 'transition-group',
+      }
+    }
+  },
+  created() {
+    this.columnData = this.projectColumnData
+  },
+  data() {
+    return {
+      columnData: null,
+      drag: false,
+    }
+  },
 }
 </script>
 
@@ -74,13 +124,34 @@ export default {
   }
 
   &__task-list {
-    height: 200px;
+    min-height: calc(100vh - 197px);
   }
 
   &__scroll-content {
-    height: calc(100% - 87px);
-    padding-bottom: 20px;
+    min-height: calc(100vh - 197px);
+    max-height: calc(100vh - 220px);
     margin-top: 20px;
+  }
+}
+</style>
+
+<style lang="scss">
+.flip-list-move {
+  transition: transform 0.2s;
+}
+
+.no-move {
+  transition: transform 0s;
+}
+
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb !important;
+}
+
+.project-board-column {
+  .el-scrollbar .is-horizontal {
+    display: none;
   }
 }
 </style>

@@ -2,8 +2,9 @@
   <div class="project-board">
     <transition name="fade" mode="out-in" appear>
 
-      <div class="project-board__columns-wrapper"
-           v-if="loading"
+      <div
+          class="project-board__columns-wrapper"
+          v-if="loading"
       >
         <project-board-column
             class="project-board__column"
@@ -14,19 +15,21 @@
         </project-board-column>
       </div>
 
-      <div class="project-board__columns-wrapper"
-           v-else
+      <div
+          class="project-board__columns-wrapper"
+          v-else
       >
         <step-animation
-            :wrapper="mainWrapper">
-
-            <project-board-column
-                class="project-board__column"
-                v-for="(projectColumnData, i) in projectData"
-                :key="projectColumnData.column"
-                :project-column-data="projectColumnData"
-                :data-index="i">
-            </project-board-column>
+            :wrapper="mainWrapper"
+        >
+          <project-board-column
+              class="project-board__column"
+              v-for="(projectColumnData, i) in projectData"
+              :key="projectColumnData.column"
+              :project-column-data="projectColumnData"
+              :data-index="i"
+              @status-task-changed="handleTaskStatusChanged">
+          </project-board-column>
 
         </step-animation>
       </div>
@@ -60,8 +63,8 @@ export default {
   },
   data() {
     return {
-      project: [],
       loading: false,
+      project: null,
     }
   },
   methods: {
@@ -75,6 +78,10 @@ export default {
         this.loading = false
       }
     },
+
+    handleTaskStatusChanged(data) {
+      console.log(data)
+    }
   }
 }
 </script>
@@ -87,7 +94,7 @@ export default {
   &__columns-wrapper {
     display: flex;
     justify-content: center;
-    height: 100%;
+    height: inherit;
   }
 
   &__column:not(&__column:last-child) {

@@ -38,7 +38,8 @@ export default class ProjectsRepository {
                 column: 'Backlog',
                 tasks: [
                     {
-                        id: 182,
+                        id: 1,
+                        order: 0,
                         description: 'As user i want X in order to Y'
                     }
                 ]
@@ -52,30 +53,39 @@ export default class ProjectsRepository {
                 tasks: [
                     {
                         id: 183,
+                        order: 0,
                         description: 'As user i want X in order to Y'
                     },
                     {
                         id: 184,
+                        order: 1,
                         description: 'As user i want X in order to Y As user i want X in order to Y'
                     },
                     {
                         id: 185,
+                        order: 2,
                         description: 'As user i want X in order to Y'
                     },
                     {
                         id: 186,
+                        order: 3,
                         description: 'As user i want X in order to Y'
                     },
                     {
                         id: 187,
-                        description: 'As user i want X in order to Y'
+                        order: 4,
+                        description: 'As user i want X in order to Y As user i want X in order to Y As user ' +
+                            'i want X in order to Y As user i want X in order to Y'
                     },
                     {
                         id: 189,
-                        description: 'As user i want X in order to Y'
+                        order: 5,
+                        description: 'As user i want X in order to Y As user i want X in order to Y As user ' +
+                            'i want X in order to Y'
                     },
                     {
                         id: 190,
+                        order: 6,
                         description: 'As user i want X in order to Y'
                     }
                 ]
@@ -84,7 +94,8 @@ export default class ProjectsRepository {
                 column: 'Review',
                 tasks: [
                     {
-                        id: 184,
+                        id: 2,
+                        order: 0,
                         description: 'As user i want X in order to Y'
                     }
                 ]
@@ -93,7 +104,8 @@ export default class ProjectsRepository {
                 column: 'Done',
                 tasks: [
                     {
-                        id: 185,
+                        id: 3,
+                        order: 0,
                         description: 'As user i want X in order to Y'
                     }
                 ]
