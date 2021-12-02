@@ -28,7 +28,7 @@
           class="project-board-column__task-list project-board-column--inner-content"
           v-model="columnData.tasks"
           v-bind="dragOptions"
-          @change="$emit('status-task-changed', $event)"
+          v-on="dragListeners"
       >
         <template
             #item="{element}"
@@ -78,6 +78,12 @@ export default {
         }
       };
     },
+    dragListeners() {
+      return {
+        change: data =>
+            this.$emit('status-task-changed', data)
+      }
+    }
   },
   created() {
     this.columnData = this.projectColumnData
