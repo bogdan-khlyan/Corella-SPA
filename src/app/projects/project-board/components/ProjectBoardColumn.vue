@@ -71,7 +71,7 @@ export default {
         group: "tasks",
         disabled: false,
         itemKey: 'order',
-        ghostClass: "ghost",
+        ghostClass: "project-task-card--ghost",
         componentOptions: {
           tag: 'div',
           type: 'transition-group',
@@ -134,15 +134,7 @@ export default {
 </style>
 
 <style lang="scss">
-.flip-list-move {
-  transition: transform 0.2s;
-}
-
-.no-move {
-  transition: transform 0s;
-}
-
-.ghost {
+.project-task-card--ghost {
   opacity: 0.5;
   background: #c8ebfb !important;
 }
