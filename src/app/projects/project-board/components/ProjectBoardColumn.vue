@@ -24,7 +24,6 @@
     <perfect-scrollbar
         class="project-board-column__scroll-content"
     >
-
       <draggable
           class="project-board-column__task-list project-board-column--inner-content"
           v-model="columnData.tasks"
