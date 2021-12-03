@@ -11,6 +11,7 @@
             v-for="projectColumnData in projectData"
             :key="projectColumnData.column"
             :loading="loading"
+            :column-transition-end="true"
             :project-column-data="projectColumnData">
         </project-board-column>
       </div>
@@ -21,12 +22,14 @@
       >
         <step-animation
             :wrapper="mainWrapper"
+            @item-complete="handleItemComplete"
         >
           <project-board-column
               class="project-board__column"
               v-for="(projectColumnData, i) in projectData"
-              :key="projectColumnData.column"
+              :key="i"
               :project-column-data="projectColumnData"
+              :column-transition-end="projectColumnData.columnTransitionEnd"
               :data-index="i"
               @status-task-changed="handleTaskStatusChanged">
           </project-board-column>
@@ -77,6 +80,10 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+
+    handleItemComplete({index}) {
+      this.project[index].columnTransitionEnd = true
     },
 
     handleTaskStatusChanged(data) {
