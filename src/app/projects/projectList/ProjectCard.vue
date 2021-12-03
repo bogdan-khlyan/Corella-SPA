@@ -56,7 +56,7 @@ export default {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     background: #f2f3f2;
-    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.25), -6px -6px 16px rgba(255, 255, 255, 0.5);
+    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.10), -6px -6px 16px rgba(255, 255, 255, 0.25);
 
     z-index: 0;
 

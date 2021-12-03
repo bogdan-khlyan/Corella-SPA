@@ -22,7 +22,23 @@ const routes = [{
         path: '/:projectId/project-board',
         name: 'project-board',
         component: () => import('@/app/projects/project-board')
-    }]
+    }, {
+        path: '/:projectId/board',
+        name: 'board',
+        component: () => import('@/app/projects/board/Board')
+    }, {
+        path: '/:projectId/create-task',
+        name: 'create-task',
+        component: () => import('@/app/projects/tasks/createTask/CreateTask')
+    }, {
+        path: '/admin/user-management',
+        name: 'user-management',
+        component: () => import('@/app/userManagement/UserManagement')
+    }, {
+        path: '/:pathMatch(.*)*',
+        name: 'page-404',
+        component: () => import('@/app/common/Page404')
+    }],
 }]
 
 const router = createRouter({

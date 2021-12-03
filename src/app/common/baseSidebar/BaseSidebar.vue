@@ -1,14 +1,12 @@
 <template>
   <div class="base-sidebar"
-       :class="[{'base-sidebar--open': this.isCollapse},
-                {'base-sidebar--close': !this.isCollapse}]">
+       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'">
 
     <div class="base-sidebar__logo">
-      <a href="#">
+      <router-link to="/">
         <img src="@/assets/images/corella_icon.svg" alt="">
         <span class="base-sidebar__logo--show base-sidebar__logo--close">Corella</span>
-        <!--        <span :class="isOpenMenu?'base-sidebar__logo&#45;&#45;show':'base-sidebar__logo&#45;&#45;close'">Corella</span>-->
-      </a>
+      </router-link>
     </div>
 
     <div class="base-sidebar__arrow">
@@ -22,46 +20,38 @@
 
       <div class="base-sidebar__menu">
 
-        <div class="base-sidebar__block-menu base-sidebar__block-menu--top">
-
-          <div class="base-sidebar__item base-sidebar__item--top">
-            <a href="#">
-              <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
-              <span>Projects</span>
-            </a>
+        <div v-if="topBlock" class="base-sidebar__block-menu base-sidebar__block-menu--top">
+          <div class="base-sidebar__item base-sidebar__item--top"
+               v-for="item in topBlock" :key="item.icon">
+            <router-link
+                :class="{'active': item.route === route}"
+                :to="item.path ? item.path : item.getPath(this)">
+              <img :src="item.icon" alt="">
+              <span>{{ item.label }}</span>
+            </router-link>
           </div>
+        </div>
 
-          <div class="base-sidebar__item base-sidebar__item--top">
-            <a href="#">
-              <img src="@/assets/images/icons/sidebar/icon-user-managament.svg" alt="">
-              <span>user Management</span>
-            </a>
+
+        <template v-for="option in contentBlock" :key="option.icon">
+          <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
+          <div v-else class="base-sidebar__item base-sidebar__item--ordinary">
+            <router-link
+                :class="{'active': option.route === route}"
+                :to="option.path ? option.path : option.getPath(this)">
+              <img :src="option.icon" alt="">
+              <span>{{ option.label }}</span>
+            </router-link>
           </div>
+        </template>
 
-        </div>
-
-        <div class="base-sidebar__title">menu</div>
-
-        <div class="base-sidebar__item base-sidebar__item--ordinary">
-          <a href="#">
-            <img src="@/assets/images/icons/sidebar/icon-board.svg" alt="">
-            <span>Board</span>
-          </a>
-        </div>
-
-        <div class="base-sidebar__item base-sidebar__item--ordinary">
-          <a href="#">
-            <img src="@/assets/images/icons/sidebar/icon-hotfix-wrapper.png" alt="">
-            <span>Hot-fixes</span>
-          </a>
-        </div>
       </div>
 
-      <div class="base-sidebar__block-menu base-sidebar__block-menu--end">
-        <a href="#">
+      <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+        <router-link :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
           <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
-          <span>Create New Task</span>
-        </a>
+          <span>{{ bottomButton.label }}</span>
+        </router-link>
       </div>
 
     </nav>
@@ -71,10 +61,45 @@
 <script>
 import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
 import {setSidebarCollapse} from "@/app/common/baseSidebar/base-sidebar.state";
+import {baseSidebarConfig} from "@/app/common/baseSidebar/base-sidebar.config";
 
 export default {
   name: 'base-sidebar',
   computed: {
+    route() {
+      return this.$route.name
+    },
+    options() {
+      const currentConfig = baseSidebarConfig.get(this.route) // забираем конфиг соответствующий текущему роуту
+      if (currentConfig) {
+        return currentConfig // если конфиг есть отдаем его
+      } else {
+        return baseSidebarConfig.get('default') // если конфига нет отдаем конфиг по умолчанию
+      }
+    },
+    topBlock() {
+      const tops = this.options.filter(item => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
+      if (tops.length === 0) {
+        return null
+      } if (tops.length === 2) {
+        return tops.slice(0, 2)
+      } else {
+        return null
+      }
+    },
+    contentBlock() {
+      if (this.topBlock) {
+        const ids = this.topBlock.map(item => item.id)
+        return this.options.filter(option => ids.indexOf(option.id) === -1)
+      } else {
+        return this.options
+      }
+    },
+    bottomButton() {
+      return baseSidebarConfig
+          .get('bottomButton') // достаем конфиги для нижней кнопки
+          .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
+    },
     isCollapse() {
       return baseSidebarState.isCollapse
     }
@@ -88,8 +113,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .base-sidebar {
+  width: 80px;
   position: fixed;
   padding-top: 12px;
   height: 100vh;
@@ -141,32 +166,20 @@ export default {
           > span {
             left: 55px;
             opacity: 1;
+            transition-delay: 100ms;
           }
         }
       }
 
       &--top:nth-of-type(1) {
         left: 16px;
-        top: 75px;
+        top: 80px;
+        //animation: test 350ms linear;
       }
 
       &--top:nth-of-type(2) {
         left: 150px;
-        top: 75px;
-      }
-
-      &-avatars {
-        opacity: 1;
-        left: 158px;
-      }
-
-      &-count {
-        height: 24px;
-        padding: 0 8px;
-        color: #FFFFFF;
-        border-radius: 20px;
-        //left: 253px;
-        right: 13px;
+        top: 80px;
       }
     }
 
@@ -198,10 +211,18 @@ export default {
         }
       }
     }
+
+    .base-sidebar__nav {
+      margin-top: 15px;
+    }
   }
 
   &--close {
     width: 80px;
+
+    .base-sidebar__nav {
+      margin-top: 25px;
+    }
 
     .base-sidebar__logo--close {
       left: 40px;
@@ -249,26 +270,12 @@ export default {
 
       &--top:nth-of-type(1) {
         left: 16px;
-        top: 75px;
+        top: 95px;
       }
 
       &--top:nth-of-type(2) {
         left: 16px;
-        top: 135px;
-      }
-
-      &-avatars {
-        opacity: 0;
-        left: 8px;
-      }
-
-      &-count {
-        width: 6px;
-        height: 6px;
-        color: transparent;
-        border-radius: 50%;
-        right: 11px;
-        top: 13px;
+        top: 152px;
       }
     }
 
@@ -328,22 +335,14 @@ export default {
         position: absolute;
       }
     }
-
-    &--show {
-
-    }
-
-    &--close {
-
-    }
   }
 
   &__nav {
-    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    transition: all 400ms ease-in-out;
 
     hr {
       height: 1px;
@@ -396,37 +395,24 @@ export default {
       justify-content: center;
       height: 102px;
       bottom: 16px;
-      transition: 200ms linear;
+      transition: 350ms linear;
 
       > a {
-        display: flex;
         justify-content: center;
         flex-direction: column;
-        align-items: center;
         position: relative;
-        text-decoration: none;
+        padding: 0px !important;
         gap: 12px;
         box-sizing: border-box;
-        cursor: pointer;
         transition: 300ms linear;
 
         > img {
           transition: 300ms linear;
-        }
-
-        &:hover {
-          background: #1B1A18;
+          height: 32px;
+          width: 32px;
         }
 
         > span {
-          font-family: Rubik;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 14px;
-          line-height: 20px;
-          text-transform: capitalize;
-          color: #FFFFFF;
-          transition: 300ms linear;
           width: max-content;
         }
       }
@@ -434,7 +420,8 @@ export default {
   }
 
   &__title {
-    margin: 24px auto 10px 18px;
+    //margin: 24px auto 10px 18px;
+    margin: 24px auto 10px 20.5px;
     text-align: center;
     font-family: Rubik;
     font-style: normal;
@@ -443,10 +430,7 @@ export default {
     line-height: 20px;
     text-transform: uppercase;
     color: #FFFFFF;
-
-    :nth-of-type(1) {
-      padding-left: 5px;
-    }
+    transition: all 250ms linear;
   }
 
   &__item {
@@ -460,13 +444,8 @@ export default {
       cursor: pointer;
       transition: all 350ms linear;
 
-      &:hover {
+      &.active, &:hover {
         background: #1B1A18;
-      }
-
-      > img {
-        height: 24px;
-        min-width: 23.6px;
       }
 
       > span {
@@ -490,6 +469,11 @@ export default {
         position: relative;
         height: 48px;
 
+        > img {
+          height: 24px;
+          min-width: 23.6px;
+        }
+
         > span {
           position: absolute;
           width: 200px;
@@ -502,144 +486,89 @@ export default {
       transition: 350ms linear;
 
       > a {
-        //display: flex;
         flex-direction: column;
-        //align-items: center;
-        //text-decoration: none;
-        //padding: 0 13px;
-        //cursor: pointer;
-        //transition: all 350ms linear;
-
-        > span {
-          //font-family: Rubik;
-          //font-style: normal;
-          //font-weight: normal;
-          //font-size: 14px;
-          //line-height: 20px;
-          //text-transform: capitalize;
-          //color: #FFFFFF;
-          //transition: 300ms linear;
-          width: 96px;
-          text-align: center;
-        }
-      }
-    }
-
-    &-avatars {
-      flex-basis: 56px;
-      height: 24px;
-      position: absolute;
-      transition: 300ms linear;
-
-      > div {
-        display: flex;
-        box-sizing: border-box;
-        position: relative;
-        flex-direction: row;
-        width: 56px;
-        height: 24px;
+        transition: 300ms linear;
 
         > img {
-          position: absolute;
+          height: 24px;
+          min-width: 23.6px;
         }
 
-        > img:nth-of-type(1) {
-          right: 32px;
-        }
-
-        > img:nth-of-type(2) {
-          right: 16px;
-        }
-
-        > img:nth-of-type(3) {
-          right: 0px;
+        > span {
+          width: 96px;
+          text-align: center;
+          transition: 200ms linear;
         }
       }
-    }
-
-    &-count {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #E53C0E;
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 16px;
-      text-align: center;
-      text-transform: capitalize;
-      transition: 350ms linear;
     }
   }
 }
 
-@media screen and (max-height: 650px){
-  .base-sidebar {
-
-    &--open {
-
-      .base-sidebar__item {
-        &--top {
-          height: 94px;
-
-          > a {
-            gap: 4px;
-            height: 94px;
-          }
-        }
-      }
-
-      .base-sidebar__block-menu {
-
-        &--top {
-          height: 94px;
-        }
-
-        &--end {
-          > a {
-            height: 90px;
-          }
-        }
-      }
-    }
-
-    &--close {
-
-      .base-sidebar__item {
-
-        &--top:nth-of-type(2) {
-          top: 128px;
-        }
-      }
-
-      .base-sidebar__block-menu {
-        &--top {
-          height: 94px;
-        }
-      }
-    }
-
-    &__block-menu {
-      &--end {
-        height: 90px;
-        bottom: 10px;
-
-        > a {
-          gap: 8px;
-        }
-      }
-    }
-
-    &__title {
-      margin: 10px auto 5px 18px;
-
-      &:nth-of-type(2) {
-        padding-left: 3px;
-        margin: 18px auto 5px 18px;
-      }
-    }
-  }
-}
+//@media screen and (max-height: 650px) {
+//  .base-sidebar {
+//
+//    &--open {
+//
+//      .base-sidebar__item {
+//        &--top {
+//          height: 94px;
+//
+//          > a {
+//            gap: 4px;
+//            height: 94px;
+//          }
+//        }
+//      }
+//
+//      .base-sidebar__block-menu {
+//
+//        &--top {
+//          height: 94px;
+//        }
+//
+//        &--end {
+//          > a {
+//            height: 90px;
+//          }
+//        }
+//      }
+//    }
+//
+//    &--close {
+//
+//      .base-sidebar__item {
+//
+//        &--top:nth-of-type(2) {
+//          top: 128px;
+//        }
+//      }
+//
+//      .base-sidebar__block-menu {
+//        &--top {
+//          height: 94px;
+//        }
+//      }
+//    }
+//
+//    &__block-menu {
+//      &--end {
+//        height: 90px;
+//        bottom: 10px;
+//
+//        > a {
+//          gap: 8px;
+//        }
+//      }
+//    }
+//
+//    &__title {
+//      margin: 10px auto 5px 18px;
+//
+//      &:nth-of-type(2) {
+//        padding-left: 3px;
+//        margin: 18px auto 5px 18px;
+//      }
+//    }
+//  }
+//}
 </style>
