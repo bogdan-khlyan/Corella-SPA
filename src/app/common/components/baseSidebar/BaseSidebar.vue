@@ -108,7 +108,7 @@ export default {
     toggleSidebarMenu() {
       setSidebarCollapse(!this.isCollapse)
     }
-  }
+  },
 }
 </script>
 
@@ -166,20 +166,24 @@ export default {
           > span {
             left: 55px;
             opacity: 1;
-            transition-delay: 100ms;
+            transition: 300ms linear 200ms;
           }
         }
       }
 
       &--top:nth-of-type(1) {
         left: 16px;
-        top: 80px;
-        //animation: test 350ms linear;
+        top: 90px;
+        >a{
+          >img{
+            transition: 300ms ease-in 100ms;
+          }
+        }
       }
 
       &--top:nth-of-type(2) {
         left: 150px;
-        top: 80px;
+        top: 90px;
       }
     }
 
@@ -213,7 +217,7 @@ export default {
     }
 
     .base-sidebar__nav {
-      margin-top: 15px;
+      //margin-top: 15px;
     }
   }
 
@@ -221,7 +225,7 @@ export default {
     width: 80px;
 
     .base-sidebar__nav {
-      margin-top: 25px;
+      //margin-top: 25px;
     }
 
     .base-sidebar__logo--close {
@@ -264,6 +268,7 @@ export default {
           > span {
             left: 0px;
             opacity: 0;
+            transition: 100ms linear 0ms;
           }
         }
       }
@@ -271,6 +276,12 @@ export default {
       &--top:nth-of-type(1) {
         left: 16px;
         top: 95px;
+
+        >a{
+          >img{
+            transition: 300ms;
+          }
+        }
       }
 
       &--top:nth-of-type(2) {
@@ -338,6 +349,7 @@ export default {
   }
 
   &__nav {
+    margin-top: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -442,7 +454,7 @@ export default {
       text-decoration: none;
       padding: 0 13px;
       cursor: pointer;
-      transition: all 350ms linear;
+      transition: all 400ms ease-in-out;
 
       &.active, &:hover {
         background: #1B1A18;
@@ -456,27 +468,29 @@ export default {
         line-height: 20px;
         text-transform: capitalize;
         color: #FFFFFF;
-        transition: 300ms linear;
       }
     }
 
     &--ordinary {
       margin: 4px auto;
-      transition: 200ms linear;
+      transition: 300ms linear;
 
       > a {
         justify-content: space-between;
         position: relative;
         height: 48px;
+        transition: 350ms linear;
 
         > img {
-          height: 24px;
-          min-width: 23.6px;
+          height: 23px;
+
+          transition: 300ms linear;
         }
 
         > span {
           position: absolute;
           width: 200px;
+          transition: 300ms linear;
         }
       }
     }
@@ -497,7 +511,6 @@ export default {
         > span {
           width: 96px;
           text-align: center;
-          transition: 200ms linear;
         }
       }
     }

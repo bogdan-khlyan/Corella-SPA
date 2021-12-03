@@ -15,6 +15,7 @@
 import ProjectCard from "@/app/projects/projectList/ProjectCard";
 import {projectsState} from "@/app/projects/projects.state";
 import {projectsController} from "@/app/projects/projects.controller";
+import {baseHeaderState} from "@/app/common/baseHeader/base-header.state";
 
 export default {
   name: 'project-list',
@@ -28,6 +29,9 @@ export default {
   },
   created() {
     projectsController.getProjects()
+  },
+  beforeUnmount() {
+    baseHeaderState.searchValue = ''
   }
 }
 </script>
