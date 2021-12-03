@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     projectName() {
-      if (this.$route.name === 'board' && this.$store.state.project.currentProject) {
+      if (this.$route.name === 'project-board' && this.$store.state.project.currentProject) {
         return this.$store.state.project.currentProject.name
       } else return ''
     },

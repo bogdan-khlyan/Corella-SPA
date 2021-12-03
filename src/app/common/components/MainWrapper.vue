@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import BaseHeader from "@/app/common/baseHeader/BaseHeader";
-import BaseSidebar from "@/app/common/baseSidebar/BaseSidebar";
+import BaseHeader from "@/app/common/components/baseHeader/BaseHeader";
+import BaseSidebar from "@/app/common/components/baseSidebar/BaseSidebar";
 import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
 
 export default {

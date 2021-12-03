@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import AccountInfo from "@/app/common/baseHeader/AccountInfo";
+import AccountInfo from "./AccountInfo";
 import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
-import HeaderInput from "@/app/common/baseHeader/HeaderInput";
+import HeaderInput from "@/app/common/components/baseHeader/HeaderInput";
 
 export default {
   name: 'base-header',

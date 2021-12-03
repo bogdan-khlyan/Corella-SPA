@@ -1,7 +1,7 @@
 <template>
   <div class="project-wrapper">
     <router-view/>
-<!--    <div class="project-board" v-if="route === 'project-by-id'">-->
+<!--    <div class="project-projectBoard" v-if="route === 'project-by-id'">-->
 <!--      <column-->
 <!--          v-for="column in columns.columns"-->
 <!--          :column="column"-->
@@ -9,7 +9,7 @@
 <!--          :allColumns="columns"-->
 <!--          :versions="versions" />-->
 <!--      <task-modal-->
-<!--          :board="board"-->
+<!--          :projectBoard="projectBoard"-->
 <!--          :visible="visible.issueModal"-->
 <!--          :versions="versions"-->
 <!--          @close="onClose"-->
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-// import Column from '@/views/project/components/board/Column'
-// import TaskModal from '@/views/project/components/board/IssueModal'
+// import Column from '@/views/project/components/projectBoard/Column'
+// import TaskModal from '@/views/project/components/projectBoard/IssueModal'
 // import HotfixCard from '@/views/project/components/hotfixes/HotfixCard'
 // import HotfixModal from '@/views/project/components/Modals/HotfixModal'
 
@@ -66,11 +66,11 @@ export default {
     }
   },
   // computed: {
-  //   board() {
-  //     let board = this.$store.state.project.currentIssue
-  //     if (board) {
-  //       board.files = board.files.slice(0, 6)
-  //       return board
+  //   projectBoard() {
+  //     let projectBoard = this.$store.state.project.currentIssue
+  //     if (projectBoard) {
+  //       projectBoard.files = projectBoard.files.slice(0, 6)
+  //       return projectBoard
   //     }
   //   },
   //   hotfix() {
@@ -83,7 +83,7 @@ export default {
   //   }
   // },
   // watch: {
-  //   board(e) {
+  //   projectBoard(e) {
   //     if (e)
   //       this.visible.issueModal = true
   //   },
@@ -96,7 +96,7 @@ export default {
     // async updateIssues(requestData) {
     //   let projectId = this.$route.params.id
     //   let issueId = this.$route.query.issueId
-    //   await this.$http.patch(`/projects/${projectId}/board/${issueId}`, requestData)
+    //   await this.$http.patch(`/projects/${projectId}/projectBoard/${issueId}`, requestData)
     //   this.getIssues()
       // this.onClose()
     // },

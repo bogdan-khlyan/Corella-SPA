@@ -22,7 +22,7 @@
 <!--            <div class="default__form-group">-->
 <!--              <label>Version</label>-->
 <!--              <el-select class="select" v-model="selectedVersion" :placeholder="selectedVersion">-->
-<!--                &lt;!&ndash;              <el-option v-for="item in board.__v"&ndash;&gt;-->
+<!--                &lt;!&ndash;              <el-option v-for="item in projectBoard.__v"&ndash;&gt;-->
 <!--                <el-option-->
 <!--                    v-for="version in versions"-->
 <!--                    :label="version.version"-->

@@ -1,4 +1,4 @@
-import {baseSidebarState} from "@/app/common/baseSidebar/base-sidebar.state";
+import {baseSidebarState} from "@/app/common/components/baseSidebar/base-sidebar.state";
 
 const sidebarCollapse = {
     computed: {

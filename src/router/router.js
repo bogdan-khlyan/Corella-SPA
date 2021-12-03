@@ -2,6 +2,9 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 import {loginPageRoutes} from '@/app/auth/loginPage/login-page.router'
 
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // progress bar style
+
 const routes = [{
     path: '/login',
     name: 'login-page',
@@ -10,19 +13,19 @@ const routes = [{
 }, {
     path: '/',
     name: 'main-wrapper',
-    component: () => import('@/app/common/MainWrapper'),
+    component: () => import('@/app/common/components/MainWrapper'),
     children: [{
         path: '/',
         name: 'project-list',
         component: () => import('@/app/projects/projectList/ProjectList')
     }, {
-        path: '/create-project',
-        name: 'create-project',
-        component: () => import('@/app/projects/createProject/CreateProject')
+        path: '/:projectId/projectBoard',
+        name: 'project-board',
+        component: () => import('@/app/projects/projectBoard')
     }, {
         path: '/:projectId/board',
         name: 'board',
-        component: () => import('@/app/projects/board/Board')
+        component: () => import('@/app/projects/projectBoard')
     }, {
         path: '/:projectId/create-task',
         name: 'create-task',
@@ -41,6 +44,16 @@ const routes = [{
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    NProgress.start()
+    next()
+})
+
+router.afterEach(() => {
+    //finish nprogress
+    NProgress.done()
 })
 
 export default router
