@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import ProjectBoardColumnTaskCard from "@/app/projects/project-board/components/ProjectBoardColumnTaskCard";
+import ProjectBoardColumnTaskCard from "@/app/projects/projectBoard/components/ProjectBoardColumnTaskCard";
 import draggable from 'vuedraggable'
 
 export default {

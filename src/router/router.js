@@ -19,13 +19,13 @@ const routes = [{
         name: 'project-list',
         component: () => import('@/app/projects/projectList/ProjectList')
     }, {
-        path: '/:projectId/project-board',
+        path: '/:projectId/projectBoard',
         name: 'project-board',
-        component: () => import('@/app/projects/project-board')
+        component: () => import('@/app/projects/projectBoard')
     }, {
         path: '/:projectId/board',
         name: 'board',
-        component: () => import('@/app/projects/board/Board')
+        component: () => import('@/app/projects/projectBoard')
     }, {
         path: '/:projectId/create-task',
         name: 'create-task',

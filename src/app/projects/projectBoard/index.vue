@@ -41,7 +41,7 @@
 <script>
 import {projectsController} from "@/app/projects/projects.controller";
 
-import ProjectBoardColumn from "@/app/projects/project-board/components/ProjectBoardColumn";
+import ProjectBoardColumn from "@/app/projects/projectBoard/components/ProjectBoardColumn";
 
 export default {
   name: 'ProjectBoard',

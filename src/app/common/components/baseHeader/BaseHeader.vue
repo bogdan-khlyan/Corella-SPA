@@ -40,7 +40,7 @@
 
 <script>
 import AccountInfo from "./AccountInfo";
-import {baseHeaderState} from "@/app/common/baseHeader/base-header.state";
+import {baseHeaderState} from "@/app/common/components/baseHeader/base-header.state";
 import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
 
 export default {
