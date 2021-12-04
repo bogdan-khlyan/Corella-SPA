@@ -1,0 +1,79 @@
+// Main
+
+$main-green: #0AB258;
+$bg-white: #FFFFFF;
+$bg-disabled: #F4F3FE;
+$stroke-focused: #F836CD;
+
+// Text
+
+$text-black: #212121;
+$text-white: #FFFFFF;
+$text-grey: #7C7B86;
+$text-light-grey: #BDBCC8;
+$text-disabled: #DDDDDD;
+$text-title: #3B3B3B;
+$text-validation: #FAAC28;
+$text-error: #F32B2A;
+$text-success: #399262;
+
+// Button
+
+$primary-bg-default: #0AB258;
+$primary-text-default: #FFFFFF;
+$primary-bg-hover: #20C561;
+$primary-text-hover: #FFFFFF;
+$primary-bg-focused: #20C561;
+$primary-stroke-focused: #F836CD;
+$primary-text-focused: #FFFFFF;
+$primary-bg-active: #20C561;
+$primary-text-active: #FFFFFF;
+$primary-bg-click: #10A354;
+$primary-text-click: #FFFFFF;
+$primary-bg-disabled: #F4F3FE;
+$primary-text-disabled: #DDDDDD;
+
+$secondary-stroke-default: #0AB258;
+$secondary-text-default: #0AB258;
+$secondary-bg-hover: #F5FFF8;
+$secondary-stroke-hover: #0AB258;
+$secondary-text-hover: #0AB258;
+$secondary-bg-focused: #F5FFF8;
+$secondary-stroke-focused: #F836CD;
+$secondary-text-focused: #0AB258;
+$secondary-bg-active: #F5FFF8;
+$secondary-stroke-active: #0AB258;
+$secondary-text-active: #0AB258;
+$secondary-bg-click: #F5FFF8;
+$secondary-text-click: #0AB258;
+$secondary-bg-disabled: #F4F3FE;
+$secondary-text-disabled: #DDDDDD;
+
+$tertiary-bg-default: #FFFFFF;
+$tertiary-text-default: #0AB258;
+$tertiary-bg-hover: #F5FFF8;
+$tertiary-text-hover: #0AB258;
+$tertiary-bg-focused: #F5FFF8;
+$tertiary-stroke-focused: #F836CD;
+$tertiary-text-focused: #0AB258;
+$tertiary-bg-active: #F5FFF8;
+$tertiary-text-active: #0AB258;
+$tertiary-bg-click: #EBFFE1;
+$tertiary-text-click: #0AB258;
+$tertiary-bg-disabled: #F4F3FE;
+$tertiary-text-disabled: #DDDDDD;
+
+// Fields
+
+$fields-form: #FFFFFF;
+$fields-title: #7B7B7B;
+$fields-text: #212121;
+$fields-description: #C4C4C4;
+$fields-stroke-hover: #C4C4C4;
+$fields-stroke-focused: #0AB258;
+$fields-text-disabled: #DDDDDD;
+$fields-stroke-validation: #FFE8BB;
+$fields-bg-validation: #FFFBF4;
+$fields-stroke-loading: #E8E6F8;
+$fields-bg-error: #FFF3F3;
+$fields-stroke-error: #FFEAEA;

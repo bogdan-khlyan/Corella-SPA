@@ -38,8 +38,8 @@ const routes = [
                 name: 'project-by-id',
                 component: () => import('../views/project/Project'),
                 children: [{
-                    path: 'board',
-                    name: 'board',
+                    path: 'project-board',
+                    name: 'project-board',
                     component: () => import('../views/project/components/board/Board.vue')
                 }, {
                     path: 'settings',

@@ -3,3 +3,20 @@
     stroke: #20C460!important;
   }
 }
+
+.el-notification {
+
+  &__group {
+  }
+
+  &__title {
+    font-family: Roboto, sans-serif;
+  }
+
+  &__content {
+    > p {
+      font-family: Roboto, sans-serif;
+    }
+  }
+
+}
