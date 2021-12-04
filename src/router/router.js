@@ -19,15 +19,15 @@ const routes = [{
         name: 'project-list',
         component: () => import('@/app/projects/projectList/ProjectList')
     }, {
-        path: '/:projectId/projectBoard',
+        path: '/project/:projectId/projectBoard',
         name: 'project-board',
         component: () => import('@/app/projects/projectBoard')
     }, {
-        path: '/:projectId/board',
+        path: '/project/:projectId/board',
         name: 'board',
         component: () => import('@/app/projects/projectBoard')
     }, {
-        path: '/:projectId/create-task',
+        path: '/project/:projectId/create-task',
         name: 'create-task',
         component: () => import('@/app/projects/tasks/createTask/CreateTask')
     }, {

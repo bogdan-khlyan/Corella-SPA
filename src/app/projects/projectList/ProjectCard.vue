@@ -1,5 +1,5 @@
 <template>
-  <router-link class="project-card" :to="`/${project.id}/board`">
+  <router-link class="project-card" :to="`/project/${project.id}/board`">
 
     <div class="project-card__content">
       <div class="project-card__name">
