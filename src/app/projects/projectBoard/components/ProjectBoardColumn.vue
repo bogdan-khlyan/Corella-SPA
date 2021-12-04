@@ -1,5 +1,5 @@
 <template>
-  <div class="project-board-column">
+  <div class="project-board-column" ref="projectBoardColumn">
     <h3 class="project-board-column__title project-board-column--inner-content">
 
       <template
@@ -23,9 +23,11 @@
 
     <perfect-scrollbar
         class="project-board-column__scroll-content"
+        :options="scrollOptions"
     >
       <draggable
           class="project-board-column__task-list project-board-column--inner-content"
+          v-if="isAllCompleted"
           v-model="columnData.tasks"
           v-bind="dragOptions"
           v-on="dragListeners"
@@ -40,6 +42,26 @@
 
         </template>
       </draggable>
+
+      <div
+          class="project-board-column__task-list project-board-column--inner-content"
+          ref="projectBoard"
+          v-else
+      >
+        <step-animation
+            v-if="columnTransitionEnd"
+            @item-complete="handleItemComplete"
+            @all-complete="handleAllCompleted"
+        >
+          <project-board-column-task-card
+              v-for="(projectTask, i) in fakeColumnData"
+              :key="projectTask.order"
+              :project-task="projectTask"
+              :loading="loading"
+              :data-index="i">
+          </project-board-column-task-card>
+        </step-animation>
+      </div>
 
     </perfect-scrollbar>
   </div>
@@ -59,6 +81,9 @@ export default {
     projectColumnData: {
       type: Object
     },
+    columnTransitionEnd: {
+      type: Boolean
+    },
     loading: {
       type: Boolean,
       default: false
@@ -72,10 +97,6 @@ export default {
         disabled: false,
         itemKey: 'order',
         ghostClass: "project-task-card--ghost",
-        componentOptions: {
-          tag: 'div',
-          type: 'transition-group',
-        }
       };
     },
     dragListeners() {
@@ -83,14 +104,39 @@ export default {
         change: data =>
             this.$emit('status-task-changed', data)
       }
+    },
+    scrollOptions() {
+      return {
+        suppressScrollY: this.isAllCompleted
+      }
+    },
+    fakeColumnData() {
+      return this.projectColumnData.tasks
     }
   },
   created() {
     this.columnData = this.projectColumnData
   },
+  mounted() {
+    this.columnHeight = this.$refs.projectBoard.clientHeight
+  },
   data() {
     return {
       columnData: null,
+      isAllCompleted: false,
+      tasksCount: 0,
+      columnHeight: 0,
+      reduceHeight: 0
+    }
+  },
+  methods: {
+    handleAllCompleted() {
+      this.isAllCompleted = true
+    },
+
+    handleItemComplete: function ({el}) {
+      this.reduceHeight += el.clientHeight + 20
+      if (this.reduceHeight >= this.columnHeight) this.isAllCompleted = true
     }
   },
 }

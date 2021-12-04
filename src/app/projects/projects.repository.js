@@ -87,6 +87,36 @@ export default class ProjectsRepository {
                         id: 190,
                         order: 6,
                         description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 191,
+                        order: 7,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 192,
+                        order: 8,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 193,
+                        order: 9,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 194,
+                        order: 10,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 195,
+                        order: 11,
+                        description: 'As user i want X in order to Y'
+                    },
+                    {
+                        id: 196,
+                        order: 12,
+                        description: 'As user i want X in order to Y'
                     }
                 ]
             },
