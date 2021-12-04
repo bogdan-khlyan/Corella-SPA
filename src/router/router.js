@@ -12,20 +12,20 @@ const routes = [{
     children: loginPageRoutes
 }, {
     path: '/',
-    name: 'main-wrapper',
-    component: () => import('@/app/common/components/MainWrapper'),
+    name: 'base-wrapper',
+    component: () => import('@/app/common/components/baseWrapper/BaseWrapper'),
     children: [{
         path: '/',
         name: 'project-list',
         component: () => import('@/app/projects/projectList/ProjectList')
     }, {
-        path: '/project/:projectId/projectBoard',
-        name: 'project-board',
-        component: () => import('@/app/projects/projectBoard')
-    }, {
         path: '/project/:projectId/board',
         name: 'board',
         component: () => import('@/app/projects/projectBoard')
+    }, {
+        path: '/project/:projectId/task/:taskId',
+        name: 'task',
+        component: () => import('@/app/projects/tasks/task')
     }, {
         path: '/project/:projectId/create-task',
         name: 'create-task',
