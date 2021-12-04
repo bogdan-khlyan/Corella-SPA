@@ -32,7 +32,6 @@
           </div>
         </div>
 
-
         <template v-for="option in contentBlock" :key="option.icon">
           <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
           <div v-else class="base-sidebar__item base-sidebar__item--ordinary">
@@ -81,7 +80,8 @@ export default {
       const tops = this.options.filter(item => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
       if (tops.length === 0) {
         return null
-      } if (tops.length === 2) {
+      }
+      if (tops.length === 2) {
         return tops.slice(0, 2)
       } else {
         return null
@@ -140,6 +140,44 @@ export default {
 
     .base-sidebar__item {
 
+      > a {
+        > img {
+          transform: scale(1, 1);
+        }
+      }
+
+      &--top {
+        height: 102px;
+        width: 134px;
+
+        > a {
+          height: 102px;
+          width: 134px;
+
+          > span {
+            opacity: 1;
+            margin-top: 6px;
+            max-width: 96px;
+            transform: scale(1, 1);
+            transition: all 350ms ease-in-out;
+          }
+
+          > img {
+            margin-top: 0px;
+          }
+        }
+
+        &:nth-of-type(1) {
+          top: 0;
+          left: 0;
+        }
+
+        &:nth-of-type(2) {
+          top: 0;
+          left: 50%;
+        }
+      }
+
       &--ordinary {
         > a {
           width: 268px;
@@ -152,51 +190,9 @@ export default {
         }
       }
 
-      &--top {
-        height: 102px;
-        width: 134px;
-
-        > a {
-          justify-content: center;
-          gap: 8px;
-          height: 102px;
-          border-radius: 8px;
-          width: 134px;
-
-          > span {
-            left: 55px;
-            opacity: 1;
-            transition: 300ms linear 200ms;
-          }
-        }
-      }
-
-      &--top:nth-of-type(1) {
-        left: 16px;
-        top: 90px;
-        >a{
-          >img{
-            transition: 300ms ease-in 100ms;
-          }
-        }
-      }
-
-      &--top:nth-of-type(2) {
-        left: 150px;
-        top: 90px;
-      }
     }
 
     .base-sidebar__block-menu {
-
-      &--top {
-        width: 268px;
-        height: 102px;
-        flex-direction: row;
-        background-color: rgba(4, 165, 128, 0.39);
-        border-radius: 8px;
-        transition-delay: 200ms;
-      }
 
       &--end {
         > a {
@@ -214,19 +210,22 @@ export default {
           }
         }
       }
+
+      &--top {
+        height: 102px;
+        width: 268px;
+        background: rgba(4, 165, 128, 0.39);
+        border-radius: 8px;
+      }
     }
 
     .base-sidebar__nav {
-      //margin-top: 15px;
+      margin-top: 10px;
     }
   }
 
   &--close {
     width: 80px;
-
-    .base-sidebar__nav {
-      //margin-top: 25px;
-    }
 
     .base-sidebar__logo--close {
       left: 40px;
@@ -237,11 +236,53 @@ export default {
       transform: rotate(0deg);
     }
 
+    .base-sidebar__nav {
+      margin-top: 25px;
+    }
+
     hr {
       width: 52px;
     }
 
     .base-sidebar__item {
+
+      > a {
+        > img {
+          transform: scale(.92, .92);
+        }
+      }
+
+      &--top {
+        height: 48px;
+        width: 48px;
+
+        > a {
+          height: 48px;
+          width: 48px;
+
+          > span {
+            transform: scale(0, 0);
+            opacity: 0;
+            margin-top: 0;
+            font-size: 0;
+            transition: all 350ms linear;
+          }
+
+          > img {
+            margin-top: 18px;
+          }
+        }
+
+        &:nth-of-type(1) {
+          top: 0;
+          left: 0;
+        }
+
+        &:nth-of-type(2) {
+          top: 60px;
+          left: 0;
+        }
+      }
 
       &--ordinary {
         > a {
@@ -254,48 +295,12 @@ export default {
           }
         }
       }
-
-      &--top {
-        height: 48px;
-        width: 48px;
-
-        > a {
-          height: 48px;
-          width: 48px;
-          border-radius: 16px;
-          padding-top: 11px;
-
-          > span {
-            left: 0px;
-            opacity: 0;
-            transition: 100ms linear 0ms;
-          }
-        }
-      }
-
-      &--top:nth-of-type(1) {
-        left: 16px;
-        top: 95px;
-
-        >a{
-          >img{
-            transition: 300ms;
-          }
-        }
-      }
-
-      &--top:nth-of-type(2) {
-        left: 16px;
-        top: 152px;
-      }
     }
 
     .base-sidebar__block-menu {
       &--top {
-        background-color: transparent;
-        height: 102px;
-        flex-direction: column;
-        transition: all 350ms linear;
+        width: 48px;
+        background: transparent;
       }
 
       &--end {
@@ -349,7 +354,6 @@ export default {
   }
 
   &__nav {
-    margin-top: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -396,8 +400,10 @@ export default {
     display: flex;
 
     &--top {
+      min-height: 102px;
+      height: 115px;
+      position: relative;
       margin: auto;
-      align-items: center;
       transition: all 350ms linear;
     }
 
@@ -432,7 +438,6 @@ export default {
   }
 
   &__title {
-    //margin: 24px auto 10px 18px;
     margin: 24px auto 10px 20.5px;
     text-align: center;
     font-family: Rubik;
@@ -483,7 +488,6 @@ export default {
 
         > img {
           height: 23px;
-
           transition: 300ms linear;
         }
 
@@ -496,21 +500,30 @@ export default {
     }
 
     &--top {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       position: absolute;
-      transition: 350ms linear;
+      transition: all 400ms ease-in-out;
 
       > a {
+        border-radius: 8px;
+        border: none;
+        box-sizing: border-box;
+        display: flex;
         flex-direction: column;
-        transition: 300ms linear;
+        justify-content: center;
+        align-items: center;
+        transition: all 400ms ease-in-out;
+
+        > span {
+          text-align: center;
+        }
 
         > img {
           height: 24px;
-          min-width: 23.6px;
-        }
-
-        > span {
-          width: 96px;
-          text-align: center;
+          transition: all 350ms ease-in-out;
         }
       }
     }
