@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import LoginFormInput from "@/app/auth/loginPage/common/LoginFormInput";
+import LoginFormInput from "@/app/auth/loginPage/components/common/LoginFormInput";
 import {loginPageState} from "@/app/auth/loginPage/login-page.state";
 
 // TODO добавить валидацию

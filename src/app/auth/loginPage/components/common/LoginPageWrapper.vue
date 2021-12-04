@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Socials from "../../oauth/Socials";
+import Socials from "../../../oauth/Socials";
 import {loginPageState} from "@/app/auth/loginPage/login-page.state";
 
 export default {

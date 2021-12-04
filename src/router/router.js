@@ -8,7 +8,7 @@ import 'nprogress/nprogress.css' // progress bar style
 const routes = [{
     path: '/login',
     name: 'login-page',
-    component: () => import('@/app/auth/loginPage/LoginPage'),
+    component: () => import('@/app/auth/loginPage'),
     children: loginPageRoutes
 }, {
     path: '/',
@@ -17,11 +17,15 @@ const routes = [{
     children: [{
         path: '/',
         name: 'project-list',
-        component: () => import('@/app/projects/projectList/ProjectList')
+        component: () => import('@/app/projects/projectList')
     }, {
         path: '/project/:projectId/board',
         name: 'board',
         component: () => import('@/app/projects/projectBoard')
+    }, {
+        path: '/project/create',
+        name: 'create-project',
+        component: () => import('@/app/projects/createProject')
     }, {
         path: '/project/:projectId/task/:taskId',
         name: 'task',
@@ -29,15 +33,15 @@ const routes = [{
     }, {
         path: '/project/:projectId/create-task',
         name: 'create-task',
-        component: () => import('@/app/projects/tasks/createTask/CreateTask')
+        component: () => import('@/app/projects/tasks/createTask')
     }, {
         path: '/admin/user-management',
         name: 'user-management',
-        component: () => import('@/app/userManagement/UserManagement')
+        component: () => import('@/app/userManagement')
     }, {
         path: '/:pathMatch(.*)*',
         name: 'page-404',
-        component: () => import('@/app/common/Page404')
+        component: () => import('@/app/common/components/Page404')
     }],
 }]
 

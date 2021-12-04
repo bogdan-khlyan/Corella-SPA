@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import LoginFormInput from "@/app/auth/loginPage/common/LoginFormInput";
+import LoginFormInput from "@/app/auth/loginPage/components/common/LoginFormInput";
 
 export default {
   name: "register-form",

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import LoginFormWrapper from "@/app/auth/loginPage/common/LoginPageWrapper";
-import Banner from "@/app/auth/loginPage/banner/Banner";
+import LoginFormWrapper from "@/app/auth/loginPage/components/common/LoginPageWrapper";
+import Banner from "@/app/auth/loginPage/components/banner/Banner";
 
 // TODO если юзер уже авторизован переводить его на домашнюю страницу
 export default {
