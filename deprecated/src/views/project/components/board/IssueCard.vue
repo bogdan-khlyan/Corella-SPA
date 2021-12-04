@@ -43,7 +43,7 @@ export default {
     }
     // moveLoading() {
     //   let isLoad = this.$store.state.project.loader.projectIssue
-    //   return isLoad === this.board
+    //   return isLoad === this.projectBoard
     // }
     //
   },
@@ -64,11 +64,11 @@ export default {
       this.$router.push({ query: { issue: this.issue.issueCode } })
     }
     // getIssues: function () {
-      // this.$api.project.board.getIssues()
+      // this.$api.project.projectBoard.getIssues()
     // },
     // async setCurrentIssue() {
-    //   await this.$api.project.board.setCurrentIssue(this.$route.params.id, this.board)
-    //   await this.$router.push(`${this.$route.path}?issueId=${this.board}`).catch(() => {
+    //   await this.$api.project.projectBoard.setCurrentIssue(this.$route.params.id, this.projectBoard)
+    //   await this.$router.push(`${this.$route.path}?issueId=${this.projectBoard}`).catch(() => {
     //   })
     // },
     // currentVersion(){
