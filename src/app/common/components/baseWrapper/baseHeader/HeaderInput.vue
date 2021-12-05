@@ -6,7 +6,7 @@
            @input="setSearchText">
 
     <div>
-      <img src="@/assets/images/icons/header/loupe.png">
+      <img src="@/assets/images/icons/header/loupe.svg">
     </div>
 
   </div>
