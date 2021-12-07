@@ -5,15 +5,17 @@
         <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
       </div>
       <div class="task-page-wrapper__header--text">
-        <span>Task #267</span>
+        <span>{{title}}</span>
       </div>
       <div class="task-page-wrapper__header--actions">
-        <div class="task-page-wrapper__header--actions-item">
+        <div v-if="showEditButton"
+             class="task-page-wrapper__header--actions-item">
           <button @click="$emit('edit', $event)">
             <img src="@/assets/images/icons/tasks/edit.svg" alt="">
           </button>
         </div>
-        <div class="task-page-wrapper__header--actions-item">
+        <div v-if="showDeleteButton"
+             class="task-page-wrapper__header--actions-item">
           <button class="red"
                   @click="$emit('delete', $event)">
             <img src="@/assets/images/icons/tasks/delete.svg" alt="">
@@ -29,7 +31,13 @@
 
 <script>
 export default {
-  name: 'task-page-wrapper'
+  name: 'task-page-wrapper',
+  props: {
+    title: { type: String, required: true },
+
+    showEditButton: { type: Boolean, default: false },
+    showDeleteButton: { type: Boolean, default: false }
+  }
 }
 </script>
 

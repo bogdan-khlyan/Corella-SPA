@@ -33,7 +33,7 @@ const routes = [{
     }, {
         path: '/project/:projectId/create-task',
         name: 'create-task',
-        component: () => import('@/app/projects/tasks/createTask')
+        component: () => import('@/app/projects/tasks/editTask')
     }, {
         path: '/admin/user-management',
         name: 'user-management',
