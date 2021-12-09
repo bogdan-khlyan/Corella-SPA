@@ -1,13 +1,71 @@
 <template>
-  <div class="select-file">
-
-    <div class="select-file__button">
-      <img class="button-select-file__icon" src="@assets/images/icons/tasks/select.svg">
-      <button class="button-select-file__content"></button>
+  <div class="upload-file" >
+    <div class="upload-file__button">
+      <upload-file-button />
     </div>
-    <div class="select-file__desc">Or drag and drop the file here</div>
-    <div class="select-file__prompt">You can upload up to 10 files with a maximum size of 100MB</div>
-
-
+    <div class="upload-file__more">Or drag and drop the file here</div>
+    <div class="upload-file__desc">You can upload up to 10 files with a maximum size of 100MB</div>
+    <div class="upload-file__items">
+      <file-review @loadFile="loadFile" />
+    </div>
   </div>
 </template>
+
+<script>
+import UploadFileButton from './components/UploadFileButton';
+import FileReview from '../fileReview';
+
+export default {
+  name: 'upload-file',
+  data() {
+    return {
+
+    }
+  },
+  components: {
+    FileReview,
+    UploadFileButton,
+  },
+  emits: ['loadFile'],
+  methods: {
+    loadFile() {
+      console.log('test')
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+
+.upload-file {
+  max-width: 454px;
+
+  &__desc {
+
+  }
+  &__button {
+    &:not(:last-child) {
+      margin: 0px 0px 8px 0px;
+    }
+  }
+  &__more {
+    font-family: "Rubik";
+    text-align: center;
+    font-size: 12px;
+    color: #7C7B86;
+    &:not(:last-child) {
+      margin: 0px 0px 8px 0px;
+    }
+  }
+  &__desc {
+    font-family: "Rubik";
+    font-size: 12px;
+    color: #7C7B86;
+    &:not(:last-child) {
+      margin: 0px 0px 16px 0px;
+    }
+
+
+  }
+}
+</style>
