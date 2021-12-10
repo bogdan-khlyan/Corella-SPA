@@ -35,37 +35,36 @@ export default {
 <style scoped lang="scss">
 .header-search {
   position: relative;
-  margin-top: 10px;
   min-width: calc(100% - 442px);
+  max-width: 701px;
 
   > div {
     position: absolute;
     cursor: pointer;
-    top: 1px;
-    left: 0;
+    top: 16px;
+    left: 16px;
 
     > img {
-      width: 32px;
+      width: 24px;
       transition: all 150ms ease-in-out;
     }
   }
 
-  > div > img:hover {
-    width: 35px;
-  }
-
   input {
-    width: 98%;
-    height: 40px;
+    width: 100%;
     font-family: Rubik;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
     text-transform: capitalize;
-    color: #706f7c;
-    padding-left: 38px;
+    color: #bdbcc8;
+    padding-left: 46px;
     border: none;
+    height: 56px;
+   // background: rgba(196, 196, 196, 0.08);
+    background: rgba(196, 196, 196, 0.12);
+    border-radius: 4px
   }
 
   input::placeholder {

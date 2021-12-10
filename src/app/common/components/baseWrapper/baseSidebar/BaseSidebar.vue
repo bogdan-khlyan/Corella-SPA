@@ -32,18 +32,23 @@
           </div>
         </div>
 
-        <template v-for="option in contentBlock" :key="option.icon">
-          <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
-          <div v-else class="base-sidebar__item base-sidebar__item--ordinary">
-            <router-link
-                :class="{'active': option.route === route}"
-                :to="option.path ? option.path : option.getPath(this)">
-              <img :src="option.icon" alt="">
-              <span>{{ option.label }}</span>
-            </router-link>
-          </div>
-        </template>
+        <transition-group name="emerging-el" appear>
+          <template v-for="option in contentBlock" :key="option.icon">
 
+            <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
+
+            <div v-if="option.type !== 'TITLE'" class="base-sidebar__item base-sidebar__item--ordinary">
+              <router-link
+                  :class="{'active': option.route === route}"
+                  :to="option.path ? option.path : option.getPath(this)"
+              >
+                <img :src="option.icon" alt="">
+                <span>{{ option.label }}</span>
+              </router-link>
+            </div>
+
+          </template>
+        </transition-group>
       </div>
 
       <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
@@ -107,7 +112,7 @@ export default {
   methods: {
     toggleSidebarMenu() {
       setSidebarCollapse(!this.isCollapse)
-    }
+    },
   },
 }
 </script>
@@ -121,6 +126,10 @@ export default {
   z-index: 10;
   background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
   transition: all 350ms linear;
+
+  a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
 
   &--open {
     width: 300px;
@@ -139,12 +148,6 @@ export default {
     }
 
     .base-sidebar__item {
-
-      > a {
-        > img {
-          transform: scale(1, 1);
-        }
-      }
 
       &--top {
         height: 102px;
@@ -181,7 +184,6 @@ export default {
       &--ordinary {
         > a {
           width: 268px;
-          border-radius: 7px;
 
           > span {
             left: 55px;
@@ -189,7 +191,6 @@ export default {
           }
         }
       }
-
     }
 
     .base-sidebar__block-menu {
@@ -245,10 +246,9 @@ export default {
     }
 
     .base-sidebar__item {
-
       > a {
         > img {
-          transform: scale(.92, .92);
+          transform: scale(.8, .8);
         }
       }
 
@@ -287,7 +287,6 @@ export default {
       &--ordinary {
         > a {
           width: 48px;
-          border-radius: 16px;
 
           > span {
             left: 0px;
@@ -454,6 +453,8 @@ export default {
     display: flex;
 
     > a {
+      border-radius: 8px;
+      border: none;
       display: flex;
       align-items: center;
       text-decoration: none;
@@ -487,7 +488,7 @@ export default {
         transition: 350ms linear;
 
         > img {
-          height: 23px;
+          height: 24px;
           transition: 300ms linear;
         }
 
@@ -508,8 +509,6 @@ export default {
       transition: all 400ms ease-in-out;
 
       > a {
-        border-radius: 8px;
-        border: none;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -527,6 +526,21 @@ export default {
         }
       }
     }
+  }
+
+  .emerging-el-enter-active, .emerging-el-leave-active {
+    transition: all 650ms ease-in-out;
+  }
+
+  .emerging-el-enter-from, .emerging-el-leave-to /* .fade-leave-active до версии 2.1.8 */
+  {
+    opacity: 0;
+    transform: scale3d(0, 0, 0);
+  }
+
+  .emerging-el-enter-to, .emerging-el-leave-from {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
   }
 }
 
