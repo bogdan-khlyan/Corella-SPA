@@ -21,7 +21,7 @@
 
 <script>
 import TaskPageWrapper from "@/app/projects/tasks/common/TaskPageWrapper";
-import UploadFile from "@/app/common/components/uploadFile/index";
+import UploadFile from "@/app/common/components/uploadFile/UploadFile";
 import BaseInput from "@/app/common/components/BaseInput";
 
 import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";

@@ -1,35 +1,53 @@
 <template>
   <div class="upload-file" >
     <div class="upload-file__button">
-      <upload-file-button />
+      <upload-file-button v-if="!hasFiles" @load-file="loadFile" />
     </div>
     <div class="upload-file__more">Or drag and drop the file here</div>
     <div class="upload-file__desc">You can upload up to 10 files with a maximum size of 100MB</div>
     <div class="upload-file__items">
-      <file-review @loadFile="loadFile" />
+      <file-review v-if="hasFiles" @remove-image="removeImage" @load-file="loadFile"  :filesSrc="filesSrc" />
     </div>
   </div>
 </template>
 
 <script>
 import UploadFileButton from './components/UploadFileButton';
-import FileReview from '../fileReview';
+import FileReview from './components/FileReview';
 
 export default {
   name: 'upload-file',
   data() {
     return {
-
+      filesSrc: []
     }
   },
   components: {
     FileReview,
     UploadFileButton,
   },
-  emits: ['loadFile'],
+  emits: ['load-file', 'remove-image'],
   methods: {
-    loadFile() {
-      console.log('test')
+    loadFile(event) {
+      const files = Array.from(event.target.files);
+
+      files.forEach(file => {
+        const src = URL.createObjectURL(file);
+
+        if (!src) return;
+
+        this.filesSrc.push(src);
+      });
+
+    },
+    removeImage(fileSrc, fileSrcIndex) {
+      this.filesSrc.splice(fileSrcIndex, 1);
+      URL.revokeObjectURL(fileSrc)
+    }
+  },
+  computed: {
+    hasFiles() {
+      return this.filesSrc.length !== 0;
     }
   }
 }

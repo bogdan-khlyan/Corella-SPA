@@ -1,7 +1,7 @@
 <template>
   <div class="upload-file-button">
     <div class="upload-file-button__body">
-      <input @change="$emit('loadFile')" type="file" name="upload-file" id="upload-file" multiple class="upload-file-button__input">
+      <input @change="$emit('load-file', $event)" type="file" name="upload-file" id="upload-file" multiple class="upload-file-button__input">
       <label for="upload-file" class="upload-file-button__item">
         <svg-icon class="upload-file-button__icon" :icon="require('@/assets/images/icons/common/upload.svg')"/>
         <span class="upload-file-button__text">Select a file</span>
