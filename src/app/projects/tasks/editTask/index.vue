@@ -3,6 +3,8 @@
     <div class="edit-task">
       <div class="edit-task__column">
         <base-input label="Title"/>
+        <div>TODO members select</div>
+        <div>TODO media files upload</div>
       </div>
       <div class="edit-task__column">
         <div class="edit-task__description">
