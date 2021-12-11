@@ -34,7 +34,7 @@ const bottomButton = new Map()
     .set('project-list', {
         id: 5,
         label: 'Create New Project',
-        path: '/create-project'
+        path: '/project/create'
     })
     .set('board', {
         id: 6,

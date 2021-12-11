@@ -19,6 +19,8 @@ export default {
 
 <style scoped lang="scss">
 .base-input {
+  margin-top: 12px;
+  margin-bottom: 12px;
 
   > span {
     font-family: Rubik, sans-serif;
