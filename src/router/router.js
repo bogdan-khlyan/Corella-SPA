@@ -25,7 +25,7 @@ const routes = [{
     }, {
         path: '/project/create',
         name: 'create-project',
-        component: () => import('@/app/projects/createProject')
+        component: () => import('@/app/projects/createProject/CreateProject')
     }, {
         path: '/project/:projectId/task/:taskId',
         name: 'task',

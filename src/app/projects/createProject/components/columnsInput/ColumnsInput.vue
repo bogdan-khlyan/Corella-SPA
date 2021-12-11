@@ -10,6 +10,7 @@
     </draggable>
     <button
         class="columns-input__button-added-column"
+        type="button"
         @click="addColumn">
       <el-icon :size="40" color="#000000"><plus/></el-icon>
     </button>
@@ -61,7 +62,6 @@ export default {
 
 <style scoped lang="scss">
 .columns-input {
-  margin-left: -12px;
   display: flex;
 
   &__button-added-column {
