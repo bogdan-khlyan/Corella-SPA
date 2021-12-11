@@ -1,40 +1,45 @@
 <template>
   <div class="file-review">
-    <div class="file-review__images">
-      <div :key="index" v-for="(fileSrc, index) in filesSrc" class="file-review__image">
-        <upload-file-image @remove-image="$emit('remove-image', fileSrc, index)" :fileSrc="fileSrc" />
+      <div :key="file.id" v-for="(file, index) in files" class="file-review__item">
+          <upload-file-item :file="file" />
       </div>
-    </div>
-    <div class="file-review__button">
-      <input @change="$emit('load-file', $event)" type="file" name="upload-file" id="upload-more-files" multiple class="file-review___input">
-      <label for="upload-more-files" class="file-review__label">
-<!--        <svg-icon class="file-review___icon" :icon="require('@/assets/images/icons/common/upload.svg')"/>-->
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.2999 6.29998H7.70002V0.699955C7.70002 0.31364 7.38638 0 6.99994 0C6.61362 0 6.29998 0.31364 6.29998 0.699955V6.29998H0.699955C0.31364 6.29998 0 6.61362 0 6.99994C0 7.38638 0.31364 7.70002 0.699955 7.70002H6.29998V13.2999C6.29998 13.6864 6.61362 14 6.99994 14C7.38638 14 7.70002 13.6864 7.70002 13.2999V7.70002H13.2999C13.6864 7.70002 14 7.38638 14 6.99994C14 6.61362 13.6864 6.29998 13.2999 6.29998Z" fill="#212121"/>
-        </svg>
-
+    <div class="file-review__item">
+      <input 
+        @change="$emit('load-file', $event)" 
+        type="file" name="upload-file" 
+        id="upload-more-files" 
+        multiple 
+        class="file-review__input">
+      <label for="upload-more-files" class="file-review__button">
+        <svg-icon 
+          :custom-class="'file-review__icon'" 
+          :icon="require('@/assets/images/icons/common/upload.svg')"
+          :height="18"
+          :width="18"
+        />
+        <span class="file-review__count"><span>{{ filesCount }}</span></span>
       </label>
     </div>
   </div>
 </template>
 
 <script>
-import UploadFileImage from './UploadFileImage';
+import UploadFileItem from './UploadFileItem';
 
   export default {
     name: "file-review",
     components: {
-      UploadFileImage
+      UploadFileItem,
     },
     emits: ['remove-image', 'load-file'],
     props: {
-      filesSrc: { type: Array }
+      files: { type: Array }
     },
-    data() {
-      return {
-
+    computed: {
+      filesCount() {
+        return this.files.length;
       }
-    }
+    },
   }
 </script>
 
@@ -42,19 +47,57 @@ import UploadFileImage from './UploadFileImage';
 
 .file-review {
   display: flex;
-  &__images {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0px -6px;
-
-  }
-  &__image {
+  flex-wrap: wrap;
+  margin: 0px -6px;
+  &__item {
     flex: 0 0 92px;
     padding: 0px 6px;
+    margin: 0px 0px 16px 0px;
+  }
+  &__input {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
   }
   &__button {
-    flex: 0 0 80px;
-    margin: 0px 0px 0px 12px;
+    border: 1px solid #0AB258;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      background-color: transparent;
+
+    }
+  }
+  &__icon {
+    fill: #212121;
+  }
+  &__count {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    min-width: 35px;
+    height: 35px;
+    background-color: #0AB258;
+    color: #fff; 
+    font-family: "OpenSans";
+    font-size: 14px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
   }
 }
 

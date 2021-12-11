@@ -1,13 +1,19 @@
 <template>
   <div class="upload-file-image">
-<!--    <img :src="fileSrc" alt="" :preview-src-list="srcList">-->
-    <el-image :src="fileSrc" :preview-src-list="[fileSrc]">
-
+    <el-image 
+      :src="file.src" 
+      :preview-src-list="[file.src]"
+      :initial-index="file.id">
     </el-image>
-<!--    <svg-icon :icon="require('@/assets/images/icons/common/remove.svg')"/>-->
-    <svg @click="$emit('remove-image', fileSrc, fileSrcIndex)" class="upload-file-image__remove" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0.167368 0.167368C0.390524 -0.0557892 0.752333 -0.0557892 0.97549 0.167368L4 3.19188L7.02451 0.167368C7.24767 -0.0557892 7.60948 -0.0557892 7.83263 0.167368C8.05579 0.390524 8.05579 0.752333 7.83263 0.97549L4.80812 4L7.83263 7.02451C8.05579 7.24767 8.05579 7.60948 7.83263 7.83263C7.60948 8.05579 7.24767 8.05579 7.02451 7.83263L4 4.80812L0.97549 7.83263C0.752333 8.05579 0.390524 8.05579 0.167368 7.83263C-0.0557892 7.60948 -0.0557892 7.24767 0.167368 7.02451L3.19188 4L0.167368 0.97549C-0.0557892 0.752333 -0.0557892 0.390524 0.167368 0.167368Z" fill="white"/>
-    </svg>
+    <a href="" @click.prevent="$emit('remove-image')" class="upload-file-image__remove">
+      <svg-icon 
+        :custom-class="'upload-file-image__icon'"
+        :icon="require('@/assets/images/icons/common/remove.svg')"
+        :height="8"
+        :width="8"
+      />     
+    </a>
+
   </div>
 </template>
 
@@ -16,10 +22,9 @@
 export default {
   name: 'upload-file-image',
   props: {
-    fileSrc: { type: String },
-    fileSrcIndex: { type: Number },
+    file: { type: Object },
   },
-  emits: ['removeImage'],
+  emits: ['remove-image'],
   methods: {
 
   }
@@ -27,31 +32,42 @@ export default {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .upload-file-image {
     position: relative;
-
+    height: 80px;
     &__remove {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: -10px;
+      right: -8px;
       cursor: pointer;
-      //width: 8px;
-      //height: 8px;
-      font-size: 13px;
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &:before {
-        content: '';
+        content: "";
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 3px;
+        right: 3px;
         width: 24px;
         height: 24px;
         background-color: #F32B2A;
+        border-radius: 50%;
       }
     }
+    &__icon {
+      fill: #fff;
+      position: relative;
+      z-index: 2;
+    }
+    .el-image {
+      height: 100%;
+      object-fit: cover;
+    }
   }
-  .el-image {
-    height: 80px;
-    object-fit: cover;
-  }
+
 </style>

@@ -3,7 +3,12 @@
     <div class="upload-file-button__body">
       <input @change="$emit('load-file', $event)" type="file" name="upload-file" id="upload-file" multiple class="upload-file-button__input">
       <label for="upload-file" class="upload-file-button__item">
-        <svg-icon class="upload-file-button__icon" :icon="require('@/assets/images/icons/common/upload.svg')"/>
+        <svg-icon 
+          :custom-class="'upload-file-button__icon'" 
+          :icon="require('@/assets/images/icons/common/upload.svg')"
+          :height="14"
+          :width="14"
+        />
         <span class="upload-file-button__text">Select a file</span>
       </label>
     </div>
@@ -20,10 +25,6 @@ export default {
 
 <style  lang="scss">
 .upload-file-button {
-  &__wrapper {
-    width: 100%;
-    position: relative;
-  }
   &__input {
     opacity: 0;
     visibility: hidden;
