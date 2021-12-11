@@ -3,9 +3,16 @@
     <column-input
         :column="backlogColumn"
         :disabled="true"/>
-    <draggable v-model="columns" style="display: flex">
-      <template #item>
-        <column-input/>
+    <draggable v-model="columns"
+
+               :key="test"
+
+               v-bind="dragOptions"
+               v-on="dragListeners"
+
+               style="display: flex">
+      <template #item="{element}">
+        <column-input :column="element"/>
       </template>
     </draggable>
     <button
@@ -31,8 +38,42 @@ import { v4 as uuid } from 'uuid';
 export default {
   name: 'columns-input',
   components: { ColumnInput, Plus, draggable },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "tasks",
+        disabled: false,
+        itemKey: 'order',
+        ghostClass: "project-task-card--ghost",
+      };
+    },
+    dragListeners() {
+      return {
+        change: data => {
+          console.log(data)
+          console.log(JSON.stringify(this.columns))
+          ++this.test
+          // this.$forceUpdate()
+          // this.columns
+          // const
+          // console.log(JSON.stringify(this.columns))
+          // const old = this.columns[data.moved.oldIndex]
+          // this.columns[data.moved.oldIndex] = this.columns[data.moved.newIndex]//data.moved.element
+          // this.columns[data.moved.newIndex] = old
+          // console.log(this.columns)
+          // console.log(JSON.stringify(this.columns))
+        }
+      }
+    },
+  },
   data() {
     return {
+
+      test: 0,
+
+
+
       backlogColumn: {
         id: uuid(),
         name: 'Backlog',
@@ -52,8 +93,7 @@ export default {
     addColumn() {
       this.columns.push({
         id: uuid(),
-        order: 1,
-        name: 'New column'
+        name: 'New column' + (this.columns.length + 1)
       })
     }
   }

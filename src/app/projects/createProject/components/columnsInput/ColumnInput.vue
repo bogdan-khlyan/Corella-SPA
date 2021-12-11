@@ -4,7 +4,7 @@
       <div v-if="disabled">{{ column.name }}</div>
       <input
           v-else
-          value="Backlog"
+          :value="column.name"
           type="text">
       <hr>
     </div>
@@ -23,6 +23,9 @@ export default {
   props: {
     column: { type: Object },
     disabled: { type: Boolean, default: false }
+  },
+  mounted() {
+    console.log(this.column)
   }
 }
 </script>
@@ -34,11 +37,13 @@ export default {
   padding-right: 12px;
   box-sizing: border-box;
 
-  width: 160px;
-  height: 240px;
+  width: 175px;
+  height: 242px;
 
   background: #EFF3EF;
   border-radius: 4px;
+
+  cursor: pointer;
 
   &__header {
 

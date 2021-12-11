@@ -20,7 +20,7 @@
       </div>
       <div class="members__button">
         <button type="button">
-          <el-icon :size="24"><plus/></el-icon>
+          <el-icon><plus/></el-icon>
           <span>Add member</span>
         </button>
       </div>

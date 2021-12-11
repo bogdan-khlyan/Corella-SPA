@@ -50,7 +50,7 @@ export default {
     font-size: 14px;
     line-height: 24px;
 
-    color: #BDBCC8;
+    color: #3D3D3D;
     resize: vertical;
 
     &::placeholder {
