@@ -1,26 +1,32 @@
 <template>
-  <div class="file-review">
-      <div :key="file.id" v-for="(file, index) in files" class="file-review__item">
-          <upload-file-item :file="file" />
-      </div>
-    <div class="file-review__item">
+  <ul class="file-review">
+    <li :key="file.id" v-for="(file, index) in files" class="file-review__item">
+        <upload-file-item @remove-file="$emit('remove-file', file)" :file="file" />
+    </li>
+    <li class="file-review__item">
       <input 
-        @change="$emit('load-file', $event)" 
+        @change="$emit('upload-file', $event.target.files)" 
         type="file" name="upload-file" 
-        id="upload-more-files" 
-        multiple 
+        id="upload-more-files" multiple 
         class="file-review__input">
-      <label for="upload-more-files" class="file-review__button">
-        <svg-icon 
+      <label 
+        @dragover.prevent="dragOver" 
+        @dragleave="dragLeave"
+        @drop.prevent="dropFile"
+        v-if="files.length < maxFileCount"
+        for="upload-more-files" 
+        class="file-review__button"
+        :class="{ 'file-review__button--active': isActive }"
+      >
+        <svg-icon
           :custom-class="'file-review__icon'" 
           :icon="require('@/assets/images/icons/common/upload.svg')"
-          :height="18"
-          :width="18"
+          :height="18" :width="18"
         />
         <span class="file-review__count"><span>{{ filesCount }}</span></span>
       </label>
-    </div>
-  </div>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -31,9 +37,27 @@ import UploadFileItem from './UploadFileItem';
     components: {
       UploadFileItem,
     },
-    emits: ['remove-image', 'load-file'],
+    data() {
+      return {
+        isActive: false
+      }
+    },
+    emits: ['remove-file', 'upload-file'],
     props: {
-      files: { type: Array }
+      files: { type: Array },
+      maxFileCount: { type: Number }
+    },
+    methods: {
+      dragOver() {
+        this.isActive = true;
+      },
+      dragLeave() {
+        this.isActive = false;
+      },
+      dropFile(event) {
+        this.$emit('upload-file', event.dataTransfer.files);
+        this.isActive = false;
+      }
     },
     computed: {
       filesCount() {
@@ -41,6 +65,7 @@ import UploadFileItem from './UploadFileItem';
       }
     },
   }
+
 </script>
 
 <style lang="scss">
@@ -48,6 +73,7 @@ import UploadFileItem from './UploadFileItem';
 .file-review {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   margin: 0px -6px;
   &__item {
     flex: 0 0 92px;
@@ -60,37 +86,69 @@ import UploadFileItem from './UploadFileItem';
     position: absolute;
   }
   &__button {
-    border: 1px solid #0AB258;
+    border: 1px solid $secondary-stroke-default;
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
     &:before {
       content: '';
       position: absolute;
       top: -12px;
       right: -12px;
       border-radius: 50%;
-      width: 35px;
-      height: 35px;
+      width: 33px;
+      height: 33px;
       background-color: transparent;
-
+      transition: all 400ms ease-in-out;
+    }
+    &--active {
+      background-color: $primary-bg-hover;
+      border-color: transparent;
+      &:before {
+        background-color: $bg-white;
+      }
+      .file-review__icon {
+        fill: $text-white;
+      }
+      .file-review__count {
+        background-color: $text-black;
+      }
+    }
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: $primary-bg-hover;
+        border-color: transparent;
+        &:before {
+          background-color: $text-white;
+        }
+        .file-review__icon {
+          fill: $primary-text-hover;
+        }
+        .file-review__count {
+          background-color: $text-black;
+        }
+      }
     }
   }
   &__icon {
-    fill: #212121;
+    fill: $text-black;
+    transition: all 400ms ease-in-out;
   }
   &__count {
     width: 32px;
     height: 32px;
     position: absolute;
-    top: -15px;
-    right: -15px;
+    top: -16px;
+    right: -16px;
     min-width: 35px;
     height: 35px;
-    background-color: #0AB258;
-    color: #fff; 
+    background-color: $primary-bg-default;
+    transition: all 400ms ease-in-out;
+    color: $primary-text-default; 
     font-family: "OpenSans";
     font-size: 14px;
     border-radius: 50%;

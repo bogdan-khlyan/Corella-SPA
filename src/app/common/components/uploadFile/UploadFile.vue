@@ -1,16 +1,19 @@
 <template>
   <div class="upload-file" >
-    <div class="upload-file__button">
-      <upload-file-button v-if="!hasFiles" @load-file="loadFile" />
+    <div v-if="!hasFiles" class="upload-file__top">
+      <div class="upload-file__button">
+        <upload-file-button @upload-file="uploadFile" />
+      </div>
+      <div class="upload-file__more">Or drag and drop the file here</div>
+      <div class="upload-file__desc">You can upload up to {{ maxFileCount }} files with a maximum size of 100MB</div>
     </div>
-    <div v-if="!hasFiles" class="upload-file__more">Or drag and drop the file here</div>
-    <div v-if="!hasFiles" class="upload-file__desc">You can upload up to 10 files with a maximum size of 100MB</div>
-    <div class="upload-file__items">
+    <div v-else class="upload-file__review">
       <file-review 
         v-if="hasFiles" 
-        @remove-image="removeImage" 
-        @load-file="loadFile"  
-        :files="files" 
+        @remove-file="removeFile" 
+        @upload-file="uploadFile"  
+        :files="files"
+        :maxFileCount="maxFileCount"
       />
     </div>
   </div>
@@ -25,40 +28,38 @@ export default {
   data() {
     return {
       files: [],
-      maxFileSize: 104857600
+      maxFileSize: 104857600,
+      maxFileCount: 10
     }
   },
   components: {
     FileReview,
     UploadFileButton,
   },
-  emits: ['load-file', 'remove-image'],
   methods: {
-    loadFile(event) {
-      const files = Array.from(event.target.files);
-
-      files.forEach(file => {
+    uploadFile(files) {
+      Array.from(files).forEach(file => {
         if (this.maxFileSize < file.size) return;
-        if (this.files.length === 10) return;
-
+        if (this.files.length === this.maxFileCount) return;
+        if (files.length > this.maxFileCount) return;
         const src = URL.createObjectURL(file);
 
         if (!src) return;
 
         const lastFileIndex = this.files.length - 1;
 
-        const id = this.files[lastFileIndex] ? this.files[lastFileIndex].id + 1 : 0;
+        const id = this.files[lastFileIndex] ? this.files[lastFileIndex].id + 1 : 1;
         const type = file.type.split('/')[0];
         const extension = file.name.split('.').pop();
         const name = file.name;
-
         this.files.push({ id, type, extension, name, src });
       });
     },
 
-    removeImage(fileSrc, fileSrcIndex) {
-      this.files.splice(fileSrcIndex, 1);
-      URL.revokeObjectURL(fileSrc)
+    removeFile(file) {
+      const target = this.files.findIndex(el => file.id === el.id);
+      this.files.splice(target, 1);
+      URL.revokeObjectURL(file.src);
     }
   },
   computed: {
@@ -72,10 +73,13 @@ export default {
 <style scoped lang="scss">
 
 .upload-file {
-  max-width: 454px;
+
 
   &__desc {
 
+  }
+  &__top {
+    max-width: 454px;
   }
   &__button {
     &:not(:last-child) {
@@ -86,7 +90,7 @@ export default {
     font-family: "Rubik";
     text-align: center;
     font-size: 12px;
-    color: #7C7B86;
+    color: $text-grey;
     &:not(:last-child) {
       margin: 0px 0px 8px 0px;
     }
@@ -94,7 +98,7 @@ export default {
   &__desc {
     font-family: "Rubik";
     font-size: 12px;
-    color: #7C7B86;
+    color: $text-grey;
     &:not(:last-child) {
       margin: 0px 0px 16px 0px;
     }
