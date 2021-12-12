@@ -1,7 +1,13 @@
 <template>
   <div class="column-card">
+    <button
+        class="column-card__btn-delete"
+        :disabled="deleteDisabled"
+        @click="deleteColumn">
+      <el-icon><close/></el-icon>
+    </button>
     <div class="column-card__header">
-      <div v-if="disabled">{{ column.name }}</div>
+      <div v-if="inputDisabled">{{ column.name }}</div>
       <input
           v-else
           :value="column.name"
@@ -17,22 +23,34 @@
 </template>
 
 <script>
+import {Close} from "@element-plus/icons-vue";
+
 export default {
   name: 'column-input',
+  components: { Close },
   model: { prop: 'column', event: 'input' },
   props: {
     twoTask: { type: Boolean, default: false },
     column: { type: Object },
-    disabled: { type: Boolean, default: false }
+    inputDisabled: { type: Boolean, default: false },
+    deleteDisabled: { type: Boolean, default: false },
   },
   mounted() {
     console.log(this.column)
+  },
+  methods: {
+    deleteColumn($event) {
+      $event.stopPropagation()
+      this.$emit('delete', this.column.id)
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .column-card {
+  position: relative;
+
   margin: 12px;
   padding-left: 12px;
   padding-right: 12px;
@@ -45,6 +63,35 @@ export default {
   border-radius: 4px;
 
   cursor: pointer;
+
+  &__btn-delete {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 24px;
+    height: 24px;
+
+    background: #F32B2A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    .el-icon {
+      --color: #FFFFFF;
+    }
+
+    &:disabled {
+      cursor: no-drop;
+      background: #979797;
+    }
+
+  }
 
   &__header {
 

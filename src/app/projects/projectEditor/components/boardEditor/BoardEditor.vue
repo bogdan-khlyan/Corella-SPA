@@ -1,31 +1,37 @@
 <template>
   <div class="board-editor">
-    <column-input
-        :column="backlogColumn"
-        :disabled="true"
-        :two-task="true"/>
+    <div class="board-editor__label">
+      <label>Board settings</label>
+    </div>
+    <div class="board-editor__content">
+      <column-input
+          :column="backlogColumn"
+          :delete-disabled="true"
+          :two-task="true"/>
 
-    <draggable v-model="columns"
+      <draggable v-model="columns"
 
-               v-bind="dragOptions"
-               v-on="dragListeners"
+                 v-bind="dragOptions"
+                 v-on="dragListeners"
 
-               style="display: flex">
-      <template #item="{element}">
-        <column-input
-            :column="element"/>
-      </template>
-    </draggable>
-    <button
-        class="board-editor__button-added-column"
-        type="button"
-        @click="addColumn">
-      <el-icon color="#000000"><plus/></el-icon>
-    </button>
+                 style="display: flex">
+        <template #item="{element}">
+          <column-input
+              :column="element"
+              @delete="deleteColumn"/>
+        </template>
+      </draggable>
+      <button
+          class="board-editor__button-added-column"
+          type="button"
+          @click="addColumn">
+        <el-icon color="#000000"><plus/></el-icon>
+      </button>
 
-    <column-input
-        :column="doneColumn"
-        :disabled="true"/>
+      <column-input
+          :column="doneColumn"
+          :delete-disabled="true"/>
+    </div>
   </div>
 </template>
 
@@ -74,6 +80,10 @@ export default {
     }
   },
   methods: {
+    deleteColumn(columnId) {
+      const index = this.columns.findIndex(column => column.id === columnId)
+      this.columns.splice(index, 1)
+    },
     addColumn() {
       this.columns.push({
         id: uuid(),
@@ -86,7 +96,23 @@ export default {
 
 <style scoped lang="scss">
 .board-editor {
-  display: flex;
+
+  &__label {
+    padding-left: 12px;
+    > label {
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 16px;
+
+      color: #7B7B7B;
+    }
+  }
+
+  &__content {
+    display: flex;
+  }
 
   &__button-added-column {
     margin: 12px;
