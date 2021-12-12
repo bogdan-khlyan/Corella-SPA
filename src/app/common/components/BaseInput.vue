@@ -3,14 +3,18 @@
     <span v-if="label">{{ label }}</span>
     <input
         type="text"
-        :placeholder="placeholder">
+        :value="modelValue"
+        :placeholder="placeholder"
+        @input="$emit('update:modelValue', $event.target.value)">
   </label>
 </template>
 
 <script>
 export default {
   name: 'base-input',
+  model: { prop: 'modelValue', event: 'input' },
   props: {
+    modelValue: { type: String },
     label: { type: String },
     placeholder: { type: String, default: 'Please input' }
   }

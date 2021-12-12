@@ -62,6 +62,8 @@ export default {
   align-items: center;
   transition: 350ms linear;
 
+  background-color: #FFFFFF;
+
   &__info {
     width: 402px;
     display: flex;

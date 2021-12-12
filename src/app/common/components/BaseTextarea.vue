@@ -4,14 +4,18 @@
     <textarea
         cols="30"
         rows="10"
-        :placeholder="placeholder"/>
+        :value="modelValue"
+        :placeholder="placeholder"
+        @input="$emit('update:modelValue', $event.target.value)"/>
   </label>
 </template>
 
 <script>
 export default {
   name: 'base-textarea',
+  model: { prop: 'modelValue', event: 'input' },
   props: {
+    modelValue: { type: String },
     label: { type: String },
     placeholder: { type: String, default: 'Please input' }
   }

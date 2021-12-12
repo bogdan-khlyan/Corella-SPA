@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import TaskPageWrapper from "@/app/projects/tasks/common/TaskPageWrapper";
+import TaskPageWrapper from "@/app/common/components/BasePageWrapper";
 import BaseInput from "@/app/common/components/BaseInput";
 
 import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";

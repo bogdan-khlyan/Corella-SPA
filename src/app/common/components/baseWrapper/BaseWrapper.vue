@@ -63,13 +63,13 @@ export default {
 
   &__content {
     transition: all 350ms linear;
-    height: 100vh;
+    min-height: calc(100vh - 70px);
   }
 
   &__view {
     padding: 20px;
     box-sizing: border-box;
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
   }
 
   &__header {

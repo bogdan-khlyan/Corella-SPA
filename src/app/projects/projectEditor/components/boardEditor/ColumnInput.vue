@@ -9,9 +9,9 @@
       <hr>
     </div>
     <div class="column-card__content">
-      <div class="column-card__task"></div>
-      <div class="column-card__task"></div>
-      <div class="column-card__task"></div>
+      <div class="column-card__task"/>
+      <div class="column-card__task"/>
+      <div v-show="!twoTask" class="column-card__task"/>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
   name: 'column-input',
   model: { prop: 'column', event: 'input' },
   props: {
+    twoTask: { type: Boolean, default: false },
     column: { type: Object },
     disabled: { type: Boolean, default: false }
   },
@@ -88,6 +89,12 @@ export default {
 
     background-color: #FFFFFF;
     border-radius: 6px;
+  }
+
+  &:nth-child(even) {
+    .column-card__task:nth-child(3) {
+      display: none;
+    }
   }
 
 }

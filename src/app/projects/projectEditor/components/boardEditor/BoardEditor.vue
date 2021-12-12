@@ -1,25 +1,26 @@
 <template>
-  <div class="columns-input">
+  <div class="board-editor">
     <column-input
         :column="backlogColumn"
-        :disabled="true"/>
-    <draggable v-model="columns"
+        :disabled="true"
+        :two-task="true"/>
 
-               :key="test"
+    <draggable v-model="columns"
 
                v-bind="dragOptions"
                v-on="dragListeners"
 
                style="display: flex">
       <template #item="{element}">
-        <column-input :column="element"/>
+        <column-input
+            :column="element"/>
       </template>
     </draggable>
     <button
-        class="columns-input__button-added-column"
+        class="board-editor__button-added-column"
         type="button"
         @click="addColumn">
-      <el-icon :size="40" color="#000000"><plus/></el-icon>
+      <el-icon color="#000000"><plus/></el-icon>
     </button>
 
     <column-input
@@ -30,10 +31,9 @@
 
 <script>
 import draggable from "vuedraggable";
-import ColumnInput from "@/app/projects/createProject/components/columnsInput/ColumnInput";
+import ColumnInput from "@/app/projects/projectEditor/components/boardEditor/ColumnInput";
 import {Plus} from "@element-plus/icons-vue";
 import { v4 as uuid } from 'uuid';
-
 
 export default {
   name: 'columns-input',
@@ -52,28 +52,12 @@ export default {
       return {
         change: data => {
           console.log(data)
-          console.log(JSON.stringify(this.columns))
-          ++this.test
-          // this.$forceUpdate()
-          // this.columns
-          // const
-          // console.log(JSON.stringify(this.columns))
-          // const old = this.columns[data.moved.oldIndex]
-          // this.columns[data.moved.oldIndex] = this.columns[data.moved.newIndex]//data.moved.element
-          // this.columns[data.moved.newIndex] = old
-          // console.log(this.columns)
-          // console.log(JSON.stringify(this.columns))
         }
       }
     },
   },
   data() {
     return {
-
-      test: 0,
-
-
-
       backlogColumn: {
         id: uuid(),
         name: 'Backlog',
@@ -101,17 +85,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.columns-input {
+.board-editor {
   display: flex;
 
   &__button-added-column {
     margin: 12px;
 
     width: 160px;
-    border: none;
+    border: 2px dashed #04A481;
     border-radius: 4px;
 
+    background-color: transparent;
+
     cursor: pointer;
+
+    .el-icon {
+      font-size: 24px!important;
+    }
   }
 
 }
