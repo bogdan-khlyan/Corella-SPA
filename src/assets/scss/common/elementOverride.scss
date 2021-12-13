@@ -1,22 +1,13 @@
-.el-loading-mask {
-  svg circle {
-    stroke: #20C460!important;
-  }
-}
+@forward '~element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #0AB258,
+    ),
+  )
+);
 
-.el-notification {
+@import "~element-plus/theme-chalk/src/index";
 
-  &__group {
-  }
-
-  &__title {
-    font-family: Roboto, sans-serif;
-  }
-
-  &__content {
-    > p {
-      font-family: Roboto, sans-serif;
-    }
-  }
-
+*[class^="el-"] {
+  font-family: Rubik, sans-serif;
 }

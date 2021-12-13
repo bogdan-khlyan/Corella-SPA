@@ -7,35 +7,54 @@
           <span>Member</span>
         </div>
         <div class="members__header--item">
-          <span>Member</span>
+          <span>Role</span>
         </div>
       </div>
-      <div class="members__member">
-        <div class="members__member--cell">
-          <span></span>
-        </div>
-        <div class="members__member--cell">
+      <div class="members__content">
+        <div v-for="member in members" :key="member.id" class="members__member">
+          <div class="members__member--cell">
+            <base-select :options="[{ label: 'test', value: 'test' }]"/>
+            {{member.username}}
+          </div>
+          <div class="members__member--cell">
+<!--            <base-select/>-->
+          </div>
+          <div class="members__member--actions">
 
+          </div>
         </div>
       </div>
       <div class="members__button">
-        <button type="button">
+        <button @click="addMember" type="button">
           <el-icon><plus/></el-icon>
           <span>Add member</span>
         </button>
       </div>
+      <div class="members__vertical-line"/>
     </div>
   </div>
 </template>
 
 <script>
+import BaseSelect from "@/app/common/components/BaseSelect";
 import {Plus} from "@element-plus/icons-vue";
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'members',
-  components: { Plus },
+  components: { BaseSelect, Plus },
   data() {
     return {
+      members: []
+    }
+  },
+  methods: {
+    addMember() {
+      this.members.push({
+        id: uuid(),
+        username: '',
+        role: ''
+      })
     }
   }
 }
@@ -43,6 +62,8 @@ export default {
 
 <style scoped lang="scss">
 .members {
+  position: relative;
+
   width: 100%;
 
   padding-bottom: 16px;
@@ -66,6 +87,24 @@ export default {
 
         color: #7B7B7B;
       }
+    }
+
+  }
+
+  &__content {
+
+  }
+
+  &__member {
+    display: flex;
+
+    &--cell {
+      width: 100%;
+      padding: 10px 20px;
+    }
+
+    &--actions {
+      width: 100px;
     }
 
   }
@@ -127,6 +166,18 @@ export default {
       color: #7B7B7B;
     }
 
+  }
+
+  &__vertical-line {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+
+    width: 1px;
+    height: calc(100% - 20px);
+
+    background: #EEEEEE;
+    border-radius: 2px;
   }
 
 }

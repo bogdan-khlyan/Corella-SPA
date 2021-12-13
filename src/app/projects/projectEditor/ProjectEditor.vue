@@ -14,7 +14,7 @@
               placeholder="Enter project description"/>
         </div>
         <div class="create-project__column">
-          <members/>
+          <members-table/>
         </div>
       </div>
       <board-editor/>
@@ -30,11 +30,11 @@ import BasePageWrapper from "@/app/common/components/BasePageWrapper";
 import BaseInput from "@/app/common/components/BaseInput";
 import BaseTextarea from "@/app/common/components/BaseTextarea";
 import BoardEditor from "@/app/projects/projectEditor/components/boardEditor/BoardEditor";
-import Members from "@/app/projects/projectEditor/components/members/Members";
+import MembersTable from "@/app/projects/projectEditor/components/membersTable/MembersTable";
 
 export default {
-  name: 'create-project',
-  components: { BaseInput, BaseTextarea, BoardEditor, Members, BasePageWrapper },
+  name: 'project-editor',
+  components: { BaseInput, BaseTextarea, BoardEditor, MembersTable, BasePageWrapper },
   data() {
     return {
       newProject: {
