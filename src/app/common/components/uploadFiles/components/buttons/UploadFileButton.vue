@@ -1,7 +1,6 @@
 <template>
   <button class="upload-file-button">
     <svg-icon
-        :custom-class="'upload-file-button__icon'"
         :icon="require('@/assets/images/icons/common/upload.svg')"
         :height="14" :width="14"/>
     <span class="upload-file-button__text">Select a file</span>
@@ -10,8 +9,7 @@
 
 <script>
 export default {
-  name: "upload-file-button",
-  emits: ['upload-file']
+  name: "upload-file-button"
 }
 </script>
 

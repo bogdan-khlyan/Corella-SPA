@@ -1,5 +1,5 @@
 <template>
-  <task-page-wrapper title="Create task">
+  <base-page-wrapper title="Create task">
     <div class="edit-task">
       <div class="edit-task__column">
         <div class="edit-task__input">
@@ -16,19 +16,19 @@
         </div>
       </div>
     </div>
-  </task-page-wrapper>
+  </base-page-wrapper>
 </template>
 
 <script>
-import TaskPageWrapper from "@/app/projects/tasks/common/TaskPageWrapper";
-import UploadFile from "@/app/common/components/uploadFile/UploadFile";
+import BasePageWrapper from "@/app/common/components/BasePageWrapper";
+import UploadFile from "@/app/common/components/uploadFiles/UploadFiles";
 import BaseInput from "@/app/common/components/BaseInput";
 
 import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";
 
 export default {
   name: 'edit-task',
-  components: { TaskPageWrapper, BaseInput, EditTaskDescription, UploadFile }
+  components: { BasePageWrapper, BaseInput, EditTaskDescription, UploadFile }
 }
 </script>
 
