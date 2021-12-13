@@ -1,27 +1,29 @@
 <template>
-	<div class="upload-file-item">
-		<a href="" @click.prevent="$emit('remove-file', file)" class="upload-file-item__remove">
-      	<svg-icon :custom-class="'upload-file-item__icon'"
-      		:icon="require('@/assets/images/icons/common/remove.svg')"
-      		:height="8" :width="8"
-      	/>     
-    	</a>
-      <upload-file-image
-      	v-if="isImage" :file="file"
-         @remove-image="$emit('remove-image', fileSrc, index)"  
-      />
-      <a :href="file.src" :download="file.name" class="upload-file-item__link" v-if="!isImage">
-      	<svg-icon 
-      		:width="32" :height="32"
-      		:custom-class="'upload-file-item__icon'"
-      		:icon="require('@/assets/images/icons/extensions/' + (
-      			knownFileExtensions.find(el => file.extension === el)
-      			? this.file.extension : 'stub') + '.svg')"
-      	/>
-      	<div class="upload-file-item__name">{{ fileName }}</div>
-      </a>
-	</div>
+  <div class="file-preview">
 
+  </div>
+<!--	<div class="upload-file-item">-->
+<!--		<a href="" @click.prevent="$emit('remove-file', file)" class="upload-file-item__remove">-->
+<!--      	<svg-icon :custom-class="'upload-file-item__icon'"-->
+<!--      		:icon="require('@/assets/images/icons/common/remove.svg')"-->
+<!--      		:height="8" :width="8"-->
+<!--      	/>     -->
+<!--    	</a>-->
+<!--      <upload-file-image-->
+<!--      	v-if="isImage" :file="file"-->
+<!--         @remove-image="$emit('remove-image', fileSrc, index)"  -->
+<!--      />-->
+<!--      <a :href="file.src" :download="file.name" class="upload-file-item__link" v-if="!isImage">-->
+<!--      	<svg-icon -->
+<!--      		:width="32" :height="32"-->
+<!--      		:custom-class="'upload-file-item__icon'"-->
+<!--      		:icon="require('@/assets/images/icons/extensions/' + (-->
+<!--      			knownFileExtensions.find(el => file.extension === el)-->
+<!--      			? this.file.extension : 'stub') + '.svg')"-->
+<!--      	/>-->
+<!--      	<div class="upload-file-item__name">{{ fileName }}</div>-->
+<!--      </a>-->
+<!--	</div>-->
 </template>
 
 <script>
@@ -39,8 +41,8 @@
 			return {
 				imageExtensions: ['png', 'jpg', 'jpeg'],
 				knownFileExtensions: [
-					'html', 'css', 'pdf', 'doc', 
-					'docx', 'txt', 'json', 'svg', 
+					'html', 'css', 'pdf', 'doc',
+					'docx', 'txt', 'json', 'svg',
 					'xls', 'xml', 'psd', 'js'
 				],
 				maxSymbolCount: 7,
@@ -48,8 +50,8 @@
 		},
 		computed: {
 			isImage() {
-        		return ( 
-        			this.imageExtensions.indexOf(this.file.extension) !== -1 
+        		return (
+        			this.imageExtensions.indexOf(this.file.extension) !== -1
         			&& this.file.type === 'image'
         		);
       	},
@@ -65,7 +67,7 @@
 		}
 	}
 
-	
+
 </script>
 
 <style lang="scss">

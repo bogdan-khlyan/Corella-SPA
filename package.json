@@ -16,6 +16,7 @@
     "jdenticon": "^3.1.1",
     "node-sass": "^6.0.1",
     "nprogress": "^0.2.0",
+    "uuid": "^8.3.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vue3-perfect-scrollbar": "^1.5.5",
