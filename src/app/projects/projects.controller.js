@@ -21,7 +21,8 @@ class ProjectsController {
     }
 
     async createProject(project) {
-        return await this.#service.createProject(project)
+        return project
+        // return await this.#service.projectEditor(project)
     }
 
     async updateProject(project) {

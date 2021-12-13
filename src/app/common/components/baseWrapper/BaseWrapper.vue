@@ -10,7 +10,11 @@
         <base-header/>
       </div>
       <div class="base-wrapper__view">
-        <router-view/>
+        <router-view v-slot="{ Component }">
+          <transition name="el-fade-in-linear" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </div>
     </div>
   </div>
@@ -59,13 +63,13 @@ export default {
 
   &__content {
     transition: all 350ms linear;
-    height: 100vh;
+    min-height: calc(100vh - 70px);
   }
 
   &__view {
     padding: 20px;
     box-sizing: border-box;
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
   }
 
   &__header {

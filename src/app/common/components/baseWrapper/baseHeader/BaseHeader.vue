@@ -53,7 +53,7 @@ export default {
   top: 0;
   z-index: 3;
   height: 70px;
-  padding: 0 24px 0 88px;
+  padding: 0 24px 0 32px;
   border-bottom: 2px #E6E6E6 solid;
   display: flex;
   box-sizing: border-box;
@@ -61,7 +61,8 @@ export default {
   gap: 39px;
   align-items: center;
   transition: 350ms linear;
-  background-color: rgba(255, 255, 255, .96);
+
+  background-color: #FFFFFF;
 
   &__info {
     width: 402px;
@@ -147,16 +148,16 @@ export default {
 }
 
 .showInput-enter-active, .showInput-leave-active {
-  transition: all 350ms;
+  transition: all 450ms;
 }
 
-.showInput-leave-to /* .fade-leave-active до версии 2.1.8 */
+.showInput-leave-to
 {
   opacity: 0;
   transform: matrix(1, 0, 1.5, 1, -100, 0);
 }
 
-.showInput-enter-from /* .fade-leave-active до версии 2.1.8 */
+.showInput-enter-from
 {
   opacity: 0;
   transform: matrix(1, 0, -1.2, 1, -100, 0);

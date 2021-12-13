@@ -1,17 +1,18 @@
 <template>
   <label class="base-input">
     <span v-if="label">{{ label }}</span>
-    <input
-        type="text"
+    <textarea
+        cols="30"
+        rows="10"
         :value="modelValue"
         :placeholder="placeholder"
-        @input="$emit('update:modelValue', $event.target.value)">
+        @input="$emit('update:modelValue', $event.target.value)"/>
   </label>
 </template>
 
 <script>
 export default {
-  name: 'base-input',
+  name: 'base-textarea',
   model: { prop: 'modelValue', event: 'input' },
   props: {
     modelValue: { type: String },
@@ -23,6 +24,7 @@ export default {
 
 <style scoped lang="scss">
 .base-input {
+  display: block;
   margin-top: 12px;
   margin-bottom: 12px;
 
@@ -36,12 +38,11 @@ export default {
     color: #7B7B7B;
   }
 
-  input {
-    padding-left: 20px;
-    padding-right: 20px;
+  textarea {
+    padding: 16px 20px;
 
     width: 100%;
-    height: 56px;
+    height: 120px;
 
     border: 1px solid #E7E7E7;
     box-sizing: border-box;
@@ -54,6 +55,7 @@ export default {
     line-height: 24px;
 
     color: #3D3D3D;
+    resize: vertical;
 
     &::placeholder {
       font-family: Rubik, sans-serif;

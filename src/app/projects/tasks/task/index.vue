@@ -1,5 +1,10 @@
 <template>
-  <task-page-wrapper>
+  <task-page-wrapper
+      title="Task #242"
+      :show-edit-button="true"
+      :show-delete-button="true"
+      @edit="$router.push('/project/1/create-task')"
+      @delete="$router.push('/project/1/board')">
     <div>
       asfsaf
     </div>
@@ -7,7 +12,7 @@
 </template>
 
 <script>
-import TaskPageWrapper from "@/app/projects/tasks/common/TaskPageWrapper";
+import TaskPageWrapper from "@/app/common/components/BasePageWrapper";
 
 export default {
   name: 'task',
