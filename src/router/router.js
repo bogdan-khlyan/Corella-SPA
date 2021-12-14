@@ -37,7 +37,7 @@ const routes = [{
     }, {
         path: '/admin/user-management',
         name: 'user-management',
-        component: () => import('@/app/userManagement')
+        component: () => import('@/app/userManagement/UserManagement')
     }, {
         path: '/:pathMatch(.*)*',
         name: 'page-404',
