@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: space-between;
 
+    margin-bottom: 24px;
+
     &-title{
       font-family: Rubik, sans-serif;
       font-size: 24px;
@@ -28,7 +30,7 @@
 
       border: none;
 
-      width: 232px;
+      width: 220px;
       height: 56px;
 
       background: #0AB258;
@@ -74,33 +76,66 @@
     margin-right: 16px;
   }
 
-  thead tr th {
-    font-family: Rubik, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #3B3B3B;
+  &__table {
+    thead tr th {
+      font-family: Rubik, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #3B3B3B;
 
-    border-bottom: 1px solid #06A680 !important;
-  }
+      border-bottom: 1px solid #06A680 !important;
+    }
 
-  .el-table__row {
-    font-family: Rubik, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #212121;
+    .el-table__row {
+      font-family: Rubik, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #212121;
 
-    .el-table__cell:first-child .cell {
-      display: flex;
-      align-items: center;
+      .el-table__cell:first-child .cell {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 
+  &__pagination {
+    margin-top: 50px;
+
+    .el-pagination, .el-pager {
+      display: flex;
+    }
+    .el-pager li.number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 32px;
+      width: 32px;
+      min-width: 32px;
+
+      font-family: Rubik, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 0em;
+      text-align: center;
+      padding: 0;
+    }
+    .el-pager li.active {
+      color: #FFFFFF;
+      background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
+      border-radius: 100%;
+      cursor: default;
+    }
+  }
 }
