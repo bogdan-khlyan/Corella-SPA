@@ -48,13 +48,19 @@
           @current-change="handleCurrentChange"/>
     </div>
 
+    <user-management-modal  ref="userManagementModal"/>
   </div>
 </template>
 
 <script>
 
+import UserManagementModal from "@/app/userManagement/UserManagementModal";
+
 export default {
   name: 'user-management',
+  components: {
+    UserManagementModal
+  },
   data(){
     return {
       dataTable:[
@@ -98,8 +104,7 @@ export default {
   },
   methods: {
     openModal(){
-      console.log('openModal')
-      alert('openModal')
+      this.$refs.userManagementModal.openModal()
     },
     editUser(data) {
       console.log(data)
