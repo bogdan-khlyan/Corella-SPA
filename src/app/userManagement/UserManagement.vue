@@ -126,6 +126,7 @@ export default {
       line-height: 32px;
       letter-spacing: 0;
       text-align: left;
+      color: $text-title;
     }
 
     button {
@@ -137,14 +138,14 @@ export default {
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
-      color: #FFFFFF;
+      color: $text-white;
 
       border: none;
 
       width: 220px;
       height: 56px;
 
-      background: #0AB258;
+      background: $primary-bg-default;
       border-radius: 4px;
       cursor: pointer;
 
@@ -154,7 +155,7 @@ export default {
 
       transition: .3s ease-in;
       &:hover {
-        background: #20C561;
+        background: $primary-bg-hover;
       }
     }
   }
@@ -174,7 +175,7 @@ export default {
 
     transition: .3s ease-in;
     &:hover {
-      background: #20C561;
+      background: $primary-bg-hover;
     }
   }
 
@@ -200,7 +201,7 @@ export default {
       line-height: 24px;
       letter-spacing: 0em;
       text-align: left;
-      color: #3B3B3B;
+      color: $text-title;
 
       border-bottom: 1px solid #06A680 !important;
     }
@@ -213,7 +214,7 @@ export default {
       line-height: 24px;
       letter-spacing: 0em;
       text-align: left;
-      color: #212121;
+      color: $text-black;
 
       .el-table__cell:first-child .cell {
         display: flex;
@@ -243,10 +244,10 @@ export default {
       line-height: 18px;
       letter-spacing: 0em;
       text-align: center;
-      padding: 0;
+      color: $text-black;
     }
     .el-pager li.active {
-      color: #FFFFFF;
+      color: $text-white;
       background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
       border-radius: 100%;
       cursor: default;
