@@ -43,6 +43,7 @@ export default {
   methods: {
     handleClose: function () {
       this.$emit('update:modelValue', false)
+      this.$emit('close')
     },
     submitForm() {
       // this.$emit('submit', false)

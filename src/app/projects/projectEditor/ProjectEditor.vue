@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     createProject() {
-
+      console.log('createProject')
     }
   }
 }
