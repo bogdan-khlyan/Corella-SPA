@@ -6,7 +6,13 @@
           class="profile-tabs__item"
           v-for="(tab, index) in tabs"
       >
-        <a href="" @click.prevent="$emit('set-current-tab', tab)" class="profile-tabs__link">{{ tab }}</a>
+        <a 
+          href="" 
+          @click.prevent="$emit('select-tab', tab, index)"
+          :class="['profile-tabs__link', { 'profile-tabs__link--active': index === selectedTabIndex }]"
+        >
+          {{ tab }}
+        </a>
       </li>
     </ul>
   </div>
@@ -15,11 +21,10 @@
 <script>
 export default {
   name: 'profile-tabs',
-  emits: ['set-current-tab'],
+  emits: ['select-tab'],
   props: {
-    tabs: {
-      type: Array
-    }
+    tabs: { type: Array },
+    selectedTabIndex: { type: Number },
   }
 }
 </script>
@@ -56,7 +61,6 @@ export default {
     display: block;
     padding: 0px 16px;
     font-weight: 400;
-
     &:before {
       content: '';
       position: absolute;
@@ -65,6 +69,12 @@ export default {
       width: 100%;
       height: 2px;
       background-color: transparent;
+    }
+    &--active {
+      font-weight: 500;
+      &:before {
+        background-color: #20C560;
+      }
     }
 
     span {

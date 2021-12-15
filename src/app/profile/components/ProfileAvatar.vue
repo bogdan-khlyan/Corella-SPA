@@ -2,7 +2,10 @@
   <div class="info-profile__avatar">
     <div class="profile-avatar">
       <div class="profile-avatar__image">
-        <img :src="avatarLink" alt="User Avatar">
+        <img 
+          :src="avatarLink || require('@/assets/images/profile/default-avatar.jpg')" 
+          alt="User Avatar"
+        >
       </div>
       <button @click="onButtonClick" type="button" class="profile-avatar__btn-edit">
         <svg-icon
@@ -28,7 +31,7 @@ export default {
   name: 'profile-avatar',
   data() {
     return {
-      avatarLink: "@/assets/images/profile/avatar.jpg",
+      avatarLink: "",
       $avatar: ""
     }
   },
@@ -44,20 +47,22 @@ export default {
 
       e.target.value = null;
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss">
 .profile-avatar {
   position: relative;
-
+ 
   &__image {
     width: 90px;
     height: 90px;
-    object-fit: cover;
+    display: block;
     border-radius: 50%;
+    object-fit: cover;
     position: relative;
+    overflow: hidden;
     &:before {
       content: '';
       position: absolute;
