@@ -2,23 +2,13 @@
   <div class="profile">
     <h1 class="profile__title">Account settings</h1>
     <div class="profile__description">Change your account settings</div>
-    <div class="profile__menu">
-      <nav class="menu-profile">
-        <ul class="menu-profile__list">
-          <li class="menu-profile__item"><a href="" class="menu-profile__link">Profile</a></li>
-          <li class="menu-profile__item"><a href="" class="menu-profile__link">Notification</a></li>
-        </ul>
-      </nav>
+    <div class="profile__tabs">
+      <profile-tabs @set-current-tab="setCurrentTab" :tabs="tabs" />
     </div>
     <div class="profile__info">
       <div class="info-profile">
         <div class="info-profile__avatar">
-          <div class="profile-avatar">
-            <div class="profile-avatar__image">
-              <img class="" src="@/assets/images/profile/avatar.jpg" alt="User Avatar">
-            </div>
-<!--            <svg class="profile-avatar__edit"></svg>-->
-          </div>
+          <profile-avatar />
         </div>
         <div class="info-profile__name">Robert Cordona</div>
       </div>
@@ -27,7 +17,6 @@
       <div class="actions-profile">
         <div class="actions-profile__top">
           <h2 class="actions-profile__title">Account settings</h2>
-<!--          <svg class="actions-profile__edit"></svg>-->
           <div class="actions-profile__row">
             <div class="actions-profile__column">
               <div class="actions-profile__input">
@@ -46,15 +35,37 @@
         </div>
       </div>
     </div>
+    <div class="profile__notification">
+      <profile-notification v-if="currentTab === 'Notification'" />
+    </div>
   </div>
 </template>
 
 <script>
 import BaseInput from '@/app/common/components/BaseInput';
+import ProfileAvatar from "@/app/profile/components/ProfileAvatar";
+import ProfileTabs from "@/app/profile/components/ProfileTabs";
+import ProfileNotification from "@/app/profile/components/ProfileNotification";
+
 export default {
   name: "profile-view",
+  data() {
+    return {
+      currentTab: "",
+      tabs: ["Profile", "Notification"]
+    }
+  },
+  methods: {
+    setCurrentTab(tabName) {
+      this.currentTab = tabName;
+      console.log(this.$data)
+    }
+  },
   components: {
-    BaseInput
+    ProfileAvatar,
+    BaseInput,
+    ProfileTabs,
+    ProfileNotification
   }
 }
 </script>
@@ -71,10 +82,10 @@ export default {
   &__description {
     font-family: "Rubik";
     margin: 0px 0px 32px 0px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  &__menu {
+  &__tabs {
     margin: 0px 0px 48px 0px;
   }
   &__info {
@@ -82,52 +93,7 @@ export default {
   }
 }
 
-.menu-profile {
 
-
-  &__list {
-    min-height: 52px;
-    display: flex;
-    background-color: rgba(10, 178, 88, 0.08);
-    border-radius: 4px;
-  }
-
-  &__item {
-    margin: 0px 80px 0px 0px;
-    position: relative;
-    display: flex;
-    align-items: center;
-
-    &:last-child {
-      margin: 0;
-    }
-
-  }
-
-  &__link {
-    font-family: "Rubik";
-    color: #212121;
-    font-size: 18px;
-    text-decoration: none;
-    display: block;
-    padding: 0px 16px;
-    font-weight: 400;
-
-    &:before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: transparent;
-    }
-
-    span {
-
-    }
-  }
-}
 .info-profile {
   display: flex;
   &__name {
@@ -136,26 +102,6 @@ export default {
     font-size: 18px;
     font-weight: 500;
     flex: 1 1 auto;
-  }
-}
-.profile-avatar {
-
-  &__image {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    position: relative;
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 4px solid #20C560;
-    }
   }
 }
 .actions-profile {
