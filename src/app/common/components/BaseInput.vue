@@ -65,6 +65,9 @@ export default {
       color: #BDBCC8;
     }
 
+    &:focus {
+      border-color: $fields-stroke-focused;
+    }
 
   }
 

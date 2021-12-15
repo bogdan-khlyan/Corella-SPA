@@ -137,7 +137,7 @@ export default {
       cursor: pointer;
 
       &:hover {
-        color: #FFFFFF;
+        color: $text-white;
         background-color: #0AB258;
 
         > i {

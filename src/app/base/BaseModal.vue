@@ -43,10 +43,6 @@ export default {
   methods: {
     handleClose: function () {
       this.$emit('update:modelValue', false)
-      this.$emit('close')
-    },
-    submitForm() {
-      // this.$emit('submit', false)
     }
   }
 }
@@ -125,7 +121,7 @@ export default {
 
     width: 100%;
     height: 56px;
-
+    margin-top: 40px;
     border: none;
     background: $primary-bg-default;
     border-radius: 4px;
