@@ -1,6 +1,12 @@
 <template>
 <div class="user-management-modal">
-  <base-modal :visible="visible" @close="visible = false"/>
+  <base-modal v-model="visible"
+              :title="titleModal"
+              :image="iconModal"
+              @submit="submitUserModal">
+    <div>
+    </div>
+  </base-modal>
 </div>
 </template>
 
@@ -12,12 +18,9 @@ export default {
   components: {
     BaseModal
   },
-  props: {
-    userInfo: Object
-  },
   data(){
     return {
-      newUserInfo: {
+      userInfo: {
         avatar: null,
         name: null,
         email: null,
@@ -27,14 +30,21 @@ export default {
       visible: false
     }
   },
-  mounted() {
-    if(this.userInfo)
-      this.newUserInfo = this.userInfo
+  computed:{
+    titleModal() {
+      return this.userInfo ? 'Edit User' : 'Add user'
+    },
+    iconModal() {
+      return this.userInfo ? require('@/assets/images/icons/modals/icon-edit.svg') : require('@/assets/images/icons/modals/icon-user.svg')
+    }
   },
   methods: {
-    openModal(){
-      console.log('openModal')
+    openModal(userInfo = null){
+      userInfo ? this.userInfo = userInfo : this.userInfo = null
       this.visible = true
+    },
+    submitUserModal(e){
+      console.log('submit',e)
     }
   }
 }

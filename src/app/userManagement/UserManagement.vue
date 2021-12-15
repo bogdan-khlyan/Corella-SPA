@@ -3,7 +3,7 @@
 
     <div class="user-management__header">
       <div class="user-management__header-title">User Management</div>
-      <button @click="openModal">
+      <button @click="addNewUser">
         <img src="@/assets/images/icons/buttons/icon-plus.svg" alt="add">
         Add user
       </button>
@@ -29,7 +29,7 @@
 
         <el-table-column fixed="right" label="Actions" width="230px">
           <template #default="scope">
-            <button @click="editUser(scope.row.id)" class="user-management__edit-btn">
+            <button @click="editUser(scope.row)" class="user-management__edit-btn">
               <img src="@/assets/images/icons/buttons/icon-edit.svg" alt="add">
             </button>
           </template>
@@ -103,11 +103,11 @@ export default {
     }
   },
   methods: {
-    openModal(){
+    addNewUser(){
       this.$refs.userManagementModal.openModal()
     },
-    editUser(data) {
-      console.log(data)
+    editUser(user) {
+      this.$refs.userManagementModal.openModal(user)
     }
   }
 }
