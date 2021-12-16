@@ -1,43 +1,33 @@
 <template>
   <form action="#" class="profile-settings">
-     <div class="profile__info">
-      <div class="info-profile">
-        <div class="info-profile__avatar">
-          <profile-avatar />
+    <div class="profile-settings__info">
+      <div class="profile-settings-info">
+        <div class="profile-settings-info__avatar">
+          <profile-avatar/>
         </div>
-        <div class="info-profile__name">{{ userData.name }}</div>
+        <div class="profile-settings-info__name">{{ userData.name }}</div>
       </div>
     </div>
-    <div class="profile__actions">
-      <div class="actions-profile">
-        <div class="actions-profile__top">
-          <h2 class="actions-profile__title">Account settings</h2>
-          <div class="actions-profile__row">
-            <div class="actions-profile__column">
-              <div class="actions-profile__input">
-                <base-input 
-                  :label="'Username'" 
-                  :model-value="userData.name" 
-                  :placeholder="'Your name'" 
-                />
-              </div>
-              <div class="actions-profile__input">
-                <base-input 
-                  :label="'E-mail'" 
-                  :model-value="userData.email" 
-                  :placeholder="'Your email'" 
-                />
-              </div>
-            </div>
-            <div class="actions-profile__column">
-              <div class="actions-profile__input">
-                <base-input 
-                  :label="'Current password'" 
-                  :model-value="userData.password" 
-                  :placeholder="'Your password'" 
-                />
-              </div>
-            </div>
+    <div class="profile-settings__actions">
+      <div class="profile-settings-actions">
+        <div class="profile-settings-actions__row">
+          <div class="profile-settings-actions__column">
+            <profile-actions-title
+                :isEditingMode="editAccountSettings"
+                @toggle-edit-mode="toggleEditMode"
+                :title="'Account settings'"
+                :settingsName="'account-settings'"
+            />
+            <profile-account-settings :userData="userData"/>
+          </div>
+          <div class="profile-settings-actions__column">
+            <profile-actions-title
+                :isEditingMode="editSecurity"
+                @toggle-edit-mode="toggleEditMode"
+                :title="'Security'"
+                :settingsName="'security'"
+            />
+            <profile-security :userData="userData" />
           </div>
         </div>
       </div>
@@ -46,36 +36,57 @@
 </template>
 
 <script>
-import BaseInput from '@/app/common/components/BaseInput';
 import ProfileAvatar from "@/app/profile/components/ProfileAvatar";
+import ProfileSecurity from "@/app/profile/components/profileSettings/ProfileSecurity";
+import ProfileAccountSettings from "@/app/profile/components/profileSettings/ProfileAccountSettings";
+import ProfileActionsTitle from "@/app/profile/components/profileSettings/ProfileActionsTitle";
 
 export default {
   name: "profile-settings",
-  props: {
-    userData: { type: Object }
-  },
   data() {
     return {
-      selectedTabIndex: 0,
-      tabs: ["Profile", "Notification"]
+      userData: {
+        id: 1,
+        name: "Robert Cordona",
+        email: "robertCordona2023@gmail.com",
+        password: "passwordforcorella",
+      },
+      editAccountSettings: false,
+      editSecurity: false
     }
   },
   methods: {
-    selectTab(tabIndex) {
-      this.selectedTabIndex = tabIndex;
-      console.log(this.$data)
+    toggleEditMode(settingsName) {
+
+      switch (settingsName) {
+        case 'account-settings':
+          this.editAccountSettings = !this.editAccountSettings
+          return
+        case 'security':
+          this.editSecurity = !this.editSecurity
+          return
+      }
+
     }
   },
   components: {
+    ProfileActionsTitle,
+    ProfileAccountSettings,
+    ProfileSecurity,
     ProfileAvatar,
-    BaseInput,
   }
 }
 </script>
 
 <style lang="scss">
-.info-profile {
+.profile-settings {
+  &__info {
+    margin: 0px 0px 58px 0px;
+  }
+}
+.profile-settings-info {
   display: flex;
+
   &__name {
     font-family: "Rubik";
     padding: 20px 0px 0px 28px;
@@ -84,22 +95,20 @@ export default {
     flex: 1 1 auto;
   }
 }
-.actions-profile {
-  &__title {
-    font-family: "Rubik";
-    font-size: 18px;
-    font-weight: 500;
-    color: #212121;
-    margin: 0px 0px 16px 0px;
-  }
+
+.profile-settings-actions {
+
+
   &__row {
     display: flex;
     margin: 0px -16px;
   }
+
   &__column {
     flex: 0 1 50%;
     padding: 0px 16px;
   }
+
   &__input {
     margin: 0px 0px 24px 0px;
   }

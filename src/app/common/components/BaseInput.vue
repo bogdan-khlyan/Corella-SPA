@@ -2,7 +2,7 @@
   <label class="base-input">
     <span v-if="label">{{ label }}</span>
     <input
-        type="text"
+        :type="type || 'text'"
         :value="modelValue"
         :placeholder="placeholder"
         @input="$emit('update:modelValue', $event.target.value)">
@@ -16,6 +16,7 @@ export default {
   props: {
     modelValue: { type: String },
     label: { type: String },
+    type: { type: String },
     placeholder: { type: String, default: 'Please input' }
   }
 }

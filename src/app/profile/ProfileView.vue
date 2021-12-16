@@ -6,10 +6,7 @@
       <profile-tabs @select-tab="selectTab" :tabs="tabs" :selected-tab-index="selectedTabIndex" />
     </div>
     <div class="profile__content">
-      <profile-settings
-        :user-data="userData"
-        v-show="selectedTabName === 'Profile'" 
-      />
+      <profile-settings v-show="selectedTabName === 'Profile'" />
       <profile-notification v-show="selectedTabName === 'Notification'" />
     </div>
   </div>
@@ -27,19 +24,12 @@ export default {
       selectedTabName: "Profile",
       selectedTabIndex: 0,
       tabs: ["Profile", "Notification"],
-      userData: {
-        id: 1,
-        name: "Robert Cordona",
-        email: "robertCordona2023@gmail.com",
-        password: "passwordforcorella"
-      }
     }
   },
   methods: {
     selectTab(tabName, tabIndex) {
       this.selectedTabName = tabName;
       this.selectedTabIndex = tabIndex;
-      console.log(this.$refs)
     }
   },
   components: {
@@ -67,9 +57,6 @@ export default {
 
   &__tabs {
     margin: 0px 0px 48px 0px;
-  }
-  &__info {
-    margin: 0px 0px 58px 0px;
   }
 }
 </style>
