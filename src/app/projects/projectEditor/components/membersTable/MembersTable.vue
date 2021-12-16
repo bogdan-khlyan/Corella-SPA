@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import BaseSelect from "@/app/common/components/BaseSelect";
+import BaseSelect from "@/app/common/BaseSelect";
 import {Plus} from "@element-plus/icons-vue";
 import { v4 as uuid } from 'uuid';
 

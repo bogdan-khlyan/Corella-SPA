@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {baseHeaderState} from "@/app/common/components/baseWrapper/baseHeader/base-header.state";
+import {baseHeaderState} from "@/app/common/baseWrapper/baseHeader/base-header.state";
 
 export default {
   name: "HeaderInput",

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import TaskPageWrapper from "@/app/common/components/BasePageWrapper";
+import TaskPageWrapper from "@/app/common/BasePageWrapper";
 
 export default {
   name: 'task',

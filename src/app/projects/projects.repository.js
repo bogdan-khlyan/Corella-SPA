@@ -146,8 +146,9 @@ export default class ProjectsRepository {
     }
 
     async createProject(project) {
-        const response = await http.post('/project', project)
-        return response.data
+        return project
+        // const response = await http.post('/project', project)
+        // return response.data
     }
 
     async updateProject(project) {

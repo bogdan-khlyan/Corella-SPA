@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import BaseHeader from "@/app/common/components/baseWrapper/baseHeader/BaseHeader";
-import BaseSidebar from "@/app/common/components/baseWrapper/baseSidebar/BaseSidebar";
-import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
-import {baseWrapperConfig} from "@/app/common/components/baseWrapper/base-wrapper.config";
+import BaseHeader from "@/app/common/baseWrapper/baseHeader/BaseHeader";
+import BaseSidebar from "@/app/common/baseWrapper/baseSidebar/BaseSidebar";
+import sidebarCollapse from "@/app/common/baseWrapper/baseSidebar/sidebar-mixin";
+import {baseWrapperConfig} from "@/app/common/baseWrapper/base-wrapper.config";
 
 export default {
   name: 'base-wrapper',

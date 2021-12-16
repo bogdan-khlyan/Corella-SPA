@@ -63,9 +63,9 @@
 </template>
 
 <script>
-import {baseSidebarState} from "@/app/common/components/baseWrapper/baseSidebar/base-sidebar.state";
-import {setSidebarCollapse} from "@/app/common/components/baseWrapper/baseSidebar/base-sidebar.state";
-import {baseSidebarConfig} from "@/app/common/components/baseWrapper/baseSidebar/base-sidebar.config";
+import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
+import {setSidebarCollapse} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
+import {baseSidebarConfig} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.config";
 
 export default {
   name: 'base-sidebar',

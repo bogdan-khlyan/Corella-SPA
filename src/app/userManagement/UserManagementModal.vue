@@ -15,8 +15,8 @@
 
 <script>
 import BaseModal from "@/app/base/BaseModal";
-import BaseInput from "@/app/common/components/BaseInput";
-import BaseInputPassword from "@/app/common/components/BaseInputPassword";
+import BaseInput from "@/app/common/BaseInput";
+import BaseInputPassword from "@/app/common/BaseInputPassword";
 
 export default {
   name: "user-management-modal",

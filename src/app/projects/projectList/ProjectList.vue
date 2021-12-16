@@ -15,7 +15,7 @@
 import ProjectCard from "@/app/projects/projectList/components/ProjectCard";
 import {projectsState} from "@/app/projects/projects.state";
 import {projectsController} from "@/app/projects/projects.controller";
-import {baseHeaderState} from "@/app/common/components/baseWrapper/baseHeader/base-header.state";
+import {baseHeaderState} from "@/app/common/baseWrapper/baseHeader/base-header.state";
 
 export default {
   name: 'project-list',

@@ -31,8 +31,8 @@
 
 <script>
 import AccountInfo from "./AccountInfo";
-import sidebarCollapse from "@/app/common/mixins/sidebar-mixin";
-import HeaderInput from "@/app/common/components/baseWrapper/baseHeader/HeaderInput";
+import sidebarCollapse from "@/app/common/baseWrapper/baseSidebar/sidebar-mixin";
+import HeaderInput from "@/app/common/baseWrapper/baseHeader/HeaderInput";
 
 export default {
   name: 'base-header',

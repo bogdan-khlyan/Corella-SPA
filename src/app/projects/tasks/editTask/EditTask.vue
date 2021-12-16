@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import BasePageWrapper from "@/app/common/components/BasePageWrapper";
-import UploadFile from "@/app/common/components/uploadFiles/UploadFiles";
-import BaseInput from "@/app/common/components/BaseInput";
+import BasePageWrapper from "@/app/common/BasePageWrapper";
+import UploadFile from "@/app/common/uploadFiles/UploadFiles";
+import BaseInput from "@/app/common/BaseInput";
 
 import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";
 

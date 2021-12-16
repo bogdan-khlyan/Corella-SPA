@@ -10,6 +10,7 @@
               label="Title"
               placeholder="Enter project name"/>
           <base-textarea
+              v-model="newProject.description"
               label="Description"
               placeholder="Enter project description"/>
         </div>
@@ -26,11 +27,12 @@
 </template>
 
 <script>
-import BasePageWrapper from "@/app/common/components/BasePageWrapper";
-import BaseInput from "@/app/common/components/BaseInput";
-import BaseTextarea from "@/app/common/components/BaseTextarea";
+import BasePageWrapper from "@/app/common/BasePageWrapper";
+import BaseInput from "@/app/common/BaseInput";
+import BaseTextarea from "@/app/common/BaseTextarea";
 import BoardEditor from "@/app/projects/projectEditor/components/boardEditor/BoardEditor";
 import MembersTable from "@/app/projects/projectEditor/components/membersTable/MembersTable";
+import {projectsController} from "@/app/projects/projects.controller";
 
 export default {
   name: 'project-editor',
@@ -48,6 +50,7 @@ export default {
   methods: {
     createProject() {
       console.log('createProject')
+      projectsController.createProject(this.newProject)
     }
   }
 }

@@ -15,7 +15,7 @@
 
 <script>
 import FilePreview from './FilePreview';
-import AddFileButton from "@/app/common/components/uploadFiles/components/buttons/AddFileButton";
+import AddFileButton from "@/app/common/uploadFiles/components/buttons/AddFileButton";
 
 export default {
   name: "files-list",
