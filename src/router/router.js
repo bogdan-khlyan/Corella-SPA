@@ -8,40 +8,40 @@ import 'nprogress/nprogress.css' // progress bar style
 const routes = [{
     path: '/login',
     name: 'login-page',
-    component: () => import('@/app/auth/loginPage'),
+    component: () => import('@/app/auth/loginPage/LoginPage'),
     children: loginPageRoutes
 }, {
     path: '/',
     name: 'base-wrapper',
-    component: () => import('@/app/common/components/baseWrapper/BaseWrapper'),
+    component: () => import('@/app/common/baseWrapper/BaseWrapper'),
     children: [{
         path: '/',
         name: 'project-list',
-        component: () => import('@/app/projects/projectList')
+        component: () => import('@/app/projects/projectList/ProjectList')
     }, {
         path: '/project/:projectId/board',
         name: 'board',
-        component: () => import('@/app/projects/projectBoard')
+        component: () => import('@/app/projects/projectBoard/ProjectBoard')
     }, {
         path: '/project/create',
         name: 'create-project',
-        component: () => import('@/app/projects/createProject')
+        component: () => import('@/app/projects/projectEditor/ProjectEditor')
     }, {
         path: '/project/:projectId/task/:taskId',
         name: 'task',
-        component: () => import('@/app/projects/tasks/task')
+        component: () => import('@/app/projects/tasks/task/Task')
     }, {
         path: '/project/:projectId/create-task',
         name: 'create-task',
-        component: () => import('@/app/projects/tasks/createTask')
+        component: () => import('@/app/projects/tasks/editTask/EditTask')
     }, {
         path: '/admin/user-management',
         name: 'user-management',
-        component: () => import('@/app/userManagement')
+        component: () => import('@/app/userManagement/UserManagement')
     }, {
         path: '/:pathMatch(.*)*',
         name: 'page-404',
-        component: () => import('@/app/common/components/Page404')
+        component: () => import('@/app/common/Page404')
     }],
 }]
 

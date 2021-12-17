@@ -88,7 +88,7 @@
 <!--              <div class="switch-edit"-->
 <!--                   @click="editable=true">-->
 <!--                <el-image-->
-<!--                  src="/img/edit.svg"-->
+<!--                  src="/img/icon-edit.svg"-->
 <!--                />-->
 <!--              </div>-->
 <!--            </div>-->
