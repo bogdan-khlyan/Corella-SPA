@@ -83,7 +83,7 @@ export default {
     },
 
     handleItemComplete({index}) {
-      this.project[ProjectBoard].columnTransitionEnd = true
+      this.project[index].columnTransitionEnd = true
     },
 
     handleTaskStatusChanged(data) {

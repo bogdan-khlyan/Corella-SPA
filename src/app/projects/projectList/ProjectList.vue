@@ -23,8 +23,11 @@ export default {
     ProjectCard
   },
   computed: {
+    searchInput() {
+      return baseHeaderState.searchValue
+    },
     projects() {
-      return projectsState.projects
+      return projectsState.projects.filter(project => project.name.toLowerCase().indexOf(this.searchInput) !== -1)
     }
   },
   created() {

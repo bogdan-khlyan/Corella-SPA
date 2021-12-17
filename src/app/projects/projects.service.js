@@ -17,7 +17,6 @@ export default class ProjectsService {
     }
 
     async createProject(project) {
-        // console.log('service')
         try {
             const createdProject = await this.#repository.createProject(project)
             projectsState.projects.push(createdProject)
