@@ -8,7 +8,17 @@ export default class ProjectsRepository {
         // return response.data
         // return []
         // console.log(JSON.parse(localStorage.getItem('projects')))
-        const projects = JSON.parse(localStorage.getItem('projects'))
+        let projects = JSON.parse(localStorage.getItem('projects'))
+        if (!projects) {
+            projects = [{
+                id: uuid(),
+                name: 'Test project',
+                description: 'Test project description',
+                membersCount: 3,
+                tasksCount: 5
+            }]
+            localStorage.setItem('projects', JSON.stringify(projects))
+        }
         return projects ? projects : []
     }
 
