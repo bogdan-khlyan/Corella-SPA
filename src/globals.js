@@ -1,5 +1,5 @@
-import SvgIcon from "./app/common/components/SvgIcon.js";
-import ColumnsAnimate from "@/app/common/components/StepAnimation";
+import SvgIcon from "./app/common/SvgIcon.js";
+import ColumnsAnimate from "@/app/common/StepAnimation";
 
 export default [
     {name: 'svg-icon', component: SvgIcon},
