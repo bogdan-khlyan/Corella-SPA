@@ -1,5 +1,6 @@
 <template>
-  <label class="base-input">
+  <label class="base-input"
+         :class="{'base-input__error': error}">
     <span v-if="label">{{ label }}</span>
     <input
         type="text"
@@ -16,15 +17,24 @@ export default {
   props: {
     modelValue: { type: String },
     label: { type: String },
-    placeholder: { type: String, default: 'Please input' }
+    placeholder: { type: String, default: 'Please input' },
+
+    error: { type: Boolean, default: false }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .base-input {
+  display: block;
   margin-top: 12px;
   margin-bottom: 12px;
+
+  &__error {
+    input {
+      border-color: $text-error!important;
+    }
+  }
 
   > span {
     font-family: Rubik, sans-serif;

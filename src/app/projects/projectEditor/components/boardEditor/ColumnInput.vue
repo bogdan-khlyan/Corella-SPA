@@ -2,6 +2,7 @@
   <div class="column-card">
     <button
         class="column-card__btn-delete"
+        type="button"
         :disabled="deleteDisabled"
         @click="deleteColumn">
       <el-icon><close/></el-icon>
