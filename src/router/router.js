@@ -27,6 +27,10 @@ const routes = [{
         name: 'create-project',
         component: () => import('@/app/projects/projectEditor/ProjectEditor')
     }, {
+        path: '/project/:projectId/settings',
+        name: 'project-settings',
+        component: () => import('@/app/projects/projectEditor/ProjectEditor')
+    }, {
         path: '/project/:projectId/task/:taskId',
         name: 'task',
         component: () => import('@/app/projects/tasks/task/Task')

@@ -1,6 +1,6 @@
 <template>
   <div class="project-task-card"
-       @click="$router.push('/project/1/create-task')">
+       @click="$router.push(`/project/${$route.params.projectId}/create-task`)">
     <div class="project-task-card__content">
 
       <template v-if="!loading">

@@ -66,7 +66,9 @@ export default {
   },
   methods: {
     dragOver() {
-      this.drag = true
+      if (document.querySelector('.upload-files')) {
+        this.drag = true
+      }
     },
     dragLeave() {
       this.drag = false
