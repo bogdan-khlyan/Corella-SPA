@@ -24,9 +24,7 @@ export default {
   },
   methods: {
     setSearchText() {
-      if (this.searchText.trim() !== '') {
-        baseHeaderState.searchValue = this.searchText
-      }
+      baseHeaderState.searchValue = this.searchText
     }
   }
 }
