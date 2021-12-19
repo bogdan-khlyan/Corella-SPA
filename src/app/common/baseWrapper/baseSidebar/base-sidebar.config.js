@@ -37,7 +37,7 @@ const projectSettingsButton = {
     getPath: (context) => `/project/${context.$route.params.projectId}/settings`,
     route: 'project-settings',
     label: 'Settings',
-    icon: require('@/assets/images/icons/sidebar/icon-projects.svg')
+    icon: require('@/assets/images/icons/common/icon-settings.svg')
 }
 
 const bottomButton = new Map()

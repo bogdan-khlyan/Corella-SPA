@@ -16,10 +16,17 @@
         </div>
         <div v-if="showDeleteButton"
              class="task-page-wrapper__header--actions-item">
-          <button class="red"
-                  @click="$emit('delete', $event)">
-            <img src="@/assets/images/icons/tasks/delete.svg" alt="">
-          </button>
+          <el-popconfirm
+              title="Are you sure you want to delete the project?"
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+              @confirm="$emit('delete', $event)">
+            <template #reference>
+              <button class="red">
+                <img src="@/assets/images/icons/tasks/delete.svg" alt="">
+              </button>
+            </template>
+          </el-popconfirm>
         </div>
       </div>
     </div>
