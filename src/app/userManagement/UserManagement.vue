@@ -10,7 +10,7 @@
     </div>
 
     <div class="user-management__table">
-      <el-table :data="dataTable">
+      <el-table :data="users">
 
         <el-table-column prop="name" label="Name" min-width="200">
           <template #default="scope">
@@ -40,12 +40,10 @@
 
     <div class="user-management__pagination">
       <el-pagination
-          v-model:currentPage="currentPage3"
-          :page-size="10"
+          v-model:currentPage="pagination.page"
+          :page-size="pagination.limit"
           layout="prev, pager, next, jumper"
-          :total="41"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"/>
+          :total="total"/>
     </div>
 
     <user-management-modal  ref="userManagementModal"/>
@@ -55,54 +53,43 @@
 <script>
 
 import UserManagementModal from "@/app/userManagement/UserManagementModal";
+import {userManagementController} from "@/app/userManagement/user-management.controller";
 
 export default {
   name: 'user-management',
   components: {
     UserManagementModal
   },
-  data(){
+  data() {
     return {
-      dataTable:[
-        {
-          id: 0,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        },
-        {
-          id: 1,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: true,
-        },
-        {
-          id: 2,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        },
-        {
-          id: 3,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        },
-        {
-          id: 4,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        }
-      ]
+      total: 0,
+      users: [],
+
+      pagination: {
+        page: 1,
+        limit: 10
+      }
     }
   },
+  created() {
+    this.devInit() // TODO remove me
+
+    this.getUsers()
+  },
   methods: {
+    getUsers() {
+      userManagementController.getUsers()
+          .then(data => {
+            console.log(data)
+            this.users = data.users
+            this.total = data.total
+          })
+    },
+    devInit() {
+      if (!localStorage.getItem('users')) {
+        localStorage.setItem('users', '[]')
+      }
+    },
     addNewUser(){
       this.$refs.userManagementModal.openModal()
     },
