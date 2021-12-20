@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import BaseInput from "@/app/common/components/BaseInput";
+import BaseInput from "@/app/common/BaseInput";
+
 export default {
   name: "profile-account-settings",
   components: {BaseInput},
