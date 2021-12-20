@@ -3,7 +3,7 @@
          :class="{'base-input__error': error}">
     <span v-if="label">{{ label }}</span>
     <input
-        type="text"
+        :type="type || 'text'"
         :value="modelValue"
         :placeholder="placeholder"
         :disabled="disabled"
@@ -20,7 +20,7 @@ export default {
     label: { type: String },
     placeholder: { type: String, default: 'Please input' },
     disabled: { type: Boolean, default: false },
-
+    type: { type: String },
     error: { type: Boolean, default: false }
   }
 }

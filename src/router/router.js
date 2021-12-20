@@ -43,6 +43,10 @@ const routes = [{
         name: 'user-management',
         component: () => import('@/app/userManagement/UserManagement')
     }, {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/app/profile/ProfileView')
+    }, {
         path: '/:pathMatch(.*)*',
         name: 'page-404',
         component: () => import('@/app/common/Page404')
