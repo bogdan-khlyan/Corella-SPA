@@ -1,5 +1,7 @@
 <template>
-  <div class="task-page-wrapper">
+  <div class="task-page-wrapper"
+       v-loading="loading"
+       element-loading-background="rgba(0, 0, 0, 0.6)">
     <div class="task-page-wrapper__header">
       <div class="task-page-wrapper__header--icon">
         <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
@@ -43,7 +45,9 @@ export default {
     title: { type: String, required: true },
 
     showEditButton: { type: Boolean, default: false },
-    showDeleteButton: { type: Boolean, default: false }
+    showDeleteButton: { type: Boolean, default: false },
+
+    loading: { type: Boolean, default: false }
   }
 }
 </script>
@@ -140,8 +144,16 @@ export default {
   }
 
   &__content {
-    padding-top: 16px;
+    //padding-top: 16px;
   }
 
+}
+</style>
+
+<style lang="scss">
+.task-page-wrapper {
+  .el-loading-mask {
+    border-radius: 10px!important;
+  }
 }
 </style>

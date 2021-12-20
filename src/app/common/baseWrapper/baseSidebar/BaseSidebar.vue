@@ -51,12 +51,14 @@
         </transition-group>
       </div>
 
-      <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
-        <router-link :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
-          <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
-          <span>{{ bottomButton.label }}</span>
-        </router-link>
-      </div>
+      <transition name="emerging-el" appear>
+        <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+          <router-link :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
+            <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
+            <span>{{ bottomButton.label }}</span>
+          </router-link>
+        </div>
+      </transition>
 
     </nav>
   </div>

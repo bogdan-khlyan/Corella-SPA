@@ -29,17 +29,33 @@ export default {
 
   width: 100%;
   height: calc(100vh - 140px);
+  min-height: 420px;
 
   &__content {
     width: 600px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    > img {
+      @media screen and (max-height: 768px) {
+        height: 180px;
+      }
+      @media screen and (max-height: 600px) {
+        height: 140px;
+      }
+    }
+
   }
 
   &__title {
     margin-top: 36px;
     margin-bottom: 32px;
+
+    @media screen and (max-height: 650px) {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
     > span {
       font-family: Rubik, sans-serif;
       font-style: normal;
