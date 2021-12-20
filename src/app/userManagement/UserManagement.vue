@@ -5,7 +5,7 @@
       <div class="user-management__header-title">User Management</div>
       <button @click="addNewUser">
         <img src="@/assets/images/icons/buttons/icon-plus.svg" alt="add">
-        Add user
+        <span>Add user</span>
       </button>
     </div>
 
@@ -23,11 +23,15 @@
 
         <el-table-column prop="isBan" label="Ban" width="200px">
           <template #default="scope">
-            <el-switch v-model="scope.row.isBan" active-color="#F32B2A" inactive-color="#BDBCC8" />
+            <el-switch
+                v-model="scope.row.isBan"
+                active-color="#F32B2A"
+                inactive-color="#BDBCC8"
+                @change="changeBanSwitch(scope.row.id, scope.row.isBan)"/>
           </template>
         </el-table-column>
 
-        <el-table-column fixed="right" label="Actions" width="230px">
+        <el-table-column fixed="right" label="Actions" width="120px">
           <template #default="scope">
             <button @click="editUser(scope.row)" class="user-management__edit-btn">
               <img src="@/assets/images/icons/buttons/icon-edit.svg" alt="add">
@@ -46,12 +50,13 @@
           :total="total"/>
     </div>
 
-    <user-management-modal  ref="userManagementModal"/>
+    <user-management-modal
+        @update="getUsers"
+        ref="userManagementModal"/>
   </div>
 </template>
 
 <script>
-
 import UserManagementModal from "@/app/userManagement/UserManagementModal";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 
@@ -72,23 +77,18 @@ export default {
     }
   },
   created() {
-    this.devInit() // TODO remove me
-
     this.getUsers()
   },
   methods: {
+    changeBanSwitch(userId, isBanned) {
+      userManagementController.banUser(userId, isBanned)
+    },
     getUsers() {
       userManagementController.getUsers()
           .then(data => {
-            console.log(data)
             this.users = data.users
             this.total = data.total
           })
-    },
-    devInit() {
-      if (!localStorage.getItem('users')) {
-        localStorage.setItem('users', '[]')
-      }
     },
     addNewUser(){
       this.$refs.userManagementModal.openModal()
@@ -215,7 +215,7 @@ export default {
     }
   }
   &__pagination {
-    margin-top: 50px;
+    margin-top: 20px;
 
     .el-pagination, .el-pager {
       display: flex;

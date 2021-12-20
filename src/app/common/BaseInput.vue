@@ -6,6 +6,7 @@
         type="text"
         :value="modelValue"
         :placeholder="placeholder"
+        :disabled="disabled"
         @input="$emit('update:modelValue', $event.target.value)">
   </label>
 </template>
@@ -18,6 +19,7 @@ export default {
     modelValue: { type: String },
     label: { type: String },
     placeholder: { type: String, default: 'Please input' },
+    disabled: { type: Boolean, default: false },
 
     error: { type: Boolean, default: false }
   }

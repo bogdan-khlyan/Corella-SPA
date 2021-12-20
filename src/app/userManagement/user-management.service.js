@@ -28,6 +28,19 @@ export default class UserManagementService {
             return data
         } catch (error) {
             console.log(error)
+            notificationsHelper.error()
+            throw error
+        }
+    }
+
+    async banUser(userId, isBanned) {
+        try {
+            const data = await this.#repository.banUser(userId, isBanned)
+            notificationsHelper.success()
+            return data
+        } catch (error) {
+            console.log(error)
+            notificationsHelper.error()
             throw error
         }
     }

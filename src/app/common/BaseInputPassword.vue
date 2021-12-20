@@ -1,5 +1,6 @@
 <template>
-  <label class="base-input-password">
+  <label class="base-input-password"
+         :class="{'base-input-password__error': error}">
     <span v-if="label">{{ label }}</span>
     <input
         :type="inputType"
@@ -27,7 +28,8 @@ export default {
   props: {
     modelValue: { type: String },
     label: { type: String },
-    placeholder: { type: String, default: 'Please input' }
+    placeholder: { type: String, default: 'Please input' },
+    error: { type: Boolean, default: false }
   },
   data(){
     return {
@@ -48,6 +50,12 @@ export default {
   position: relative;
   margin-top: 12px;
   margin-bottom: 12px;
+  
+  &__error {
+    input {
+      border-color: $text-error!important;
+    }
+  }
 
   > span {
     font-family: Rubik, sans-serif;

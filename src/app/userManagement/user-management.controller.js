@@ -16,6 +16,10 @@ class UserInstanceController {
         return this.#service.updateUser(user)
     }
 
+    async banUser(userId, isBanned) {
+        return this.#service.banUser(userId, isBanned)
+    }
+
 }
 
 export const userManagementController = new UserInstanceController()
