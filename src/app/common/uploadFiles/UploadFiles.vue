@@ -1,7 +1,7 @@
 <template>
   <div class="upload-files">
 
-    <div v-if="!hasFiles"
+    <div v-if="!hasFiles && showButton"
          class="upload-files__button">
       <upload-file-button
           @click="clickUpload"/>
@@ -43,6 +43,9 @@ export default {
     dragFiles() {
       return baseWrapperState.dragFiles
     }
+  },
+  props: {
+    showButton: { type: Boolean, default: true }
   },
   watch: {
     dragFiles(newVal) {
