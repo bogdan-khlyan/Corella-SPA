@@ -1,6 +1,6 @@
 <template>
-  <div class="user-management-modal">
-    <base-modal v-model="visible"
+  <div class="user-management-popup">
+    <base-popup v-model="visible"
                 :title="titleModal"
                 :image="iconModal"
                 :loading="loading"
@@ -31,21 +31,21 @@
           placeholder="Enter password"
           :error="errors.password"
           @input="validatePassword"/>
-    </base-modal>
+    </base-popup>
   </div>
 </template>
 
 <script>
-import BaseModal from "@/app/base/BaseModal";
+import BasePopup from "@/app/common/BasePopup";
 import BaseInput from "@/app/common/BaseInput";
 import BaseInputPassword from "@/app/common/BaseInputPassword";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 import * as EmailValidator from 'email-validator';
 
 export default {
-  name: "user-management-modal",
+  name: "user-management-popup",
   components: {
-    BaseModal,
+    BasePopup,
     BaseInput,
     BaseInputPassword
   },
@@ -185,7 +185,7 @@ export default {
 </script>
 
 <style lang="scss">
-.user-management-modal {
+.user-management-popup {
   .base-input {
     display: block;
   }

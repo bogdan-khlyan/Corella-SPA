@@ -12,7 +12,7 @@
     <div class="base-sidebar__arrow">
       <div class="arrow-circle arrow-circle--show arrow-circle--close"
            @click="toggleSidebarMenu()">
-        <img src="@/assets/images/icons/sidebar/icon-arrow.svg">
+        <img src="@/assets/images/icons/sidebar/icon-arrow.svg" alt="">
       </div>
     </div>
 
@@ -35,13 +35,13 @@
         <transition-group name="emerging-el" appear>
           <template v-for="option in contentBlock" :key="option.icon">
 
-            <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
+            <div v-if="option.type === 'TITLE'"
+                 class="base-sidebar__title">menu</div>
 
             <div v-if="option.type !== 'TITLE'" class="base-sidebar__item base-sidebar__item--ordinary">
               <router-link
                   :class="{'active': option.route === route}"
-                  :to="option.path ? option.path : option.getPath(this)"
-              >
+                  :to="option.path ? option.path : option.getPath(this)">
                 <img :src="option.icon" alt="">
                 <span>{{ option.label }}</span>
               </router-link>
@@ -230,6 +230,12 @@ export default {
   &--close {
     width: 80px;
 
+    .base-sidebar__logo {
+      span {
+        pointer-events: none;
+      }
+    }
+
     .base-sidebar__logo--close {
       left: 40px;
       opacity: 0;
@@ -268,6 +274,7 @@ export default {
             margin-top: 0;
             font-size: 0;
             transition: all 350ms linear;
+            pointer-events: none;
           }
 
           > img {
@@ -293,6 +300,7 @@ export default {
           > span {
             left: 0px;
             opacity: 0;
+            pointer-events: none;
           }
         }
       }
@@ -317,6 +325,7 @@ export default {
 
           > span {
             opacity: 0;
+            pointer-events: none;
           }
         }
       }

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import UserManagementModal from "@/app/userManagement/UserManagementModal";
+import UserManagementModal from "@/app/userManagement/UserManagementPopup";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 
 export default {

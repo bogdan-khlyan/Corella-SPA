@@ -1,22 +1,23 @@
 <template>
-  <div class="base-modal">
+  <div class="base-popup">
     <el-dialog :width="width"
                :model-value="modelValue"
                :before-close="handleClose"
                :close-on-click-modal="true">
 
       <template #title>
-        <div class="base-modal__header">
+        <div class="base-popup__header">
           <img v-if="image" :src="image" alt="">
           <div class="base-modal__header-title">{{ title }}</div>
         </div>
       </template>
 
-      <div v-loading="loading" class="base-modal__content">
+      <div v-loading="loading"
+           class="base-popup__content">
         <form @submit.prevent>
           <slot></slot>
 
-          <button class="base-modal__button">
+          <button class="base-popup__button">
             <img src="@/assets/images/icons/buttons/icon-check.svg" alt="">
             {{ titleBtn }}
           </button>
@@ -29,7 +30,7 @@
 
 <script>
 export default {
-  name: "BaseModal",
+  name: 'base-popup',
   model: { prop: 'modelValue', event: 'update'},
   props: {
     title: String,
@@ -49,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-.base-modal {
+.base-popup {
   &__header {
     display: flex;
     align-items: center;
