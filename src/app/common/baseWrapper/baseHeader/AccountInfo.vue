@@ -1,7 +1,8 @@
 <template>
   <div class="current-user" ref="root">
 
-    <div class="current-user__avatar">
+    <div class="current-user__avatar"
+         @click="$router.push('/profile')">
       <div v-html='identicon'></div>
     </div>
 
