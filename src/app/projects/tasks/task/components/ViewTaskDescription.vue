@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ViewTaskTitle from "@/app/projects/tasks/task/components/ViewTaskTitle";
+import ViewTaskTitle from "@/app/projects/tasks/task/components/common/ViewTaskTitle";
 export default {
   name: 'view-task-description',
   components: {ViewTaskTitle}

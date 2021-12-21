@@ -13,6 +13,10 @@
               <view-task-title :title="'Title'" />
               <div class="view-task-item__text">As a user, I want to be able to create new versions for projects and link them to issues or hotfixes</div>
             </div>
+            <div class="view-task__select">
+              <view-task-title :title="'Members'" />
+              <view-task-select />
+            </div>
             <div class="view-task__files">
               <upload-files :show-button="false" />
             </div>
@@ -31,14 +35,15 @@
 
 <script>
 import TaskPageWrapper from "@/app/common/BasePageWrapper";
-import ViewTaskTitle from "@/app/projects/tasks/task/components/ViewTaskTitle";
+import ViewTaskTitle from "@/app/projects/tasks/task/components/common/ViewTaskTitle";
 import ViewTaskDescription from "@/app/projects/tasks/task/components/ViewTaskDescription";
 import ViewTaskCollapse from "@/app/projects/tasks/task/components/ViewTaskCollapse";
 import UploadFiles from "@/app/common/uploadFiles/UploadFiles";
+import ViewTaskSelect from "@/app/projects/tasks/task/components/ViewTaskSelect";
 
 export default {
   name: 'task',
-  components: {UploadFiles, ViewTaskCollapse, ViewTaskDescription, ViewTaskTitle, TaskPageWrapper }
+  components: {ViewTaskSelect, UploadFiles, ViewTaskCollapse, ViewTaskDescription, ViewTaskTitle, TaskPageWrapper }
 }
 </script>
 
