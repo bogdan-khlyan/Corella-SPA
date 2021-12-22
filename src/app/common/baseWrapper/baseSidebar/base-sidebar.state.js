@@ -1,7 +1,8 @@
 import {reactive} from 'vue'
 
 export const baseSidebarState = reactive({
-    isCollapse: !!localStorage.getItem('sidebarCollapse')
+    isCollapse: !!localStorage.getItem('sidebarCollapse'),
+    isDrawer: false
 })
 
 export function setSidebarCollapse(isCollapse) {

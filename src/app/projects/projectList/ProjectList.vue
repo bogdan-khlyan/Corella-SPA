@@ -88,6 +88,14 @@ export default {
       grid-template-columns: 1fr 1fr 1fr;
       grid-column-gap: 24px;
     }
+    @media screen and (max-width: 980px) {
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 24px;
+    }
+    @media screen and (max-width: 650px) {
+      grid-template-columns: 1fr;
+      grid-column-gap: 24px;
+    }
 
   }
 

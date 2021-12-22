@@ -1,6 +1,7 @@
 <template>
   <div class="base-sidebar"
-       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'">
+       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'"
+       :style="drawerStyles">
 
     <div class="base-sidebar__logo">
       <router-link to="/">
@@ -68,10 +69,24 @@
 import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
 import {setSidebarCollapse} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
 import {baseSidebarConfig} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.config";
+import {appState} from "@/app/app.state";
 
 export default {
   name: 'base-sidebar',
   computed: {
+    drawerStyles() {
+      if (this.windowWidth <= 980) {
+        console.log('mobile')
+        if (baseSidebarState.isDrawer) {
+          console.log('null')
+          return null
+        } else {
+          return 'transform: translateX(-300px)'
+        }
+      } else {
+        return null
+      }
+    },
     route() {
       return this.$route.name
     },
@@ -107,8 +122,15 @@ export default {
           .get('bottomButton') // достаем конфиги для нижней кнопки
           .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
     },
+    windowWidth() {
+      return appState.windowWidth
+    },
     isCollapse() {
-      return baseSidebarState.isCollapse
+      if (this.windowWidth <= 980) {
+        return true
+      } else {
+        return baseSidebarState.isCollapse
+      }
     }
   },
   methods: {
@@ -124,7 +146,7 @@ export default {
   width: 80px;
   position: fixed;
   padding-top: 12px;
-  height: 100vh;
+  height: inherit;
   z-index: 10;
   background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
   transition: all 350ms linear;
@@ -384,6 +406,10 @@ export default {
     right: -19px;
     top: 26px;
     cursor: pointer;
+
+    @media screen and (max-width: 980px) {
+      display: none;
+    }
 
     .arrow-circle {
       width: 32px;

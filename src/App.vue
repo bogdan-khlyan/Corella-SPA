@@ -6,6 +6,17 @@
   </router-view>
 </template>
 
+<script>
+import {appStateInit} from "@/app/app.state";
+
+export default {
+  name: 'app',
+  created() {
+    appStateInit()
+  }
+}
+</script>
+
 <style lang="scss">
 @import "assets/scss/index";
 </style>

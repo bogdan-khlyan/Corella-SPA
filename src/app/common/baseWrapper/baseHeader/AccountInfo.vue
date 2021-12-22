@@ -6,7 +6,7 @@
       <div v-html='identicon'></div>
     </div>
 
-    <div class="current-user__data">
+    <div v-if="windowWidth > 600" class="current-user__data">
       <span>Lana-lana</span>
       <span>superadmin2021@gmail.com</span>
     </div>
@@ -43,10 +43,14 @@
 
 <script>
 import {toSvg} from "jdenticon";
+import {appState} from "@/app/app.state";
 
 export default {
   name: "currentUser",
   computed: {
+    windowWidth() {
+      return appState.windowWidth
+    },
     identicon: function () {
       return toSvg('Nielldcfguji,kumyjnhtbgvfl23', 42);
     }
@@ -65,7 +69,6 @@ export default {
 <style scoped lang="scss">
 .current-user {
   height: 42px;
-  width: 282px;
   display: flex;
   justify-content: space-between;
   align-items: center;

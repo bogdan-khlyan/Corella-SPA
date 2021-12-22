@@ -39,6 +39,10 @@ export default {
   position: relative;
   text-decoration: none;
 
+  @media screen and (max-width: 650px) {
+    max-width: 400px;
+  }
+
   &:hover {
     .project-card__content {
       box-shadow: 0 0 0 rgba(0, 0, 0, 0.0);
