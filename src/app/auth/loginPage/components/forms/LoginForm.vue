@@ -44,6 +44,7 @@ export default {
       loginPageState.loading = true
       setTimeout(() => {
         loginPageState.loading = false
+        this.$router.push('/')
       }, 2000)
     }
   }

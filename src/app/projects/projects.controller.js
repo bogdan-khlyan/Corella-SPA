@@ -1,4 +1,5 @@
 import ProjectsService from "@/app/projects/projects.service";
+import router from "@/router/router";
 
 class ProjectsController {
 
@@ -21,6 +22,7 @@ class ProjectsController {
     }
 
     async createProject(project) {
+        // return project
         return await this.#service.createProject(project)
     }
 
@@ -29,7 +31,9 @@ class ProjectsController {
     }
 
     async deleteProject(projectId) {
-        return await this.#service.deleteProject(projectId)
+        const data = await this.#service.deleteProject(projectId)
+        router.push('/')
+        return data
     }
 
 }
