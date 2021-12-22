@@ -8,6 +8,9 @@
           <div class="edit-task__input">
             <base-input label="Title"/>
           </div>
+          <div class="edit-task__select">
+            <edit-task-select />
+          </div>
           <div class="edit-task__uploading">
             <upload-file />
           </div>
@@ -31,10 +34,11 @@ import UploadFile from "@/app/common/uploadFiles/UploadFiles";
 import BaseInput from "@/app/common/BaseInput";
 
 import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";
+import EditTaskSelect from "@/app/projects/tasks/editTask/components/EditTaskSelect";
 
 export default {
   name: 'edit-task',
-  components: { BasePageWrapper, BaseInput, EditTaskDescription, UploadFile },
+  components: {EditTaskSelect, BasePageWrapper, BaseInput, EditTaskDescription, UploadFile },
   data() {
     return {
       loading: false
@@ -67,7 +71,9 @@ export default {
   &__input {
     margin: 0px 0px 24px 0px;
   }
-
+  &__select {
+    margin: 0px 0px 24px 0px;
+  }
   &__description {
 
   }

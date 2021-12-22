@@ -1,18 +1,18 @@
 <template>
-  <h3 class="view-task-title">{{ title }}</h3>
+  <div class="base-title">{{ text }}</div>
 </template>
 
 <script>
 export default {
-  name: "view-task-title",
+  name: "base-title",
   props: {
-    title: { type: String }
+    text: { type: String, required: true }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.view-task-title {
+.base-title {
   font-family: "Rubik";
   line-height: 16px;
   margin: 0px 0px 4px 0px;

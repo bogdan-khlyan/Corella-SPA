@@ -1,5 +1,6 @@
 <template>
-  <div class="view-task-select">
+  <div class="edit-task-select">
+    <base-title text="Members" />
     <el-select v-model="selectedMembers" multiple placeholder="Select members">
       <el-option
           v-for="member in dataMembers"
@@ -8,17 +9,23 @@
           :value="member.name + member.speciality"
       >
 
-        <span class="view-task-select__name">{{ member.name }}</span>
-        <span class="view-task-select__decor"></span>
-        <span class="view-task-select__speciality">{{ member.speciality }}</span>
+        <div class="edit-task-select__name">{{ member.name }}</div>
+        <div class="edit-task-select__decor"></div>
+        <div class="edit-task-select__speciality">{{ member.speciality }}</div>
+        <div class="edit-task-select__check">
+          <svg-icon :icon="require('@/assets/images/icons/tasks/check.svg')" />
+        </div>
       </el-option>
     </el-select>
   </div>
 </template>
 
 <script>
+import BaseTitle from "@/app/common/BaseTitle";
 export default {
-  name: "view-task-select",
+  name: "edit-task-select",
+  components: {BaseTitle},
+
   data() {
     return {
       selectedMembers: [],
@@ -55,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.view-task-select {
+.edit-task-select {
   &__decor {
     width: 4px;
     height: 4px;
@@ -63,8 +70,13 @@ export default {
     background-color: #212121;
     border-radius: 50%;
   }
+  &__check {
+    margin: 0px 0px 0px auto;
+    display: none;
+  }
 }
 </style>
+
 <style lang="scss">
 .el-select {
   width: 100%;
@@ -101,9 +113,36 @@ export default {
 .el-select .el-select__tags > span {
   display: block;
 }
-.el-select-dropdown__item {
-  display: flex;
-  align-items: center;
+.el-select-dropdown {
+
+  &__item {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    line-height: 58px;
+    padding: 0px 22.5px 0px 15px;
+    &:hover {
+      background-color: #FAFAFA;
+    }
+  }
+  &__wrap {
+    max-height: 270px;
+    overflow: auto;
+  }
+  &__list {
+    margin: 0 !important;
+  }
+}
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
+  background-color: #FAFAFA;
+}
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+  background-color: #FAFAFA;
+  color: inherit;
+  font-weight: 400;
+  .edit-task-select__check {
+    display: block;
+  }
 }
 .el-tag {
   &__close {
@@ -127,10 +166,15 @@ export default {
   right: 0;
   top: 0;
 }
-.el-popper__arrow {
+.el-popper {
   &__arrow {
     display: none;
   }
+}
+
+.el-select__popper.el-popper[role=tooltip] {
+  box-shadow: 0px 0px 0px transparent;
+  border: 1px solid #E7E7E7;
 }
 
 </style>
