@@ -1,6 +1,7 @@
 <template>
   <div class="base-sidebar"
-       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'">
+       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'"
+       :style="drawerStyles">
 
     <div class="base-sidebar__logo">
       <router-link to="/">
@@ -12,7 +13,7 @@
     <div class="base-sidebar__arrow">
       <div class="arrow-circle arrow-circle--show arrow-circle--close"
            @click="toggleSidebarMenu()">
-        <img src="@/assets/images/icons/sidebar/icon-arrow.svg">
+        <img src="@/assets/images/icons/sidebar/icon-arrow.svg" alt="">
       </div>
     </div>
 
@@ -35,13 +36,13 @@
         <transition-group name="emerging-el" appear>
           <template v-for="option in contentBlock" :key="option.icon">
 
-            <div v-if="option.type === 'TITLE'" class="base-sidebar__title">menu</div>
+            <div v-if="option.type === 'TITLE'"
+                 class="base-sidebar__title">menu</div>
 
             <div v-if="option.type !== 'TITLE'" class="base-sidebar__item base-sidebar__item--ordinary">
               <router-link
                   :class="{'active': option.route === route}"
-                  :to="option.path ? option.path : option.getPath(this)"
-              >
+                  :to="option.path ? option.path : option.getPath(this)">
                 <img :src="option.icon" alt="">
                 <span>{{ option.label }}</span>
               </router-link>
@@ -51,12 +52,16 @@
         </transition-group>
       </div>
 
-      <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
-        <router-link :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
-          <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
-          <span>{{ bottomButton.label }}</span>
-        </router-link>
-      </div>
+      <transition name="emerging-el" appear>
+        <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+          <router-link
+              :class="{'active': bottomButton.route === route}"
+              :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
+            <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
+            <span>{{ bottomButton.label }}</span>
+          </router-link>
+        </div>
+      </transition>
 
     </nav>
   </div>
@@ -66,10 +71,22 @@
 import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
 import {setSidebarCollapse} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
 import {baseSidebarConfig} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.config";
+import {appState} from "@/app/app.state";
 
 export default {
   name: 'base-sidebar',
   computed: {
+    drawerStyles() {
+      if (this.windowWidth <= 980) {
+        if (baseSidebarState.isDrawer) {
+          return null
+        } else {
+          return 'transform: translateX(-300px)'
+        }
+      } else {
+        return null
+      }
+    },
     route() {
       return this.$route.name
     },
@@ -105,8 +122,22 @@ export default {
           .get('bottomButton') // достаем конфиги для нижней кнопки
           .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
     },
+    windowWidth() {
+      return appState.windowWidth
+    },
     isCollapse() {
-      return baseSidebarState.isCollapse
+      if (this.windowWidth <= 980) {
+        return true
+      } else {
+        return baseSidebarState.isCollapse
+      }
+    }
+  },
+  watch: {
+    route() {
+      if (this.windowWidth < 980) {
+        baseSidebarState.isDrawer = false
+      }
     }
   },
   methods: {
@@ -122,7 +153,7 @@ export default {
   width: 80px;
   position: fixed;
   padding-top: 12px;
-  height: 100vh;
+  height: inherit;
   z-index: 10;
   background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
   transition: all 350ms linear;
@@ -228,6 +259,12 @@ export default {
   &--close {
     width: 80px;
 
+    .base-sidebar__logo {
+      span {
+        pointer-events: none;
+      }
+    }
+
     .base-sidebar__logo--close {
       left: 40px;
       opacity: 0;
@@ -266,6 +303,7 @@ export default {
             margin-top: 0;
             font-size: 0;
             transition: all 350ms linear;
+            pointer-events: none;
           }
 
           > img {
@@ -291,6 +329,7 @@ export default {
           > span {
             left: 0px;
             opacity: 0;
+            pointer-events: none;
           }
         }
       }
@@ -315,6 +354,7 @@ export default {
 
           > span {
             opacity: 0;
+            pointer-events: none;
           }
         }
       }
@@ -373,6 +413,10 @@ export default {
     right: -19px;
     top: 26px;
     cursor: pointer;
+
+    @media screen and (max-width: 980px) {
+      display: none;
+    }
 
     .arrow-circle {
       width: 32px;

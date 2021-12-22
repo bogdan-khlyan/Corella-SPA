@@ -1,13 +1,22 @@
 <template>
   <header class="base-header"
-          :style="{minWidth : isCollapse ?'calc(100% - 300px)':'calc(100% - 80px)'}">
+          :style="headerStyles">
+
+    <div v-if="windowWidth <= 980"
+         style="min-width: 32px"
+         @click="clickBurger">
+      <transition name="el-fade-in-linear" appear mode="out-in">
+        <img v-if="isDrawer" src="@/assets/images/icons/sidebar/icon-closed.svg" alt="">
+        <img v-else src="@/assets/images/icons/sidebar/burger.svg" alt="">
+      </transition>
+    </div>
 
     <transition name="showInput">
       <HeaderInput v-if="isShowInput"/>
     </transition>
     <div class="base-header__info">
 
-      <div class="base-header__icons-wrapper">
+      <div v-if="windowWidth > 768" class="base-header__icons-wrapper">
 
         <div class="base-header__icon base-header__icon--green">
           <a href="#">
@@ -33,14 +42,34 @@
 import AccountInfo from "./AccountInfo";
 import sidebarCollapse from "@/app/common/baseWrapper/baseSidebar/sidebar-mixin";
 import HeaderInput from "@/app/common/baseWrapper/baseHeader/HeaderInput";
+import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
+import {appState} from "@/app/app.state";
 
 export default {
   name: 'base-header',
   components: {HeaderInput, AccountInfo},
   mixins: [sidebarCollapse],
   computed: {
+    isDrawer() {
+      return baseSidebarState.isDrawer
+    },
+    windowWidth() {
+      return appState.windowWidth
+    },
+    headerStyles() {
+      if (this.windowWidth <= 980) {
+        return { minWidth: '100%' }
+      } else {
+        return { minWidth : this.isCollapse ? 'calc(100% - 300px)' : 'calc(100% - 80px)' }
+      }
+    },
     isShowInput() {
-      return this.$route.name === 'project-list'
+      return this.$route.name === 'project-list' && this.windowWidth > 768
+    }
+  },
+  methods: {
+    clickBurger() {
+      baseSidebarState.isDrawer = !baseSidebarState.isDrawer
     }
   }
 }
@@ -57,15 +86,21 @@ export default {
   border-bottom: 2px #E6E6E6 solid;
   display: flex;
   box-sizing: border-box;
-  justify-content: flex-end;
-  gap: 39px;
+  //justify-content: flex-end;
+  //gap: 39px;
   align-items: center;
   transition: 350ms linear;
 
   background-color: #FFFFFF;
 
+  @media screen and (max-width: 980px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   &__info {
-    width: 402px;
+    margin-left: auto;
+    //width: 402px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

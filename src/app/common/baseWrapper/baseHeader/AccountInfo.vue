@@ -1,38 +1,67 @@
 <template>
-  <div class="current-user">
+  <div class="current-user" ref="root">
 
-    <div class="current-user__avatar">
-      <!--      <svg width="42" height="42" data-jdenticon-value="tedir"></svg>-->
+    <div class="current-user__avatar"
+         @click="$router.push('/profile')">
       <div v-html='identicon'></div>
     </div>
 
-    <div class="current-user__data">
+    <div v-if="windowWidth > 600" class="current-user__data">
       <span>Lana-lana</span>
       <span>superadmin2021@gmail.com</span>
     </div>
 
-    <div class="current-user__info">
-      <a href="#">
-        <img src="@/assets/images/icons/header/icon-settings.svg">
-      </a>
-    </div>
+    <el-popover
+        placement="bottom"
+        :width="240"
+        trigger="click"
+        @show="isDropDown = true"
+        @hide="isDropDown = false">
+      <template #reference>
+        <div class="current-user__more">
+          <a :class="{'active': isDropDown}">
+            <img src="@/assets/images/icons/header/icon-settings.svg" alt="">
+          </a>
+        </div>
+      </template>
+      <div class="current-user__drop-down">
+        <div class="current-user__drop-down--name">
+          <span>Lana</span>
+        </div>
+        <div class="current-user__drop-down--email">
+          <span>superadmin2021@gmail.com</span>
+        </div>
+        <hr>
+        <div class="current-user__drop-down--logout">
+          <router-link to="/login">Log out</router-link>
+        </div>
+      </div>
+    </el-popover>
 
   </div>
 </template>
 
 <script>
-//import jdenticon from 'jdenticon';
 import {toSvg} from "jdenticon";
+import {appState} from "@/app/app.state";
 
 export default {
   name: "currentUser",
   computed: {
+    windowWidth() {
+      return appState.windowWidth
+    },
     identicon: function () {
       return toSvg('Nielldcfguji,kumyjnhtbgvfl23', 42);
     }
   },
+  data() {
+    return {
+      isDropDown: false
+    }
+  },
   mounted() {
-    document.getElementsByTagName("svg")[0].style.borderRadius = '50%'
+    this.$refs.root.querySelector('svg').style.borderRadius = '50%'
   }
 }
 </script>
@@ -40,12 +69,13 @@ export default {
 <style scoped lang="scss">
 .current-user {
   height: 42px;
-  width: 282px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   &__avatar {
+    margin-right: 12px;
+
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -77,8 +107,83 @@ export default {
     }
   }
 
-  &__info {
+  &__more {
     cursor: pointer;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 48px;
+      height: 48px;
+
+      transition: 200ms;
+
+      border-radius: 50%;
+
+      &:hover, &.active {
+        background: rgba(32, 197, 97, 0.14);
+      }
+    }
   }
+
+  &__drop-down {
+    padding: 6px;
+
+    &--name {
+      margin-bottom: 12px;
+      > span {
+        font-family: Rubik, sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+
+        color: #212121;
+      }
+    }
+
+    &--email {
+      > span {
+        font-family: Rubik, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #212121;
+      }
+    }
+
+    hr {
+      margin-top: 12px;
+      margin-bottom: 12px;
+
+      width: 100%;
+      height: 1px;
+      border: none;
+
+      background: #E9E9E9;
+      border-radius: 2px;
+    }
+
+    &--logout {
+      margin-top: 12px;
+      //margin-bottom: 12px;
+      > a {
+        font-family: Rubik, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
+        text-decoration: none;
+
+        color: #FF0000;
+      }
+    }
+
+  }
+
 }
 </style>

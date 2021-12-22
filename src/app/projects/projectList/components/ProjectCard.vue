@@ -11,10 +11,10 @@
       </div>
       <div class="project-card__info">
         <div class="project-card__info--item">
-          <span>{{project.membersCount}} members</span>
+          <span>{{project.membersCount || 0}} members</span>
         </div>
         <div class="project-card__info--item">
-          <span>{{project.tasksCount}} tasks</span>
+          <span>{{project.tasksCount || 0}} tasks</span>
         </div>
       </div>
     </div>
@@ -38,6 +38,10 @@ export default {
 .project-card {
   position: relative;
   text-decoration: none;
+
+  @media screen and (max-width: 650px) {
+    max-width: 400px;
+  }
 
   &:hover {
     .project-card__content {

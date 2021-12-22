@@ -6,7 +6,7 @@
            @input="setSearchText">
 
     <div>
-      <img src="@/assets/images/icons/header/loupe.svg">
+      <img src="@/assets/images/icons/header/loupe.svg" alt="">
     </div>
 
   </div>
@@ -24,9 +24,7 @@ export default {
   },
   methods: {
     setSearchText() {
-      if (this.searchText.trim() !== '') {
-        baseHeaderState.searchValue = this.searchText
-      }
+      baseHeaderState.searchValue = this.searchText
     }
   }
 }
@@ -35,8 +33,9 @@ export default {
 <style scoped lang="scss">
 .header-search {
   position: relative;
-  min-width: calc(100% - 442px);
-  max-width: 701px;
+  width: 100%;
+  margin-left: 12px;
+  padding-right: 16px;
 
   > div {
     position: absolute;
