@@ -1,5 +1,7 @@
+import { v4 as uuid } from 'uuid';
+
 const projectListButton = {
-    id: 1,
+    id: uuid(),
     top: true,
     path: '/',
     route: 'project-list',
@@ -8,7 +10,7 @@ const projectListButton = {
 }
 
 const userManagementButton = {
-    id: 2,
+    id: uuid(),
     top: true,
     path: '/admin/user-management',
     route: 'user-management',
@@ -17,27 +19,47 @@ const userManagementButton = {
 }
 
 const menuTitle = {
-    id: 3,
+    id: uuid(),
     type: 'TITLE',
     title: 'menu'
 }
 
 const boardButton = {
-    id: 4,
+    id: uuid(),
     getPath: (context) => `/project/${context.$route.params.projectId}/board`,
     route: 'board',
     label: 'Board',
     icon: require('@/assets/images/icons/sidebar/icon-board.svg')
 }
 
+const projectSettingsButton = {
+    id: uuid(),
+    getPath: (context) => `/project/${context.$route.params.projectId}/settings`,
+    route: 'project-settings',
+    label: 'Settings',
+    icon: require('@/assets/images/icons/common/icon-settings.svg')
+}
+
 const bottomButton = new Map()
     .set('project-list', {
-        id: 5,
+        id: uuid(),
+        label: 'Create New Project',
+        path: '/project/create'
+    })
+    .set('create-project', {
+        id: uuid(),
+        route: 'create-project',
         label: 'Create New Project',
         path: '/project/create'
     })
     .set('board', {
-        id: 6,
+        id: uuid(),
+        label: 'Create New Task',
+        getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
+    })
+    .set('create-task', {
+        id: uuid(),
+        route: 'create-task',
         label: 'Create New Task',
         getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
     })
@@ -55,6 +77,21 @@ export const baseSidebarConfig = new Map()
         projectListButton,
         userManagementButton,
         menuTitle,
-        boardButton
+        boardButton,
+        projectSettingsButton
+    ])
+    .set('project-settings', [
+        projectListButton,
+        userManagementButton,
+        menuTitle,
+        boardButton,
+        projectSettingsButton
+    ])
+    .set('create-task', [
+        projectListButton,
+        userManagementButton,
+        menuTitle,
+        boardButton,
+        projectSettingsButton
     ])
     .set('bottomButton', bottomButton)

@@ -1,5 +1,9 @@
 <template>
-  <base-page-wrapper title="Create project">
+  <base-page-wrapper
+      v-loading="loading"
+      :title="title"
+      :show-delete-button="!isCreate"
+      @delete="deleteProject">
     <form
         class="create-project"
         @submit.prevent="createProject">
@@ -7,12 +11,16 @@
         <div class="create-project__column">
           <base-input
               v-model="newProject.name"
+              :error="errors.name"
               label="Title"
-              placeholder="Enter project name"/>
+              placeholder="Enter project name"
+              @input="inputName"/>
           <base-textarea
               v-model="newProject.description"
+              :error="errors.description"
               label="Description"
-              placeholder="Enter project description"/>
+              placeholder="Enter project description"
+              @input="inputDescription"/>
         </div>
         <div class="create-project__column">
           <members-table/>
@@ -37,20 +45,89 @@ import {projectsController} from "@/app/projects/projects.controller";
 export default {
   name: 'project-editor',
   components: { BaseInput, BaseTextarea, BoardEditor, MembersTable, BasePageWrapper },
+  computed: {
+    isCreate() {
+      return this.$route.name === 'create-project'
+    },
+    title() {
+      if (this.isCreate) {
+        return 'Create project'
+      } else {
+        return 'Project settings'
+      }
+    }
+  },
   data() {
     return {
+      loading: false,
       newProject: {
         name: '',
         description: '',
         members: [],
         statuses: []
+      },
+      errors: {
+        name: false,
+        description: false
       }
     }
   },
   methods: {
     createProject() {
-      console.log('createProject')
-      projectsController.createProject(this.newProject)
+      if (this.validate()) {
+        this.loading = true
+        setTimeout(() => {
+          projectsController.createProject(this.newProject)
+              .then(() => this.$router.push('/'))
+              .finally(() => this.loading = false)
+        }, 700)
+      }
+    },
+    deleteProject() {
+      this.loading = true
+      setTimeout(() => {
+        projectsController.deleteProject(this.$route.params.projectId)
+      }, 400)
+    },
+    validate() {
+      let error = false
+
+      if (!this.validateName()) {
+        error = true
+      }
+      if (!this.validateDescription()) {
+        error = true
+      }
+
+      return !error
+    },
+    validateName() {
+      if (this.newProject.name.length > 4) {
+        this.errors.name = false
+        return true
+      } else {
+        this.errors.name = true
+        return false
+      }
+    },
+    validateDescription() {
+      if (this.newProject.description.length > 4) {
+        this.errors.description = false
+        return true
+      } else {
+        this.errors.description = true
+        return false
+      }
+    },
+    inputName() {
+      if (this.errors.name) {
+        this.validateName()
+      }
+    },
+    inputDescription() {
+      if (this.errors.description) {
+        this.validateDescription()
+      }
     }
   }
 }

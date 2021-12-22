@@ -31,6 +31,7 @@ import UploadFileButton from './components/buttons/UploadFileButton';
 import FilesList from './components/filesList/FilesList';
 import { v4 as uuid } from 'uuid';
 import {notificationsHelper} from "@/helpers/notifications.helper";
+import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state";
 
 export default {
   name: 'upload-files',
@@ -38,6 +39,20 @@ export default {
   computed: {
     hasFiles() {
       return this.files.length !== 0
+    },
+    dragFiles() {
+      return baseWrapperState.dragFiles
+    }
+  },
+  watch: {
+    dragFiles(newVal) {
+      console.log('watch')
+      console.log(newVal)
+      this.uploadFiles({
+        target: {
+          files: newVal
+        }
+      })
     }
   },
   data() {

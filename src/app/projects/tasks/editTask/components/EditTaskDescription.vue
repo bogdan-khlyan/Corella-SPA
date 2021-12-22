@@ -25,6 +25,8 @@ export default {
 
 <style scoped lang="scss">
 .edit-task-description {
+  margin-top: 12px;
+  margin-bottom: 12px;
 
   &__title {
     > span {

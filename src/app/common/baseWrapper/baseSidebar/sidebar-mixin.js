@@ -3,7 +3,10 @@ import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sideba
 const sidebarCollapse = {
     computed: {
         isCollapse() {
-            return baseSidebarState.isCollapse;
+            return baseSidebarState.isCollapse
+        },
+        isDrawer() {
+            return baseSidebarState.isDrawer
         }
     }
 }

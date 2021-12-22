@@ -5,12 +5,12 @@
       <div class="user-management__header-title">User Management</div>
       <button @click="addNewUser">
         <img src="@/assets/images/icons/buttons/icon-plus.svg" alt="add">
-        Add user
+        <span>Add user</span>
       </button>
     </div>
 
     <div class="user-management__table">
-      <el-table :data="dataTable">
+      <el-table :data="users">
 
         <el-table-column prop="name" label="Name" min-width="200">
           <template #default="scope">
@@ -23,11 +23,15 @@
 
         <el-table-column prop="isBan" label="Ban" width="200px">
           <template #default="scope">
-            <el-switch v-model="scope.row.isBan" active-color="#F32B2A" inactive-color="#BDBCC8" />
+            <el-switch
+                v-model="scope.row.isBan"
+                active-color="#F32B2A"
+                inactive-color="#BDBCC8"
+                @change="changeBanSwitch(scope.row.id, scope.row.isBan)"/>
           </template>
         </el-table-column>
 
-        <el-table-column fixed="right" label="Actions" width="230px">
+        <el-table-column fixed="right" label="Actions" width="120px">
           <template #default="scope">
             <button @click="editUser(scope.row)" class="user-management__edit-btn">
               <img src="@/assets/images/icons/buttons/icon-edit.svg" alt="add">
@@ -40,69 +44,52 @@
 
     <div class="user-management__pagination">
       <el-pagination
-          v-model:currentPage="currentPage3"
-          :page-size="10"
+          v-model:currentPage="pagination.page"
+          :page-size="pagination.limit"
           layout="prev, pager, next, jumper"
-          :total="41"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"/>
+          :total="total"/>
     </div>
 
-    <user-management-modal  ref="userManagementModal"/>
+    <user-management-modal
+        @update="getUsers"
+        ref="userManagementModal"/>
   </div>
 </template>
 
 <script>
-
-import UserManagementModal from "@/app/userManagement/UserManagementModal";
+import UserManagementModal from "@/app/userManagement/UserManagementPopup";
+import {userManagementController} from "@/app/userManagement/user-management.controller";
 
 export default {
   name: 'user-management',
   components: {
     UserManagementModal
   },
-  data(){
+  data() {
     return {
-      dataTable:[
-        {
-          id: 0,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        },
-        {
-          id: 1,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: true,
-        },
-        {
-          id: 2,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        },
-        {
-          id: 3,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        },
-        {
-          id: 4,
-          avatar: null,
-          name: 'Lana',
-          email: 'superadmin2021@gmail.com',
-          isBan: false,
-        }
-      ]
+      total: 0,
+      users: [],
+
+      pagination: {
+        page: 1,
+        limit: 10
+      }
     }
   },
+  created() {
+    this.getUsers()
+  },
   methods: {
+    changeBanSwitch(userId, isBanned) {
+      userManagementController.banUser(userId, isBanned)
+    },
+    getUsers() {
+      userManagementController.getUsers()
+          .then(data => {
+            this.users = data.users
+            this.total = data.total
+          })
+    },
     addNewUser(){
       this.$refs.userManagementModal.openModal()
     },
@@ -228,7 +215,7 @@ export default {
     }
   }
   &__pagination {
-    margin-top: 50px;
+    margin-top: 20px;
 
     .el-pagination, .el-pager {
       display: flex;

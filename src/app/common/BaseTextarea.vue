@@ -1,5 +1,6 @@
 <template>
-  <label class="base-input">
+  <label class="base-input"
+         :class="{'base-input__error': error}">
     <span v-if="label">{{ label }}</span>
     <textarea
         cols="30"
@@ -17,7 +18,9 @@ export default {
   props: {
     modelValue: { type: String },
     label: { type: String },
-    placeholder: { type: String, default: 'Please input' }
+    placeholder: { type: String, default: 'Please input' },
+
+    error: { type: Boolean, default: false }
   }
 }
 </script>
@@ -27,6 +30,12 @@ export default {
   display: block;
   margin-top: 12px;
   margin-bottom: 12px;
+
+  &__error {
+    textarea {
+      border-color: $text-error!important;
+    }
+  }
 
   > span {
     font-family: Rubik, sans-serif;
@@ -67,6 +76,9 @@ export default {
       color: #BDBCC8;
     }
 
+    &:focus {
+      border-color: $fields-stroke-focused;
+    }
 
   }
 

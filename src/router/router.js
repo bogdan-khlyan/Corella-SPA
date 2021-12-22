@@ -27,6 +27,10 @@ const routes = [{
         name: 'create-project',
         component: () => import('@/app/projects/projectEditor/ProjectEditor')
     }, {
+        path: '/project/:projectId/settings',
+        name: 'project-settings',
+        component: () => import('@/app/projects/projectEditor/ProjectEditor')
+    }, {
         path: '/project/:projectId/task/:taskId',
         name: 'task',
         component: () => import('@/app/projects/tasks/task/Task')
@@ -38,6 +42,10 @@ const routes = [{
         path: '/admin/user-management',
         name: 'user-management',
         component: () => import('@/app/userManagement/UserManagement')
+    }, {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/app/profile/ProfileView')
     }, {
         path: '/:pathMatch(.*)*',
         name: 'page-404',
