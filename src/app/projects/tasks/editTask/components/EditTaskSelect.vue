@@ -1,12 +1,12 @@
 <template>
   <div class="edit-task-select">
     <base-title text="Members" />
-    <el-select v-model="selectedMembers" multiple placeholder="Select members">
+    <el-select @remove-tag="test" @change="addMember" v-model="selectedMembers" multiple placeholder="Select members">
       <el-option
           v-for="member in dataMembers"
           :key="member.id"
           :label="member.name"
-          :value="member.name + member.speciality"
+          :value="member.id"
       >
 
         <div class="edit-task-select__name">{{ member.name }}</div>
@@ -22,6 +22,8 @@
 
 <script>
 import BaseTitle from "@/app/common/BaseTitle";
+import tasksController from '../../tasks.controller';
+
 export default {
   name: "edit-task-select",
   components: {BaseTitle},
@@ -56,6 +58,14 @@ export default {
           speciality: "Back-end"
         },
       ]
+    }
+  },
+  methods: {
+    test(members) {
+      console.log('lal');
+    },
+    addMember(members) {
+      console.log(members)
     }
   }
 }
@@ -121,6 +131,10 @@ export default {
     height: 58px;
     line-height: 58px;
     padding: 0px 22.5px 0px 15px;
+    font-weight: 400;
+    font-family: "Rubik";
+    font-size: 16px;
+    color: #212121;
     &:hover {
       background-color: #FAFAFA;
     }
@@ -140,6 +154,7 @@ export default {
   background-color: #FAFAFA;
   color: inherit;
   font-weight: 400;
+  color: #212121;
   .edit-task-select__check {
     display: block;
   }
