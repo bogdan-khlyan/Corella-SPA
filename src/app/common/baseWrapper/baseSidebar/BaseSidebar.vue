@@ -54,7 +54,9 @@
 
       <transition name="emerging-el" appear>
         <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
-          <router-link :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
+          <router-link
+              :class="{'active': bottomButton.route === route}"
+              :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
             <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
             <span>{{ bottomButton.label }}</span>
           </router-link>
@@ -76,9 +78,7 @@ export default {
   computed: {
     drawerStyles() {
       if (this.windowWidth <= 980) {
-        console.log('mobile')
         if (baseSidebarState.isDrawer) {
-          console.log('null')
           return null
         } else {
           return 'transform: translateX(-300px)'
@@ -130,6 +130,13 @@ export default {
         return true
       } else {
         return baseSidebarState.isCollapse
+      }
+    }
+  },
+  watch: {
+    route() {
+      if (this.windowWidth < 980) {
+        baseSidebarState.isDrawer = false
       }
     }
   },

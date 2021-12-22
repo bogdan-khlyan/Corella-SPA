@@ -46,8 +46,20 @@ const bottomButton = new Map()
         label: 'Create New Project',
         path: '/project/create'
     })
+    .set('create-project', {
+        id: uuid(),
+        route: 'create-project',
+        label: 'Create New Project',
+        path: '/project/create'
+    })
     .set('board', {
         id: uuid(),
+        label: 'Create New Task',
+        getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
+    })
+    .set('create-task', {
+        id: uuid(),
+        route: 'create-task',
         label: 'Create New Task',
         getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
     })
