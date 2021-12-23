@@ -91,6 +91,7 @@ export default {
     min-height: 56px;
     padding: 0px 20px;
     border-radius: 4px;
+    border: 1px solid #E7E7E7;
   }
 }
 .el-select .el-select__tags .el-tag {

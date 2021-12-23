@@ -1,7 +1,7 @@
 <template>
   <div class="upload-files">
 
-    <div v-if="!hasFiles && isViewMode"
+    <div v-if="!hasFiles && !isViewMode"
          class="upload-files__button">
       <upload-file-button
           @click="clickUpload"/>
@@ -13,6 +13,7 @@
       <files-list
         :files="files"
         :max-file-count="maxFileCount"
+        :is-view-mode="isViewMode"
         @upload-file="clickUpload"
         @remove-file="removeFile"/>
     </div>
@@ -27,12 +28,16 @@
 </template>
 
 <script>
-import UploadFileButton from './components/buttons/UploadFileButton';
-import FilesList from './components/filesList/FilesList';
-import { v4 as uuid } from 'uuid';
-import {notificationsHelper} from "@/helpers/notifications.helper";
-import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state";
+import { v4 as uuid } from 'uuid'
+
+import {notificationsHelper} from "@/helpers/notifications.helper"
 import {tasksController} from "@/app/projects/tasks/tasks.controller"
+import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state"
+
+import UploadFileButton from './components/buttons/UploadFileButton'
+import FilesList from './components/filesList/FilesList'
+
+
 
 export default {
   name: 'upload-files',
@@ -101,6 +106,7 @@ export default {
       $event.target.value = null
     },
     removeFile(fileId) {
+      tasksController.removeFile(1, fileId)
       const index = this.files.findIndex(file => file.id === fileId)
       URL.revokeObjectURL(this.files[index].$file)
       this.files.splice(index, 1)
@@ -108,7 +114,6 @@ export default {
     getUploadedFiles() {
       tasksController.getUploadedFiles()
       .then(files => {
-        debugger;
         this.files = files;
       })
     }

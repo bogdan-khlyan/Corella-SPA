@@ -22,6 +22,10 @@ export default class TasksService {
         const data = await this.#repository.getSelectedMembers(id);
         return data;
     }
+    async removeFile(taskId, fileId) {
+        const data = await this.#repository.removeFile(taskId, fileId);
+        return data;
+    }
     async uploadFiles(files) {
         const data = await this.#repository.uploadFiles(files)
         return data

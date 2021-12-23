@@ -8,6 +8,10 @@ class TasksController {
         const data = await this.#service.getUploadedFiles(id);
         return data;
     }
+    async removeFile(taskId, fileId) {
+        const data = await this.#service.removeFile(taskId, fileId);
+        return data;
+    }
     async getSelectedMembers(id) {
         const data = await this.#service.getSelectedMembers(id);
         return data;

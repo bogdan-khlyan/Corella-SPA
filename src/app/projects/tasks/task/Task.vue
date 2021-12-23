@@ -16,7 +16,7 @@
               <view-task-members />
             </div>
             <div class="view-task__files">
-              <upload-files :show-button="false" />
+              <upload-files :is-view-mode="true" />
             </div>
             <div class="view-task__collapse">
               <view-task-collapse />
@@ -57,11 +57,11 @@ export default {
     flex: 0 1 50%;
     padding: 0px 12px;
   }
-  &__files {
-    margin: 0px 0px 50px 0px;
-  }
   &__members {
     margin: 0px 0px 44px 0px;
+  }
+  &__collapse {
+     margin: 50px 0px 0px 0px;
   }
 }
 .view-task-item {

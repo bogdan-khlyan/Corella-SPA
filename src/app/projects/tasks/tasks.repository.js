@@ -4,7 +4,6 @@ export default class TasksRepository {
 	async getUploadedFiles(id) {
 		// const response = await http.get(`/tasks?id={id}`)
 		// return response.data.uploadedFiles
-		debugger;
 		const files = JSON.parse(localStorage.getItem('files'))
 		return files || []  
 	}
@@ -76,5 +75,13 @@ export default class TasksRepository {
 			return defaultMembers
 		}
 	}
+	async removeFile(taskId, fileId) {
+		// const response = await http.delete(`/tasks?id={taskId}&file-id={fileId}`)
+		// return response.data.removedFile
+		const files = JSON.parse(localStorage.getItem('files'))
+		const filteredFiles = files.filter(file => file.id !== fileId)
+		localStorage.setItem('files', JSON.stringify(filteredFiles))
 
+		return filteredFiles
+	}
 }

@@ -97,6 +97,9 @@ export default {
     font-weight: 400;
     font-family: "Rubik";
     font-size: 16px;
+    min-height: 48px;
+    height: auto;
+    line-height: 18px;
   }
   &__content {
     padding: 0px 20px 16px 20px;
@@ -108,5 +111,6 @@ export default {
 
   }
 }
+
 </style>
 
