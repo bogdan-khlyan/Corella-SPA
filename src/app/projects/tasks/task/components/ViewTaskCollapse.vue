@@ -2,19 +2,12 @@
   <div class="view-task-collapse">
     <h4 class="view-task-collapse__title">
       <span class="view-task-collapse__title--text">Issues</span>
-      <span class="view-task-collapse__title--count">2</span>
+      <span class="view-task-collapse__title--count">{{ issuesCount }}</span>
     </h4>
     <div class="view-task-collapse__content">
       <el-collapse>
-        <el-collapse-item
-            title="As a user, I want to be able to create new versions for projects and link them to issues or hotfixes"
-            name="1">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur!
-          Iusto natus ratione sequi.
-        </el-collapse-item>
-        <el-collapse-item title="As user, I want to be able to drag and drop files" name="2">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur!
-          Iusto natus ratione sequi.
+        <el-collapse-item :name="index" :key="index" v-for="(issue,index) in issues" :title="issue.title">
+          {{ issue.description }}
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -23,8 +16,31 @@
 
 
 <script>
+import { tasksController } from '../../tasks.controller'
+
 export default {
-  name: "ViewTaskCollapse"
+  name: "ViewTaskCollapse",
+  data() {
+    return {
+      issues: []
+    }
+  },
+  created() {
+    this.getIssues()
+  },
+  computed: {
+    issuesCount() {
+      return this.issues.length
+    }
+  },
+  methods: {
+    getIssues() {
+      tasksController.getIssues()
+      .then(issues => {
+        this.issues = issues
+      })
+    }
+  }
 }
 </script>
 <style lang="scss">

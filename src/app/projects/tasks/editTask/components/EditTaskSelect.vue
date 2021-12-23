@@ -1,12 +1,12 @@
 <template>
   <div class="edit-task-select">
     <base-title text="Members" />
-    <el-select @remove-tag="test" @change="addMember" v-model="selectedMembers" multiple placeholder="Select members">
+    <el-select @remove-tag="updateSelectedMembers" @change="updateSelectedMembers" v-model="selectedMembers" multiple placeholder="Select members">
       <el-option
           v-for="member in dataMembers"
           :key="member.id"
           :label="member.name"
-          :value="member.id"
+          :value="member.name"
       >
 
         <div class="edit-task-select__name">{{ member.name }}</div>
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import BaseTitle from "@/app/common/BaseTitle";
-import tasksController from '../../tasks.controller';
+import BaseTitle from "@/app/common/BaseTitle"
+import { tasksController } from '../../tasks.controller'
 
 export default {
   name: "edit-task-select",
@@ -31,41 +31,22 @@ export default {
   data() {
     return {
       selectedMembers: [],
-      dataMembers: [
-        {
-          id: 1,
-          name: "Lana",
-          speciality: "Designer"
-        }, {
-          id: 2,
-          name: "Anastasiya",
-          speciality: "Front-end"
-        }, {
-          id: 3,
-          name: "Mary-Anna",
-          speciality: "Back-end"
-        }, {
-          id: 4,
-          name: "Stanislav",
-          speciality: "Front-end"
-        }, {
-          id: 5,
-          name: "Alex",
-          speciality: "Front-end"
-        }, {
-          id: 6,
-          name: "Bogdan",
-          speciality: "Back-end"
-        },
-      ]
+      dataMembers: []
     }
   },
+  created() {
+    this.getMembers()
+  },
   methods: {
-    test(members) {
-      console.log('lal');
+    updateSelectedMembers() {
+      // console.log(Array.isArray(this.selectedMembers))
+      tasksController.updateSelectedMembers(this.selectedMembers)
     },
-    addMember(members) {
-      console.log(members)
+    getMembers() {
+      tasksController.getMembers()
+      .then(members => {
+        this.dataMembers = members
+      })
     }
   }
 }
@@ -140,7 +121,7 @@ export default {
     }
   }
   &__wrap {
-    max-height: 270px;
+    max-height: 290px;
     overflow: auto;
   }
   &__list {

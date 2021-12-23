@@ -2,38 +2,38 @@
   <div class="view-task-members">
     <div class="view-task-members__count">{{ membersCount }}</div>
     <ul class="view-task-members__list">
-      <li class="view-task-members__item" :key="member.id" v-for="member in dataMembers">
-        {{ member.name }}
+      <li class="view-task-members__item" :key="index" v-for="(member, index) in selectedMember">
+        {{ member }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { tasksController } from '../../tasks.controller'
+
 export default {
   name: "view-task-members",
   data() {
     return {
-      dataMembers: [
-        {
-          id: 1,
-          name: "Lana",
-          speciality: "Designer"
-        }, {
-          id: 2,
-          name: "Anastasiya",
-          speciality: "Front-end"
-        }, {
-          id: 3,
-          name: "Mary-Anna",
-          speciality: "Back-end"
-        }
-      ]
+      selectedMember: []
+    }
+  },
+  created() {
+    this.getSelectedMembers()
+  },
+  methods: {
+    getSelectedMembers() {
+      tasksController.getSelectedMembers()
+      .then(selectedMembers => {
+        this.selectedMember = selectedMembers
+        console.log(this.$data)
+      })
     }
   },
   computed: {
     membersCount() {
-      return this.dataMembers.length;
+      return this.selectedMember.length
     }
   }
 }

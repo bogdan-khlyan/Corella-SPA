@@ -1,7 +1,7 @@
 <template>
   <div class="upload-files">
 
-    <div v-if="!hasFiles && showButton"
+    <div v-if="!hasFiles && isViewMode"
          class="upload-files__button">
       <upload-file-button
           @click="clickUpload"/>
@@ -32,6 +32,7 @@ import FilesList from './components/filesList/FilesList';
 import { v4 as uuid } from 'uuid';
 import {notificationsHelper} from "@/helpers/notifications.helper";
 import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state";
+import {tasksController} from "@/app/projects/tasks/tasks.controller"
 
 export default {
   name: 'upload-files',
@@ -45,12 +46,10 @@ export default {
     }
   },
   props: {
-    showButton: { type: Boolean, default: true }
+    isViewMode: { type: Boolean, default: false }
   },
   watch: {
     dragFiles(newVal) {
-      console.log('watch')
-      console.log(newVal)
       this.uploadFiles({
         target: {
           files: newVal
@@ -64,6 +63,9 @@ export default {
       maxFileSize: 104857600,
       maxFileCount: 10
     }
+  },
+  created() {
+    this.getUploadedFiles()
   },
   methods: {
     clickUpload() {
@@ -84,23 +86,31 @@ export default {
         const type = file.type.split('/')[0]
         const extension = file.name.split('.').pop()
         const name = file.name
+        const link = window.URL.createObjectURL(file)
 
         this.files.push({
           id: uuid(),
-          link: window.URL.createObjectURL(file),
           $file: file,
+          link,
           type,
           extension,
           name
         })
       }
-
+      tasksController.uploadFiles(this.files)
       $event.target.value = null
     },
     removeFile(fileId) {
       const index = this.files.findIndex(file => file.id === fileId)
       URL.revokeObjectURL(this.files[index].$file)
       this.files.splice(index, 1)
+    },
+    getUploadedFiles() {
+      tasksController.getUploadedFiles()
+      .then(files => {
+        debugger;
+        this.files = files;
+      })
     }
   }
 }

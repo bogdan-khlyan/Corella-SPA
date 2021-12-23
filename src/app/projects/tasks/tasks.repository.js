@@ -1,11 +1,12 @@
-// import http from "@/axiosConfig/base-axios-config";
+// import http from "@/axiosConfig/base-axios-config"
 
 export default class TasksRepository {
 	async getUploadedFiles(id) {
 		// const response = await http.get(`/tasks?id={id}`)
 		// return response.data.uploadedFiles
-		const files = JSON.parse(localStorage.getItem('uploadedFiles'));
-		return files || [];  
+		debugger;
+		const files = JSON.parse(localStorage.getItem('files'))
+		return files || []  
 	}
 	async getIssues(id) {
 		// const response = await http.get(`/tasks?id={id}`)
@@ -18,41 +19,62 @@ export default class TasksRepository {
 			description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur! Iusto natus ratione sequi."
 		}]
 	}
-	async addFile(newFile) {
-		// const response = await http.get(`/tasks?id={id}`)
-		// return response.data.issues
-		let files = JSON.parse(localStorage.getItem('uploadedFiles'))
-
-		if (!files) {
-			files = [newFile]
-		} else {
-			files = [...files, newFile]
-		}
-		localStorage.setItem('uploadedFiles', JSON.stringify(files))
+	async uploadFiles(files) {
+		// const response = await http.post(`/tasks?id={id}`, { data: { files } })
+		// return response.data.files
+		localStorage.setItem('files', JSON.stringify(files))
 	}
 
-	// async updateMembers(newMember) {
-	// 	let members = JSON.parse(localStorage.getItem('members'))
+	async updateSelectedMembers(members, id) {
+		// const response = await http.post(`/tasks?id={id}`, { data: { members } })
+		// return response.data.selectedMembers
+		localStorage.setItem('selectedMembers', JSON.stringify(members))
+		return members
+	}
+	async getSelectedMembers(id) {
+		// const response = await http.get(`/tasks?id={id}`)
+		// return response.data.selectedMembers
 
-	// 	if (!members) {
-	// 		members = [newMember]
-	// 	} else {
-	// 		members = [...files, newMember]
-	// 	}
-	// 	debugger;
-	// 	localStorage.setItem('members', JSON.stringify(members))
-	// }
-	async updateSelectedMembers(members) {
-		let selectedMembers = JSON.parse(localStorage.getItem('selectedMembers'));
-
-		selectedMembers = [...members];
-		localStorage.setItem('selectedMembers', JSON.stringify(selectedMembers));
-		return selectedMembers;
+		const selectedMembers = localStorage.getItem('selectedMembers')
+		return selectedMembers ? JSON.parse(selectedMembers) : []
 	}
 	async getMembers(id) {
 		// const response = await http.get(`/tasks?id={id}`)
 		// return response.data.members
-		const members = JSON.parse(localStorage.getItem('members'));
-		return members || [];  
+		const members = JSON.parse(localStorage.getItem('members'))
+		if (members) {
+			return members
+		} else {
+			const defaultMembers = [
+				{
+					id: 1,
+					name: "Lana",
+					speciality: "Designer"
+				}, {
+					id: 2,
+					name: "Anastasiya",
+					speciality: "Front-end"
+				}, {
+					id: 3,
+					name: "Mary-Anna",
+					speciality: "Back-end"
+				}, {
+					id: 4,
+					name: "Stanislav",
+					speciality: "Front-end"
+				}, {
+					id: 5,
+					name: "Alex",
+					speciality: "Front-end"
+				}, {
+					id: 6,
+					name: "Bogdan",
+					speciality: "Back-end"
+				},
+			]
+			localStorage.setItem('members', JSON.stringify(defaultMembers))
+			return defaultMembers
+		}
 	}
+
 }

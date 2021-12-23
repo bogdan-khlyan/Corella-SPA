@@ -11,7 +11,7 @@
 import BaseTitle from "@/app/common/BaseTitle";
 export default {
   name: 'view-task-description',
-  components: {BaseTitle}
+  components: {BaseTitle},
 }
 </script>
 
