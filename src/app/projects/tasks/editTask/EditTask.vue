@@ -56,6 +56,11 @@ export default {
 
   &__content {
     display: flex;
+    max-width: 1600px;
+
+    @media screen and (max-width: 1400px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__column {
@@ -63,9 +68,25 @@ export default {
 
     padding: 0 12px 12px 12px;
     box-sizing: border-box;
+
+    @media screen and (max-width: 1800px) {
+      &:first-child {
+        width: 40%;
+      }
+      &:last-child {
+        width: 60%;
+      }
+    }
+    @media screen and (max-width: 1400px) {
+      width: 100% !important;
+    }
   }
   &__input {
     margin: 0px 0px 24px 0px;
+
+    @media screen and (max-width: 1400px) {
+      max-width: 600px;
+    }
   }
 
   &__description {

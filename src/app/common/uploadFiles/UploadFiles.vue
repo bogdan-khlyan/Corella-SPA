@@ -107,6 +107,7 @@ export default {
 .upload-files {
 
   &__button {
+    width: 100%;
     max-width: 454px;
     text-align: center;
 
