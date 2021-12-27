@@ -8,8 +8,35 @@
  * Экземпляр репозитория является приватным полем сервиса, вызывать методы репозитория может только сервис.
  */
 import http from "@/axiosConfig/base-axios-config";
+import { v4 as uuid } from 'uuid';
 
 export default class UserInstanceRepository {
+
+    async updateProfile(profile) {
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        userInfo = {
+            ...userInfo,
+            ...profile
+        }
+        localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        return userInfo
+    }
+
+    async getMe() {
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        if (!userInfo) {
+            userInfo = {
+                id: uuid(),
+                name: 'Lana-lana',
+                email: 'default@gmail.com',
+                avatar: uuid()
+            }
+            localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        }
+        return userInfo
+        // const response = await http.get(`/me`)
+        // return response.data
+    }
     
     /**
      * @param {object} credentials

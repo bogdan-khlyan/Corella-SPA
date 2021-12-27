@@ -13,13 +13,21 @@ import UserInstanceService from "@/app/userInstance/user-instance.service";
 class UserInstanceController {
 
     #service = new UserInstanceService()
+
+    async updateProfile(profile) {
+        return await this.#service.updateProfile(profile)
+    }
+
+    async getMe() {
+        return await this.#service.getMe()
+    }
     
     async login(credentials) {
-        return this.#service.login(credentials)
+        return await this.#service.login(credentials)
     }
     
     async register(user) {
-        return this.#service.register(user)
+        return await this.#service.register(user)
     }
     
 }

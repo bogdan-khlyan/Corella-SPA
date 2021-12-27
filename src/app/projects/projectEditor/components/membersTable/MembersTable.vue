@@ -136,6 +136,25 @@ export default {
       transition: 200ms;
       cursor: pointer;
 
+      @media screen and (max-width: 980px) {
+        width: 160px;
+      }
+      @media screen and (max-width: 500px) {
+        width: 120px;
+        height: 40px;
+        font-size: 10px;
+      }
+      @media screen and (max-width: 420px) {
+        //width: 40px;
+        width: calc(50% - 30px);
+        > span {
+          display: none;
+        }
+        > i {
+          margin-right: 0!important;
+        }
+      }
+
       &:hover {
         color: $text-white;
         background-color: #0AB258;

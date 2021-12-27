@@ -16,6 +16,18 @@ import {userInstanceState} from "@/app/userInstance/user-instance.state";
 export default class UserInstanceService {
 
     #repository = new UserInstanceRepository()
+
+    async updateProfile(profile) {
+        const userInfo = await this.#repository.updateProfile(profile)
+        userInstanceState.info = userInfo
+        return userInfo
+    }
+
+    async getMe() {
+        const userInfo = await this.#repository.getMe()
+        userInstanceState.info = userInfo
+        return userInfo
+    }
     
     async login(credentials) {
         const data = await this.#repository.login(credentials)

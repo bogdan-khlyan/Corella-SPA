@@ -1,14 +1,25 @@
 <template>
   <div class="current-user" ref="root">
-
-    <div class="current-user__avatar"
-         @click="$router.push('/profile')">
-      <div v-html='identicon'></div>
-    </div>
-
-    <div v-if="windowWidth > 600" class="current-user__data">
-      <span>Lana-lana</span>
-      <span>superadmin2021@gmail.com</span>
+    <div class="current-user__content">
+      <transition name="el-fade-in-linear">
+        <div v-if="userInfo.id"
+             class="current-user__avatar"
+             @click="$router.push('/profile')">
+          <div v-html="userAvatar"></div>
+        </div>
+      </transition>
+      <transition name="el-fade-in-linear">
+        <div v-if="userInfo.id && windowWidth > 600"
+             class="current-user__data">
+          <span>{{userInfo.name}}</span>
+          <span>{{userInfo.email}}</span>
+        </div>
+      </transition>
+      <transition name="el-fade-in-linear">
+        <div v-if="!userInfo.id"
+             v-loading="true"
+             class="current-user__content--loading"/>
+      </transition>
     </div>
 
     <el-popover
@@ -26,10 +37,10 @@
       </template>
       <div class="current-user__drop-down">
         <div class="current-user__drop-down--name">
-          <span>Lana</span>
+          <span>{{userInfo.name}}</span>
         </div>
         <div class="current-user__drop-down--email">
-          <span>superadmin2021@gmail.com</span>
+          <span>{{userInfo.email}}</span>
         </div>
         <hr>
         <div class="current-user__drop-down--logout">
@@ -44,15 +55,19 @@
 <script>
 import {toSvg} from "jdenticon";
 import {appState} from "@/app/app.state";
+import {userInstanceState} from "@/app/userInstance/user-instance.state";
 
 export default {
   name: "currentUser",
   computed: {
+    userInfo() {
+      return userInstanceState.info
+    },
     windowWidth() {
       return appState.windowWidth
     },
-    identicon: function () {
-      return toSvg('Nielldcfguji,kumyjnhtbgvfl23', 42);
+    userAvatar: function () {
+      return toSvg(this.userInfo.avatar, 42)
     }
   },
   data() {
@@ -61,7 +76,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.root.querySelector('svg').style.borderRadius = '50%'
+    // this.$refs.root.querySelector('svg').style.borderRadius = '50%'
   }
 }
 </script>
@@ -105,6 +120,28 @@ export default {
       font-size: 12px;
       font-weight: normal;
     }
+  }
+
+  &__content {
+    position: relative;
+    min-width: 200px;
+    height: 42px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media screen and (max-width: 600px) {
+      min-width: unset;
+    }
+
+    &--loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 200px;
+      height: 50px;
+    }
+
   }
 
   &__more {
@@ -185,5 +222,16 @@ export default {
 
   }
 
+}
+</style>
+
+<style lang="scss">
+.current-user__content--loading {
+  .el-loading-mask {
+    svg {
+      width: 34px!important;
+      height: 34px!important;
+    }
+  }
 }
 </style>

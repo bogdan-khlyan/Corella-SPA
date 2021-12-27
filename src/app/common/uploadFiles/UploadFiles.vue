@@ -1,7 +1,7 @@
 <template>
   <div class="upload-files">
 
-    <div v-if="!hasFiles"
+    <div v-if="!hasFiles && !isViewMode"
          class="upload-files__button">
       <upload-file-button
           @click="clickUpload"/>
@@ -13,6 +13,7 @@
       <files-list
         :files="files"
         :max-file-count="maxFileCount"
+        :is-view-mode="isViewMode"
         @upload-file="clickUpload"
         @remove-file="removeFile"/>
     </div>
@@ -27,11 +28,16 @@
 </template>
 
 <script>
-import UploadFileButton from './components/buttons/UploadFileButton';
-import FilesList from './components/filesList/FilesList';
-import { v4 as uuid } from 'uuid';
-import {notificationsHelper} from "@/helpers/notifications.helper";
-import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state";
+import { v4 as uuid } from 'uuid'
+
+import {notificationsHelper} from "@/helpers/notifications.helper"
+import {tasksController} from "@/app/projects/tasks/tasks.controller"
+import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state"
+
+import UploadFileButton from './components/buttons/UploadFileButton'
+import FilesList from './components/filesList/FilesList'
+
+
 
 export default {
   name: 'upload-files',
@@ -44,10 +50,11 @@ export default {
       return baseWrapperState.dragFiles
     }
   },
+  props: {
+    isViewMode: { type: Boolean, default: false }
+  },
   watch: {
     dragFiles(newVal) {
-      console.log('watch')
-      console.log(newVal)
       this.uploadFiles({
         target: {
           files: newVal
@@ -61,6 +68,9 @@ export default {
       maxFileSize: 104857600,
       maxFileCount: 10
     }
+  },
+  created() {
+    this.getUploadedFiles()
   },
   methods: {
     clickUpload() {
@@ -81,23 +91,31 @@ export default {
         const type = file.type.split('/')[0]
         const extension = file.name.split('.').pop()
         const name = file.name
+        const link = window.URL.createObjectURL(file)
 
         this.files.push({
           id: uuid(),
-          link: window.URL.createObjectURL(file),
           $file: file,
+          link,
           type,
           extension,
           name
         })
       }
-
+      tasksController.uploadFiles(this.files)
       $event.target.value = null
     },
     removeFile(fileId) {
+      tasksController.removeFile(1, fileId)
       const index = this.files.findIndex(file => file.id === fileId)
       URL.revokeObjectURL(this.files[index].$file)
       this.files.splice(index, 1)
+    },
+    getUploadedFiles() {
+      tasksController.getUploadedFiles()
+      .then(files => {
+        this.files = files;
+      })
     }
   }
 }
@@ -107,6 +125,7 @@ export default {
 .upload-files {
 
   &__button {
+    width: 100%;
     max-width: 454px;
     text-align: center;
 
