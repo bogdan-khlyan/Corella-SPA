@@ -8,11 +8,15 @@
 
 <script>
 import {appStateInit} from "@/app/app.state";
+import {userInstanceStateInit} from "@/app/userInstance/user-instance.state";
 
 export default {
   name: 'app',
   created() {
     appStateInit()
+    setTimeout(() => {
+      userInstanceStateInit()
+    }, 2000)
   }
 }
 </script>

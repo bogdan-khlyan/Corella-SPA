@@ -5,11 +5,6 @@
         @click="$emit('toggle-edit-mode', settingsName)"
         type="button"
         :class="['profile-actions-title__btn', { 'profile-actions-title__btn--edit': isEditingMode }]">
-      <svg-icon
-          :icon="require('@/assets/images/icons/profile/icon-edit.svg')"
-          :width="24"
-          :height="24"
-      />
     </button>
   </div>
 </template>
