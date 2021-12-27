@@ -96,6 +96,8 @@ export default {
 
 <style scoped lang="scss">
 .board-editor {
+  width: 100%;
+  overflow-y: scroll;
 
   &__label {
     padding-left: 12px;
@@ -111,6 +113,7 @@ export default {
   }
 
   &__content {
+    width: max-content;
     display: flex;
   }
 

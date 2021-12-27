@@ -1,4 +1,5 @@
 import {reactive} from 'vue'
+import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
 export const userInstanceState = reactive({
     isLoggedIn: false,
@@ -6,6 +7,10 @@ export const userInstanceState = reactive({
         id: null,
         avatar: null,
         email: null,
-        fullName: null
+        name: null
     }
 })
+
+export function userInstanceStateInit() {
+    return userInstanceController.getMe()
+}
