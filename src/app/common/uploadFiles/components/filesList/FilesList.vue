@@ -3,6 +3,7 @@
     <div class="files-list__item"
          v-for="file in files" :key="file.id">
       <file-preview
+          :is-view-mode="isViewMode"
           :file="file"
           @remove-file="$emit('remove-file', $event)"/>
     </div>
@@ -23,11 +24,12 @@ export default {
   emits: ['remove-file', 'upload-file'],
   props: {
     files: { type: Array, required: true },
-    maxFileCount: { type: Number, default: 10 }
+    maxFileCount: { type: Number, default: 10 },
+    isViewMode: { type: Boolean, default: false }
   },
   computed: {
     showAddFileButton() {
-      return this.files.length < this.maxFileCount
+      return this.files.length < this.maxFileCount && !this.isViewMode
     }
   }
 }

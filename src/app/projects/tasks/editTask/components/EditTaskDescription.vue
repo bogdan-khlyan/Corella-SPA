@@ -1,18 +1,17 @@
 <template>
   <div class="edit-task-description">
-    <div class="edit-task-description__title">
-      <span>Task Description</span>
-    </div>
+    <base-title text="Task Description" />
     <quill-editor :options="options"/>
   </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue3-quill'
+import BaseTitle from "@/app/common/BaseTitle";
 
 export default {
   name: 'edit-task-description',
-  components: { quillEditor },
+  components: {BaseTitle, quillEditor },
   data() {
     return {
       options: {
@@ -27,19 +26,6 @@ export default {
 .edit-task-description {
   margin-top: 12px;
   margin-bottom: 12px;
-
-  &__title {
-    > span {
-      font-family: Rubik, sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 16px;
-
-      color: #7B7B7B;
-    }
-  }
-
 }
 </style>
 
