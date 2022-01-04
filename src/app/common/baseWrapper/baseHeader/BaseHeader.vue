@@ -97,6 +97,12 @@ export default {
     padding-left: 16px;
     padding-right: 16px;
   }
+  @media screen and (max-width: 768px) {
+    height: 60px;
+  }
+  @media screen and (max-width: 480px) {
+    height: 50px;
+  }
 
   &__info {
     margin-left: auto;

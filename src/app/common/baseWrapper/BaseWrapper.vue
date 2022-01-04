@@ -133,6 +133,14 @@ export default {
 
       z-index: 2;
     }
+    @media screen and (max-width: 768px) {
+      top: 60px;
+      height: calc(100vh - 60px);
+    }
+    @media screen and (max-width: 480px) {
+      top: 50px;
+      height: calc(100vh - 50px);
+    }
 
     &--collapsed {
       min-width: 300px;
@@ -154,6 +162,12 @@ export default {
   &__content {
     transition: all 350ms linear;
     min-height: calc(100vh - 70px);
+    @media screen and (max-width: 768px) {
+      min-height: calc(100vh - 60px);
+    }
+    @media screen and (max-width: 480px) {
+      min-height: calc(100vh - 50px);
+    }
   }
 
   &__view {
@@ -162,6 +176,13 @@ export default {
     padding: 20px;
     box-sizing: border-box;
     min-height: calc(100vh - 70px);
+
+    @media screen and (max-width: 768px) {
+      min-height: calc(100vh - 60px);
+    }
+    @media screen and (max-width: 480px) {
+      min-height: calc(100vh - 50px);
+    }
   }
 
   &__drag-and-drop {
@@ -208,6 +229,13 @@ export default {
 
   &__header {
     height: 70px;
+
+    @media screen and (max-width: 768px) {
+      height: 60px;
+    }
+    @media screen and (max-width: 480px) {
+      height: 50px;
+    }
   }
 
 }

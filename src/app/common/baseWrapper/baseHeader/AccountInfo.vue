@@ -66,17 +66,23 @@ export default {
     windowWidth() {
       return appState.windowWidth
     },
+    avatarSize() {
+      if (this.windowWidth > 768) {
+        return 42
+      } else if (this.windowWidth > 480) {
+        return  38
+      } else {
+        return 36
+      }
+    },
     userAvatar: function () {
-      return toSvg(this.userInfo.avatar, 42)
+      return toSvg(this.userInfo.avatar, this.avatarSize)
     }
   },
   data() {
     return {
       isDropDown: false
     }
-  },
-  mounted() {
-    // this.$refs.root.querySelector('svg').style.borderRadius = '50%'
   }
 }
 </script>
@@ -98,6 +104,15 @@ export default {
     display: flex;
     justify-content: center;
     cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+      width: 38px;
+      height: 38px;
+    }
+    @media screen and (max-width: 480px) {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   &__data {
