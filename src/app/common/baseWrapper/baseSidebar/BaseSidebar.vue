@@ -52,8 +52,27 @@
         </transition-group>
       </div>
 
+
+      <div v-if="bottomButton && Array.isArray(bottomButton)" style="position: absolute;bottom: 16px;">
+        <transition-group name="emerging-el" appear>
+          <template v-for="option in bottomButton" :key="option.icon">
+
+            <div v-if="option.type !== 'TITLE'" class="base-sidebar__item base-sidebar__item--ordinary">
+              <router-link
+                  :class="{'active': option.route === route}"
+                  :to="option.path ? option.path : option.getPath(this)">
+                <img :src="option.icon" alt="">
+                <span>{{ option.label }}</span>
+              </router-link>
+            </div>
+
+          </template>
+        </transition-group>
+      </div>
+
+
       <transition name="emerging-el" appear>
-        <div v-if="bottomButton" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+        <div v-if="bottomButton && !Array.isArray(bottomButton)" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
           <router-link
               :class="{'active': bottomButton.route === route}"
               :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">

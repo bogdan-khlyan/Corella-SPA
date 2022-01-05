@@ -40,6 +40,24 @@ const projectSettingsButton = {
     icon: require('@/assets/images/icons/common/icon-settings.svg')
 }
 
+
+
+const createTaskButton = {
+    id: uuid(),
+    label: 'Create New Task',
+    icon: require('@/assets/images/icons/sidebar/icon-add.svg'),
+    route: 'create-task',
+    getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
+}
+
+const createHotfixButton = {
+    id: uuid(),
+    label: 'Create New Hotfix',
+    icon: require('@/assets/images/icons/common/icon-hotfix.svg'),
+    // route: 'create-task',
+    getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
+}
+
 const bottomButton = new Map()
     .set('project-list', {
         id: uuid(),
@@ -52,17 +70,14 @@ const bottomButton = new Map()
         label: 'Create New Project',
         path: '/project/create'
     })
-    .set('board', {
-        id: uuid(),
-        label: 'Create New Task',
-        getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
-    })
-    .set('create-task', {
-        id: uuid(),
-        route: 'create-task',
-        label: 'Create New Task',
-        getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
-    })
+    .set('board', [
+        createTaskButton,
+        createHotfixButton
+    ])
+    .set('create-task', [
+        createTaskButton,
+        createHotfixButton
+    ])
 
 export const baseSidebarConfig = new Map()
     .set('default', [
