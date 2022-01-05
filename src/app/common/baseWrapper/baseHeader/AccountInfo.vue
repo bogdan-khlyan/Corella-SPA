@@ -2,7 +2,7 @@
   <div class="current-user" ref="root">
     <div class="current-user__content">
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo.id"
+        <div v-if="userInfo.id && windowWidth > 600"
              class="current-user__avatar"
              @click="$router.push('/profile')">
           <div v-html="userAvatar"></div>
@@ -29,10 +29,13 @@
         @show="isDropDown = true"
         @hide="isDropDown = false">
       <template #reference>
-        <div class="current-user__more">
+        <div v-if="windowWidth > 600" class="current-user__more">
           <a :class="{'active': isDropDown}">
             <img src="@/assets/images/icons/header/icon-settings.svg" alt="">
           </a>
+        </div>
+        <div v-else class="current-user__avatar">
+          <div v-html="userAvatar"></div>
         </div>
       </template>
       <div class="current-user__drop-down">
@@ -108,6 +111,9 @@ export default {
     @media screen and (max-width: 768px) {
       width: 38px;
       height: 38px;
+    }
+    @media screen and (max-width: 600px) {
+      margin-right: 0;
     }
     @media screen and (max-width: 480px) {
       width: 36px;
