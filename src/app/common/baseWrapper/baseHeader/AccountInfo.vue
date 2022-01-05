@@ -46,6 +46,9 @@
           <span>{{userInfo.email}}</span>
         </div>
         <hr>
+        <div class="current-user__drop-down--link">
+          <router-link to="/profile">Account settings</router-link>
+        </div>
         <div class="current-user__drop-down--logout">
           <router-link to="/login">Log out</router-link>
         </div>
@@ -226,10 +229,33 @@ export default {
       border-radius: 2px;
     }
 
-    &--logout {
-      margin-top: 12px;
-      //margin-bottom: 12px;
+    &--link {
+      margin-top: 4px;
+      margin-bottom: 4px;
       > a {
+        display: block;
+        width: 100%;
+        padding: 4px 4px 4px 0;
+
+        font-family: Rubik, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        text-decoration: none;
+
+        color: #212121;
+      }
+    }
+
+    &--logout {
+      margin-top: 4px;
+      //margin-bottom: 6px;
+      > a {
+        display: block;
+        width: 100%;
+        padding: 4px 4px 4px 0;
+
         font-family: Rubik, sans-serif;
         font-style: normal;
         font-weight: normal;
