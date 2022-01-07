@@ -190,7 +190,7 @@ export default {
   }
 
   &__drop-down {
-    padding: 6px;
+    padding: 20px 20px 14px 20px;
 
     &--name {
       margin-bottom: 12px;
