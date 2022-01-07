@@ -16,22 +16,7 @@
     </transition>
     <div class="base-header__info">
 
-      <div v-if="windowWidth > 768" class="base-header__icons-wrapper">
-
-        <div class="base-header__icon base-header__icon--green">
-          <a href="#">
-            <img src="@/assets/images/icons/header/icon-messages.svg">
-            <span>2</span>
-          </a>
-        </div>
-
-        <div class="base-header__icon base-header__icon--red">
-          <a href="#">
-            <img src="@/assets/images/icons/header/icon-notification.svg">
-            <span>16</span>
-          </a>
-        </div>
-      </div>
+      <header-notifications v-if="windowWidth > 768"/>
 
       <AccountInfo/>
     </div>
@@ -44,10 +29,11 @@ import sidebarCollapse from "@/app/common/baseWrapper/baseSidebar/sidebar-mixin"
 import HeaderInput from "@/app/common/baseWrapper/baseHeader/HeaderInput";
 import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
 import {appState} from "@/app/app.state";
+import HeaderNotifications from "@/app/common/baseWrapper/baseHeader/HeaderNotifications";
 
 export default {
   name: 'base-header',
-  components: {HeaderInput, AccountInfo},
+  components: {HeaderInput, AccountInfo, HeaderNotifications},
   mixins: [sidebarCollapse],
   computed: {
     isDrawer() {
@@ -115,75 +101,9 @@ export default {
   }
 
   &__icons-wrapper {
-    width: 87px;
     height: 20px;
     display: flex;
     justify-content: space-between;
-  }
-
-  &__icon {
-
-    > a {
-      position: relative;
-      background-color: #0ACF83;
-
-      > span {
-        position: absolute;
-        color: #FFFFFF;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 12px;
-        line-height: 14px;
-        text-align: center;
-        text-transform: capitalize;
-        padding: 2px 6px;
-        border-radius: 20px;
-        top: -8px;
-        left: 13px;
-        transition: all 50ms linear;
-      }
-
-      > img {
-        width: 24px;
-        transition: width 150ms linear;
-      }
-
-      > img:hover {
-        width: 28px;
-      }
-
-      > img:hover ~ span {
-        padding: 0;
-        border-radius: 50%;
-        color: transparent;
-        width: 8px;
-        height: 8px;
-        font-size: 0;
-        top: 0px;
-        left: 20px;
-      }
-    }
-
-    &--red {
-      width: 38px;
-
-      > a {
-        > span {
-          background: #e53c0e;
-        }
-      }
-    }
-
-    &--green {
-      width: 32px;
-
-      > a {
-        > span {
-          background: #0AB258;
-        }
-      }
-    }
   }
 
 }
