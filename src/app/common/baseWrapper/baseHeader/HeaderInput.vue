@@ -1,15 +1,16 @@
 <template>
   <div class="header-search">
 
+    <div class="header-search__icon"
+         :class="{'header-search__icon--active': searchText.length}">
+      <svg-icon
+          :icon="require('@/assets/images/icons/header/loupe.svg')"/>
+    </div>
+
     <input v-model="searchText"
            type="text"
            placeholder="search..."
            @input="setSearchText">
-
-    <div :class="{'header-search__icon': searchText.length}">
-      <svg-icon
-          :icon="require('@/assets/images/icons/header/loupe.svg')"/>
-    </div>
 
   </div>
 </template>
@@ -39,11 +40,12 @@ export default {
   margin-left: 12px;
   padding-right: 16px;
 
-  > div {
+  &__icon {
     position: absolute;
     cursor: pointer;
     top: 16px;
     left: 16px;
+    pointer-events: none;
 
     > img {
       width: 24px;
@@ -94,7 +96,7 @@ export default {
 </style>
 
 <style lang="scss">
-.header-search__icon {
+.header-search__icon--active {
   path {
     fill: #0AB258;
   }
