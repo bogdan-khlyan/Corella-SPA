@@ -5,6 +5,7 @@
                 :image="iconModal"
                 :loading="loading"
                 @submit="submitUserModal"
+                @update:modelValue="changeVisible"
                 ref="baseModal">
       <base-input
           v-model="userInfo.email"
@@ -42,6 +43,9 @@ import BaseInputPassword from "@/app/common/BaseInputPassword";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 import * as EmailValidator from 'email-validator';
 
+const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
+const iconUser = require('@/assets/images/icons/modals/icon-user.svg')
+
 export default {
   name: "user-management-popup",
   components: {
@@ -73,7 +77,7 @@ export default {
       return this.isEdit ? 'Edit User' : 'Add user'
     },
     iconModal() {
-      return this.isEdit ? require('@/assets/images/icons/modals/icon-edit.svg') : require('@/assets/images/icons/modals/icon-user.svg')
+      return this.isEdit ? iconEdit : iconUser
     }
   },
   methods: {
@@ -148,6 +152,15 @@ export default {
         password: false
       }
       this.visible = true
+    },
+    changeVisible() {
+      if (!this.visible) {
+        this.$router.replace({
+          query: {
+            'create-user': undefined
+          }
+        })
+      }
     },
     submitUserModal() {
       if (this.validate()) {

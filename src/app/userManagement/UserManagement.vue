@@ -76,6 +76,13 @@ export default {
       }
     }
   },
+  watch: {
+    '$route'() {
+      if (this.$route.query['create-user'] === null) {
+        this.$refs.userManagementModal.openModal()
+      }
+    },
+  },
   created() {
     this.getUsers()
   },
