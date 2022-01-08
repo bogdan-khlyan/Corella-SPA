@@ -69,9 +69,6 @@ export default {
       maxFileCount: 10
     }
   },
-  created() {
-    this.getUploadedFiles()
-  },
   methods: {
     clickUpload() {
       this.$refs.input.click()
@@ -102,7 +99,6 @@ export default {
           name
         })
       }
-      tasksController.uploadFiles(this.files)
       $event.target.value = null
     },
     removeFile(fileId) {
@@ -110,12 +106,6 @@ export default {
       const index = this.files.findIndex(file => file.id === fileId)
       URL.revokeObjectURL(this.files[index].$file)
       this.files.splice(index, 1)
-    },
-    getUploadedFiles() {
-      tasksController.getUploadedFiles()
-      .then(files => {
-        this.files = files;
-      })
     }
   }
 }
