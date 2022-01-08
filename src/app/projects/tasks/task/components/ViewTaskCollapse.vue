@@ -1,7 +1,7 @@
 <template>
   <div class="view-task-collapse">
     <h4 class="view-task-collapse__title">
-      <span class="view-task-collapse__title--text">Issues</span>
+      <span class="view-task-collapse__title--text">Bugs</span>
       <span class="view-task-collapse__title--count">{{ issuesCount }}</span>
     </h4>
     <div class="view-task-collapse__content">

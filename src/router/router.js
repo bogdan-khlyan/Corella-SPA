@@ -39,6 +39,10 @@ const routes = [{
         name: 'create-task',
         component: () => import('@/app/projects/tasks/editTask/EditTask')
     }, {
+        path: '/project/:projectId/task/:taskId/edit',
+        name: 'edit-task',
+        component: () => import('@/app/projects/tasks/editTask/EditTask')
+    }, {
         path: '/admin/user-management',
         name: 'user-management',
         component: () => import('@/app/userManagement/UserManagement')
