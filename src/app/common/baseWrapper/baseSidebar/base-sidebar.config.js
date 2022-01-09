@@ -83,6 +83,14 @@ const bottomButton = new Map()
         createTaskButton,
         createHotfixButton
     ])
+    .set('edit-task', [
+        createTaskButton,
+        createHotfixButton
+    ])
+    .set('task', [
+        createTaskButton,
+        createHotfixButton
+    ])
     .set('user-management', createUser)
 
 export const baseSidebarConfig = new Map()
@@ -109,6 +117,20 @@ export const baseSidebarConfig = new Map()
         projectSettingsButton
     ])
     .set('create-task', [
+        projectListButton,
+        userManagementButton,
+        menuTitle,
+        boardButton,
+        projectSettingsButton
+    ])
+    .set('edit-task', [
+        projectListButton,
+        userManagementButton,
+        menuTitle,
+        boardButton,
+        projectSettingsButton
+    ])
+    .set('task', [
         projectListButton,
         userManagementButton,
         menuTitle,
