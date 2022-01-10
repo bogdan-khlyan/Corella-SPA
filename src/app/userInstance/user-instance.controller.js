@@ -9,6 +9,7 @@
  * В этом слое можно создавать специфические методы для обработки произвольных событий из слоя view.
  */
 import UserInstanceService from "@/app/userInstance/user-instance.service";
+import router from "@/router/router";
 
 class UserInstanceController {
 
@@ -23,7 +24,9 @@ class UserInstanceController {
     }
     
     async login(credentials) {
-        return await this.#service.login(credentials)
+        const data = await this.#service.login(credentials)
+        router.push('/')
+        return data
     }
     
     async register(user) {

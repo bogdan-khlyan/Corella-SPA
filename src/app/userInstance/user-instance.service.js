@@ -12,6 +12,7 @@
  */
 import UserInstanceRepository from "@/app/userInstance/user-instance.repository";
 import {userInstanceState} from "@/app/userInstance/user-instance.state";
+import {notificationsHelper} from "@/helpers/notifications.helper";
 
 export default class UserInstanceService {
 
@@ -30,10 +31,17 @@ export default class UserInstanceService {
     }
     
     async login(credentials) {
-        const data = await this.#repository.login(credentials)
-        userInstanceState.isLoggedIn = true
-        userInstanceState.info = data
-        return data
+        try {
+            const data = await this.#repository.login(credentials)
+            userInstanceState.isLoggedIn = true
+            userInstanceState.info = data
+            notificationsHelper.success({ message: 'Authorization is successful' })
+            return data
+        } catch (error) {
+            console.log(error)
+            notificationsHelper.error()
+            throw error
+        }
     }
     
     async register(user) {

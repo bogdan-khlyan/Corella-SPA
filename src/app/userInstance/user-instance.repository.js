@@ -40,12 +40,12 @@ export default class UserInstanceRepository {
     
     /**
      * @param {object} credentials
-     * @param {string} credentials.email
+     * @param {string} credentials.login
      * @param {string} credentials.password
      * @returns {Promise<any>}
      */
     async login(credentials) {
-        const response = await http.post(`/login`, credentials)
+        const response = await http.post(`/api/user/signin`, credentials)
         return response.data
     }
     
