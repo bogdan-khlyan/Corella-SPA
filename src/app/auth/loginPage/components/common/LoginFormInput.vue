@@ -1,5 +1,6 @@
 <template>
-  <label class="login-form-input">
+  <label class="login-form-input"
+         :class="{'login-form-input__error': error}">
 
       <input required
              :type="visible ? 'text' : type"
@@ -33,7 +34,8 @@ export default {
   props: {
     modelValue: String,
     type: {type: String, default: 'text'},
-    placeholder: {type: String, default: 'Enter'}
+    placeholder: {type: String, default: 'Enter'},
+    error: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -53,6 +55,15 @@ export default {
   position: relative;
   display: block;
   padding-top: 10px;
+
+  &__error {
+    input {
+      border-color: red!important;
+    }
+    label {
+      color: red!important;
+    }
+  }
 
   input:-webkit-autofill {
     & ~ label {
