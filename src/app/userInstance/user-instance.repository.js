@@ -11,6 +11,17 @@ import http from "@/axiosConfig/base-axios-config";
 
 export default class UserInstanceRepository {
 
+    async logout() {
+        let config = null
+        if (process.env.NODE_ENV === 'development') {
+            config = {
+                headers: { 'x-localhost': 'true' } // добавляю дев-хедер для прохождения авторизации с localhost
+            }
+        }
+        const response = await http.delete('/api/user/signout', config)
+        return response.data
+    }
+
     async changePassword(requestData) {
         const response = await http.patch('/api/user/password', requestData)
         return response.data

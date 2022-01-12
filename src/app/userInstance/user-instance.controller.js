@@ -15,6 +15,12 @@ class UserInstanceController {
 
     #service = new UserInstanceService()
 
+    async logout() {
+        const data = await this.#service.logout()
+        router.push('/login')
+        return data
+    }
+
     async changePassword(viewData) {
         return await this.#service.changePassword({
             password: viewData.newPassword,

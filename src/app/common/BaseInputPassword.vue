@@ -66,6 +66,9 @@ export default {
   }
 
   &__label {
+    padding-top: 4px;
+    padding-bottom: 4px;
+
     display: flex;
     width: 100%;
 

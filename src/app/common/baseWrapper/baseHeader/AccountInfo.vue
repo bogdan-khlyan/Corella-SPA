@@ -50,7 +50,7 @@
           <router-link to="/profile">Account settings</router-link>
         </div>
         <div class="current-user__drop-down--logout">
-          <router-link to="/login">Log out</router-link>
+          <a @click="logout">Log out</a>
         </div>
       </div>
     </el-popover>
@@ -62,6 +62,7 @@
 import {toSvg} from "jdenticon";
 import {appState} from "@/app/app.state";
 import {userInstanceState} from "@/app/userInstance/user-instance.state";
+import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
 export default {
   name: "currentUser",
@@ -88,6 +89,11 @@ export default {
   data() {
     return {
       isDropDown: false
+    }
+  },
+  methods: {
+    logout() {
+      userInstanceController.logout()
     }
   }
 }
@@ -264,6 +270,7 @@ export default {
         text-decoration: none;
 
         color: #FF0000;
+        cursor: pointer;
       }
     }
 

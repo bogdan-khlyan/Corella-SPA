@@ -18,6 +18,18 @@ export default class UserInstanceService {
 
     #repository = new UserInstanceRepository()
 
+    async logout() {
+        try {
+            const data = await this.#repository.logout()
+            setIsLoggedIn(false)
+            notificationsHelper.success({ message: 'You have successfully logged out of your account' })
+            return data
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+
     async changePassword(requestData) {
         try {
             const data = await this.#repository.changePassword(requestData)
