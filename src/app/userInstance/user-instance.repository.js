@@ -11,6 +11,11 @@ import http from "@/axiosConfig/base-axios-config";
 
 export default class UserInstanceRepository {
 
+    async changePassword(requestData) {
+        const response = await http.patch('/api/user/password', requestData)
+        return response.data
+    }
+
     async updateProfile(profile) {
         const response = await http.patch(`/api/user`, profile)
         return response.data.user

@@ -18,6 +18,22 @@ export default class UserInstanceService {
 
     #repository = new UserInstanceRepository()
 
+    async changePassword(requestData) {
+        try {
+            const data = await this.#repository.changePassword(requestData)
+            notificationsHelper.success({ message: 'Password changed successfully' })
+            return data
+        } catch (error) {
+            const errorData = error.response.data.error
+            if (errorData.code === 2005) {
+                throw { currentPassword: errorData.message }
+            } else {
+                notificationsHelper.error()
+            }
+            throw error
+        }
+    }
+
     async updateProfile(profile) {
         try {
             const userInfo = await this.#repository.updateProfile(profile)

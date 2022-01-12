@@ -15,6 +15,13 @@ class UserInstanceController {
 
     #service = new UserInstanceService()
 
+    async changePassword(viewData) {
+        return await this.#service.changePassword({
+            password: viewData.newPassword,
+            oldPassword: viewData.currentPassword
+        })
+    }
+
     async updateProfile(profile) {
         return await this.#service.updateProfile(profile)
     }
