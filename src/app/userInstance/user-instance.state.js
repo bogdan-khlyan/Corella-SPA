@@ -1,8 +1,10 @@
 import {reactive} from 'vue'
 import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
+let isLoggedIn = !!localStorage.getItem('isLoggedIn')
+
 export const userInstanceState = reactive({
-    isLoggedIn: false,
+    isLoggedIn,
     info: {
         id: null,
         avatar: null,
@@ -11,6 +13,19 @@ export const userInstanceState = reactive({
     }
 })
 
+export function setIsLoggedIn(isLoggedIn) {
+    if (isLoggedIn) {
+        localStorage.setItem('isLoggedIn', isLoggedIn)
+        userInstanceState.isLoggedIn = true
+    } else {
+        localStorage.removeItem('isLoggedIn')
+    }
+}
+
 export function userInstanceStateInit() {
-    return userInstanceController.getMe()
+    if (!userInstanceState.info.id) {
+        return userInstanceController.getMe()
+    } else {
+        return null
+    }
 }

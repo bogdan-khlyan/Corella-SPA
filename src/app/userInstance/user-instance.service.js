@@ -11,7 +11,7 @@
  * Экземпляр сервиса является приватным полем контроллера, вызывать методы сервиса может только контроллер.
  */
 import UserInstanceRepository from "@/app/userInstance/user-instance.repository";
-import {userInstanceState} from "@/app/userInstance/user-instance.state";
+import {setIsLoggedIn, userInstanceState} from "@/app/userInstance/user-instance.state";
 import {notificationsHelper} from "@/helpers/notifications.helper";
 
 export default class UserInstanceService {
@@ -33,7 +33,7 @@ export default class UserInstanceService {
     async login(credentials) {
         try {
             const data = await this.#repository.login(credentials)
-            userInstanceState.isLoggedIn = true
+            setIsLoggedIn(true)
             userInstanceState.info = data
             notificationsHelper.success({ message: 'Authorization is successful' })
             return data

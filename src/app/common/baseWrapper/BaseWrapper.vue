@@ -49,6 +49,7 @@ import {baseWrapperConfig} from "@/app/common/baseWrapper/base-wrapper.config";
 import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state";
 import {appState} from "@/app/app.state";
 import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
+import {userInstanceStateInit} from "@/app/userInstance/user-instance.state";
 
 export default {
   name: 'base-wrapper',
@@ -95,6 +96,9 @@ export default {
     return {
       drag: false
     }
+  },
+  created() {
+    userInstanceStateInit()
   },
   methods: {
     closeDrawer() {
