@@ -6,10 +6,13 @@ let isLoggedIn = !!localStorage.getItem('isLoggedIn')
 export const userInstanceState = reactive({
     isLoggedIn,
     info: {
-        id: null,
+        _id: null,
         avatar: null,
+        createdAt: null,
         email: null,
-        name: null
+        role: null,
+        updatedAt: null,
+        username: null
     }
 })
 
@@ -23,7 +26,7 @@ export function setIsLoggedIn(isLoggedIn) {
 }
 
 export function userInstanceStateInit() {
-    if (!userInstanceState.info.id) {
+    if (!userInstanceState.info._id) {
         return userInstanceController.getMe()
     } else {
         return null

@@ -19,9 +19,16 @@ export default class UserInstanceService {
     #repository = new UserInstanceRepository()
 
     async updateProfile(profile) {
-        const userInfo = await this.#repository.updateProfile(profile)
-        userInstanceState.info = userInfo
-        return userInfo
+        try {
+            const userInfo = await this.#repository.updateProfile(profile)
+            userInstanceState.info = userInfo
+            notificationsHelper.success({ message: 'Profile has been successfully updated' })
+            return userInfo
+        } catch (error) {
+            console.log(error)
+            notificationsHelper.error()
+            throw error
+        }
     }
 
     async getMe() {

@@ -2,21 +2,21 @@
   <div class="current-user" ref="root">
     <div class="current-user__content">
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo.id && windowWidth > 600"
+        <div v-if="userInfo._id && windowWidth > 600"
              class="current-user__avatar"
              @click="$router.push('/profile')">
           <div v-html="userAvatar"></div>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo.id && windowWidth > 600"
+        <div v-if="userInfo._id && windowWidth > 600"
              class="current-user__data">
-          <span>{{userInfo.name}}</span>
+          <span>{{userInfo.username}}</span>
           <span>{{userInfo.email}}</span>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
-        <div v-if="!userInfo.id"
+        <div v-if="!userInfo._id"
              v-loading="true"
              class="current-user__content--loading"/>
       </transition>
@@ -40,7 +40,7 @@
       </template>
       <div class="current-user__drop-down">
         <div class="current-user__drop-down--name">
-          <span>{{userInfo.name}}</span>
+          <span>{{userInfo.username}}</span>
         </div>
         <div class="current-user__drop-down--email">
           <span>{{userInfo.email}}</span>

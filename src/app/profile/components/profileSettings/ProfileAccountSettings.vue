@@ -1,5 +1,7 @@
 <template>
-  <div v-loading="loading" class="profile-account-settings">
+  <form class="profile-account-settings"
+        v-loading="loading"
+        @submit.prevent="submit">
     <div class="profile-account-settings__input">
       <base-input
           :model-value="userInfo.email"
@@ -9,16 +11,16 @@
     </div>
     <div class="profile-account-settings__input">
       <base-input
-          v-model="profile.name"
+          v-model="profile.username"
           label="Username"
           placeholder="Your name"
-          :error="errors.name"
+          :error="errors.username"
           @input="validateName"/>
     </div>
     <div class="profile-account-settings__submit">
-      <button @click="submit">Save</button>
+      <button :disabled="!isChangeData">Save</button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -30,6 +32,9 @@ export default {
   name: "profile-account-settings",
   components: {BaseInput},
   computed: {
+    isChangeData() {
+      return this.profile.username !== this.userInfo.username
+    },
     userInfo() {
       return userInstanceState.info
     }
@@ -38,32 +43,30 @@ export default {
     return {
       loading: false,
       profile: {
-        name: ''
+        username: ''
       },
       errors: {
-        name: false
+        username: false
       }
     }
   },
   watch: {
     userInfo: {
       handler: function () {
-        this.profile.name = this.userInfo.name
+        this.profile.username = this.userInfo.username
       },
       deep: true
     }
   },
   mounted() {
-    this.profile.name = this.userInfo.name
+    this.profile.username = this.userInfo.username
   },
   methods: {
     submit() {
       if (this.validate()) {
         this.loading = true
-        setTimeout(() => {
-          userInstanceController.updateProfile(this.profile)
-              .finally(() => this.loading = false)
-        }, 700)
+        userInstanceController.updateProfile(this.profile)
+            .finally(() => this.loading = false)
       }
     },
     validate() {
@@ -76,14 +79,14 @@ export default {
       return !error
     },
     validateName(isEmit) {
-      if (isEmit && !this.errors.name) {
+      if (isEmit && !this.errors.username) {
         return
       }
-      if (this.profile.name && this.profile.name.length > 4) {
-        this.errors.name = false
+      if (this.profile.username && this.profile.username.length > 4) {
+        this.errors.username = false
         return true
       } else {
-        this.errors.name = true
+        this.errors.username = true
         return false
       }
     }
@@ -112,6 +115,14 @@ export default {
 
       cursor: pointer;
       transition: 200ms;
+
+      &:disabled {
+        background-color: #7B7B7B;
+        cursor: no-drop;
+        &:hover {
+          background-color: #7B7B7B;
+        }
+      }
 
       &:hover {
         background: #2bc271;

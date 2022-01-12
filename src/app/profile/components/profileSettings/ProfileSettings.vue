@@ -5,7 +5,7 @@
         <div class="profile-settings-info__avatar">
           <profile-avatar/>
         </div>
-        <div class="profile-settings-info__name">{{ userInfo.name }}</div>
+        <div class="profile-settings-info__name">{{ userInfo.username }}</div>
       </div>
     </div>
     <div class="profile-settings__actions">
