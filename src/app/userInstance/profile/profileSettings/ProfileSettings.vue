@@ -12,20 +12,12 @@
       <div class="profile-settings-actions">
         <div class="profile-settings-actions__row">
           <div class="profile-settings-actions__column">
-            <profile-actions-title
-                title="Account settings"
-                settingsName="account-settings"
-                :isEditingMode="editAccountSettings"
-                @toggle-edit-mode="toggleEditMode"/>
-            <profile-account-settings/>
+            <h3>Account settings</h3>
+            <profile-account-settings-form/>
           </div>
           <div class="profile-settings-actions__column">
-            <profile-actions-title
-                title="Change password"
-                settingsName="security"
-                :isEditingMode="editSecurity"
-                @toggle-edit-mode="toggleEditMode"/>
-            <profile-security/>
+            <h3>Change password</h3>
+            <profile-change-password-form/>
           </div>
         </div>
       </div>
@@ -34,44 +26,18 @@
 </template>
 
 <script>
-import ProfileAvatar from "@/app/profile/components/ProfileAvatar";
-import ProfileSecurity from "@/app/profile/components/profileSettings/ProfileSecurity";
-import ProfileAccountSettings from "@/app/profile/components/profileSettings/ProfileAccountSettings";
-import ProfileActionsTitle from "@/app/profile/components/profileSettings/ProfileActionsTitle";
+import ProfileAvatar from "@/app/userInstance/profile/profileSettings/components/ProfileAvatar";
+import ProfileChangePasswordForm from "@/app/userInstance/profile/profileSettings/components/ProfileChangePasswordForm";
+import ProfileAccountSettingsForm from "@/app/userInstance/profile/profileSettings/components/ProfileAccountSettingsForm";
 import {userInstanceState} from "@/app/userInstance/user-instance.state";
 
 export default {
   name: "profile-settings",
+  components: { ProfileAccountSettingsForm, ProfileChangePasswordForm, ProfileAvatar },
   computed: {
     userInfo() {
       return userInstanceState.info
     }
-  },
-  data() {
-    return {
-      editAccountSettings: false,
-      editSecurity: false
-    }
-  },
-  methods: {
-    toggleEditMode(settingsName) {
-
-      switch (settingsName) {
-        case 'account-settings':
-          this.editAccountSettings = !this.editAccountSettings
-          return
-        case 'security':
-          this.editSecurity = !this.editSecurity
-          return
-      }
-
-    }
-  },
-  components: {
-    ProfileActionsTitle,
-    ProfileAccountSettings,
-    ProfileSecurity,
-    ProfileAvatar,
   }
 }
 </script>
@@ -111,6 +77,13 @@ export default {
   &__column {
     flex: 0 1 50%;
     padding: 0px 16px;
+
+    > h3 {
+      font-family: Rubik, sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #212121;
+    }
 
     @media screen and (max-width: 600px) {
       flex: unset;

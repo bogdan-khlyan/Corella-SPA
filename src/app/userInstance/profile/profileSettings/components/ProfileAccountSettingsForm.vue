@@ -29,7 +29,7 @@ import {userInstanceState} from "@/app/userInstance/user-instance.state";
 import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
 export default {
-  name: "profile-account-settings",
+  name: "profile-account-settings-form",
   components: {BaseInput},
   computed: {
     isChangeData() {

@@ -58,7 +58,7 @@ const routes = [{
     }, {
         path: '/profile',
         name: 'profile',
-        component: () => import('@/app/profile/ProfileView'),
+        component: () => import('@/app/userInstance/profile/ProfilePage'),
         meta: { requiresAuth: true }
     }, {
         path: '/:pathMatch(.*)*',
