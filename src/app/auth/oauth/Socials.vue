@@ -5,7 +5,7 @@
   </div>
 
   <div class="socials-wrapper__buttons">
-    <a href="#" class="socials-wrapper__btn socials-wrapper__btn--google">
+    <a @click.prevent="socialAuth('google')" href="#" class="socials-wrapper__btn socials-wrapper__btn--google">
       <img class="socials-wrapper__btn-icon"
            src="@/assets/images/icons/login/icon-google.svg"
            alt="google">
@@ -23,8 +23,39 @@
 </template>
 
 <script>
+import hello from 'hellojs';
 export default {
-  name: "Socials"
+  name: "Socials",
+  mounted() {
+    hello.init({
+      google: "1036628648537-cf5cipp1m50e6i0tjmj4m6l0ugedctd2.apps.googleusercontent.com",
+    })
+    hello.on('auth.login', function() {
+      console.log('Ура!!')
+    })
+  },
+  methods: {
+    async socialAuth(network) {
+      try {
+        const redirectUri = `${window.location.protocol}//${window.location.host}`;
+// const redirectUri = `http://localhost:3000/api/auth/google`;
+        await hello.login(network, {
+          redirect_uri: redirectUri,
+          force: true,
+          // display: "page",
+          scope: "profile"
+        }, function() {
+          console.log('Success!')
+        });
+
+
+        // const result = await hello.api('me')
+        // console.log(result);
+      } catch(e) {
+        console.log(e);
+      }
+    }
+  }
 }
 </script>
 

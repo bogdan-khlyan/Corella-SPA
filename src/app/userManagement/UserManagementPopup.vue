@@ -15,11 +15,11 @@
           :disabled="isEdit"
           @input="validateEmail"/>
       <base-input
-          v-model="userInfo.name"
+          v-model="userInfo.username"
           label="Name"
           placeholder="Enter name user"
-          :error="errors.name"
-          @input="validateName"/>
+          :error="errors.username"
+          @input="validateUsername"/>
       <base-input-password
           v-model="userInfo.password"
           label="Password"
@@ -58,14 +58,16 @@ export default {
       isEdit: false,
       loading: false,
       userInfo: {
-        name: null,
+        username: null,
         email: null,
         password: null,
         repeatPassword: null,
+        role: "USER",
+        id: null,
       },
       errors: {
         email: false,
-        name: false,
+        username: false,
         password: false
       },
       visible: false
@@ -86,7 +88,7 @@ export default {
       if (!this.validateEmail()) {
         error = true
       }
-      if (!this.validateName()) {
+      if (!this.validateUsername()) {
         error = true
       }
       if (!this.validatePassword()) {
@@ -99,7 +101,7 @@ export default {
       if (isEmit && !this.errors.email) {
         return
       }
-      if (EmailValidator.validate(this.userInfo.email)) {
+      if (EmailValidator.validate(this.userInfo.email) && this.userInfo.email.length < 1024) {
         this.errors.email = false
         return true
       } else {
@@ -107,20 +109,23 @@ export default {
         return false
       }
     },
-    validateName(isEmit) {
+    validateUsername(isEmit) {
       if (isEmit && !this.errors.name) {
         return
       }
-      if (this.userInfo.name && this.userInfo.name.length > 4) {
-        this.errors.name = false
+      if (this.userInfo.username && this.userInfo.username.length < 24) {
+        this.errors.username = false
         return true
       } else {
-        this.errors.name = true
+        this.errors.username = true
         return false
       }
     },
     validatePassword() {
       if (!this.userInfo.password && !this.userInfo.repeatPassword) {
+        this.errors.password = true
+        return false
+      } else if (this.userInfo.password && this.userInfo.password.length > 6 && this.userInfo.password.length < 1024) {
         this.errors.password = false
         return true
       } else if (this.userInfo.password !== this.userInfo.repeatPassword) {
@@ -131,14 +136,19 @@ export default {
         return true
       }
     },
-    openModal(userInfo = null) {
-      if (userInfo) {
+    openModal(user = null) {
+      if (user) {
         this.isEdit = true
-        this.userInfo = JSON.parse(JSON.stringify(userInfo))
+        this.userInfo = {
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          _id: user._id
+        }
       } else {
         this.isEdit = false
         this.userInfo = {
-          name: '',
+          username: '',
           email: null,
           password: null,
           repeatPassword: null,
@@ -146,7 +156,7 @@ export default {
       }
       this.errors = {
         email: false,
-        name: false,
+        username: false,
         password: false
       }
       this.visible = true
@@ -163,39 +173,30 @@ export default {
     async submitUserModal() {
       if (this.validate()) {
         this.loading = true
-        // setTimeout(() => {
-        //   if (this.isEdit) {
-        //     userManagementController.updateUser(this.userInfo)
-        //         .then(() => {
-        //           this.$refs.baseModal.handleClose()
-        //           this.$emit('update')
-        //         })
-        //         .finally(() => this.loading = false)
-        //   } else {
-        //     userManagementController.createUser(this.userInfo)
-        //         .then(() => {
-        //           this.$refs.baseModal.handleClose()
-        //           this.$emit('update')
-        //         })
-        //         .finally(() => this.loading = false)
-        //   }
-        // }, 700)
         if (this.isEdit) {
-          console.log('edit')
+          userManagementController.updateUser(this.userInfo)
+              .then(() => {
+                this.$refs.baseModal.handleClose()
+                this.$emit('update')
+              })
+              .finally(() => this.loading = false)
         } else {
-          const result = await userManagementController.createUser(this.userInfo);
-          console.log(result);
-          // this.loading = false;
+          userManagementController.createUser(this.userInfo)
+              .then(() => {
+                this.$refs.baseModal.handleClose()
+                this.$emit('update')
+              })
+              .finally(() => this.loading = false)
         }
-
       }
     },
     clearUserInfo() {
       this.userInfo = {
-        name: '',
+        username: '',
         email: null,
         password: null,
         repeatPassword: null,
+        role: "USER"
       }
     }
   }

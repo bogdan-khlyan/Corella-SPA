@@ -10,12 +10,12 @@
     </div>
 
     <div class="user-management__table">
-      <el-table :data="users">
+      <el-table v-loading="loading" :data="users">
 
-        <el-table-column prop="name" label="Name" min-width="200">
+        <el-table-column prop="username" label="username" min-width="200">
           <template #default="scope">
             <img class="user-management__avatar" src="@/assets/images/corella_icon.svg" alt="">
-            {{scope.row.name}}
+            {{ scope.row.username }}
           </template>
         </el-table-column>
 
@@ -47,6 +47,7 @@
           v-model:currentPage="pagination.page"
           :page-size="pagination.limit"
           layout="prev, pager, next, jumper"
+          @current-change="changeCurrentPage"
           :total="total"/>
     </div>
 
@@ -69,10 +70,10 @@ export default {
     return {
       total: 0,
       users: [],
-
+      loading: false,
       pagination: {
         page: 1,
-        limit: 10
+        limit: 3
       }
     }
   },
@@ -91,18 +92,27 @@ export default {
       userManagementController.banUser(userId, isBanned)
     },
     async getUsers() {
-      const result = await userManagementController.getUsers()
+      this.loading = true
+      const limit = this.pagination.limit
+      const page = this.pagination.page
+      const result = await userManagementController.getUsers({limit, page})
+
       this.users = result.data.data
       this.total = result.data.total
-
-      console.log(result)
+      this.loading = false
     },
-    addNewUser(){
+    async changeCurrentPage(page) {
+      this.pagination.page = page;
+
+      await this.getUsers()
+    },
+    addNewUser() {
       this.$refs.userManagementModal.openModal()
     },
     editUser(user) {
       this.$refs.userManagementModal.openModal(user)
-    }
+    },
+
   }
 }
 </script>
@@ -117,7 +127,7 @@ export default {
 
     margin-bottom: 24px;
 
-    &-title{
+    &-title {
       font-family: Rubik, sans-serif;
       font-size: 24px;
       font-style: normal;
@@ -153,6 +163,7 @@ export default {
       }
 
       transition: .3s ease-in;
+
       &:hover {
         background: $primary-bg-hover;
       }
@@ -173,6 +184,7 @@ export default {
     cursor: pointer;
 
     transition: .3s ease-in;
+
     &:hover {
       background: $primary-bg-hover;
     }
@@ -221,12 +233,14 @@ export default {
       }
     }
   }
+
   &__pagination {
     margin-top: 20px;
 
     .el-pagination, .el-pager {
       display: flex;
     }
+
     .el-pager li.number {
       display: flex;
       align-items: center;
@@ -245,6 +259,7 @@ export default {
       text-align: center;
       color: $text-black;
     }
+
     .el-pager li.active {
       color: $text-white;
       background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
