@@ -90,12 +90,12 @@ export default {
     changeBanSwitch(userId, isBanned) {
       userManagementController.banUser(userId, isBanned)
     },
-    getUsers() {
-      userManagementController.getUsers()
-          .then(data => {
-            this.users = data.users
-            this.total = data.total
-          })
+    async getUsers() {
+      const result = await userManagementController.getUsers()
+      this.users = result.data.data
+      this.total = result.data.total
+
+      console.log(result)
     },
     addNewUser(){
       this.$refs.userManagementModal.openModal()

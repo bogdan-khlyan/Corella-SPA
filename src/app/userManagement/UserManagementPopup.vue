@@ -58,7 +58,6 @@ export default {
       isEdit: false,
       loading: false,
       userInfo: {
-        avatar: null,
         name: null,
         email: null,
         password: null,
@@ -139,7 +138,6 @@ export default {
       } else {
         this.isEdit = false
         this.userInfo = {
-          avatar: null,
           name: '',
           email: null,
           password: null,
@@ -162,31 +160,38 @@ export default {
         })
       }
     },
-    submitUserModal() {
+    async submitUserModal() {
       if (this.validate()) {
         this.loading = true
-        setTimeout(() => {
-          if (this.isEdit) {
-            userManagementController.updateUser(this.userInfo)
-                .then(() => {
-                  this.$refs.baseModal.handleClose()
-                  this.$emit('update')
-                })
-                .finally(() => this.loading = false)
-          } else {
-            userManagementController.createUser(this.userInfo)
-                .then(() => {
-                  this.$refs.baseModal.handleClose()
-                  this.$emit('update')
-                })
-                .finally(() => this.loading = false)
-          }
-        }, 700)
+        // setTimeout(() => {
+        //   if (this.isEdit) {
+        //     userManagementController.updateUser(this.userInfo)
+        //         .then(() => {
+        //           this.$refs.baseModal.handleClose()
+        //           this.$emit('update')
+        //         })
+        //         .finally(() => this.loading = false)
+        //   } else {
+        //     userManagementController.createUser(this.userInfo)
+        //         .then(() => {
+        //           this.$refs.baseModal.handleClose()
+        //           this.$emit('update')
+        //         })
+        //         .finally(() => this.loading = false)
+        //   }
+        // }, 700)
+        if (this.isEdit) {
+          console.log('edit')
+        } else {
+          const result = await userManagementController.createUser(this.userInfo);
+          console.log(result);
+          // this.loading = false;
+        }
+
       }
     },
     clearUserInfo() {
       this.userInfo = {
-        avatar: null,
         name: '',
         email: null,
         password: null,

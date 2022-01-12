@@ -1,15 +1,17 @@
+import http from '@/axiosConfig/base-axios-config'
 
 export default class UserManagementRepository {
 
     async getUsers() {
-        if (!localStorage.getItem('users')) {
-            localStorage.setItem('users', '[]')
-        }
-        const users = JSON.parse(localStorage.getItem('users'))
-        return {
-            total: users.length,
-            users: users
-        }
+        // if (!localStorage.getItem('users')) {
+        //     localStorage.setItem('users', '[]')
+        // }
+        // const users = JSON.parse(localStorage.getItem('users'))
+        // return {
+        //     total: users.length,
+        //     users: users
+        // }
+
     }
 
     async createUser(user) {
