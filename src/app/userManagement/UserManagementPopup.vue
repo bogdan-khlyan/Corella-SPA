@@ -142,8 +142,8 @@ export default {
         this.userInfo = {
           username: user.username,
           email: user.email,
-          role: user.role,
-          _id: user._id
+          role: "USER",
+          id: user._id
         }
       } else {
         this.isEdit = false
@@ -152,6 +152,7 @@ export default {
           email: null,
           password: null,
           repeatPassword: null,
+          role: "USER",
         }
       }
       this.errors = {
