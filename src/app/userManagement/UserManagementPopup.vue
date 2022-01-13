@@ -11,26 +11,26 @@
           v-model="userInfo.email"
           label="E-mail"
           placeholder="Enter e-mail"
-          :error="errors.email"
+          :error="hasErrors(v$.firstName.$errors)"
           :disabled="isEdit"
           @input="validateEmail"/>
       <base-input
           v-model="userInfo.username"
           label="Name"
           placeholder="Enter name user"
-          :error="errors.username"
+          :error="hasErrors(v$.firstName.$errors)"
           @input="validateUsername"/>
       <base-input-password
           v-model="userInfo.password"
           label="Password"
           placeholder="Enter password"
-          :error="errors.password"
+          :error="hasErrors(v$.firstName.$errors)"
           @input="validatePassword"/>
       <base-input-password
           v-model="userInfo.repeatPassword"
           label="Confirm password"
           placeholder="Enter password"
-          :error="errors.password"
+          :error="hasErrors(v$.firstName.$errors)"
           @input="validatePassword"/>
     </base-popup>
   </div>
@@ -42,6 +42,7 @@ import BaseInput from "@/app/common/BaseInput";
 import BaseInputPassword from "@/app/common/BaseInputPassword";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 import * as EmailValidator from 'email-validator';
+import {required} from "@vuelidate/validators";
 
 const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
 const iconUser = require('@/assets/images/icons/modals/icon-user.svg')
@@ -82,6 +83,18 @@ export default {
     }
   },
   methods: {
+    hasErrors(errors) {
+      return errors.length > 0
+    }
+    validations () {
+      return {
+        firstName: { required }, // Matches this.firstName
+        lastName: { required }, // Matches this.lastName
+        contact: {
+          email: { required, email } // Matches this.contact.email
+        }
+      }
+    }
     validate() {
       let error = false
 

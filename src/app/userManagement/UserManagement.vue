@@ -46,9 +46,28 @@
       <el-pagination
           v-model:currentPage="pagination.page"
           :page-size="pagination.limit"
-          layout="prev, pager, next, jumper"
+          layout="prev, pager, next, jumper, sizes"
+          :page-sizes="[10, 20, 30, 40, 50, 100]"
           @current-change="changeCurrentPage"
+          @size-change="handleSizeChange"
           :total="total"/>
+
+<!--      <el-pagination-->
+<!--          v-model:currentPage="pagination.page"-->
+<!--          :page-sizes="[100, 200, 300, 400]"-->
+<!--          :page-size="100"-->
+<!--          layout="total, sizes, prev, pager, next"-->
+<!--          :total="1000"-->
+<!--      />-->
+<!--      <el-pagination-->
+<!--          v-model:currentPage="pagination.page"-->
+<!--          :page-sizes="[100, 200, 300, 400]"-->
+<!--          :page-size="100"-->
+<!--          layout="total, sizes, prev, pager, next, jumper"-->
+<!--          :total="400"-->
+
+<!--      >-->
+<!--      </el-pagination>-->
     </div>
 
     <user-management-modal
@@ -73,7 +92,7 @@ export default {
       loading: false,
       pagination: {
         page: 1,
-        limit: 3
+        limit: 10
       }
     }
   },
@@ -91,6 +110,10 @@ export default {
     changeBanSwitch(userId, isBanned) {
       userManagementController.banUser(userId, isBanned)
     },
+    async handleSizeChange(limit) {
+      this.pagination.limit = limit
+      await this.getUsers()
+    },
     async getUsers() {
       this.loading = true
       const limit = this.pagination.limit
@@ -102,7 +125,7 @@ export default {
       this.loading = false
     },
     async changeCurrentPage(page) {
-      this.pagination.page = page;
+      this.pagination.page = page
 
       await this.getUsers()
     },
