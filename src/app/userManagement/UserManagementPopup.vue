@@ -9,23 +9,23 @@
                 @update:modelValue="changeVisible"
                 ref="baseModal">
       <base-input
-          v-model.trim="v$.userInfo.email.$model"
+          v-model.trim="userInfo.email"
           label="E-mail"
           placeholder="Enter e-mail"
           :error="v$.userInfo.email.$error"
           :disabled="isEdit" />
       <base-input
-          v-model="v$.userInfo.username.$model"
+          v-model.trim="userInfo.username"
           label="Name"
           placeholder="Enter name user"
           :error="v$.userInfo.username.$error" />
       <base-input-password
-          v-model="v$.userInfo.password.$model"
+          v-model.trim="userInfo.password"
           label="Password"
           placeholder="Enter password"
           :error="v$.userInfo.password.$error" />
       <base-input-password
-          v-model="v$.userInfo.repeatPassword.$model"
+          v-model.trim="userInfo.repeatPassword"
           label="Confirm password"
           placeholder="Enter password"
           :error="v$.userInfo.repeatPassword.$error" />
@@ -84,18 +84,15 @@ export default {
           maxLength: maxLength(1024),
           required,
           email,
-          $dirty: true
         },
         username: {
           maxLength: maxLength(24),
           required,
-          $dirty: true
         },
         password: {
           minLength: minLength(6),
           maxLength: maxLength(1024),
           required,
-          $dirty: true
         },
         repeatPassword: {
           required,
@@ -139,7 +136,7 @@ export default {
       }
     },
     async submitUserModal() {
-      console.log(this.v$)
+      console.log(this.v$.userInfo.$pending)
       this.v$.userInfo.$touch()
       if (this.v$.userInfo.$invalid) return
 
