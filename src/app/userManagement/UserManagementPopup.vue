@@ -1,5 +1,6 @@
 <template>
   <div class="user-management-popup">
+
     <base-popup v-model="visible"
                 :title="titleModal"
                 :image="iconModal"
@@ -8,30 +9,26 @@
                 @update:modelValue="changeVisible"
                 ref="baseModal">
       <base-input
-          v-model="userInfo.email"
+          v-model.trim="v$.userInfo.email.$model"
           label="E-mail"
           placeholder="Enter e-mail"
-          :error="hasErrors(v$.firstName.$errors)"
-          :disabled="isEdit"
-          @input="validateEmail"/>
+          :error="v$.userInfo.email.$error"
+          :disabled="isEdit" />
       <base-input
-          v-model="userInfo.username"
+          v-model="v$.userInfo.username.$model"
           label="Name"
           placeholder="Enter name user"
-          :error="hasErrors(v$.firstName.$errors)"
-          @input="validateUsername"/>
+          :error="v$.userInfo.username.$error" />
       <base-input-password
-          v-model="userInfo.password"
+          v-model="v$.userInfo.password.$model"
           label="Password"
           placeholder="Enter password"
-          :error="hasErrors(v$.firstName.$errors)"
-          @input="validatePassword"/>
+          :error="v$.userInfo.password.$error" />
       <base-input-password
-          v-model="userInfo.repeatPassword"
+          v-model="v$.userInfo.repeatPassword.$model"
           label="Confirm password"
           placeholder="Enter password"
-          :error="hasErrors(v$.firstName.$errors)"
-          @input="validatePassword"/>
+          :error="v$.userInfo.repeatPassword.$error" />
     </base-popup>
   </div>
 </template>
@@ -41,8 +38,9 @@ import BasePopup from "@/app/common/BasePopup";
 import BaseInput from "@/app/common/BaseInput";
 import BaseInputPassword from "@/app/common/BaseInputPassword";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
-import * as EmailValidator from 'email-validator';
-import {required} from "@vuelidate/validators";
+
+import useVuelidate from '@vuelidate/core'
+import {email, maxLength, minLength, required, sameAs} from "@vuelidate/validators";
 
 const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
 const iconUser = require('@/assets/images/icons/modals/icon-user.svg')
@@ -54,6 +52,7 @@ export default {
     BaseInput,
     BaseInputPassword
   },
+  setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       isEdit: false,
@@ -66,11 +65,6 @@ export default {
         role: "USER",
         id: null,
       },
-      errors: {
-        email: false,
-        username: false,
-        password: false
-      },
       visible: false
     }
   },
@@ -80,75 +74,40 @@ export default {
     },
     iconModal() {
       return this.isEdit ? iconEdit : iconUser
-    }
+    },
   },
-  methods: {
-    hasErrors(errors) {
-      return errors.length > 0
-    }
-    validations () {
-      return {
-        firstName: { required }, // Matches this.firstName
-        lastName: { required }, // Matches this.lastName
-        contact: {
-          email: { required, email } // Matches this.contact.email
+  validations () {
+    return {
+      userInfo: {
+        email: {
+          minLength: minLength(6),
+          maxLength: maxLength(1024),
+          required,
+          email,
+          $dirty: true
+        },
+        username: {
+          maxLength: maxLength(24),
+          required,
+          $dirty: true
+        },
+        password: {
+          minLength: minLength(6),
+          maxLength: maxLength(1024),
+          required,
+          $dirty: true
+        },
+        repeatPassword: {
+          required,
+          sameAs : sameAs(this.userInfo.password)
         }
       }
     }
-    validate() {
-      let error = false
-
-      if (!this.validateEmail()) {
-        error = true
-      }
-      if (!this.validateUsername()) {
-        error = true
-      }
-      if (!this.validatePassword()) {
-        error = true
-      }
-
-      return !error
-    },
-    validateEmail(isEmit) {
-      if (isEmit && !this.errors.email) {
-        return
-      }
-      if (EmailValidator.validate(this.userInfo.email) && this.userInfo.email.length < 1024) {
-        this.errors.email = false
-        return true
-      } else {
-        this.errors.email = true
-        return false
-      }
-    },
-    validateUsername(isEmit) {
-      if (isEmit && !this.errors.name) {
-        return
-      }
-      if (this.userInfo.username && this.userInfo.username.length < 24) {
-        this.errors.username = false
-        return true
-      } else {
-        this.errors.username = true
-        return false
-      }
-    },
-    validatePassword() {
-      if (!this.userInfo.password && !this.userInfo.repeatPassword) {
-        this.errors.password = true
-        return false
-      } else if (this.userInfo.password && this.userInfo.password.length > 6 && this.userInfo.password.length < 1024) {
-        this.errors.password = false
-        return true
-      } else if (this.userInfo.password !== this.userInfo.repeatPassword) {
-        this.errors.password = true
-        return false
-      } else {
-        this.errors.password = false
-        return true
-      }
-    },
+  },
+  validationConfig: {
+    $anyDirty: false,
+  },
+  methods: {
     openModal(user = null) {
       if (user) {
         this.isEdit = true
@@ -168,11 +127,6 @@ export default {
           role: "USER",
         }
       }
-      this.errors = {
-        email: false,
-        username: false,
-        password: false
-      }
       this.visible = true
     },
     changeVisible() {
@@ -185,24 +139,28 @@ export default {
       }
     },
     async submitUserModal() {
-      if (this.validate()) {
-        this.loading = true
-        if (this.isEdit) {
-          userManagementController.updateUser(this.userInfo)
-              .then(() => {
-                this.$refs.baseModal.handleClose()
-                this.$emit('update')
-              })
-              .finally(() => this.loading = false)
-        } else {
-          userManagementController.createUser(this.userInfo)
-              .then(() => {
-                this.$refs.baseModal.handleClose()
-                this.$emit('update')
-              })
-              .finally(() => this.loading = false)
-        }
+      console.log(this.v$)
+      this.v$.userInfo.$touch()
+      if (this.v$.userInfo.$invalid) return
+
+      this.loading = true
+
+      if (this.isEdit) {
+        userManagementController.updateUser(this.userInfo)
+            .then(() => {
+              this.$refs.baseModal.handleClose()
+              this.$emit('update')
+            })
+            .finally(() => this.loading = false)
+      } else {
+        userManagementController.createUser(this.userInfo)
+            .then(() => {
+              this.$refs.baseModal.handleClose()
+              this.$emit('update')
+            })
+            .finally(() => this.loading = false)
       }
+      this.v$.$reset()
     },
     clearUserInfo() {
       this.userInfo = {

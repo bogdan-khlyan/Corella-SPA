@@ -51,23 +51,6 @@
           @current-change="changeCurrentPage"
           @size-change="handleSizeChange"
           :total="total"/>
-
-<!--      <el-pagination-->
-<!--          v-model:currentPage="pagination.page"-->
-<!--          :page-sizes="[100, 200, 300, 400]"-->
-<!--          :page-size="100"-->
-<!--          layout="total, sizes, prev, pager, next"-->
-<!--          :total="1000"-->
-<!--      />-->
-<!--      <el-pagination-->
-<!--          v-model:currentPage="pagination.page"-->
-<!--          :page-sizes="[100, 200, 300, 400]"-->
-<!--          :page-size="100"-->
-<!--          layout="total, sizes, prev, pager, next, jumper"-->
-<!--          :total="400"-->
-
-<!--      >-->
-<!--      </el-pagination>-->
     </div>
 
     <user-management-modal
