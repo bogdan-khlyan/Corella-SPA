@@ -5,7 +5,7 @@
         <div v-if="userInfo._id && windowWidth > 600"
              class="current-user__avatar"
              @click="$router.push('/profile')">
-          <div v-html="userAvatar"></div>
+          <base-user-avatar :avatar="userInfo.avatar" :size="40"/>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
@@ -59,13 +59,14 @@
 </template>
 
 <script>
-import {toSvg} from "jdenticon";
+import BaseUserAvatar from "@/app/common/BaseUserAvatar";
 import {appState} from "@/app/app.state";
 import {userInstanceState} from "@/app/userInstance/user-instance.state";
 import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
 export default {
   name: "currentUser",
+  components: { BaseUserAvatar },
   computed: {
     userInfo() {
       return userInstanceState.info
@@ -81,9 +82,6 @@ export default {
       } else {
         return 36
       }
-    },
-    userAvatar: function () {
-      return toSvg(this.userInfo.avatar, this.avatarSize)
     }
   },
   data() {
@@ -112,7 +110,6 @@ export default {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    border: 1px #bfb9b9 solid;
     display: flex;
     justify-content: center;
     cursor: pointer;
