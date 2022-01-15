@@ -12,14 +12,19 @@
     <div class="user-management__table">
       <el-table v-loading="loading" :data="users">
 
-        <el-table-column prop="username" label="username" min-width="200">
+        <el-table-column width="60">
           <template #default="scope">
-            <img class="user-management__avatar" src="@/assets/images/corella_icon.svg" alt="">
-            {{ scope.row.username }}
+            <base-user-avatar :avatar="scope.row.avatar"/>
           </template>
         </el-table-column>
 
         <el-table-column prop="email" label="E-mail" min-width="200"/>
+
+        <el-table-column prop="username" label="Username" min-width="200">
+          <template #default="scope">
+            {{ scope.row.username }}
+          </template>
+        </el-table-column>
 
         <el-table-column prop="isBan" label="Ban" width="200px">
           <template #default="scope">
@@ -61,12 +66,14 @@
 
 <script>
 import UserManagementModal from "@/app/userManagement/UserManagementPopup";
+import BaseUserAvatar from "@/app/common/BaseUserAvatar";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 
 export default {
   name: 'user-management',
   components: {
-    UserManagementModal
+    UserManagementModal,
+    BaseUserAvatar
   },
   data() {
     return {
@@ -103,8 +110,8 @@ export default {
       const page = this.pagination.page
       const result = await userManagementController.getUsers({limit, page})
 
-      this.users = result.data.data
-      this.total = result.data.total
+      this.users = result.data
+      this.total = result.total
       this.loading = false
     },
     async changeCurrentPage(page) {

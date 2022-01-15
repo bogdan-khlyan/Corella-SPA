@@ -4,17 +4,22 @@ export default class UserManagementRepository {
 
     async getUsers(params) {
         const { limit = 10, page = 1 } = params
-        return await http.get(`/api/users?limit=${limit}&page=${page}`)
+        const response = await http.get(`/api/users`, {
+            params: { limit, page }
+        })
+        return response.data
     }
 
     async createUser(user) {
         const {username, email, password, role} = user
-        return await http.post('/api/user', {username, email, role, password})
+        const response = await http.post('/api/user', {username, email, role, password})
+        return response.data
     }
 
     async updateUser(user) {
         const { username, password, email, role, id } = user
-        return http.patch(`/api/user/${id}`, { username, password, email, role })
+        const response = await http.patch(`/api/user/${id}`, { username, password, email, role })
+        return response.data
     }
 
     async banUser(userId, isBanned) {
