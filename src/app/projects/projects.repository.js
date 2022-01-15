@@ -25,6 +25,7 @@ export default class ProjectsRepository {
     async getProjectById() {
         const project = [
             {
+                id: uuid(),
                 column: 'Backlog',
                 tasks: [
                     {
@@ -35,10 +36,12 @@ export default class ProjectsRepository {
                 ]
             },
             {
+                id: uuid(),
                 column: 'Discussion',
                 tasks: []
             },
             {
+                id: uuid(),
                 column: 'In Progress',
                 tasks: [
                     {
@@ -111,6 +114,7 @@ export default class ProjectsRepository {
                 ]
             },
             {
+                id: uuid(),
                 column: 'Review',
                 tasks: [
                     {
@@ -121,6 +125,7 @@ export default class ProjectsRepository {
                 ]
             },
             {
+                id: uuid(),
                 column: 'Done',
                 tasks: [
                     {
