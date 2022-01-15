@@ -128,6 +128,7 @@ export default {
     },
     changeVisible() {
       if (!this.visible) {
+        this.v$.userInfo.$reset()
         this.$router.replace({
           query: {
             'create-user': undefined
