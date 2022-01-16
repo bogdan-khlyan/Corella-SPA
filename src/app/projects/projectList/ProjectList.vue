@@ -4,11 +4,13 @@
       <h2>Projects</h2>
     </div>
     <transition name="el-fade-in-linear" mode="out-in">
-      <empty-list v-if="projects.length === 0"/>
-      <div v-else class="project-list__content">
+      <empty-list v-if="!loading && projects.length === 0"/>
+      <div v-else
+           v-loading="loading"
+           class="project-list__content">
         <transition-group name="el-fade-in-linear" >
           <project-card
-              v-for="project in projects" :key="project.id"
+              v-for="project in projects" :key="project._id"
               :project="project"/>
         </transition-group>
       </div>
@@ -19,7 +21,6 @@
 <script>
 import ProjectCard from "@/app/projects/projectList/components/ProjectCard";
 import EmptyList from "@/app/projects/projectList/components/EmptyList";
-import {projectsState} from "@/app/projects/projects.state";
 import {projectsController} from "@/app/projects/projects.controller";
 import {baseHeaderState} from "@/app/common/baseWrapper/baseHeader/base-header.state";
 
@@ -32,17 +33,22 @@ export default {
   computed: {
     searchInput() {
       return baseHeaderState.searchValue
-    },
-    projects() {
-      if (this.searchInput === '') {
-        return projectsState.projects
-      } else {
-        return projectsState.projects.filter(project => project.name.toLowerCase().indexOf(this.searchInput) !== -1)
-      }
+    }
+  },
+  data() {
+    return {
+      loading: true,
+      projects: [],
+      total: 0
     }
   },
   created() {
     projectsController.getProjects()
+        .then(data => {
+          this.projects.push(...data.data)
+          this.total = data.total
+        })
+        .finally(() => this.loading = false)
   },
   beforeUnmount() {
     baseHeaderState.searchValue = ''
@@ -73,6 +79,8 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 24px;
+
+    min-height: 200px;
 
     padding-top: 12px;
 
