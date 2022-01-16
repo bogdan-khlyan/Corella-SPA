@@ -1,12 +1,14 @@
 <template>
   <base-page-wrapper
-      title="Create task"
+      :title="title"
       :loading="loading">
     <div class="edit-task">
       <div class="edit-task__content">
         <div class="edit-task__column">
           <div class="edit-task__input">
-            <base-input label="Title"/>
+            <base-input
+                label="Title"
+                v-model="task.title"/>
           </div>
           <div class="edit-task__select">
             <edit-task-select />
@@ -17,12 +19,15 @@
         </div>
         <div class="edit-task__column">
           <div class="edit-task__description">
-            <edit-task-description/>
+            <edit-task-description
+                v-model="task.description"/>
           </div>
         </div>
       </div>
       <div class="edit-task__submit-button">
-        <button @click="submit">Create task</button>
+        <button @click="submit">
+          {{ isEdit ? 'Update task' : 'Create task' }}
+        </button>
       </div>
     </div>
   </base-page-wrapper>
@@ -35,21 +40,57 @@ import BaseInput from "@/app/common/BaseInput";
 
 import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";
 import EditTaskSelect from "@/app/projects/tasks/editTask/components/EditTaskSelect";
+import {tasksController} from "@/app/projects/tasks/tasks.controller";
 
 export default {
   name: 'edit-task',
   components: {EditTaskSelect, BasePageWrapper, BaseInput, EditTaskDescription, UploadFile },
   data() {
     return {
-      loading: false
+      loading: false,
+      task: {
+        title: '',
+        description: '',
+        files: [],
+        members: []
+      }
     }
+  },
+  computed: {
+    title() {
+      return this.isEdit ? 'Edit task' : 'Create task'
+    },
+    route() {
+      return this.$route.name
+    },
+    isEdit() {
+      return this.route !== 'create-task'
+    },
+    taskId() {
+      return this.$route.params.taskId
+    }
+  },
+  created() {
+    tasksController.getTaskById(this.taskId)
+        .then(task => {
+          console.log(task)
+          this.task = task
+        })
   },
   methods: {
     submit() {
       this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 700)
+      if (this.isEdit) {
+        setTimeout(() => {
+          tasksController.updateTask(this.task)
+              .finally(() => this.loading = false)
+        }, 700)
+      } else {
+        console.log('todo')
+      }
+      // setTimeout(() => {
+      //   this.loading = false
+      // }, 700)
     }
   }
 }

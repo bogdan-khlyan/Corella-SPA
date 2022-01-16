@@ -29,7 +29,7 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                data: `@import "@/app/assets/scss/variables/_index.scss";`
+                data: `@import "@/assets/scss/variables/index.scss";`
             }
         }
     }

@@ -10,16 +10,21 @@
     </div>
 
     <div class="user-management__table">
-      <el-table :data="users">
+      <el-table v-loading="loading" :data="users">
 
-        <el-table-column prop="name" label="Name" min-width="200">
+        <el-table-column width="60">
           <template #default="scope">
-            <img class="user-management__avatar" src="@/assets/images/corella_icon.svg" alt="">
-            {{scope.row.name}}
+            <base-user-avatar :avatar="scope.row.avatar"/>
           </template>
         </el-table-column>
 
         <el-table-column prop="email" label="E-mail" min-width="200"/>
+
+        <el-table-column prop="username" label="Username" min-width="200">
+          <template #default="scope">
+            {{ scope.row.username }}
+          </template>
+        </el-table-column>
 
         <el-table-column prop="isBan" label="Ban" width="200px">
           <template #default="scope">
@@ -46,7 +51,10 @@
       <el-pagination
           v-model:currentPage="pagination.page"
           :page-size="pagination.limit"
-          layout="prev, pager, next, jumper"
+          layout="prev, pager, next, jumper, sizes"
+          :page-sizes="[10, 20, 30, 40, 50, 100]"
+          @current-change="changeCurrentPage"
+          @size-change="handleSizeChange"
           :total="total"/>
     </div>
 
@@ -58,23 +66,32 @@
 
 <script>
 import UserManagementModal from "@/app/userManagement/UserManagementPopup";
+import BaseUserAvatar from "@/app/common/BaseUserAvatar";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
 
 export default {
   name: 'user-management',
   components: {
-    UserManagementModal
+    UserManagementModal,
+    BaseUserAvatar
   },
   data() {
     return {
       total: 0,
       users: [],
-
+      loading: false,
       pagination: {
         page: 1,
         limit: 10
       }
     }
+  },
+  watch: {
+    '$route'() {
+      if (this.$route.query['create-user'] === null) {
+        this.$refs.userManagementModal.openModal()
+      }
+    },
   },
   created() {
     this.getUsers()
@@ -83,19 +100,32 @@ export default {
     changeBanSwitch(userId, isBanned) {
       userManagementController.banUser(userId, isBanned)
     },
-    getUsers() {
-      userManagementController.getUsers()
-          .then(data => {
-            this.users = data.users
-            this.total = data.total
-          })
+    async handleSizeChange(limit) {
+      this.pagination.limit = limit
+      await this.getUsers()
     },
-    addNewUser(){
+    async getUsers() {
+      this.loading = true
+      const limit = this.pagination.limit
+      const page = this.pagination.page
+      const result = await userManagementController.getUsers({limit, page})
+
+      this.users = result.data
+      this.total = result.total
+      this.loading = false
+    },
+    async changeCurrentPage(page) {
+      this.pagination.page = page
+
+      await this.getUsers()
+    },
+    addNewUser() {
       this.$refs.userManagementModal.openModal()
     },
     editUser(user) {
       this.$refs.userManagementModal.openModal(user)
-    }
+    },
+
   }
 }
 </script>
@@ -110,7 +140,7 @@ export default {
 
     margin-bottom: 24px;
 
-    &-title{
+    &-title {
       font-family: Rubik, sans-serif;
       font-size: 24px;
       font-style: normal;
@@ -146,6 +176,7 @@ export default {
       }
 
       transition: .3s ease-in;
+
       &:hover {
         background: $primary-bg-hover;
       }
@@ -166,6 +197,7 @@ export default {
     cursor: pointer;
 
     transition: .3s ease-in;
+
     &:hover {
       background: $primary-bg-hover;
     }
@@ -214,12 +246,14 @@ export default {
       }
     }
   }
+
   &__pagination {
     margin-top: 20px;
 
     .el-pagination, .el-pager {
       display: flex;
     }
+
     .el-pager li.number {
       display: flex;
       align-items: center;
@@ -238,6 +272,7 @@ export default {
       text-align: center;
       color: $text-black;
     }
+
     .el-pager li.active {
       color: $text-white;
       background: linear-gradient(180deg, #20C560 0%, #04A481 100%);

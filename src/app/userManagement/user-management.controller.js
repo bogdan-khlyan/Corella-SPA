@@ -4,8 +4,8 @@ class UserInstanceController {
 
     #service = new UserManagementService()
 
-    async getUsers() {
-        return this.#service.getUsers()
+    async getUsers(params) {
+        return this.#service.getUsers(params)
     }
 
     async createUser(user) {

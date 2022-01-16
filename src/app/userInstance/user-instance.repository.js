@@ -8,44 +8,49 @@
  * Экземпляр репозитория является приватным полем сервиса, вызывать методы репозитория может только сервис.
  */
 import http from "@/axiosConfig/base-axios-config";
-import { v4 as uuid } from 'uuid';
 
 export default class UserInstanceRepository {
 
-    async updateProfile(profile) {
-        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-        userInfo = {
-            ...userInfo,
-            ...profile
+    async logout() {
+        let config = null
+        if (process.env.NODE_ENV === 'development') {
+            config = {
+                headers: { 'x-localhost': 'true' } // добавляю дев-хедер для прохождения авторизации с localhost
+            }
         }
-        localStorage.setItem('userInfo', JSON.stringify(userInfo))
-        return userInfo
+        const response = await http.delete('/api/user/signout', config)
+        return response.data
+    }
+
+    async changePassword(requestData) {
+        const response = await http.patch('/api/user/password', requestData)
+        return response.data
+    }
+
+    async updateProfile(profile) {
+        const response = await http.patch(`/api/user`, profile)
+        return response.data.user
     }
 
     async getMe() {
-        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-        if (!userInfo) {
-            userInfo = {
-                id: uuid(),
-                name: 'Lana-lana',
-                email: 'default@gmail.com',
-                avatar: uuid()
-            }
-            localStorage.setItem('userInfo', JSON.stringify(userInfo))
-        }
-        return userInfo
-        // const response = await http.get(`/me`)
-        // return response.data
+        const response = await http.get(`/api/user`)
+        return response.data.user
     }
     
     /**
      * @param {object} credentials
-     * @param {string} credentials.email
+     * @param {string} credentials.login
      * @param {string} credentials.password
      * @returns {Promise<any>}
      */
     async login(credentials) {
-        const response = await http.post(`/login`, credentials)
+        let config = null
+        if (process.env.NODE_ENV === 'development') {
+            config = {
+                headers: { 'x-localhost': 'true' } // добавляю дев-хедер для прохождения авторизации с localhost
+            }
+        }
+        const response = await http.post(`/api/user/signin`, credentials, config)
         return response.data
     }
     

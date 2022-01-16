@@ -1,7 +1,12 @@
 <template>
   <label class="base-input"
          :class="{'base-input__error': error}">
-    <span v-if="label">{{ label }}</span>
+
+    <div v-if="label" class="base-input__label">
+      <div class="label">{{label}}</div>
+      <div v-if="error && typeof error === 'string'" class="error">{{error}}</div>
+    </div>
+
     <input
         :type="type || 'text'"
         :value="modelValue"
@@ -21,7 +26,7 @@ export default {
     placeholder: { type: String, default: 'Please input' },
     disabled: { type: Boolean, default: false },
     type: { type: String },
-    error: { type: Boolean, default: false }
+    error: { type: [Boolean, String], default: false }
   }
 }
 </script>
@@ -33,8 +38,31 @@ export default {
   margin-bottom: 12px;
 
   &__error {
+    .label, .error {
+      color: $text-error!important;
+    }
     input {
       border-color: $text-error!important;
+    }
+  }
+
+  &__label {
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+    display: flex;
+    width: 100%;
+
+    font-family: Rubik, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #7B7B7B;
+
+    .error {
+      margin-left: auto;
     }
   }
 

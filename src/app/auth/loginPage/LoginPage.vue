@@ -14,13 +14,18 @@
 <script>
 import LoginFormWrapper from "@/app/auth/loginPage/components/common/LoginPageWrapper";
 import Banner from "@/app/auth/loginPage/components/banner/Banner";
+import {userInstanceState} from "@/app/userInstance/user-instance.state";
 
-// TODO если юзер уже авторизован переводить его на домашнюю страницу
 export default {
   name: 'login',
   components: {
     LoginFormWrapper,
     Banner
+  },
+  created() {
+    if (userInstanceState.isLoggedIn) {
+      this.$router.push('/')
+    }
   }
 }
 </script>

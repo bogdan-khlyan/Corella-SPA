@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const http = axios.create({
-    baseURL: process.env.VUE_APP_BACKEND_HOST
-})
+const http = axios.create({ })
 
 http.defaults.headers.common['Content-Type'] = 'application/json'
 

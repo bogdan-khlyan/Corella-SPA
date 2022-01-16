@@ -1,7 +1,9 @@
 <template>
   <div class="edit-task-description">
     <base-title text="Task Description" />
-    <quill-editor :options="options"/>
+    <quill-editor
+        v-model:value="value"
+        :options="options"/>
   </div>
 </template>
 
@@ -12,10 +14,27 @@ import BaseTitle from "@/app/common/BaseTitle";
 export default {
   name: 'edit-task-description',
   components: {BaseTitle, quillEditor },
+  model: {
+    prop: 'modelValue',
+    event: 'update'
+  },
+  props: {
+    modelValue: String
+  },
+  watch: {
+    value() {
+      this.$emit('update:modelValue', this.value)
+    },
+    modelValue() {
+      this.value = this.modelValue
+    }
+  },
   data() {
     return {
+      value: '',
       options: {
-        placeholder: 'Enter a description of the task'
+        placeholder: 'Enter a description of the task',
+        toolbar: []
       }
     }
   }
