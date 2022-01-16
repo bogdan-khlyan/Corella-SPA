@@ -50,14 +50,6 @@ const createTaskButton = {
     getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
 }
 
-const createHotfixButton = {
-    id: uuid(),
-    label: 'Create New Hotfix',
-    icon: require('@/assets/images/icons/common/icon-hotfix.svg'),
-    // route: 'create-task',
-    getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
-}
-
 const createUser = {
     id: uuid(),
     label: 'Create New User',
@@ -75,22 +67,10 @@ const createProjectButton = {
 const bottomButton = new Map()
     .set('project-list', createProjectButton)
     .set('create-project', createProjectButton)
-    .set('board', [
-        createTaskButton,
-        createHotfixButton
-    ])
-    .set('create-task', [
-        createTaskButton,
-        createHotfixButton
-    ])
-    .set('edit-task', [
-        createTaskButton,
-        createHotfixButton
-    ])
-    .set('task', [
-        createTaskButton,
-        createHotfixButton
-    ])
+    .set('board', createTaskButton)
+    .set('create-task', createTaskButton)
+    .set('edit-task', createTaskButton)
+    .set('task', createTaskButton)
     .set('user-management', createUser)
 
 export const baseSidebarConfig = new Map()

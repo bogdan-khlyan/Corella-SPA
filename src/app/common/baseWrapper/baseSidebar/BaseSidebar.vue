@@ -55,9 +55,10 @@
 
       <div v-if="bottomButton && Array.isArray(bottomButton)" style="position: absolute;bottom: 16px;">
         <transition-group name="emerging-el" appear>
-          <template v-for="option in bottomButton" :key="option.icon">
+          <template v-for="option in bottomButton" :key="option.id">
 
-            <div v-if="option.type !== 'TITLE'" class="base-sidebar__item base-sidebar__item--ordinary">
+            <div v-if="option.type !== 'TITLE'"
+                 class="base-sidebar__item base-sidebar__item--ordinary">
               <router-link
                   :class="{'active': option.route === route}"
                   :to="option.path ? option.path : option.getPath(this)">
@@ -70,9 +71,10 @@
         </transition-group>
       </div>
 
-
-      <transition name="emerging-el" appear>
-        <div v-if="bottomButton && !Array.isArray(bottomButton)" class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+      <transition name="el-fade-in" mode="out-in">
+        <div v-if="bottomButton && !Array.isArray(bottomButton)"
+             :key="bottomButton.id"
+             class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
           <router-link
               :class="{'active': bottomButton.route === route}"
               :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
@@ -606,72 +608,4 @@ export default {
     transform: scale3d(1, 1, 1);
   }
 }
-
-//@media screen and (max-height: 650px) {
-//  .base-sidebar {
-//
-//    &--open {
-//
-//      .base-sidebar__item {
-//        &--top {
-//          height: 94px;
-//
-//          > a {
-//            gap: 4px;
-//            height: 94px;
-//          }
-//        }
-//      }
-//
-//      .base-sidebar__block-menu {
-//
-//        &--top {
-//          height: 94px;
-//        }
-//
-//        &--end {
-//          > a {
-//            height: 90px;
-//          }
-//        }
-//      }
-//    }
-//
-//    &--close {
-//
-//      .base-sidebar__item {
-//
-//        &--top:nth-of-type(2) {
-//          top: 128px;
-//        }
-//      }
-//
-//      .base-sidebar__block-menu {
-//        &--top {
-//          height: 94px;
-//        }
-//      }
-//    }
-//
-//    &__block-menu {
-//      &--end {
-//        height: 90px;
-//        bottom: 10px;
-//
-//        > a {
-//          gap: 8px;
-//        }
-//      }
-//    }
-//
-//    &__title {
-//      margin: 10px auto 5px 18px;
-//
-//      &:nth-of-type(2) {
-//        padding-left: 3px;
-//        margin: 18px auto 5px 18px;
-//      }
-//    }
-//  }
-//}
 </style>

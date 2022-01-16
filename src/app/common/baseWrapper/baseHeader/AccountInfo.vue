@@ -35,7 +35,7 @@
           </a>
         </div>
         <div v-else class="current-user__avatar">
-          <div v-html="userAvatar"></div>
+          <base-user-avatar :avatar="userInfo.avatar" :size="40"/>
         </div>
       </template>
       <div class="current-user__drop-down">

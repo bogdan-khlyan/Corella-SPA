@@ -6,7 +6,7 @@
            class="project-board__columns-wrapper">
         <project-board-column
             class="project-board__column"
-            v-for="projectColumnData in projectTemplate"
+            v-for="projectColumnData in projectTemplate.slice(0, columnsCount)"
             :key="projectColumnData.column"
             :loading="loading"
             :column-transition-end="true"
