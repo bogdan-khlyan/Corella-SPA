@@ -3,31 +3,34 @@
       title="Task #242"
       :show-edit-button="true"
       :show-delete-button="false"
-      @edit="$router.push('/project/1/create-task')"
+      @edit="$router.push(`/project/${$route.params.projectId}/task/${$route.params.taskId}/edit`)"
       @delete="$router.push('/project/1/board')">
-    <div class="view-task">
-      <div class="view-task__row">
-        <div class="view-task__column">
-          <div class="view-task__main">
-            <div class="view-task__item">
-              <div class="view-task-item__text">As a user, I want to be able to create new versions for projects and link them to issues or hotfixes</div>
-            </div>
-            <div class="view-task__members">
-              <view-task-members />
-            </div>
-            <div class="view-task__files">
-              <upload-files :is-view-mode="true" />
-            </div>
-            <div class="view-task__collapse">
-              <view-task-collapse />
+    <transition name="el-fade-in-linear" mode="out-in">
+      <div v-if="task" class="view-task">
+        <div class="view-task__row">
+          <div class="view-task__column">
+            <div class="view-task__main">
+              <div class="view-task__item">
+                <div class="view-task-item__text">{{ task.title }}</div>
+              </div>
+              <div class="view-task__members">
+                <view-task-members />
+              </div>
+              <div class="view-task__files">
+                <upload-files :is-view-mode="true" />
+              </div>
+              <div class="view-task__collapse">
+                <view-task-collapse />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="view-task__column">
-          <view-task-description />
+          <div class="view-task__column">
+            <view-task-description :description="task.description" />
+          </div>
         </div>
       </div>
-    </div>
+      <div v-else v-loading="true" style="height: 440px"/>
+    </transition>
   </task-page-wrapper>
 </template>
 
@@ -37,10 +40,32 @@ import ViewTaskDescription from "@/app/projects/tasks/task/components/ViewTaskDe
 import ViewTaskCollapse from "@/app/projects/tasks/task/components/ViewTaskCollapse";
 import UploadFiles from "@/app/common/uploadFiles/UploadFiles";
 import ViewTaskMembers from "@/app/projects/tasks/task/components/ViewTaskMembers";
+import {tasksController} from "@/app/projects/tasks/tasks.controller";
 
 export default {
   name: 'task',
-  components: {ViewTaskMembers, UploadFiles, ViewTaskCollapse, ViewTaskDescription, TaskPageWrapper }
+  components: { ViewTaskMembers, UploadFiles, ViewTaskCollapse, ViewTaskDescription, TaskPageWrapper },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId
+    }
+  },
+  data() {
+    return {
+      loading: true,
+      task: null
+    }
+  },
+  created() {
+    setTimeout(() => {
+      tasksController.getTaskById(this.taskId)
+          .then(task => {
+            console.log(task)
+            this.task = task
+          })
+          .finally(() => this.loading = false)
+    }, 700)
+  }
 }
 </script>
 

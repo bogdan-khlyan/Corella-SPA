@@ -4,6 +4,23 @@ class TasksController {
 
     #service = new TasksService()
 
+    async getTaskById(taskId) {
+        return await this.#service.getTaskById(taskId)
+    }
+
+    async updateTask(task) {
+        return this.#service.updateTask(task)
+    }
+
+
+
+
+
+
+
+
+
+
     async getUploadedFiles(id) {
         const data = await this.#service.getUploadedFiles(id);
         return data;

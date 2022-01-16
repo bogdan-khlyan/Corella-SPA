@@ -1,30 +1,25 @@
+import http from '@/axiosConfig/base-axios-config'
 
 export default class UserManagementRepository {
 
-    async getUsers() {
-        if (!localStorage.getItem('users')) {
-            localStorage.setItem('users', '[]')
-        }
-        const users = JSON.parse(localStorage.getItem('users'))
-        return {
-            total: users.length,
-            users: users
-        }
+    async getUsers(params) {
+        const { limit = 10, page = 1 } = params
+        const response = await http.get(`/api/admin/users`, {
+            params: { limit, page }
+        })
+        return response.data
     }
 
     async createUser(user) {
-        const users = JSON.parse(localStorage.getItem('users'))
-        users.push(user)
-        localStorage.setItem('users', JSON.stringify(users))
-        return user
+        const {username, email, password, role} = user
+        const response = await http.post('/api/admin/user', {username, email, role, password})
+        return response.data
     }
 
     async updateUser(user) {
-        const users = JSON.parse(localStorage.getItem('users'))
-        const index = users.findIndex(item => item.id === user.id)
-        users[index] = user
-        localStorage.setItem('users', JSON.stringify(users))
-        return user
+        const { username, password, email, role, id } = user
+        const response = await http.patch(`/api/admin/user/${id}`, { username, password, email, role })
+        return response.data
     }
 
     async banUser(userId, isBanned) {

@@ -11,3 +11,11 @@
 *[class^="el-"] {
   font-family: Rubik, sans-serif;
 }
+
+.el-popover {
+  padding: 0!important;
+}
+
+.el-table__fixed-right {
+  z-index: 0;
+}

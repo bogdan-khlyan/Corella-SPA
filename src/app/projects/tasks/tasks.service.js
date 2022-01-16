@@ -5,6 +5,26 @@ export default class TasksService {
     #repository = new TasksRepository()
 
 
+    async getTaskById(taskId) {
+        return await this.#repository.getTaskById(taskId)
+    }
+
+    async updateTask(task) {
+        return await this.#repository.updateTask(task)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     async getUploadedFiles(id) {
         const data = await this.#repository.getUploadedFiles(id)
         return data

@@ -40,29 +40,38 @@ const projectSettingsButton = {
     icon: require('@/assets/images/icons/common/icon-settings.svg')
 }
 
+
+
+const createTaskButton = {
+    id: uuid(),
+    label: 'Create New Task',
+    icon: require('@/assets/images/icons/sidebar/icon-add.svg'),
+    route: 'create-task',
+    getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
+}
+
+const createUser = {
+    id: uuid(),
+    label: 'Create New User',
+    icon: require('@/assets/images/icons/sidebar/icon-add.svg'),
+    getPath: (context) => context.$route.path + '?create-user'
+}
+
+const createProjectButton = {
+    id: uuid(),
+    route: 'create-project',
+    label: 'Create New Project',
+    path: '/project/create'
+}
+
 const bottomButton = new Map()
-    .set('project-list', {
-        id: uuid(),
-        label: 'Create New Project',
-        path: '/project/create'
-    })
-    .set('create-project', {
-        id: uuid(),
-        route: 'create-project',
-        label: 'Create New Project',
-        path: '/project/create'
-    })
-    .set('board', {
-        id: uuid(),
-        label: 'Create New Task',
-        getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
-    })
-    .set('create-task', {
-        id: uuid(),
-        route: 'create-task',
-        label: 'Create New Task',
-        getPath: (context) => `/project/${context.$route.params.projectId}/create-task`
-    })
+    .set('project-list', createProjectButton)
+    .set('create-project', createProjectButton)
+    .set('board', createTaskButton)
+    .set('create-task', createTaskButton)
+    .set('edit-task', createTaskButton)
+    .set('task', createTaskButton)
+    .set('user-management', createUser)
 
 export const baseSidebarConfig = new Map()
     .set('default', [
@@ -88,6 +97,20 @@ export const baseSidebarConfig = new Map()
         projectSettingsButton
     ])
     .set('create-task', [
+        projectListButton,
+        userManagementButton,
+        menuTitle,
+        boardButton,
+        projectSettingsButton
+    ])
+    .set('edit-task', [
+        projectListButton,
+        userManagementButton,
+        menuTitle,
+        boardButton,
+        projectSettingsButton
+    ])
+    .set('task', [
         projectListButton,
         userManagementButton,
         menuTitle,

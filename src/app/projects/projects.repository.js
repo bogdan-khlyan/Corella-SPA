@@ -4,27 +4,14 @@ import { v4 as uuid } from 'uuid';
 export default class ProjectsRepository {
 
     async getProjects() {
-        // const response = await http.get('/projects')
-        // return response.data
-        // return []
-        // console.log(JSON.parse(localStorage.getItem('projects')))
-        let projects = JSON.parse(localStorage.getItem('projects'))
-        if (!projects) {
-            projects = [{
-                id: uuid(),
-                name: 'Test project',
-                description: 'Test project description',
-                membersCount: 3,
-                tasksCount: 5
-            }]
-            localStorage.setItem('projects', JSON.stringify(projects))
-        }
-        return projects ? projects : []
+        const response = await http.get('/api/projects')
+        return response.data
     }
 
     async getProjectById() {
         const project = [
             {
+                id: uuid(),
                 column: 'Backlog',
                 tasks: [
                     {
@@ -35,10 +22,12 @@ export default class ProjectsRepository {
                 ]
             },
             {
+                id: uuid(),
                 column: 'Discussion',
                 tasks: []
             },
             {
+                id: uuid(),
                 column: 'In Progress',
                 tasks: [
                     {
@@ -111,6 +100,7 @@ export default class ProjectsRepository {
                 ]
             },
             {
+                id: uuid(),
                 column: 'Review',
                 tasks: [
                     {
@@ -121,6 +111,7 @@ export default class ProjectsRepository {
                 ]
             },
             {
+                id: uuid(),
                 column: 'Done',
                 tasks: [
                     {
@@ -136,20 +127,11 @@ export default class ProjectsRepository {
     }
 
     async createProject(project) {
-        project = {
-            id: uuid(),
-            ...project
-        }
-        let projects = JSON.parse(localStorage.getItem('projects'))
-        if (projects) {
-            projects.push(project)
-        } else {
-            projects = [project]
-        }
-        localStorage.setItem('projects', JSON.stringify(projects))
-        return project
-        // const response = await http.post('/project', project)
-        // return response.data
+        const response = await http.post('/api/project', {
+            name: project.name,
+            description: project.description
+        })
+        return response.data.project
     }
 
     async updateProject(project) {

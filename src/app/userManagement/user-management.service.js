@@ -5,8 +5,13 @@ export default class UserManagementService {
 
     #repository = new UserManagementRepository()
 
-    async getUsers() {
-        return await this.#repository.getUsers()
+    async getUsers(params) {
+        try {
+            return await this.#repository.getUsers(params)
+        } catch (error) {
+            notificationsHelper.fromHttpError(error);
+            throw error
+        }
     }
 
     async createUser(user) {
@@ -15,8 +20,7 @@ export default class UserManagementService {
             notificationsHelper.success({ message: 'User has been successfully created' })
             return data
         } catch (error) {
-            console.log(error)
-            notificationsHelper.error()
+            notificationsHelper.fromHttpError(error);
             throw error
         }
     }
@@ -27,8 +31,7 @@ export default class UserManagementService {
             notificationsHelper.success({ message: 'User has been successfully updated' })
             return data
         } catch (error) {
-            console.log(error)
-            notificationsHelper.error()
+            notificationsHelper.fromHttpError(error);
             throw error
         }
     }

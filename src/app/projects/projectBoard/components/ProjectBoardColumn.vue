@@ -1,20 +1,32 @@
 <template>
   <div class="project-board-column" ref="projectBoardColumn">
+
+    <div v-if="leftArrow"
+         class="project-board-column__arrow"
+         @click="$emit('click-left-arrow')">
+      <img src="@/assets/images/icons/common/circle-sector.png" alt="">
+      <a>
+        <img src="@/assets/images/icons/common/icon-arrow.svg" alt="">
+      </a>
+    </div>
+
+    <div v-if="rightArrow"
+         class="project-board-column__arrow right"
+         @click="$emit('click-right-arrow')">
+      <img src="@/assets/images/icons/common/circle-sector2.png" alt="">
+      <a>
+        <img src="@/assets/images/icons/common/icon-arrow.svg" alt="">
+      </a>
+    </div>
+
     <h3 class="project-board-column__title project-board-column--inner-content">
 
-      <template
-          v-if="!loading"
-      >
+      <template v-if="!loading">
         {{ projectColumnData.column }}
       </template>
 
-      <el-skeleton
-          v-else
-          animated
-      >
-        <template
-            #template
-        >
+      <el-skeleton v-else animated>
+        <template #template>
           <el-skeleton-item variant="text"></el-skeleton-item>
         </template>
       </el-skeleton>
@@ -23,18 +35,14 @@
 
     <perfect-scrollbar
         class="project-board-column__scroll-content"
-        :options="scrollOptions"
-    >
+        :options="scrollOptions">
       <draggable
           class="project-board-column__task-list project-board-column--inner-content"
           v-if="isAllCompleted"
           v-model="columnData.tasks"
           v-bind="dragOptions"
-          v-on="dragListeners"
-      >
-        <template
-            #item="{element}"
-        >
+          v-on="dragListeners">
+        <template #item="{element}">
           <project-board-column-task-card
               :loading="loading"
               :project-task="element">
@@ -43,16 +51,13 @@
         </template>
       </draggable>
 
-      <div
-          class="project-board-column__task-list project-board-column--inner-content"
-          ref="projectBoard"
-          v-else
-      >
+      <div class="project-board-column__task-list project-board-column--inner-content"
+           ref="projectBoard"
+           v-else>
         <step-animation
             v-if="columnTransitionEnd"
             @item-complete="handleItemComplete"
-            @all-complete="handleAllCompleted"
-        >
+            @all-complete="handleAllCompleted">
           <project-board-column-task-card
               v-for="(projectTask, i) in fakeColumnData"
               :key="projectTask.order"
@@ -85,6 +90,14 @@ export default {
       type: Boolean
     },
     loading: {
+      type: Boolean,
+      default: false
+    },
+    leftArrow: {
+      type: Boolean,
+      default: false
+    },
+    rightArrow: {
       type: Boolean,
       default: false
     }
@@ -149,6 +162,70 @@ export default {
   flex-basis: 346px;
   max-width: 400px;
   box-sizing: border-box;
+
+  &__arrow {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 48px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    display: flex;
+    padding-right: 17px;
+    padding-bottom: 12px;
+
+    cursor: pointer;
+    transition: 200ms;
+
+    &:hover {
+      > img {
+        opacity: 0.8;
+      }
+    }
+
+    &.right {
+      left: unset;
+      right: 0;
+
+      padding-left: 17px;
+      padding-right: unset;
+
+      > img {
+        border-top-left-radius: unset;
+        border-top-right-radius: 8px;
+      }
+
+      > a {
+        margin-top: auto;
+        margin-right: auto;
+        margin-left: unset;
+
+        > img {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    > img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-top-left-radius: 8px;
+
+      transition: 200ms;
+    }
+
+    > a {
+      margin-top: auto;
+      margin-left: auto;
+
+      z-index: 1;
+    }
+
+  }
 
   &--inner-content {
     margin-left: 30px;

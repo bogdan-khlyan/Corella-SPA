@@ -14,3 +14,6 @@ export const baseWrapperConfig = new Map()
     .set('project-settings', {
         styles: [{ backgroundColor: '#F6F6F6' }]
     })
+    .set('edit-task', {
+        styles: [{ backgroundColor: '#F6F6F6' }]
+    })

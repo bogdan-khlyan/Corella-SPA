@@ -1,6 +1,65 @@
 // import http from "@/axiosConfig/base-axios-config"
 
 export default class TasksRepository {
+
+	async getTaskById(taskId) {
+		console.log(taskId)
+		let tasks = JSON.parse(localStorage.getItem('tasks'))
+		if (!tasks) {
+			tasks = []
+			localStorage.setItem('tasks', '[]')
+		}
+		let task = tasks.find(item => item.id === taskId)
+		if (task) {
+			console.log('find')
+			console.log(task)
+			return task
+		} else {
+			task = {
+				id: taskId,
+				title: 'Default title',
+				description: '<h1>Default description</h1>'
+			}
+			tasks.push(task)
+			localStorage.setItem('tasks', JSON.stringify(tasks))
+			return task
+		}
+	}
+
+	async updateTask(task) {
+		console.log('updateTask')
+		console.log(task)
+		const tasks = JSON.parse(localStorage.getItem('tasks'))
+		const index = tasks.findIndex(item => item.id === task.id)
+		tasks[index] = task
+		localStorage.setItem('tasks', JSON.stringify(tasks))
+		return task
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	async getUploadedFiles(id) {
 		// const response = await http.get(`/tasks?id={id}`)
 		// return response.data.uploadedFiles

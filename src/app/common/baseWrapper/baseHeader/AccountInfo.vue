@@ -2,21 +2,21 @@
   <div class="current-user" ref="root">
     <div class="current-user__content">
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo.id"
+        <div v-if="userInfo._id && windowWidth > 600"
              class="current-user__avatar"
              @click="$router.push('/profile')">
-          <div v-html="userAvatar"></div>
+          <base-user-avatar :avatar="userInfo.avatar" :size="40"/>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo.id && windowWidth > 600"
+        <div v-if="userInfo._id && windowWidth > 600"
              class="current-user__data">
-          <span>{{userInfo.name}}</span>
+          <span>{{userInfo.username}}</span>
           <span>{{userInfo.email}}</span>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
-        <div v-if="!userInfo.id"
+        <div v-if="!userInfo._id"
              v-loading="true"
              class="current-user__content--loading"/>
       </transition>
@@ -29,22 +29,28 @@
         @show="isDropDown = true"
         @hide="isDropDown = false">
       <template #reference>
-        <div class="current-user__more">
+        <div v-if="windowWidth > 600" class="current-user__more">
           <a :class="{'active': isDropDown}">
             <img src="@/assets/images/icons/header/icon-settings.svg" alt="">
           </a>
         </div>
+        <div v-else class="current-user__avatar">
+          <base-user-avatar :avatar="userInfo.avatar" :size="40"/>
+        </div>
       </template>
       <div class="current-user__drop-down">
         <div class="current-user__drop-down--name">
-          <span>{{userInfo.name}}</span>
+          <span>{{userInfo.username}}</span>
         </div>
         <div class="current-user__drop-down--email">
           <span>{{userInfo.email}}</span>
         </div>
         <hr>
+        <div class="current-user__drop-down--link">
+          <router-link to="/profile">Account settings</router-link>
+        </div>
         <div class="current-user__drop-down--logout">
-          <router-link to="/login">Log out</router-link>
+          <a @click="logout">Log out</a>
         </div>
       </div>
     </el-popover>
@@ -53,12 +59,14 @@
 </template>
 
 <script>
-import {toSvg} from "jdenticon";
+import BaseUserAvatar from "@/app/common/BaseUserAvatar";
 import {appState} from "@/app/app.state";
 import {userInstanceState} from "@/app/userInstance/user-instance.state";
+import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
 export default {
   name: "currentUser",
+  components: { BaseUserAvatar },
   computed: {
     userInfo() {
       return userInstanceState.info
@@ -66,8 +74,14 @@ export default {
     windowWidth() {
       return appState.windowWidth
     },
-    userAvatar: function () {
-      return toSvg(this.userInfo.avatar, 42)
+    avatarSize() {
+      if (this.windowWidth > 768) {
+        return 42
+      } else if (this.windowWidth > 480) {
+        return  38
+      } else {
+        return 36
+      }
     }
   },
   data() {
@@ -75,8 +89,10 @@ export default {
       isDropDown: false
     }
   },
-  mounted() {
-    // this.$refs.root.querySelector('svg').style.borderRadius = '50%'
+  methods: {
+    logout() {
+      userInstanceController.logout()
+    }
   }
 }
 </script>
@@ -94,10 +110,21 @@ export default {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    border: 1px #bfb9b9 solid;
     display: flex;
     justify-content: center;
     cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+      width: 38px;
+      height: 38px;
+    }
+    @media screen and (max-width: 600px) {
+      margin-right: 0;
+    }
+    @media screen and (max-width: 480px) {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   &__data {
@@ -166,7 +193,7 @@ export default {
   }
 
   &__drop-down {
-    padding: 6px;
+    padding: 20px 20px 14px 20px;
 
     &--name {
       margin-bottom: 12px;
@@ -205,10 +232,33 @@ export default {
       border-radius: 2px;
     }
 
-    &--logout {
-      margin-top: 12px;
-      //margin-bottom: 12px;
+    &--link {
+      margin-top: 4px;
+      margin-bottom: 4px;
       > a {
+        display: block;
+        width: 100%;
+        padding: 4px 4px 4px 0;
+
+        font-family: Rubik, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        text-decoration: none;
+
+        color: #212121;
+      }
+    }
+
+    &--logout {
+      margin-top: 4px;
+      //margin-bottom: 6px;
+      > a {
+        display: block;
+        width: 100%;
+        padding: 4px 4px 4px 0;
+
         font-family: Rubik, sans-serif;
         font-style: normal;
         font-weight: normal;
@@ -217,6 +267,7 @@ export default {
         text-decoration: none;
 
         color: #FF0000;
+        cursor: pointer;
       }
     }
 
