@@ -92,10 +92,14 @@ export default {
         password: {
           minLength: minLength(6),
           maxLength: maxLength(1024),
-          required,
+          required() {
+            return this.isEdit ? true : !!this.userInfo.password
+          }
         },
         repeatPassword: {
-          required,
+          required() {
+            return this.isEdit ? true : !!this.userInfo.password
+          },
           sameAs : sameAs(this.userInfo.password)
         }
       }
@@ -137,7 +141,6 @@ export default {
       }
     },
     async submitUserModal() {
-      console.log(this.v$.userInfo.$pending)
       this.v$.userInfo.$touch()
       if (this.v$.userInfo.$invalid) return
 
