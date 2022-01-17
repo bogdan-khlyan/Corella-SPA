@@ -28,12 +28,12 @@ const routes = [{
     }, {
         path: '/project/create',
         name: 'create-project',
-        component: () => import('@/app/projects/projectEditor/ProjectEditor'),
+        component: () => import('@/app/projects/projectEditor/ProjectSettings'),
         meta: { requiresAuth: true }
     }, {
         path: '/project/:projectId/settings',
         name: 'project-settings',
-        component: () => import('@/app/projects/projectEditor/ProjectEditor'),
+        component: () => import('@/app/projects/projectEditor/ProjectSettings'),
         meta: { requiresAuth: true }
     }, {
         path: '/project/:projectId/task/:taskId',

@@ -1,41 +1,35 @@
 <template>
-  <base-page-wrapper
+  <form
       v-loading="loading"
-      :title="title"
-      :show-delete-button="!isCreate"
-      @delete="deleteProject">
-    <form
-        class="create-project"
-        @submit.prevent="createProject">
-      <div class="create-project__columns">
-        <div class="create-project__column">
-          <base-input
-              v-model="newProject.name"
-              :error="errors.name"
-              label="Title"
-              placeholder="Enter project name"
-              @input="inputName"/>
-          <base-textarea
-              v-model="newProject.description"
-              :error="errors.description"
-              label="Description"
-              placeholder="Enter project description"
-              @input="inputDescription"/>
-        </div>
-        <div class="create-project__column">
-          <members-table/>
-        </div>
+      class="create-project"
+      @submit.prevent="createProject">
+    <div class="create-project__columns">
+      <div class="create-project__column">
+        <base-input
+            v-model="newProject.name"
+            :error="errors.name"
+            label="Title"
+            placeholder="Enter project name"
+            @input="inputName"/>
+        <base-textarea
+            v-model="newProject.description"
+            :error="errors.description"
+            label="Description"
+            placeholder="Enter project description"
+            @input="inputDescription"/>
       </div>
-      <board-editor/>
-      <div class="create-project__submit">
-        <button>Create project</button>
+      <div class="create-project__column">
+        <members-table/>
       </div>
-    </form>
-  </base-page-wrapper>
+    </div>
+    <board-editor/>
+    <div class="create-project__submit">
+      <button>Create project</button>
+    </div>
+  </form>
 </template>
 
 <script>
-import BasePageWrapper from "@/app/common/BasePageWrapper";
 import BaseInput from "@/app/common/BaseInput";
 import BaseTextarea from "@/app/common/BaseTextarea";
 import BoardEditor from "@/app/projects/projectEditor/components/boardEditor/BoardEditor";
@@ -43,20 +37,8 @@ import MembersTable from "@/app/projects/projectEditor/components/membersTable/M
 import {projectsController} from "@/app/projects/projects.controller";
 
 export default {
-  name: 'project-editor',
-  components: { BaseInput, BaseTextarea, BoardEditor, MembersTable, BasePageWrapper },
-  computed: {
-    isCreate() {
-      return this.$route.name === 'create-project'
-    },
-    title() {
-      if (this.isCreate) {
-        return 'Create project'
-      } else {
-        return 'Project settings'
-      }
-    }
-  },
+  name: "board-settings",
+  components: { BaseInput, BaseTextarea, BoardEditor, MembersTable },
   data() {
     return {
       loading: false,
@@ -82,12 +64,6 @@ export default {
               .finally(() => this.loading = false)
         }, 700)
       }
-    },
-    deleteProject() {
-      this.loading = true
-      setTimeout(() => {
-        projectsController.deleteProject(this.$route.params.projectId)
-      }, 400)
     },
     validate() {
       let error = false
@@ -131,9 +107,10 @@ export default {
     }
   }
 }
+
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .create-project {
 
   &__columns {
