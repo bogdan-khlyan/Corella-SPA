@@ -4,10 +4,10 @@
       v-for="tab in tabs"
       :key="tab"
       type="button"
-      :class="['base-tabs__item', { active: currentTab === tab }]"
+      :class="['base-tabs__item', { active: currentTab === tab.name }]"
       @click="$emit('change-tab', tab)"
     >
-      {{ convertTabName(tab) }}
+      {{ tab.text }}
     </button>
   </div>
 </template>
@@ -27,11 +27,6 @@ export default {
   },
 
   methods: {
-    convertTabName(tabName) {
-      if (!tabName) return
-      const transformedString = tabName[0].toUpperCase() + tabName.slice(1)
-      return transformedString.split('-').join(" ")
-    },
   }
 }
 </script>
@@ -57,8 +52,8 @@ export default {
     border: none;
     cursor: pointer;
     color: #212121;
-    font-family: "Rubik";
-    padding: 0px 10px 8px 10px;
+    font-family: "Rubik", sans-serif;
+    padding: 0 10px 8px 10px;
     line-height: 24px;
     min-width: 164px;
     position: relative;

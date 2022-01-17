@@ -20,13 +20,29 @@
 import BasePageWrapper from "@/app/common/BasePageWrapper";
 import BaseTabs from "@/app/common/BaseTabs";
 import {projectsController} from "@/app/projects/projects.controller";
+import BoardSettings from "@/app/projects/projectEditor/components/boardSettings/BoardSettings";
+import BasicInfo from "@/app/projects/projectEditor/components/basicInfo/BasicInfo";
 
+console.log()
 export default {
   name: 'project-editor',
-  components: {BasePageWrapper, BaseTabs },
+  components: {BasePageWrapper, BaseTabs, BoardSettings, BasicInfo },
   data() {
     return {
-      tabs: ['basic-info', 'board-settings', 'roles and members'],
+      tabs: [
+        {
+          name: 'basic-info',
+          text: "Basic info"
+        },
+        {
+          name: 'board-settings',
+          text: "Board settings"
+        },
+        {
+          name: 'members-table',
+          text: 'Roles and members'
+        }
+      ],
       currentTab: 'basic-info'
     }
   },
@@ -39,7 +55,7 @@ export default {
       }
     },
     isCreate() {
-      return this.$route.name === 'create-project'
+      return this.$route.name === 'create'
     },
   },
   methods: {
@@ -50,7 +66,7 @@ export default {
       }, 400)
     },
     changeTab(tab) {
-      this.currentTab = tab
+      this.currentTab = tab.name
     }
   }
 }
@@ -59,7 +75,7 @@ export default {
 <style scoped lang="scss">
 .project-settings {
   &__tabs {
-    margin-top: 32px;
+    margin: 32px 0 24px 0;
   }
 }
 </style>

@@ -2,69 +2,28 @@
   <form
       v-loading="loading"
       class="create-project"
-      @submit.prevent="createProject">
+  >
     <div class="create-project__columns">
       <div class="create-project__column">
-        <base-input
-            v-model="newProject.name"
-            :error="errors.name"
-            label="Title"
-            placeholder="Enter project name"
-            @input="inputName"/>
-        <base-textarea
-            v-model="newProject.description"
-            :error="errors.description"
-            label="Description"
-            placeholder="Enter project description"
-            @input="inputDescription"/>
       </div>
       <div class="create-project__column">
         <members-table/>
       </div>
     </div>
     <board-editor/>
-    <div class="create-project__submit">
-      <button>Create project</button>
-    </div>
   </form>
 </template>
 
 <script>
-import BaseInput from "@/app/common/BaseInput";
-import BaseTextarea from "@/app/common/BaseTextarea";
 import BoardEditor from "@/app/projects/projectEditor/components/boardEditor/BoardEditor";
 import MembersTable from "@/app/projects/projectEditor/components/membersTable/MembersTable";
-import {projectsController} from "@/app/projects/projects.controller";
 
 export default {
   name: "board-settings",
-  components: { BaseInput, BaseTextarea, BoardEditor, MembersTable },
-  data() {
-    return {
-      loading: false,
-      newProject: {
-        name: '',
-        description: '',
-        members: [],
-        statuses: []
-      },
-      errors: {
-        name: false,
-        description: false
-      }
-    }
-  },
+  components: { BoardEditor, MembersTable },
+
   methods: {
-    createProject() {
-      if (this.validate()) {
-        this.loading = true
-        setTimeout(() => {
-          projectsController.createProject(this.newProject)
-              .then(() => this.$router.push('/'))
-              .finally(() => this.loading = false)
-        }, 700)
-      }
-    },
+
     validate() {
       let error = false
 
