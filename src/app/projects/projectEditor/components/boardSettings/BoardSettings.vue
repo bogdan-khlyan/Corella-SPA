@@ -3,24 +3,16 @@
       v-loading="loading"
       class="create-project"
   >
-    <div class="create-project__columns">
-      <div class="create-project__column">
-      </div>
-      <div class="create-project__column">
-        <members-table/>
-      </div>
-    </div>
     <board-editor/>
   </form>
 </template>
 
 <script>
 import BoardEditor from "@/app/projects/projectEditor/components/boardEditor/BoardEditor";
-import MembersTable from "@/app/projects/projectEditor/components/membersTable/MembersTable";
 
 export default {
   name: "board-settings",
-  components: { BoardEditor, MembersTable },
+  components: {BoardEditor},
 
   methods: {
 

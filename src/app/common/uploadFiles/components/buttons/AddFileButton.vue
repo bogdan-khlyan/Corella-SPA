@@ -40,6 +40,5 @@ export default {
   .el-icon {
     font-size: 18px;
   }
-
 }
 </style>

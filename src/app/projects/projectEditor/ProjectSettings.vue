@@ -22,11 +22,11 @@ import BaseTabs from "@/app/common/BaseTabs";
 import {projectsController} from "@/app/projects/projects.controller";
 import BoardSettings from "@/app/projects/projectEditor/components/boardSettings/BoardSettings";
 import BasicInfo from "@/app/projects/projectEditor/components/basicInfo/BasicInfo";
+import Members from "@/app/projects/projectEditor/components/membersTable/MembersTable";
 
-console.log()
 export default {
   name: 'project-editor',
-  components: {BasePageWrapper, BaseTabs, BoardSettings, BasicInfo },
+  components: {Members, BasePageWrapper, BaseTabs, BoardSettings, BasicInfo },
   data() {
     return {
       tabs: [
@@ -39,7 +39,7 @@ export default {
           text: "Board settings"
         },
         {
-          name: 'members-table',
+          name: 'members',
           text: 'Roles and members'
         }
       ],
