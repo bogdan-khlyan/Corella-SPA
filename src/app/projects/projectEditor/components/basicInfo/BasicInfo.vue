@@ -23,11 +23,18 @@
         <div class="basic-info__count">{{ getDescriptionWordsCount }} / {{ maxWordsCount }}</div>
       </div>
     </div>
-    <base-button text="Save">
-      <slot name="icon">
-        <el-icon ><check /></el-icon>
-      </slot>
-    </base-button>
+    <div class="basic-info__buttons">
+      <div class="basic-info__button">
+        <base-button text="Save" width="222px">
+          <template #icon>
+            <el-icon><check /></el-icon>
+          </template>
+        </base-button>
+      </div>
+      <div class="basic-info__button">
+        <base-button text="Cancel" type="danger" />
+      </div>
+    </div>
   </form>
 
 </template>
@@ -63,7 +70,7 @@ export default {
         name: false,
         description: false
       },
-      maxWordsCount: 100
+      maxWordsCount: 5
     }
   },
   methods: {
@@ -102,7 +109,8 @@ export default {
 <style lang="scss" scoped>
 .basic-info {
   max-width: 510px;
-
+  display: flex;
+  flex-direction: column;
   &__item {
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -122,6 +130,19 @@ export default {
   .base-input {
     margin: 0;
     line-height: 1;
+  }
+  &__items {
+    flex: 1 1 auto;
+  }
+  &__buttons {
+    margin-top: 30px;
+    display: flex;
+  }
+  &__button {
+    flex: 0 0 222px;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 }
 </style>

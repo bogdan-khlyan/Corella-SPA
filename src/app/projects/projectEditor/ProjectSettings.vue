@@ -75,7 +75,8 @@ export default {
 <style scoped lang="scss">
 .project-settings {
   &__tabs {
-    margin: 32px 0 24px 0;
+    margin-top: 32px;
+    margin-bottom: 24px;
   }
 }
 </style>
