@@ -1,5 +1,5 @@
 <template>
-  <button :style="{ maxWidth: width}" :class="['save-button', type]">
+  <button :style="{ maxWidth: width}" :class="['base-button', type]">
     <slot name="icon"></slot>
     <span>{{ text }}</span>
   </button>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.save-button {
+.base-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -53,6 +53,11 @@ export default {
     background-color: transparent;
     font-size: 16px;
     color: #F61414;
+  }
+  &.outline {
+    border: 1px solid #0AB258;
+    background-color: #fff;
+    color: #3B3B3B;
   }
   .el-icon {
     color: #fff;
