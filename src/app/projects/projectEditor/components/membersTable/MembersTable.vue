@@ -1,38 +1,4 @@
 <template>
-  <!--  <div class="members__wrapper">-->
-  <!--    <label>Members</label>-->
-  <!--    <div class="members">-->
-  <!--      <div class="members__header">-->
-  <!--        <div class="members__header&#45;&#45;item">-->
-  <!--          <span>Member</span>-->
-  <!--        </div>-->
-  <!--        <div class="members__header&#45;&#45;item">-->
-  <!--          <span>Role</span>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--      <div class="members__content">-->
-  <!--        <div v-for="member in members" :key="member.id" class="members__member">-->
-  <!--          <div class="members__member&#45;&#45;cell">-->
-  <!--            <base-select :options="[{ label: 'test', value: 'test' }]"/>-->
-  <!--            {{member.username}}-->
-  <!--          </div>-->
-  <!--          <div class="members__member&#45;&#45;cell">-->
-  <!--&lt;!&ndash;            <base-select/>&ndash;&gt;-->
-  <!--          </div>-->
-  <!--          <div class="members__member&#45;&#45;actions">-->
-
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--      <div class="members__button">-->
-  <!--        <button @click="addMember" type="button">-->
-  <!--          <el-icon><plus/></el-icon>-->
-  <!--          <span>Add member</span>-->
-  <!--        </button>-->
-  <!--      </div>-->
-  <!--      <div class="members__vertical-line"/>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div class="members">
     <div class="members__column">
       <span class="members__label">Roles</span>
@@ -43,12 +9,12 @@
           </template>
         </base-button>
       </div>
-
     </div>
     <div class="members__column">
+      <table-items :table-data="members"/>
       <span class="members__label">Members</span>
       <div class="members__action">
-        <base-button type="outline" text="Invite member">
+        <base-button @click="$refs.inviteMemberModal.openModal()" type="outline" text="Invite member">
           <template #icon>
             <el-icon><plus /></el-icon>
           </template>
@@ -56,6 +22,7 @@
       </div>
     </div>
   </div>
+  <invite-member-modal ref="inviteMemberModal" />
 </template>
 
 <script>
@@ -63,13 +30,19 @@
 import {v4 as uuid} from 'uuid';
 import BaseButton from "@/app/common/BaseButton";
 import {Plus} from "@element-plus/icons-vue";
+import InviteMemberModal from "@/app/projects/projectEditor/components/membersTable/components/InviteMemberPopup";
+import TableMember from "@/app/projects/projectEditor/components/membersTable/components/TableMember";
+import TableItems from "@/app/projects/projectEditor/components/membersTable/components/TableItems";
 
 export default {
   name: 'members',
-  components: {BaseButton, Plus},
+  components: {TableItems, TableMember, InviteMemberModal, BaseButton, Plus},
   data() {
     return {
-      members: []
+      members: [
+        {username: "Lana", role: "Admin"},
+        {username: "Alexandra", role: "Developer"}
+      ]
     }
   },
   methods: {

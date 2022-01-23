@@ -38,12 +38,15 @@ export default {
   width: 100%;
   padding: 2px 10px;
   font-size: 16px;
+  transition: all 0.3s ease 0s;
   color: #fff;
   cursor: pointer;
   font-family: "Rubik", sans-serif;
   span {
-    margin-left: 11px;
     line-height: 24px;
+    &:not(:first-child) {
+      margin-left: 11px;
+    }
   }
 
   &.success {
@@ -58,6 +61,12 @@ export default {
     border: 1px solid #0AB258;
     background-color: #fff;
     color: #3B3B3B;
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: #0AB258;
+        color: #fff;
+      }
+    }
   }
   .el-icon {
     color: #fff;

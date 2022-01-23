@@ -105,9 +105,6 @@ export default {
       }
     }
   },
-  validationConfig: {
-    $anyDirty: false,
-  },
   methods: {
     openModal(user = null) {
       if (user) {
