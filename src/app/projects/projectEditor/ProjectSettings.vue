@@ -43,7 +43,7 @@ export default {
           text: 'Roles and members'
         }
       ],
-      currentTab: 'basic-info'
+      currentTab: 'members'
     }
   },
   computed: {
