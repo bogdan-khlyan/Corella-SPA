@@ -10,13 +10,12 @@
             </template>
           </base-button>
         </div>
-
       </div>
     </div>
     <div class="members__column">
       <span class="members__label">Members</span>
       <div class="members__action">
-        <table-items :column-names="['Members', 'Role']" :table-data="members"/>
+        <table-items :members="members"/>
         <div class="members__button">
           <base-button @click="$refs.inviteMemberModal.openModal()" type="outline" text="Invite member">
             <template #icon>
@@ -47,8 +46,18 @@ export default {
   data() {
     return {
       members: [
-        {username: "Lana", role: "Admin"},
-        {username: "Alexandra", role: "Developer"}
+        {
+          id: '1',
+          username: "Lana",
+          role: "Admin",
+          avatar: ""
+        },
+        {
+          id: '2',
+          username: "Alexandra",
+          role: "Developer",
+          avatar: ""
+        },
       ]
     }
   },
@@ -89,3 +98,4 @@ export default {
   }
 }
 </style>
+

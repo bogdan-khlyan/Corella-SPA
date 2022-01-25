@@ -23,7 +23,7 @@ import BaseInput from "@/app/common/BaseInput";
 import BaseCheckbox from "@/app/common/BaseCheckbox";
 
 const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
-const iconUser = require('@/assets/images/icons/modals/icon-user.svg')
+const iconUsers = require('@/assets/images/icons/modals/icon-users.svg')
 
 export default {
   components: {BaseCheckbox, BaseInput, BasePopup},
@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     iconModal() {
-      return this.isEdit ? iconEdit : iconUser
+      return this.isEdit ? iconEdit : iconUsers
     },
     titleModal() {
       return this.isEdit ? "Edit role" : "Add role"
