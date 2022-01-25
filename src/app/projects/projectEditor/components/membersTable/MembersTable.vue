@@ -4,7 +4,7 @@
       <span class="members__label">Roles</span>
       <div class="members__action">
         <div class="members__button">
-          <base-button type="outline" text="Add role">
+          <base-button @click="$refs.rolePopup.openModal()" type="outline" text="Add role">
             <template #icon>
               <el-icon><plus /></el-icon>
             </template>
@@ -28,6 +28,7 @@
     </div>
   </div>
   <invite-member-modal ref="inviteMemberModal" />
+  <role-popup ref="rolePopup" />
 </template>
 
 <script>
@@ -38,10 +39,11 @@ import {Plus} from "@element-plus/icons-vue";
 import InviteMemberModal from "@/app/projects/projectEditor/components/membersTable/components/InviteMemberPopup";
 import TableMember from "@/app/projects/projectEditor/components/membersTable/components/TableMember";
 import TableItems from "@/app/projects/projectEditor/components/membersTable/components/TableItems";
+import RolePopup from "@/app/projects/projectEditor/components/membersTable/components/RolePopup";
 
 export default {
   name: 'members',
-  components: {TableItems, TableMember, InviteMemberModal, BaseButton, Plus},
+  components: {RolePopup, TableItems, TableMember, InviteMemberModal, BaseButton, Plus},
   data() {
     return {
       members: [
