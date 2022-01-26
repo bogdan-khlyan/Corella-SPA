@@ -11,7 +11,9 @@
             :currentTab="currentTab"
         />
       </div>
-      <component :is="currentTab"></component>
+      <keep-alive>
+        <component :is="currentTab"></component>
+      </keep-alive>
     </div>
   </base-page-wrapper>
 </template>

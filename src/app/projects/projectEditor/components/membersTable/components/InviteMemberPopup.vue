@@ -12,7 +12,7 @@
         />
         <base-button
             width="106px"
-            text="Invite"
+            title="Invite"
         />
       </div>
     </base-popup>

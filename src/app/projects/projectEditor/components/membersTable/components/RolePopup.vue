@@ -27,7 +27,7 @@ const iconUsers = require('@/assets/images/icons/modals/icon-users.svg')
 
 export default {
   components: {BaseCheckbox, BaseInput, BasePopup},
-  name: "role-popup",
+  name: "role-modal",
   data() {
     return {
       visible: false,

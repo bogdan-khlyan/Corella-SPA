@@ -58,6 +58,7 @@ export default {
     line-height: 24px;
     min-width: 164px;
     position: relative;
+    transition: 0.3s ease all;
     &::before {
       content: "";
       position: absolute;

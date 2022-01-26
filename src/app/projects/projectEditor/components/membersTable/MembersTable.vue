@@ -1,75 +1,25 @@
 <template>
   <div class="members">
     <div class="members__column">
-      <span class="members__label">Roles</span>
-      <div class="members__action">
-        <div class="members__button">
-          <base-button @click="$refs.rolePopup.openModal()" type="outline" text="Add role">
-            <template #icon>
-              <el-icon><plus /></el-icon>
-            </template>
-          </base-button>
-        </div>
-      </div>
+      <members-table-column />
     </div>
     <div class="members__column">
-      <span class="members__label">Members</span>
-      <div class="members__action">
-        <table-items :members="members"/>
-        <div class="members__button">
-          <base-button @click="$refs.inviteMemberModal.openModal()" type="outline" text="Invite member">
-            <template #icon>
-              <el-icon><plus /></el-icon>
-            </template>
-          </base-button>
-        </div>
-      </div>
+      <members-table-column :show-members="true" />
     </div>
   </div>
-  <invite-member-modal ref="inviteMemberModal" />
-  <role-popup ref="rolePopup" />
 </template>
 
 <script>
-
-import {v4 as uuid} from 'uuid';
-import BaseButton from "@/app/common/BaseButton";
-import {Plus} from "@element-plus/icons-vue";
-import InviteMemberModal from "@/app/projects/projectEditor/components/membersTable/components/InviteMemberPopup";
-import TableMember from "@/app/projects/projectEditor/components/membersTable/components/TableMember";
-import TableItems from "@/app/projects/projectEditor/components/membersTable/components/TableItems";
-import RolePopup from "@/app/projects/projectEditor/components/membersTable/components/RolePopup";
+import MembersTableColumn from "@/app/projects/projectEditor/components/membersTable/components/MembersTableColumn";
 
 export default {
   name: 'members',
-  components: {RolePopup, TableItems, TableMember, InviteMemberModal, BaseButton, Plus},
+  components: {MembersTableColumn},
   data() {
     return {
-      members: [
-        {
-          id: '1',
-          username: "Lana",
-          role: "Admin",
-          avatar: ""
-        },
-        {
-          id: '2',
-          username: "Alexandra",
-          role: "Developer",
-          avatar: ""
-        },
-      ]
+
     }
   },
-  methods: {
-    addMember() {
-      this.members.push({
-        id: uuid(),
-        username: '',
-        role: ''
-      })
-    }
-  }
 }
 </script>
 
@@ -77,25 +27,14 @@ export default {
 .members {
   display: flex;
   margin: 0 -12px;
-  &__label {
-    font-family: Rubik, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-  }
 
   &__column {
     flex: 0 1 50%;
     padding: 0 12px;
+    display: flex;
+    flex-direction: column;
   }
-  &__action {
-    border: 1px solid #E7E7E7;
-    border-radius: 4px;
-  }
-  &__button {
-    padding: 20px;
-  }
+
 }
 </style>
 

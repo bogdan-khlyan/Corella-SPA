@@ -1,7 +1,7 @@
 <template>
   <button :style="{ maxWidth: width}" :class="['base-button', type]">
-    <slot name="icon"></slot>
-    <span>{{ text }}</span>
+    <slot></slot>
+    <span>{{ title }}</span>
   </button>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
   name: "base-button",
   props: {
-    text: {
+    title: {
       type: String,
       default: ""
     },

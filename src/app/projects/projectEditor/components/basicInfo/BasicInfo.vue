@@ -15,24 +15,23 @@
       </div>
       <div class="basic-info__item">
         <base-textarea
-            v-model.trim="newProject.description"
+            v-model="newProject.description"
             :error="v$.newProject.description.$error"
             label="Description"
             placeholder="Enter project description"
+            ref="description"
         />
-        <div class="basic-info__count">{{ getDescriptionWordsCount }} / {{ maxWordsCount }}</div>
+        <div class="basic-info__count">{{ getDescriptionLength }} / 8192</div>
       </div>
     </div>
     <div class="basic-info__buttons">
       <div class="basic-info__button">
-        <base-button text="Save" width="222px">
-          <template #icon>
+        <base-button title="Save" width="222px">
             <el-icon><check /></el-icon>
-          </template>
         </base-button>
       </div>
       <div class="basic-info__button">
-        <base-button text="Cancel" type="danger" />
+        <base-button title="Cancel" type="danger" />
       </div>
     </div>
   </form>
@@ -46,14 +45,9 @@ import BaseTextarea from "@/app/common/BaseTextarea";
 import {projectsController} from "@/app/projects/projects.controller";
 
 import useVuelidate from "@vuelidate/core";
-import {required} from "@vuelidate/validators";
+import {maxLength, required} from "@vuelidate/validators";
 import BaseButton from "@/app/common/BaseButton";
 import {Check} from "@element-plus/icons-vue";
-
-
-const maxWordsCount = (limit) => (value) => {
-  return value.split(" ").filter(word => word !== "").length <= limit
-}
 
 export default {
   name: "basic-info",
@@ -70,7 +64,6 @@ export default {
         name: false,
         description: false
       },
-      maxWordsCount: 5
     }
   },
   methods: {
@@ -86,19 +79,20 @@ export default {
     },
   },
   computed: {
-    getDescriptionWordsCount() {
-      return this.newProject.description.split(" ").filter(word => word !== "").length
+
+    getDescriptionLength() {
+      return this.v$.newProject.description.$model.length
     }
   },
   validations() {
     return {
       newProject: {
         name: {
-          maxWordsCount: maxWordsCount(this.maxWordsCount),
+          maxLength: maxLength(128),
           required
         },
         description: {
-          maxWordsCount: maxWordsCount(this.maxWordsCount),
+          maxLength: maxLength(8192)
         }
       }
     }
