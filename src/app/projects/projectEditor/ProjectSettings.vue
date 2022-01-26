@@ -11,9 +11,11 @@
             :currentTab="currentTab"
         />
       </div>
-      <keep-alive>
-        <component :is="currentTab"></component>
-      </keep-alive>
+      <transition name="el-fade-in-linear" mode="out-in">
+        <keep-alive>
+          <component :is="currentTab"></component>
+        </keep-alive>
+      </transition>
     </div>
   </base-page-wrapper>
 </template>
