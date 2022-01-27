@@ -26,12 +26,11 @@
     </div>
     <div class="basic-info__buttons">
       <div class="basic-info__button">
-        <base-button title="Save" width="222px">
-            <el-icon><check /></el-icon>
+        <base-button :title="isCreate ? 'Next' : 'Edit'">
         </base-button>
       </div>
       <div class="basic-info__button">
-        <base-button title="Cancel" type="danger" />
+        <base-button @click.prevent="$router.push('/')" title="Cancel" type="danger" />
       </div>
     </div>
   </form>
@@ -47,11 +46,10 @@ import {projectsController} from "@/app/projects/projects.controller";
 import useVuelidate from "@vuelidate/core";
 import {maxLength, required} from "@vuelidate/validators";
 import BaseButton from "@/app/common/BaseButton";
-import {Check} from "@element-plus/icons-vue";
 
 export default {
   name: "basic-info",
-  components: {BaseButton, BaseTextarea, BaseInput, Check},
+  components: {BaseButton, BaseTextarea, BaseInput},
   setup: () => ({v$: useVuelidate()}),
   data() {
     return {
@@ -68,18 +66,28 @@ export default {
   },
   methods: {
     createProject() {
-      this.v$.newProject.$touch()
-      if (this.v$.newProject.$invalid) return
+      if (this.isCreate) {
+        this.v$.newProject.$touch()
+        if (this.v$.newProject.$invalid) return
 
-      this.loading = true
+        this.loading = true
 
-      projectsController.createProject(this.newProject)
-          .then(() => this.$router.push('/'))
-          .finally(() => this.loading = false)
+        projectsController.createProject(this.newProject)
+            .then(data => {
+              this.$router.push(`/project/${data._id}/settings`)
+              this.$emit('change-tab', 'board-settings')
+            })
+            .finally(() => this.loading = false)
+      } else {
+        console.log('user tried to update project')
+      }
+
     },
   },
   computed: {
-
+    isCreate() {
+      return this.$route.name === 'create-project'
+    },
     getDescriptionLength() {
       return this.v$.newProject.description.$model.length
     }
@@ -92,7 +100,8 @@ export default {
           required
         },
         description: {
-          maxLength: maxLength(8192)
+          maxLength: maxLength(8192),
+          required
         }
       }
     }

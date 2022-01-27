@@ -6,6 +6,7 @@
     <div class="project-settings">
       <div class="project-settings__tabs">
         <base-tabs
+            :disabled-tabs="disabledTabs"
             :tabs="tabs"
             @change-tab="changeTab"
             :currentTab="currentTab"
@@ -13,7 +14,7 @@
       </div>
       <transition name="el-fade-in-linear" mode="out-in">
         <keep-alive>
-          <component :is="currentTab"></component>
+          <component @change-tab="changeTab" :is="currentTab"></component>
         </keep-alive>
       </transition>
     </div>
@@ -36,18 +37,18 @@ export default {
       tabs: [
         {
           name: 'basic-info',
-          text: "Basic info"
+          text: "Basic info",
         },
         {
           name: 'board-settings',
-          text: "Board settings"
+          text: "Board settings",
         },
         {
           name: 'members',
-          text: 'Roles and members'
+          text: 'Roles and members',
         }
       ],
-      currentTab: 'members'
+      currentTab: 'basic-info'
     }
   },
   computed: {
@@ -58,8 +59,13 @@ export default {
         return 'Project settings'
       }
     },
+    disabledTabs() {
+      if (this.isCreate) {
+        return ["board-settings", "members"]
+      }
+    },
     isCreate() {
-      return this.$route.name === 'create'
+      return this.$route.name === 'create-project'
     },
   },
   methods: {
@@ -70,7 +76,12 @@ export default {
       }, 400)
     },
     changeTab(tab) {
-      this.currentTab = tab.name
+      this.currentTab = tab
+    }
+  },
+  created() {
+    if (!this.isCreate) {
+      this.currentTab = 'board-settings'
     }
   }
 }
