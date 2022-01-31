@@ -48,7 +48,7 @@ export default {
 <style scoped lang="scss">
 .login-form-wrapper {
   background-color: #FFFFFF;
-  @media (min-width: 1280px) {
+  @media screen and (min-width: 1280.98px) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,14 +57,16 @@ export default {
     min-height: 100vh;
     height: 100%;
   }
-  @media (max-width: 1280px) {
+  @media screen and (max-width: 1280.98px) {
     border-radius: 8px;
   }
-
+  @media screen and (max-width: 560.98px) {
+    border-radius: 0;
+  }
   @media screen and (max-width: 1500px) {
     width: 60vw;
   }
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1280.98px) {
     margin: 0 auto;
     width: 100%;
     max-width: 700px;
@@ -74,20 +76,20 @@ export default {
     padding: 30px 35px;
     max-width: 720px;
     width: 100%;
-    @media (max-width: 1280px) {
+    @media screen and (max-width: 1280.98px) {
       margin: 0 auto;
     }
-    @media (min-width: 1280px) {
+    @media screen and (min-width: 1280.98px) {
       padding: 60px 40px;
 
     }
-    @media (max-width: 1760px) {
+    @media screen and (max-width: 1760px) {
 
     }
-    @media (min-width: 1620px) {
+    @media screen and (min-width: 1620px) {
       padding: 60px 60px;
     }
-    @media (max-width: 560px) {
+    @media screen and (max-width: 560.98px) {
       padding: 30px 20px;
     }
   }
@@ -95,9 +97,18 @@ export default {
   &__logo {
     display: flex;
     align-items: center;
+    &:not(:last-child) {
+      margin-bottom: 60px;
+    }
+
+    @media screen and (max-width: 1280.98px) {
+      &:not(:last-child) {
+        margin-bottom: 27px;
+      }
+    }
     img {
-      @media (max-width: 767.98px) {
-        max-width: 80px;
+      @media screen and (max-width: 1280.98px) {
+        max-width: 75px;
       }
     }
     > h1 {
@@ -110,27 +121,23 @@ export default {
       line-height: 56px;
 
       color: #1B1A18;
-      @media (max-width: 767.98px) {
+      @media screen and (max-width: 1280.98px) {
         margin-left: 25px;
-        font-size: 34px;
+        font-size: 30px;
       }
     }
 
   }
 
   &__oauth {
-    margin-top: 60px;
-    @media (max-width: 1280px) {
-      margin-top: 35px;
+    margin-bottom: 40px;
+    @media screen and (min-height: 1280.98px) {
+      margin-bottom: 60px;
     }
   }
 
   &__form {
-    margin-top: 40px;
 
-    @media (min-height: 920px) {
-      margin-top: 60px;
-    }
   }
 
 }

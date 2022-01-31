@@ -88,9 +88,17 @@ export default {
         height: 70px;
         font-size: 24px;
       }
-
-      &:hover {
-        background-color: #61dd93;
+      @media (max-width: 1280.98px) {
+        height: 60px;
+        font-size: 20px;
+      }
+      @media (max-width: 560.98px) {
+        width: 100%;
+      }
+      @media (any-hover: hover) {
+        &:hover {
+          background-color: #61dd93;
+        }
       }
 
     }
@@ -107,7 +115,9 @@ export default {
     color: #393939;
 
     margin-top: 18px;
-
+    @media screen and (max-width: 1280.98px) {
+      font-size: 16px;
+    }
     > a {
       font-weight: 500;
       color: #0AB258;
@@ -115,6 +125,9 @@ export default {
 
       margin-left: 10px;
       cursor: pointer;
+      @media screen and (max-width: 1280.98px) {
+        margin-left: 6px;
+      }
     }
   }
 }

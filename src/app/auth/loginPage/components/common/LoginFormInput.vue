@@ -55,7 +55,9 @@ export default {
   position: relative;
   display: block;
   padding-top: 10px;
-
+  @media screen and (max-width: 1280.98px) {
+    padding-top: 20px;
+  }
   &__error {
     input {
       border-color: red!important;
@@ -71,6 +73,9 @@ export default {
       left: 2px;
       font-size: 18px;
       line-height: 24px;
+      @media screen and (max-width: 1280.98px) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -79,7 +84,7 @@ export default {
     height: 52px;
 
     padding-left: 12px;
-
+    padding-right: 45px;
     border: none;
 
     font-family: Roboto, sans-serif;
@@ -92,14 +97,20 @@ export default {
     border-bottom: 1px solid #C4C4C4;
 
     transition: 0.2s;
-    @media (max-width: 767.98px) {
+    @media screen and (max-width: 1280.98px) {
       font-size: 18px;
+      height: 40px;
+      padding-right: 40px;
+      padding-left: 10px;
     }
     &:focus ~ label, &:valid ~ label {
       top: -5px;
       left: 2px;
       font-size: 18px;
       line-height: 24px;
+      @media screen and (max-width: 1280.98px) {
+        font-size: 16px;
+      }
     }
 
     &:focus .login-form-input__input-container:after {
@@ -152,8 +163,8 @@ export default {
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-    @media (max-width: 767.98px) {
-      font-size: 20px;
+    @media screen and (max-width: 1280.98px) {
+      font-size: 18px;
     }
   }
 
@@ -164,6 +175,11 @@ export default {
     right: 0;
     margin: auto;
     cursor: pointer;
+    @media screen and (max-width: 1280.98px) {
+      width: 25px;
+      height: 25px;
+      top: 20px;
+    }
   }
 
   // todo move to global styles ?

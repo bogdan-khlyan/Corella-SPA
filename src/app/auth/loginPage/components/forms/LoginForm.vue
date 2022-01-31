@@ -122,16 +122,22 @@ export default {
     cursor: pointer;
 
     transition: 0.2s;
-
-    &:hover {
-      color: #0AB258;
+    @media (any-hover: hover) {
+      &:hover {
+        color: #0AB258;
+      }
     }
-
+    @media (max-width: 1280.98px) {
+      font-size: 16px;
+    }
   }
 
   &__button {
     text-align: left;
     margin-top: 50px;
+    &:not(:last-child) {
+      margin-bottom: 18px;
+    }
 
     @media screen and (max-height: 920px) {
       margin-top: 30px;
@@ -161,13 +167,19 @@ export default {
         height: 70px;
         font-size: 24px;
       }
-
-      &:hover {
-        background-color: #61dd93;
+      @media (max-width: 1280.98px) {
+        height: 60px;
+        font-size: 20px;
       }
-      @media (max-width: 560px) {
+      @media (max-width: 560.98px) {
         width: 100%;
       }
+      @media (any-hover: hover) {
+        &:hover {
+          background-color: #61dd93;
+        }
+      }
+
     }
   }
 
@@ -180,8 +192,10 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: #393939;
+    @media (max-width: 1280.98px) {
+      font-size: 16px;
+    }
 
-    margin-top: 18px;
 
     > a {
       font-weight: 500;
@@ -190,6 +204,9 @@ export default {
 
       margin-left: 10px;
       cursor: pointer;
+      @media (max-width: 1280.98px) {
+        margin-left: 6px;
+      }
     }
   }
 }

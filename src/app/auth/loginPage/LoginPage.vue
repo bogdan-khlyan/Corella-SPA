@@ -34,20 +34,23 @@ export default {
 .login-page {
 
   &__content {
-    @media (max-width: 1280px) {
+    @media screen and (max-width: 1280.98px) {
       background: linear-gradient(218.31deg, #20C560 0%, #05A580 100%);
       min-height: 100vh;
       padding: 20px;
     }
-    @media (min-width: 1280px) {
+    @media screen and (min-width: 1280.98px) {
       position: relative;
       display: flex;
+    }
+    @media screen and (max-width: 560.98px) {
+      padding: 20px 0;
     }
   }
 
   &__column {
     &:first-child {
-      @media screen and (max-width: 1280px) {
+      @media screen and (max-width: 1280.98px) {
         width: 100%;
       }
     }
