@@ -92,7 +92,9 @@ export default {
     border-bottom: 1px solid #C4C4C4;
 
     transition: 0.2s;
-
+    @media (max-width: 767.98px) {
+      font-size: 18px;
+    }
     &:focus ~ label, &:valid ~ label {
       top: -5px;
       left: 2px;
@@ -150,9 +152,8 @@ export default {
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-
-    @media screen and (max-width: 420px) {
-      font-size: 14px;
+    @media (max-width: 767.98px) {
+      font-size: 20px;
     }
   }
 

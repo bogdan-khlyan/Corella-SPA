@@ -165,7 +165,9 @@ export default {
       &:hover {
         background-color: #61dd93;
       }
-
+      @media (max-width: 560px) {
+        width: 100%;
+      }
     }
   }
 

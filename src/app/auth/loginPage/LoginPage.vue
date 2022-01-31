@@ -34,8 +34,15 @@ export default {
 .login-page {
 
   &__content {
-    position: relative;
-    display: flex;
+    @media (max-width: 1280px) {
+      background: linear-gradient(218.31deg, #20C560 0%, #05A580 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    @media (min-width: 1280px) {
+      position: relative;
+      display: flex;
+    }
   }
 
   &__column {
