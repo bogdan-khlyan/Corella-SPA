@@ -45,7 +45,7 @@ export default {
       font-style: normal;
       font-weight: normal;
       font-size: 32px;
-      line-height: 37px;
+      line-height: calc(37 / 32 * 100%);
       color: #393939;
       @media screen and (max-width: 1280.98px) {
         font-size: 22px;

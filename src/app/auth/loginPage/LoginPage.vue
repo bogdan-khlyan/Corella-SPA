@@ -44,7 +44,8 @@ export default {
       display: flex;
     }
     @media screen and (max-width: 560.98px) {
-      padding: 20px 0;
+      background: none;
+      padding: 0;
     }
   }
 

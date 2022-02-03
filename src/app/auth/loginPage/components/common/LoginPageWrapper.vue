@@ -110,6 +110,9 @@ export default {
       @media screen and (max-width: 1280.98px) {
         max-width: 75px;
       }
+      @media screen and (max-width: 560.98px) {
+        max-width: 60px;
+      }
     }
     > h1 {
       margin-left: 40px;
@@ -118,12 +121,15 @@ export default {
       font-style: normal;
       font-weight: 600;
       font-size: 46px;
-      line-height: 56px;
+      line-height: calc(56 / 46 * 100%);
 
       color: #1B1A18;
       @media screen and (max-width: 1280.98px) {
         margin-left: 25px;
         font-size: 30px;
+      }
+      @media screen and (max-width: 560.98px) {
+        font-size: 27px;
       }
     }
 

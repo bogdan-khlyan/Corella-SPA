@@ -44,7 +44,7 @@ export default {
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 38 / 32 * 100%;
+    line-height: calc(38 / 32 * 100%);
     letter-spacing: 0em;
     text-align: left;
     color: #393939;
@@ -95,7 +95,7 @@ export default {
       font-style: normal;
       font-weight: 500;
       font-size: 32px;
-      line-height: 37px;
+      line-height: calc(37 / 32 * 100%);
 
       color: #FFFFFF;
 
@@ -130,7 +130,7 @@ export default {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px;
+    line-height: calc(24 / 16 * 100%);
     letter-spacing: 0em;
     text-align: left;
     text-decoration: none;

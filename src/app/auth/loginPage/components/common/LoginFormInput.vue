@@ -72,7 +72,7 @@ export default {
       top: -5px;
       left: 2px;
       font-size: 18px;
-      line-height: 24px;
+      line-height: calc(24 / 18 * 100%);
       @media screen and (max-width: 1280.98px) {
         font-size: 16px;
       }
@@ -91,7 +91,7 @@ export default {
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
-    line-height: 32px;
+    line-height: calc(32 / 24 * 100%);
 
     color: #000000;
     border-bottom: 1px solid #C4C4C4;
@@ -107,7 +107,7 @@ export default {
       top: -5px;
       left: 2px;
       font-size: 18px;
-      line-height: 24px;
+      line-height: calc(24 / 18 * 100%);
       @media screen and (max-width: 1280.98px) {
         font-size: 16px;
       }
@@ -154,7 +154,7 @@ export default {
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 32px;
+    line-height: calc(32 / 24 * 100%);
     letter-spacing: 0em;
     text-align: left;
 
