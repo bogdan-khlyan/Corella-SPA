@@ -1,8 +1,10 @@
 <template>
   <div class="base-select">
     <el-select
-        v-model="value"
-        :placeholder="placeholder">
+        :model-value="modelValue"
+        :placeholder="placeholder"
+        @change="$emit('update:modelValue', $event, id)"
+    >
       <el-option
           v-for="item in options"
           :key="item.value"
@@ -16,12 +18,15 @@
 export default {
   name: 'base-select',
   props: {
-    placeholder: { type: String, default: 'Select' },
-    options: { type: Array, required: true }
+    placeholder: {type: String, default: 'Select'},
+    options: {type: Array, required: true},
+    modelValue: String,
+    id: String
   },
+  model: {prop: 'modelValue', event: "change"},
   data() {
     return {
-      value: '', // TODO modelValue
+      // value: '', // TODO modelValue
     }
   }
 }

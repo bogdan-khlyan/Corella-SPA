@@ -12,31 +12,22 @@ export default {
 
 <style scoped lang="scss">
 .banner {
-  width: 50vw;
-  min-height: 100vh;
-  height: 100%;
+  display: none;
+  @media screen and (min-width: 1280.98px) {
+    width: 50vw;
+    min-height: 100vh;
+    height: 100%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  box-sizing: border-box;
-  background: linear-gradient(218.31deg, #20C560 0%, #05A580 100%);
-
+    box-sizing: border-box;
+    background: linear-gradient(218.31deg, #20C560 0%, #05A580 100%);
+  }
   @media screen and (max-width: 1500px) {
     width: 40vw;
   }
-  @media screen and (max-width: 1280px) {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    z-index: -1;
-  }
-
   h2 {
     max-width: 610px;
     text-align: left;
@@ -54,7 +45,7 @@ export default {
       font-size: 24px;
       line-height: 140%;
     }
-    @media screen and (max-width: 1280px) {
+    @media screen and (max-width: 1280.98px) {
       display: none;
     }
 

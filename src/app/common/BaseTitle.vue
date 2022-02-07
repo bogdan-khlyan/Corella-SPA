@@ -13,9 +13,9 @@ export default {
 
 <style lang="scss" scoped>
 .base-title {
-  font-family: "Rubik";
+  font-family: "Rubik", sans-serif;
   line-height: 16px;
-  margin: 0px 0px 4px 0px;
+  margin: 0 0 4px 0;
   font-size: 12px;
   color: #7B7B7B;
   font-weight: 400;
