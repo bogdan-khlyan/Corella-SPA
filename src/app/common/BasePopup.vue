@@ -8,7 +8,7 @@
       <template #title>
         <div class="base-popup__header">
           <img v-if="image" :src="image" alt="">
-          <div class="base-modal__header-title">{{ title }}</div>
+          <div :style="{fontWeight: image ? '': 600}" class="base-modal__header-title">{{ title }}</div>
         </div>
       </template>
 
@@ -17,7 +17,7 @@
         <form @submit.prevent>
           <slot></slot>
 
-          <button class="base-popup__button">
+          <button v-if="showBtn" class="base-popup__button">
             <img src="@/assets/images/icons/buttons/icon-check.svg" alt="">
             {{ titleBtn }}
           </button>
@@ -38,7 +38,7 @@ export default {
     modelValue: Boolean,
     loading: Boolean,
     titleBtn:{ type: String, default: 'Save' },
-
+    showBtn: { type: Boolean, default: true },
     width: { type: String, default: '420px' }
   },
   methods: {

@@ -7,7 +7,7 @@
         <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
       </div>
       <div class="task-page-wrapper__header--text">
-        <span>{{title}}</span>
+        <span>{{ title }}</span>
       </div>
       <div class="task-page-wrapper__header--actions">
         <div v-if="showEditButton"
@@ -25,7 +25,7 @@
               @confirm="$emit('delete', $event)">
             <template #reference>
               <button class="red">
-                <img src="@/assets/images/icons/tasks/delete.svg" alt="">
+                <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')"></svg-icon>
               </button>
             </template>
           </el-popconfirm>
@@ -42,12 +42,12 @@
 export default {
   name: 'task-page-wrapper',
   props: {
-    title: { type: String, required: true },
+    title: {type: String, required: true},
 
-    showEditButton: { type: Boolean, default: false },
-    showDeleteButton: { type: Boolean, default: false },
+    showEditButton: {type: Boolean, default: false},
+    showDeleteButton: {type: Boolean, default: false},
 
-    loading: { type: Boolean, default: false }
+    loading: {type: Boolean, default: false}
   }
 }
 </script>
@@ -103,12 +103,15 @@ export default {
       &-item {
         margin-left: 6px;
         margin-right: 6px;
+
         &:first-child {
           margin-left: 0;
         }
+
         &:last-child {
           margin-right: 0;
         }
+
         > button {
           display: flex;
           justify-content: center;
@@ -118,7 +121,7 @@ export default {
           height: 48px;
 
           border: none;
-
+          fill: #fff;
           background: #20C561;
           border-radius: 8px;
 
@@ -131,6 +134,7 @@ export default {
 
           &.red {
             background: #F97066;
+
             &:hover {
               background: #ff9b95;
             }
@@ -153,7 +157,7 @@ export default {
 <style lang="scss">
 .task-page-wrapper {
   .el-loading-mask {
-    border-radius: 10px!important;
+    border-radius: 10px !important;
   }
 }
 </style>
