@@ -18,15 +18,21 @@ export default class UserInstanceService {
 
     #repository = new UserInstanceRepository()
 
+    logoutPromise = null
+
     async logout() {
         try {
-            const data = await this.#repository.logout()
-            setIsLoggedIn(false)
+            if (this.logoutPromise) {
+                return this.logoutPromise
+            }
+            this.logoutPromise = this.#repository.logout()
+            const data = await this.logoutPromise
             notificationsHelper.success({ message: 'You have successfully logged out of your account' })
             return data
-        } catch (error) {
-            console.log(error)
-            throw error
+        } finally {
+            notificationsHelper.success({ message: 'Session time expired' })
+            setIsLoggedIn(false)
+            this.logoutPromise = null
         }
     }
 
