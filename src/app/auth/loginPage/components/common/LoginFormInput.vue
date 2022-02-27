@@ -1,5 +1,6 @@
 <template>
-  <label class="login-form-input">
+  <label class="login-form-input"
+         :class="{'login-form-input__error': error}">
 
       <input required
              :type="visible ? 'text' : type"
@@ -33,7 +34,8 @@ export default {
   props: {
     modelValue: String,
     type: {type: String, default: 'text'},
-    placeholder: {type: String, default: 'Enter'}
+    placeholder: {type: String, default: 'Enter'},
+    error: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -53,13 +55,27 @@ export default {
   position: relative;
   display: block;
   padding-top: 10px;
+  @media screen and (max-width: 1280.98px) {
+    padding-top: 20px;
+  }
+  &__error {
+    input {
+      border-color: red!important;
+    }
+    label {
+      color: red!important;
+    }
+  }
 
   input:-webkit-autofill {
     & ~ label {
       top: -5px;
       left: 2px;
       font-size: 18px;
-      line-height: 24px;
+      line-height: calc(24 / 18 * 100%);
+      @media screen and (max-width: 1280.98px) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -68,25 +84,33 @@ export default {
     height: 52px;
 
     padding-left: 12px;
-
+    padding-right: 45px;
     border: none;
 
     font-family: Roboto, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
-    line-height: 32px;
+    line-height: calc(32 / 24 * 100%);
 
     color: #000000;
     border-bottom: 1px solid #C4C4C4;
 
     transition: 0.2s;
-
+    @media screen and (max-width: 1280.98px) {
+      font-size: 18px;
+      height: 40px;
+      padding-right: 40px;
+      padding-left: 10px;
+    }
     &:focus ~ label, &:valid ~ label {
       top: -5px;
       left: 2px;
       font-size: 18px;
-      line-height: 24px;
+      line-height: calc(24 / 18 * 100%);
+      @media screen and (max-width: 1280.98px) {
+        font-size: 16px;
+      }
     }
 
     &:focus .login-form-input__input-container:after {
@@ -130,7 +154,7 @@ export default {
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 32px;
+    line-height: calc(32 / 24 * 100%);
     letter-spacing: 0em;
     text-align: left;
 
@@ -139,9 +163,8 @@ export default {
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-
-    @media screen and (max-width: 420px) {
-      font-size: 14px;
+    @media screen and (max-width: 1280.98px) {
+      font-size: 18px;
     }
   }
 
@@ -152,6 +175,11 @@ export default {
     right: 0;
     margin: auto;
     cursor: pointer;
+    @media screen and (max-width: 1280.98px) {
+      width: 25px;
+      height: 25px;
+      top: 20px;
+    }
   }
 
   // todo move to global styles ?

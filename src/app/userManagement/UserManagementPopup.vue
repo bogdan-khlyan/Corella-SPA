@@ -1,36 +1,34 @@
 <template>
   <div class="user-management-popup">
+
     <base-popup v-model="visible"
                 :title="titleModal"
                 :image="iconModal"
                 :loading="loading"
                 @submit="submitUserModal"
+                @update:modelValue="changeVisible"
                 ref="baseModal">
       <base-input
-          v-model="userInfo.email"
+          v-model.trim="userInfo.email"
           label="E-mail"
           placeholder="Enter e-mail"
-          :error="errors.email"
-          :disabled="isEdit"
-          @input="validateEmail"/>
+          :error="v$.userInfo.email.$error"
+          :disabled="isEdit" />
       <base-input
-          v-model="userInfo.name"
+          v-model.trim="userInfo.username"
           label="Name"
           placeholder="Enter name user"
-          :error="errors.name"
-          @input="validateName"/>
+          :error="v$.userInfo.username.$error" />
       <base-input-password
-          v-model="userInfo.password"
+          v-model.trim="userInfo.password"
           label="Password"
           placeholder="Enter password"
-          :error="errors.password"
-          @input="validatePassword"/>
+          :error="v$.userInfo.password.$error" />
       <base-input-password
-          v-model="userInfo.repeatPassword"
+          v-model.trim="userInfo.repeatPassword"
           label="Confirm password"
           placeholder="Enter password"
-          :error="errors.password"
-          @input="validatePassword"/>
+          :error="v$.userInfo.repeatPassword.$error" />
     </base-popup>
   </div>
 </template>
@@ -40,7 +38,12 @@ import BasePopup from "@/app/common/BasePopup";
 import BaseInput from "@/app/common/BaseInput";
 import BaseInputPassword from "@/app/common/BaseInputPassword";
 import {userManagementController} from "@/app/userManagement/user-management.controller";
-import * as EmailValidator from 'email-validator';
+
+import useVuelidate from '@vuelidate/core'
+import {email, maxLength, minLength, required, sameAs} from "@vuelidate/validators";
+
+const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
+const iconUser = require('@/assets/images/icons/modals/icon-user.svg')
 
 export default {
   name: "user-management-popup",
@@ -49,21 +52,18 @@ export default {
     BaseInput,
     BaseInputPassword
   },
+  setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       isEdit: false,
       loading: false,
       userInfo: {
-        avatar: null,
-        name: null,
+        username: null,
         email: null,
         password: null,
         repeatPassword: null,
-      },
-      errors: {
-        email: false,
-        name: false,
-        password: false
+        role: "USER",
+        id: null,
       },
       visible: false
     }
@@ -73,111 +73,100 @@ export default {
       return this.isEdit ? 'Edit User' : 'Add user'
     },
     iconModal() {
-      return this.isEdit ? require('@/assets/images/icons/modals/icon-edit.svg') : require('@/assets/images/icons/modals/icon-user.svg')
+      return this.isEdit ? iconEdit : iconUser
+    },
+  },
+  validations () {
+    return {
+      userInfo: {
+        email: {
+          minLength: minLength(6),
+          maxLength: maxLength(1024),
+          required,
+          email,
+        },
+        username: {
+          maxLength: maxLength(24),
+          required,
+        },
+        password: {
+          minLength: minLength(6),
+          maxLength: maxLength(1024),
+          required() {
+            return this.isEdit ? true : !!this.userInfo.password
+          }
+        },
+        repeatPassword: {
+          required() {
+            return this.isEdit ? true : !!this.userInfo.password
+          },
+          sameAs : sameAs(this.userInfo.password)
+        }
+      }
     }
   },
   methods: {
-    validate() {
-      let error = false
-
-      if (!this.validateEmail()) {
-        error = true
-      }
-      if (!this.validateName()) {
-        error = true
-      }
-      if (!this.validatePassword()) {
-        error = true
-      }
-
-      return !error
-    },
-    validateEmail(isEmit) {
-      if (isEmit && !this.errors.email) {
-        return
-      }
-      if (EmailValidator.validate(this.userInfo.email)) {
-        this.errors.email = false
-        return true
-      } else {
-        this.errors.email = true
-        return false
-      }
-    },
-    validateName(isEmit) {
-      if (isEmit && !this.errors.name) {
-        return
-      }
-      if (this.userInfo.name && this.userInfo.name.length > 4) {
-        this.errors.name = false
-        return true
-      } else {
-        this.errors.name = true
-        return false
-      }
-    },
-    validatePassword() {
-      if (!this.userInfo.password && !this.userInfo.repeatPassword) {
-        this.errors.password = false
-        return true
-      } else if (this.userInfo.password !== this.userInfo.repeatPassword) {
-        this.errors.password = true
-        return false
-      } else {
-        this.errors.password = false
-        return true
-      }
-    },
-    openModal(userInfo = null) {
-      if (userInfo) {
+    openModal(user = null) {
+      if (user) {
         this.isEdit = true
-        this.userInfo = JSON.parse(JSON.stringify(userInfo))
+        this.userInfo = {
+          username: user.username,
+          email: user.email,
+          role: "USER",
+          id: user._id
+        }
       } else {
         this.isEdit = false
         this.userInfo = {
-          avatar: null,
-          name: '',
+          username: '',
           email: null,
           password: null,
           repeatPassword: null,
+          role: "USER",
         }
-      }
-      this.errors = {
-        email: false,
-        name: false,
-        password: false
       }
       this.visible = true
     },
-    submitUserModal() {
-      if (this.validate()) {
-        this.loading = true
-        setTimeout(() => {
-          if (this.isEdit) {
-            userManagementController.updateUser(this.userInfo)
-                .then(() => {
-                  this.$refs.baseModal.handleClose()
-                  this.$emit('update')
-                })
-                .finally(() => this.loading = false)
-          } else {
-            userManagementController.createUser(this.userInfo)
-                .then(() => {
-                  this.$refs.baseModal.handleClose()
-                  this.$emit('update')
-                })
-                .finally(() => this.loading = false)
+    changeVisible() {
+      if (!this.visible) {
+        this.v$.userInfo.$reset()
+        this.$router.replace({
+          query: {
+            'create-user': undefined
           }
-        }, 700)
+        })
       }
+    },
+    async submitUserModal() {
+      this.v$.userInfo.$touch()
+      if (this.v$.userInfo.$invalid) return
+
+      this.loading = true
+
+      if (this.isEdit) {
+        userManagementController.updateUser(this.userInfo)
+            .then(() => {
+              this.$refs.baseModal.handleClose()
+              this.$emit('update')
+            })
+            .finally(() => this.loading = false)
+      } else {
+        userManagementController.createUser(this.userInfo)
+            .then(() => {
+              this.$refs.baseModal.handleClose()
+              this.$emit('update')
+            })
+            .finally(() => this.loading = false)
+      }
+      this.v$.$reset()
     },
     clearUserInfo() {
       this.userInfo = {
-        avatar: null,
-        name: '',
+        username: '',
         email: null,
         password: null,
         repeatPassword: null,
+        role: "USER"
       }
     }
   }

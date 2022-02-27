@@ -15,7 +15,8 @@ export default {
 
 <style lang="scss">
 .upload-file-button {
-  width: 454px;
+  width: 100%;
+  max-width: 454px;
   height: 56px;
 
   background-color: transparent;

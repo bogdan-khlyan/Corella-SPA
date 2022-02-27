@@ -1,6 +1,7 @@
 <template>
   <div class="file-preview">
     <button
+        v-if="!isViewMode"
         class="file-preview__btn-delete"
         @click="$emit('remove-file', file.id)">
       <el-icon><close/></el-icon>
@@ -34,6 +35,7 @@ export default {
   components: { Close },
   props: {
     file: {type: Object, required: true},
+    isViewMode: { type: Boolean, default: false }
   },
   data() {
     return {

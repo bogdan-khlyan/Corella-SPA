@@ -7,9 +7,7 @@ export default class ProjectsService {
     #repository = new ProjectsRepository()
 
     async getProjects() {
-        const projects = await this.#repository.getProjects()
-        projectsState.projects = projects
-        return projects
+        return await this.#repository.getProjects()
     }
 
     async getProjectById(id) {
@@ -19,7 +17,7 @@ export default class ProjectsService {
     async createProject(project) {
         try {
             const createdProject = await this.#repository.createProject(project)
-            projectsState.projects.push(createdProject)
+            // projectsState.projects.push(createdProject)
             notificationsHelper.success({ message: 'Successfully created' })
             return createdProject
         } catch (error) {

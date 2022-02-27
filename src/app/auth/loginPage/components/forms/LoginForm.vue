@@ -2,11 +2,15 @@
   <form @submit.prevent="submitForm" class="login-form">
     <login-form-input class="login-form__input"
                       placeholder="Email or username"
-                      v-model="credentials.email"/>
+                      v-model="credentials.login"
+                      :error="errors.login"
+                      @input="validateLogin"/>
     <login-form-input class="login-form__input"
                       placeholder="Password"
                       type="password"
-                      v-model="credentials.password"/>
+                      v-model="credentials.password"
+                      :error="errors.password"
+                      @input="validatePassword"/>
 
     <router-link to="/login/recover" class="login-form__forgot">
       Forgot my password?
@@ -23,9 +27,8 @@
 <script>
 import LoginFormInput from "@/app/auth/loginPage/components/common/LoginFormInput";
 import {loginPageState} from "@/app/auth/loginPage/login-page.state";
+import {userInstanceController} from "@/app/userInstance/user-instance.controller";
 
-// TODO добавить валидацию
-// TODO проходить авторизацию на бэке используя user-service.controller
 export default {
   name: 'login-form',
   components: {
@@ -34,18 +37,58 @@ export default {
   data() {
     return {
       credentials: {
-        email: String(),
+        login: String(),
         password: String()
+      },
+      errors: {
+        login: false,
+        password: false
       }
     }
   },
   methods: {
     submitForm() {
-      loginPageState.loading = true
-      setTimeout(() => {
-        loginPageState.loading = false
-        this.$router.push('/')
-      }, 2000)
+      if (this.validate()) {
+        loginPageState.loading = true
+        userInstanceController.login(this.credentials)
+            .finally(() => loginPageState.loading = false)
+      }
+    },
+    validate() {
+      let error = false
+
+      if (!this.validateLogin()) {
+        error = true
+      }
+      if (!this.validatePassword()) {
+        error = true
+      }
+
+      return !error
+    },
+    validateLogin(isEmit) {
+      if (isEmit && !this.errors.login) {
+        return
+      }
+      if (this.credentials.login.length > 4) {
+        this.errors.login = false
+        return true
+      } else {
+        this.errors.login = true
+        return false
+      }
+    },
+    validatePassword(isEmit) {
+      if (isEmit && !this.errors.password) {
+        return
+      }
+      if (this.credentials.password.length >= 6) {
+        this.errors.password = false
+        return true
+      } else {
+        this.errors.password = true
+        return false
+      }
     }
   }
 }
@@ -79,16 +122,22 @@ export default {
     cursor: pointer;
 
     transition: 0.2s;
-
-    &:hover {
-      color: #0AB258;
+    @media (any-hover: hover) {
+      &:hover {
+        color: #0AB258;
+      }
     }
-
+    @media (max-width: 1280.98px) {
+      font-size: 16px;
+    }
   }
 
   &__button {
     text-align: left;
     margin-top: 50px;
+    &:not(:last-child) {
+      margin-bottom: 18px;
+    }
 
     @media screen and (max-height: 920px) {
       margin-top: 30px;
@@ -118,9 +167,17 @@ export default {
         height: 70px;
         font-size: 24px;
       }
-
-      &:hover {
-        background-color: #61dd93;
+      @media (max-width: 1280.98px) {
+        height: 60px;
+        font-size: 20px;
+      }
+      @media (max-width: 560.98px) {
+        width: 100%;
+      }
+      @media (any-hover: hover) {
+        &:hover {
+          background-color: #61dd93;
+        }
       }
 
     }
@@ -135,8 +192,10 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: #393939;
+    @media (max-width: 1280.98px) {
+      font-size: 16px;
+    }
 
-    margin-top: 18px;
 
     > a {
       font-weight: 500;
@@ -145,6 +204,9 @@ export default {
 
       margin-left: 10px;
       cursor: pointer;
+      @media (max-width: 1280.98px) {
+        margin-left: 6px;
+      }
     }
   }
 }

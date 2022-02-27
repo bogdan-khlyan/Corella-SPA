@@ -44,12 +44,20 @@ export default {
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 38px;
+    line-height: calc(38 / 32 * 100%);
     letter-spacing: 0em;
     text-align: left;
     color: #393939;
 
-    margin-bottom: 38px;
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
+    @media screen and (max-width: 1280.98px) {
+      font-size: 22px;
+      &:not(:last-child) {
+        margin-bottom: 33px;
+      }
+    }
   }
   &__description {
     font-family: Rubik, sans-serif;
@@ -61,7 +69,14 @@ export default {
     text-align: left;
     color: #878787;
 
-    margin-bottom: 52px;
+    &:not(:last-child) {
+      margin-bottom: 52px;
+    }
+    @media screen and (max-width: 1280.98px) {
+      &:not(:last-child) {
+        margin-bottom: 40px;
+      }
+    }
   }
   &__button {
     text-align: left;
@@ -80,7 +95,7 @@ export default {
       font-style: normal;
       font-weight: 500;
       font-size: 32px;
-      line-height: 37px;
+      line-height: calc(37 / 32 * 100%);
 
       color: #FFFFFF;
 
@@ -96,9 +111,17 @@ export default {
         height: 70px;
         font-size: 24px;
       }
-
-      &:hover {
-        background-color: #61dd93;
+      @media screen and (any-hover: hover) {
+        &:hover {
+          background-color: #61dd93;
+        }
+      }
+      @media screen and (max-width: 1280.98px) {
+        height: 60px;
+        font-size: 20px;
+      }
+      @media screen and (max-width: 560.98px) {
+        width: 100%;
       }
     }
   }
@@ -107,7 +130,7 @@ export default {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px;
+    line-height: calc(24 / 16 * 100%);
     letter-spacing: 0em;
     text-align: left;
     text-decoration: none;
@@ -115,8 +138,13 @@ export default {
 
     cursor: pointer;
     transition: 0.2s;
-    &:hover {
-      color: #0AB258;
+    @media screen and (max-width: 1280.98px) {
+      font-size: 16px;
+    }
+    @media screen and (any-hover: hover) {
+      &:hover {
+        color: #0AB258;
+      }
     }
   }
 

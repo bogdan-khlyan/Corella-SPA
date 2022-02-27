@@ -1,13 +1,16 @@
 <template>
   <div class="header-search">
 
-    <input type="text" placeholder="search..."
-           v-model="searchText"
-           @input="setSearchText">
-
-    <div>
-      <img src="@/assets/images/icons/header/loupe.svg" alt="">
+    <div class="header-search__icon"
+         :class="{'header-search__icon--active': searchText.length}">
+      <svg-icon
+          :icon="require('@/assets/images/icons/header/loupe.svg')"/>
     </div>
+
+    <input v-model="searchText"
+           type="text"
+           placeholder="search..."
+           @input="setSearchText">
 
   </div>
 </template>
@@ -37,11 +40,12 @@ export default {
   margin-left: 12px;
   padding-right: 16px;
 
-  > div {
+  &__icon {
     position: absolute;
     cursor: pointer;
     top: 16px;
     left: 16px;
+    pointer-events: none;
 
     > img {
       width: 24px;
@@ -51,29 +55,50 @@ export default {
 
   input {
     width: 100%;
-    font-family: Rubik;
+    height: 56px;
+
+    padding-left: 46px;
+
+    font-family: Rubik, sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
-    text-transform: capitalize;
-    color: #bdbcc8;
-    padding-left: 46px;
-    border: none;
-    height: 56px;
-   // background: rgba(196, 196, 196, 0.08);
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #212121;
     background: rgba(196, 196, 196, 0.12);
-    border-radius: 4px
+
+    border-radius: 4px;
+    border: 1px solid transparent;
+
+    transition: 200ms;
+
+    &:hover {
+      border-color: rgba(196, 196, 196, 0.3);
+    }
+
+    &:focus {
+      border-color: #0AB258;
+    }
+
   }
 
   input::placeholder {
-    font-family: Rubik;
+    font-family: Rubik, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
     text-transform: capitalize;
     color: #BDBCC8;
+  }
+}
+</style>
+
+<style lang="scss">
+.header-search__icon--active {
+  path {
+    fill: #0AB258;
   }
 }
 </style>

@@ -14,13 +14,18 @@
 <script>
 import LoginFormWrapper from "@/app/auth/loginPage/components/common/LoginPageWrapper";
 import Banner from "@/app/auth/loginPage/components/banner/Banner";
+import {userInstanceState} from "@/app/userInstance/user-instance.state";
 
-// TODO если юзер уже авторизован переводить его на домашнюю страницу
 export default {
   name: 'login',
   components: {
     LoginFormWrapper,
     Banner
+  },
+  created() {
+    if (userInstanceState.isLoggedIn) {
+      this.$router.push('/')
+    }
   }
 }
 </script>
@@ -29,13 +34,24 @@ export default {
 .login-page {
 
   &__content {
-    position: relative;
-    display: flex;
+    @media screen and (max-width: 1280.98px) {
+      background: linear-gradient(218.31deg, #20C560 0%, #05A580 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    @media screen and (min-width: 1280.98px) {
+      position: relative;
+      display: flex;
+    }
+    @media screen and (max-width: 560.98px) {
+      background: none;
+      padding: 0;
+    }
   }
 
   &__column {
     &:first-child {
-      @media screen and (max-width: 1280px) {
+      @media screen and (max-width: 1280.98px) {
         width: 100%;
       }
     }

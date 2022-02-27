@@ -2,13 +2,11 @@
   <div class="project-board">
     <transition name="fade" mode="out-in" appear>
 
-      <div
-          class="project-board__columns-wrapper"
-          v-if="loading"
-      >
+      <div v-if="loading"
+           class="project-board__columns-wrapper">
         <project-board-column
             class="project-board__column"
-            v-for="projectColumnData in projectData"
+            v-for="projectColumnData in projectTemplate.slice(0, columnsCount)"
             :key="projectColumnData.column"
             :loading="loading"
             :column-transition-end="true"
@@ -16,22 +14,23 @@
         </project-board-column>
       </div>
 
-      <div
-          class="project-board__columns-wrapper"
-          v-else
-      >
+      <div v-else
+           class="project-board__columns-wrapper">
         <step-animation
             :wrapper="mainWrapper"
-            @item-complete="handleItemComplete"
-        >
+            @item-complete="handleItemComplete">
           <project-board-column
               class="project-board__column"
-              v-for="(projectColumnData, i) in projectData"
-              :key="i"
+              v-for="(projectColumnData, i) in columns"
+              :key="projectColumnData.id"
               :project-column-data="projectColumnData"
               :column-transition-end="projectColumnData.columnTransitionEnd"
               :data-index="i"
-              @status-task-changed="handleTaskStatusChanged">
+              :left-arrow="showArrow && i === 0"
+              :right-arrow="showArrow && i === columns.length - 1"
+              @status-task-changed="handleTaskStatusChanged"
+              @click-left-arrow="clickLeftArrow"
+              @click-right-arrow="clickRightArrow">
           </project-board-column>
 
         </step-animation>
@@ -45,6 +44,7 @@
 import {projectsController} from "@/app/projects/projects.controller";
 
 import ProjectBoardColumn from "@/app/projects/projectBoard/components/ProjectBoardColumn";
+import {appState} from "@/app/app.state";
 
 export default {
   name: 'ProjectBoard',
@@ -52,11 +52,35 @@ export default {
     ProjectBoardColumn
   },
   computed: {
-    projectData() {
-      if (!this.loading) return this.project
-      else return projectsController.getProjectTemplate()
+    windowWidth() {
+      return appState.windowWidth
     },
-
+    showArrow() {
+      return !(this.project.length <= this.columnsCount)
+    },
+    columnsCount() {
+      if (this.windowWidth > 1600) {
+        return 5
+      } else if (this.windowWidth > 1400) {
+        return 4
+      } else if (this.windowWidth > 850) {
+        return 3
+      } else if (this.windowWidth > 600) {
+        return 2
+      } else {
+        return 1
+      }
+    },
+    columns() {
+      if (this.offset < this.project.length - this.columnsCount) {
+        return this.project.slice(this.offset, this.offset + this.columnsCount)
+      } else {
+        const arr = this.project.slice(this.offset)
+        const arr2 = this.project.slice(0, this.columnsCount - arr.length)
+        // console.log(arr.concat(arr2))
+        return arr.concat(arr2)
+      }
+    },
     mainWrapper() {
       return document.querySelector('.main-wrapper')
     }
@@ -68,18 +92,31 @@ export default {
     return {
       loading: false,
       project: null,
+
+      projectTemplate: projectsController.getProjectTemplate(),
+
+      offset: 0
     }
   },
   methods: {
-    async getProjectById(id) {
+    clickLeftArrow() {
+      if (this.offset === 0) {
+        this.offset = this.project.length
+      }
+      --this.offset
+    },
+    clickRightArrow() {
+      if (this.offset === this.project.length) {
+        this.offset = 0
+      }
+      ++this.offset
+    },
+    getProjectById(id) {
       this.loading = true
 
-      try {
-        this.project = await projectsController.getProjectById(id)
-
-      } finally {
-        this.loading = false
-      }
+      projectsController.getProjectById(id)
+          .then(project => this.project = project)
+          .finally(() => this.loading = false)
     },
 
     handleItemComplete({index}) {
