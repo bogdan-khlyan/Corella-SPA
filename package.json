@@ -1,6 +1,7 @@
 {
   "name": "corella-spa",
-  "author": "es.bogdan.hlyan@gmail.com",
+  "author": "Bogdan Khlyan (Hlyan) es.bogdan.hlyan@gmail.com & Danil Grzhybovskyy",
+  "license": "Apache-2.0",
   "version": "0.1.0",
   "private": true,
   "scripts": {
