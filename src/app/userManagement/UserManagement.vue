@@ -1,79 +1,109 @@
 <template>
   <div class="user-management">
-
     <div class="user-management__header">
-      <div class="user-management__header-title">User Management</div>
+      <div class="user-management__header-title">
+        User Management
+      </div>
       <button @click="addNewUser">
-        <img src="@/assets/images/icons/buttons/icon-plus.svg" alt="add">
+        <img
+          src="@/assets/images/icons/buttons/icon-plus.svg"
+          alt="add"
+        >
         <span>Add user</span>
       </button>
     </div>
 
     <div class="user-management__table">
-      <el-table v-loading="loading" :data="users">
-
+      <el-table
+        v-loading="loading"
+        :data="users"
+      >
         <el-table-column width="60">
           <template #default="scope">
-            <base-user-avatar :avatar="scope.row.avatar"/>
+            <base-user-avatar :avatar="scope.row.avatar" />
           </template>
         </el-table-column>
 
-        <el-table-column prop="email" label="E-mail" min-width="200"/>
+        <el-table-column
+          prop="email"
+          label="E-mail"
+          min-width="200"
+        />
 
-        <el-table-column prop="username" label="Username" min-width="200">
+        <el-table-column
+          prop="username"
+          label="Username"
+          min-width="200"
+        >
           <template #default="scope">
             {{ scope.row.username }}
           </template>
         </el-table-column>
 
-        <el-table-column prop="isBan" label="Ban" width="200px">
+        <el-table-column
+          prop="isBan"
+          label="Ban"
+          width="200px"
+        >
           <template #default="scope">
             <el-switch
-                v-model="scope.row.isBan"
-                active-color="#F32B2A"
-                inactive-color="#BDBCC8"
-                @change="changeBanSwitch(scope.row.id, scope.row.isBan)"/>
+              v-model="scope.row.isBan"
+              active-color="#F32B2A"
+              inactive-color="#BDBCC8"
+              @change="changeBanSwitch(scope.row.id, scope.row.isBan)"
+            />
           </template>
         </el-table-column>
 
-        <el-table-column fixed="right" label="Actions" width="120px">
+        <el-table-column
+          fixed="right"
+          label="Actions"
+          width="120px"
+        >
           <template #default="scope">
-            <button @click="editUser(scope.row)" class="user-management__edit-btn">
-              <img src="@/assets/images/icons/buttons/icon-edit.svg" alt="add">
+            <button
+              class="user-management__edit-btn"
+              @click="editUser(scope.row)"
+            >
+              <img
+                src="@/assets/images/icons/buttons/icon-edit.svg"
+                alt="add"
+              >
             </button>
           </template>
         </el-table-column>
-
       </el-table>
     </div>
 
     <div class="user-management__pagination">
       <el-pagination
-          v-model:currentPage="pagination.page"
-          :page-size="pagination.limit"
-          layout="prev, pager, next, jumper, sizes"
-          :page-sizes="[10, 20, 30, 40, 50, 100]"
-          @current-change="changeCurrentPage"
-          @size-change="handleSizeChange"
-          :total="total"/>
+        v-model:currentPage="pagination.page"
+        :page-size="pagination.limit"
+        layout="prev, pager, next, jumper, sizes"
+        :page-sizes="[10, 20, 30, 40, 50, 100]"
+        :total="total"
+        @current-change="changeCurrentPage"
+        @size-change="handleSizeChange"
+      />
     </div>
 
     <user-management-modal
-        @update="getUsers"
-        ref="userManagementModal"/>
+      ref="userManagementModal"
+      @update="getUsers"
+    />
   </div>
 </template>
 
 <script>
-import UserManagementModal from "@/app/userManagement/UserManagementPopup";
-import BaseUserAvatar from "@/app/common/BaseUserAvatar";
-import {userManagementController} from "@/app/userManagement/user-management.controller";
+import UserManagementModal from '@/app/userManagement/UserManagementPopup'
+import BaseUserAvatar from '@/app/common/BaseUserAvatar'
+import { userManagementController } from '@/app/userManagement/user-management.controller'
 
 export default {
-  name: 'user-management',
+  name: 'UserManagement',
   components: {
     UserManagementModal,
-    BaseUserAvatar
+    BaseUserAvatar,
   },
   data() {
     return {
@@ -82,8 +112,8 @@ export default {
       loading: false,
       pagination: {
         page: 1,
-        limit: 10
-      }
+        limit: 10,
+      },
     }
   },
   watch: {
@@ -106,9 +136,9 @@ export default {
     },
     async getUsers() {
       this.loading = true
-      const limit = this.pagination.limit
-      const page = this.pagination.page
-      const result = await userManagementController.getUsers({limit, page})
+      const { limit } = this.pagination
+      const { page } = this.pagination
+      const result = await userManagementController.getUsers({ limit, page })
 
       this.users = result.data
       this.total = result.total
@@ -126,7 +156,7 @@ export default {
       this.$refs.userManagementModal.openModal(user)
     },
 
-  }
+  },
 }
 </script>
 

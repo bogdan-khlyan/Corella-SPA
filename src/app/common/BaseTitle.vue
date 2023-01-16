@@ -1,13 +1,15 @@
 <template>
-  <div class="base-title">{{ text }}</div>
+  <div class="base-title">
+    {{ text }}
+  </div>
 </template>
 
 <script>
 export default {
-  name: "base-title",
+  name: 'BaseTitle',
   props: {
-    text: { type: String, required: true }
-  }
+    text: { type: String, required: true },
+  },
 }
 </script>
 

@@ -1,32 +1,33 @@
 <template>
   <div class="view-task-description">
-    <base-title text="Task Description"/>
+    <base-title text="Task Description" />
     <div class="view-task-description__content">
       <quill-editor
-          v-model:value="test"
-          :disabled="true"/>
+        v-model:value="test"
+        :disabled="true"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import BaseTitle from "@/app/common/BaseTitle";
-import { quillEditor } from "vue3-quill";
+import BaseTitle from '@/app/common/BaseTitle'
+import { quillEditor } from 'vue3-quill'
 
 export default {
-  name: 'view-task-description',
-  components: {BaseTitle, quillEditor},
+  name: 'ViewTaskDescription',
+  components: { BaseTitle, quillEditor },
   props: {
-    description: { type: String }
+    description: { type: String },
   },
   data() {
     return {
-      test: null
+      test: null,
     }
   },
   created() {
     this.test = this.description
-  }
+  },
 }
 </script>
 

@@ -1,56 +1,63 @@
 <template>
   <div class="user-management-popup">
-
-    <base-popup v-model="visible"
-                :title="titleModal"
-                :image="iconModal"
-                :loading="loading"
-                @submit="submitUserModal"
-                @update:modelValue="changeVisible"
-                ref="baseModal">
+    <base-popup
+      ref="baseModal"
+      v-model="visible"
+      :title="titleModal"
+      :image="iconModal"
+      :loading="loading"
+      @submit="submitUserModal"
+      @update:modelValue="changeVisible"
+    >
       <base-input
-          v-model.trim="userInfo.email"
-          label="E-mail"
-          placeholder="Enter e-mail"
-          :error="v$.userInfo.email.$error"
-          :disabled="isEdit" />
+        v-model.trim="userInfo.email"
+        label="E-mail"
+        placeholder="Enter e-mail"
+        :error="v$.userInfo.email.$error"
+        :disabled="isEdit"
+      />
       <base-input
-          v-model.trim="userInfo.username"
-          label="Name"
-          placeholder="Enter name user"
-          :error="v$.userInfo.username.$error" />
+        v-model.trim="userInfo.username"
+        label="Name"
+        placeholder="Enter name user"
+        :error="v$.userInfo.username.$error"
+      />
       <base-input-password
-          v-model.trim="userInfo.password"
-          label="Password"
-          placeholder="Enter password"
-          :error="v$.userInfo.password.$error" />
+        v-model.trim="userInfo.password"
+        label="Password"
+        placeholder="Enter password"
+        :error="v$.userInfo.password.$error"
+      />
       <base-input-password
-          v-model.trim="userInfo.repeatPassword"
-          label="Confirm password"
-          placeholder="Enter password"
-          :error="v$.userInfo.repeatPassword.$error" />
+        v-model.trim="userInfo.repeatPassword"
+        label="Confirm password"
+        placeholder="Enter password"
+        :error="v$.userInfo.repeatPassword.$error"
+      />
     </base-popup>
   </div>
 </template>
 
 <script>
-import BasePopup from "@/app/common/BasePopup";
-import BaseInput from "@/app/common/BaseInput";
-import BaseInputPassword from "@/app/common/BaseInputPassword";
-import {userManagementController} from "@/app/userManagement/user-management.controller";
+import BasePopup from '@/app/common/BasePopup'
+import BaseInput from '@/app/common/BaseInput'
+import BaseInputPassword from '@/app/common/BaseInputPassword'
+import { userManagementController } from '@/app/userManagement/user-management.controller'
 
 import useVuelidate from '@vuelidate/core'
-import {email, maxLength, minLength, required, sameAs} from "@vuelidate/validators";
+import {
+  email, maxLength, minLength, required, sameAs, 
+} from '@vuelidate/validators'
 
 const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
 const iconUser = require('@/assets/images/icons/modals/icon-user.svg')
 
 export default {
-  name: "user-management-popup",
+  name: 'UserManagementPopup',
   components: {
     BasePopup,
     BaseInput,
-    BaseInputPassword
+    BaseInputPassword,
   },
   setup: () => ({ v$: useVuelidate() }),
   data() {
@@ -62,10 +69,10 @@ export default {
         email: null,
         password: null,
         repeatPassword: null,
-        role: "USER",
+        role: 'USER',
         id: null,
       },
-      visible: false
+      visible: false,
     }
   },
   computed: {
@@ -76,7 +83,7 @@ export default {
       return this.isEdit ? iconEdit : iconUser
     },
   },
-  validations () {
+  validations() {
     return {
       userInfo: {
         email: {
@@ -94,15 +101,15 @@ export default {
           maxLength: maxLength(1024),
           required() {
             return this.isEdit ? true : !!this.userInfo.password
-          }
+          },
         },
         repeatPassword: {
           required() {
             return this.isEdit ? true : !!this.userInfo.password
           },
-          sameAs : sameAs(this.userInfo.password)
-        }
-      }
+          sameAs: sameAs(this.userInfo.password),
+        },
+      },
     }
   },
   methods: {
@@ -112,8 +119,8 @@ export default {
         this.userInfo = {
           username: user.username,
           email: user.email,
-          role: "USER",
-          id: user._id
+          role: 'USER',
+          id: user._id,
         }
       } else {
         this.isEdit = false
@@ -122,7 +129,7 @@ export default {
           email: null,
           password: null,
           repeatPassword: null,
-          role: "USER",
+          role: 'USER',
         }
       }
       this.visible = true
@@ -132,8 +139,8 @@ export default {
         this.v$.userInfo.$reset()
         this.$router.replace({
           query: {
-            'create-user': undefined
-          }
+            'create-user': undefined,
+          },
         })
       }
     },
@@ -145,18 +152,18 @@ export default {
 
       if (this.isEdit) {
         userManagementController.updateUser(this.userInfo)
-            .then(() => {
-              this.$refs.baseModal.handleClose()
-              this.$emit('update')
-            })
-            .finally(() => this.loading = false)
+          .then(() => {
+            this.$refs.baseModal.handleClose()
+            this.$emit('update')
+          })
+          .finally(() => this.loading = false)
       } else {
         userManagementController.createUser(this.userInfo)
-            .then(() => {
-              this.$refs.baseModal.handleClose()
-              this.$emit('update')
-            })
-            .finally(() => this.loading = false)
+          .then(() => {
+            this.$refs.baseModal.handleClose()
+            this.$emit('update')
+          })
+          .finally(() => this.loading = false)
       }
       this.v$.$reset()
     },
@@ -166,10 +173,10 @@ export default {
         email: null,
         password: null,
         repeatPassword: null,
-        role: "USER"
+        role: 'USER',
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

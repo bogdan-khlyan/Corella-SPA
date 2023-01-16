@@ -2,24 +2,34 @@
   <div class="edit-task-description">
     <base-title text="Task Description" />
     <quill-editor
-        v-model:value="value"
-        :options="options"/>
+      v-model:value="value"
+      :options="options"
+    />
   </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue3-quill'
-import BaseTitle from "@/app/common/BaseTitle";
+import BaseTitle from '@/app/common/BaseTitle'
 
 export default {
-  name: 'edit-task-description',
-  components: {BaseTitle, quillEditor },
+  name: 'EditTaskDescription',
+  components: { BaseTitle, quillEditor },
   model: {
     prop: 'modelValue',
-    event: 'update'
+    event: 'update',
   },
   props: {
-    modelValue: String
+    modelValue: String,
+  },
+  data() {
+    return {
+      value: '',
+      options: {
+        placeholder: 'Enter a description of the task',
+        toolbar: [],
+      },
+    }
   },
   watch: {
     value() {
@@ -27,17 +37,8 @@ export default {
     },
     modelValue() {
       this.value = this.modelValue
-    }
+    },
   },
-  data() {
-    return {
-      value: '',
-      options: {
-        placeholder: 'Enter a description of the task',
-        toolbar: []
-      }
-    }
-  }
 }
 </script>
 

@@ -3,9 +3,11 @@
     <div class="profile-settings__info">
       <div class="profile-settings-info">
         <div class="profile-settings-info__avatar">
-          <profile-avatar/>
+          <profile-avatar />
         </div>
-        <div class="profile-settings-info__name">{{ userInfo.username }}</div>
+        <div class="profile-settings-info__name">
+          {{ userInfo.username }}
+        </div>
       </div>
     </div>
     <div class="profile-settings__actions">
@@ -13,11 +15,11 @@
         <div class="profile-settings-actions__row">
           <div class="profile-settings-actions__column">
             <h3>Account settings</h3>
-            <profile-account-settings-form/>
+            <profile-account-settings-form />
           </div>
           <div class="profile-settings-actions__column">
             <h3>Change password</h3>
-            <profile-change-password-form/>
+            <profile-change-password-form />
           </div>
         </div>
       </div>
@@ -26,19 +28,19 @@
 </template>
 
 <script>
-import ProfileAvatar from "@/app/userInstance/profile/profileSettings/components/ProfileAvatar";
-import ProfileChangePasswordForm from "@/app/userInstance/profile/profileSettings/components/ProfileChangePasswordForm";
-import ProfileAccountSettingsForm from "@/app/userInstance/profile/profileSettings/components/ProfileAccountSettingsForm";
-import {userInstanceState} from "@/app/userInstance/user-instance.state";
+import ProfileAvatar from '@/app/userInstance/profile/profileSettings/components/ProfileAvatar'
+import ProfileChangePasswordForm from '@/app/userInstance/profile/profileSettings/components/ProfileChangePasswordForm'
+import ProfileAccountSettingsForm from '@/app/userInstance/profile/profileSettings/components/ProfileAccountSettingsForm'
+import { userInstanceState } from '@/app/userInstance/user-instance.state'
 
 export default {
-  name: "profile-settings",
+  name: 'ProfileSettings',
   components: { ProfileAccountSettingsForm, ProfileChangePasswordForm, ProfileAvatar },
   computed: {
     userInfo() {
       return userInstanceState.info
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,48 +1,59 @@
 <template>
-  <form @submit.prevent="submitForm" class="register-form">
-    <login-form-input class="register-form__input"
-                      placeholder="E-mail"
-                      v-model="credentials.email"/>
-    <login-form-input class="register-form__input"
-                      placeholder="User name"
-                      v-model="credentials.name"/>
-    <login-form-input class="register-form__input"
-                      placeholder="Password"
-                      type="password"
-                      v-model="credentials.password"/>
+  <form
+    class="register-form"
+    @submit.prevent="submitForm"
+  >
+    <login-form-input
+      v-model="credentials.email"
+      class="register-form__input"
+      placeholder="E-mail"
+    />
+    <login-form-input
+      v-model="credentials.name"
+      class="register-form__input"
+      placeholder="User name"
+    />
+    <login-form-input
+      v-model="credentials.password"
+      class="register-form__input"
+      placeholder="Password"
+      type="password"
+    />
 
     <div class="register-form__button">
       <button>Registration</button>
     </div>
     <div class="register-form__login">
       Already have an account?
-      <router-link to="/login">Log in</router-link>
+      <router-link to="/login">
+        Log in
+      </router-link>
     </div>
   </form>
 </template>
 
 <script>
-import LoginFormInput from "@/app/auth/loginPage/components/common/LoginFormInput";
+import LoginFormInput from '@/app/auth/loginPage/components/common/LoginFormInput'
 
 export default {
-  name: "register-form",
+  name: 'RegisterForm',
   components: {
-    LoginFormInput
+    LoginFormInput,
   },
   data() {
     return {
       credentials: {
         email: String(),
         name: String(),
-        password: String()
-      }
+        password: String(),
+      },
     }
   },
   methods: {
     submitForm() {
       this.$emit('submit', this.credentials)
-    }
-  }
+    },
+  },
 }
 </script>
 

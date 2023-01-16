@@ -1,83 +1,90 @@
 <template>
-  <form class="change-password-profile"
-        v-loading="loading"
-        @submit.prevent="submit">
+  <form
+    v-loading="loading"
+    class="change-password-profile"
+    @submit.prevent="submit"
+  >
     <div class="change-password-profile__input">
       <base-input-password
-          label="Current password"
-          v-model="form.currentPassword"
-          placeholder="Your password"
-          :error="errors.currentPassword"
-          @input="validateBasePassword($event, 'currentPassword')"/>
+        v-model="form.currentPassword"
+        label="Current password"
+        placeholder="Your password"
+        :error="errors.currentPassword"
+        @input="validateBasePassword($event, 'currentPassword')"
+      />
     </div>
     <div class="change-password-profile__input">
       <base-input-password
-          label="New password"
-          v-model="form.newPassword"
-          placeholder="New password"
-          :error="errors.newPassword || errors.matchPasswords"
-          @input="handleInput"/>
+        v-model="form.newPassword"
+        label="New password"
+        placeholder="New password"
+        :error="errors.newPassword || errors.matchPasswords"
+        @input="handleInput"
+      />
     </div>
     <div class="change-password-profile__input">
       <base-input-password
-          label="Confirm password"
-          v-model="form.confirmedPassword"
-          placeholder="Confirmed password"
-          :error="errors.confirmedPassword || !!errors.matchPasswords"
-          @input="handleInput"/>
+        v-model="form.confirmedPassword"
+        label="Confirm password"
+        placeholder="Confirmed password"
+        :error="errors.confirmedPassword || !!errors.matchPasswords"
+        @input="handleInput"
+      />
     </div>
     <div class="change-password-profile__submit">
-      <button :disabled="isDisabledSubmitButton">Change password</button>
+      <button :disabled="isDisabledSubmitButton">
+        Change password
+      </button>
     </div>
   </form>
 </template>
 
 <script>
-import BaseInputPassword from "@/app/common/BaseInputPassword";
-import {userInstanceController} from "@/app/userInstance/user-instance.controller";
+import BaseInputPassword from '@/app/common/BaseInputPassword'
+import { userInstanceController } from '@/app/userInstance/user-instance.controller'
 
 export default {
-  name: "profile-security",
-  components: {BaseInputPassword},
+  name: 'ProfileSecurity',
+  components: { BaseInputPassword },
   data() {
     return {
       loading: false,
       form: {
         currentPassword: '',
         newPassword: '',
-        confirmedPassword: ''
+        confirmedPassword: '',
       },
       errors: {
         currentPassword: null,
         newPassword: null,
         confirmedPassword: null,
 
-        matchPasswords: null
-      }
+        matchPasswords: null,
+      },
     }
   },
   computed: {
     isDisabledSubmitButton() {
       return !(this.form.currentPassword && this.form.newPassword && this.form.confirmedPassword)
-    }
+    },
   },
   methods: {
     clearData() {
-      Object.keys(this.form).forEach(key => this.form[key] = '')
-      Object.keys(this.errors).forEach(key => this.errors[key] = null)
+      Object.keys(this.form).forEach((key) => this.form[key] = '')
+      Object.keys(this.errors).forEach((key) => this.errors[key] = null)
     },
     submit() {
       if (this.validate()) {
         this.loading = true
         userInstanceController.changePassword(this.form)
-            .then(() => this.clearData())
-            .catch(error => {
-              this.errors = {
-                ...this.errors,
-                ...error
-              }
-            })
-            .finally(() => this.loading = false)
+          .then(() => this.clearData())
+          .catch((error) => {
+            this.errors = {
+              ...this.errors,
+              ...error,
+            }
+          })
+          .finally(() => this.loading = false)
       }
     },
     handleInput($event) {
@@ -113,10 +120,9 @@ export default {
       if (this.form[fieldName] && this.form[fieldName].length > 5) {
         this.errors[fieldName] = false
         return true
-      } else {
-        this.errors[fieldName] = 'Must be at least 6 characters long'
-        return false
-      }
+      } 
+      this.errors[fieldName] = 'Must be at least 6 characters long'
+      return false
     },
     validateMatch(isEmit) {
       if (isEmit && !this.errors.matchPasswords) {
@@ -125,12 +131,11 @@ export default {
       if (this.form.newPassword === this.form.confirmedPassword) {
         this.errors.matchPasswords = false
         return true
-      } else {
-        this.errors.matchPasswords = 'Passwords don\'t match'
-        return false
-      }
-    }
-  }
+      } 
+      this.errors.matchPasswords = 'Passwords don\'t match'
+      return false
+    },
+  },
 }
 </script>
 

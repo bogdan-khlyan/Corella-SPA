@@ -1,31 +1,44 @@
 <template>
-  <div class="task-page-wrapper"
-       v-loading="loading"
-       element-loading-background="rgba(0, 0, 0, 0.6)">
+  <div
+    v-loading="loading"
+    class="task-page-wrapper"
+    element-loading-background="rgba(0, 0, 0, 0.6)"
+  >
     <div class="task-page-wrapper__header">
       <div class="task-page-wrapper__header--icon">
-        <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="">
+        <img
+          src="@/assets/images/icons/sidebar/icon-projects.svg"
+          alt=""
+        >
       </div>
       <div class="task-page-wrapper__header--text">
         <span>{{ title }}</span>
       </div>
       <div class="task-page-wrapper__header--actions">
-        <div v-if="showEditButton"
-             class="task-page-wrapper__header--actions-item">
+        <div
+          v-if="showEditButton"
+          class="task-page-wrapper__header--actions-item"
+        >
           <button @click="$emit('edit', $event)">
-            <img src="@/assets/images/icons/tasks/edit.svg" alt="">
+            <img
+              src="@/assets/images/icons/tasks/edit.svg"
+              alt=""
+            >
           </button>
         </div>
-        <div v-if="showDeleteButton"
-             class="task-page-wrapper__header--actions-item">
+        <div
+          v-if="showDeleteButton"
+          class="task-page-wrapper__header--actions-item"
+        >
           <el-popconfirm
-              title="Are you sure you want to delete the project?"
-              confirmButtonText="Delete"
-              cancelButtonText="Cancel"
-              @confirm="$emit('delete', $event)">
+            title="Are you sure you want to delete the project?"
+            confirm-button-text="Delete"
+            cancel-button-text="Cancel"
+            @confirm="$emit('delete', $event)"
+          >
             <template #reference>
               <button class="red">
-                <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')"></svg-icon>
+                <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')" />
               </button>
             </template>
           </el-popconfirm>
@@ -33,22 +46,22 @@
       </div>
     </div>
     <div class="task-page-wrapper__content">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'task-page-wrapper',
+  name: 'TaskPageWrapper',
   props: {
-    title: {type: String, required: true},
+    title: { type: String, required: true },
 
-    showEditButton: {type: Boolean, default: false},
-    showDeleteButton: {type: Boolean, default: false},
+    showEditButton: { type: Boolean, default: false },
+    showDeleteButton: { type: Boolean, default: false },
 
-    loading: {type: Boolean, default: false}
-  }
+    loading: { type: Boolean, default: false },
+  },
 }
 </script>
 

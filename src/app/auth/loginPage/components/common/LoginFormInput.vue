@@ -1,52 +1,59 @@
 <template>
-  <label class="login-form-input"
-         :class="{'login-form-input__error': error}">
+  <label
+    class="login-form-input"
+    :class="{'login-form-input__error': error}"
+  >
 
-      <input required
-             :type="visible ? 'text' : type"
-             @input="inputTemp">
-      <span class="login-form-input__bar"></span>
-      <label class="login-form-input__placeholder">{{ placeholder }}</label>
+    <input
+      required
+      :type="visible ? 'text' : type"
+      @input="inputTemp"
+    >
+    <span class="login-form-input__bar" />
+    <label class="login-form-input__placeholder">{{ placeholder }}</label>
 
-
-    <img v-if="type === 'password'"
-         v-show="!visible"
-         @click="visible = !visible"
-         class="login-form-input__eye"
-         src="@/assets/images/icons/login/visible-eye.svg"
-         alt="">
-    <img v-if="type === 'password'"
-         v-show="visible"
-         @click="visible = !visible"
-         class="login-form-input__eye"
-         src="@/assets/images/icons/login/no-visible-eye.svg"
-         alt="">
+    <img
+      v-if="type === 'password'"
+      v-show="!visible"
+      class="login-form-input__eye"
+      src="@/assets/images/icons/login/visible-eye.svg"
+      alt=""
+      @click="visible = !visible"
+    >
+    <img
+      v-if="type === 'password'"
+      v-show="visible"
+      class="login-form-input__eye"
+      src="@/assets/images/icons/login/no-visible-eye.svg"
+      alt=""
+      @click="visible = !visible"
+    >
   </label>
 </template>
 
 <script>
 export default {
-  name: 'login-form-input',
+  name: 'LoginFormInput',
   model: {
     prop: 'modelValue',
-    event: 'update'
+    event: 'update',
   },
   props: {
     modelValue: String,
-    type: {type: String, default: 'text'},
-    placeholder: {type: String, default: 'Enter'},
-    error: { type: Boolean, default: false }
+    type: { type: String, default: 'text' },
+    placeholder: { type: String, default: 'Enter' },
+    error: { type: Boolean, default: false },
   },
   data() {
     return {
-      visible: false
+      visible: false,
     }
   },
   methods: {
     inputTemp($event) {
       this.$emit('update:modelValue', $event.target.value)
-    }
-  }
+    },
+  },
 }
 </script>
 

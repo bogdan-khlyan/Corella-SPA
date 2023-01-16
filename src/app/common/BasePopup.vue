@@ -1,27 +1,44 @@
 <template>
   <div class="base-popup">
-    <el-dialog :width="width"
-               :model-value="modelValue"
-               :before-close="handleClose"
-               :close-on-click-modal="true">
-
+    <el-dialog
+      :width="width"
+      :model-value="modelValue"
+      :before-close="handleClose"
+      :close-on-click-modal="true"
+    >
       <template #title>
         <div class="base-popup__header">
-          <img v-if="image" :src="image" alt="">
-          <div :style="{fontWeight: image ? '': 600}" class="base-modal__header-title">{{ title }}</div>
+          <img
+            v-if="image"
+            :src="image"
+            alt=""
+          >
+          <div
+            :style="{fontWeight: image ? '': 600}"
+            class="base-modal__header-title"
+          >
+            {{ title }}
+          </div>
         </div>
       </template>
 
-      <div v-loading="loading"
-           class="base-popup__content">
+      <div
+        v-loading="loading"
+        class="base-popup__content"
+      >
         <form @submit.prevent>
-          <slot></slot>
+          <slot />
 
-          <button v-if="showBtn" class="base-popup__button">
-            <img src="@/assets/images/icons/buttons/icon-check.svg" alt="">
+          <button
+            v-if="showBtn"
+            class="base-popup__button"
+          >
+            <img
+              src="@/assets/images/icons/buttons/icon-check.svg"
+              alt=""
+            >
             {{ titleBtn }}
           </button>
-
         </form>
       </div>
     </el-dialog>
@@ -30,22 +47,22 @@
 
 <script>
 export default {
-  name: 'base-popup',
-  model: { prop: 'modelValue', event: 'update'},
+  name: 'BasePopup',
+  model: { prop: 'modelValue', event: 'update' },
   props: {
     title: String,
     image: String,
     modelValue: Boolean,
     loading: Boolean,
-    titleBtn:{ type: String, default: 'Save' },
+    titleBtn: { type: String, default: 'Save' },
     showBtn: { type: Boolean, default: true },
-    width: { type: String, default: '420px' }
+    width: { type: String, default: '420px' },
   },
   methods: {
-    handleClose: function () {
+    handleClose() {
       this.$emit('update:modelValue', false)
-    }
-  }
+    },
+  },
 }
 </script>
 

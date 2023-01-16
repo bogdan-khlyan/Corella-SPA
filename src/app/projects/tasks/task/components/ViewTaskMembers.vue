@@ -1,8 +1,14 @@
 <template>
   <div class="view-task-members">
-    <div class="view-task-members__count">{{ membersCount }}</div>
+    <div class="view-task-members__count">
+      {{ membersCount }}
+    </div>
     <ul class="view-task-members__list">
-      <li class="view-task-members__item" :key="index" v-for="(member, index) in selectedMember">
+      <li
+        v-for="(member, index) in selectedMember"
+        :key="index"
+        class="view-task-members__item"
+      >
         {{ member }}
       </li>
     </ul>
@@ -13,11 +19,16 @@
 import { tasksController } from '../../tasks.controller'
 
 export default {
-  name: "view-task-members",
+  name: 'ViewTaskMembers',
   data() {
     return {
-      selectedMember: []
+      selectedMember: [],
     }
+  },
+  computed: {
+    membersCount() {
+      return this.selectedMember.length
+    },
   },
   created() {
     this.getSelectedMembers()
@@ -25,17 +36,12 @@ export default {
   methods: {
     getSelectedMembers() {
       tasksController.getSelectedMembers()
-      .then(selectedMembers => {
-        this.selectedMember = selectedMembers
-        console.log(this.$data)
-      })
-    }
+        .then((selectedMembers) => {
+          this.selectedMember = selectedMembers
+          console.log(this.$data)
+        })
+    },
   },
-  computed: {
-    membersCount() {
-      return this.selectedMember.length
-    }
-  }
 }
 </script>
 
@@ -83,4 +89,3 @@ export default {
   }
 }
 </style>
-

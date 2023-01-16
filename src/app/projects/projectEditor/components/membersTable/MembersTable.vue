@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import MembersTableColumn from "@/app/projects/projectEditor/components/membersTable/components/MembersTableColumn";
+import MembersTableColumn from '@/app/projects/projectEditor/components/membersTable/components/MembersTableColumn'
 
 export default {
-  name: 'members',
-  components: {MembersTableColumn},
+  name: 'Members',
+  components: { MembersTableColumn },
   data() {
     return {
 
@@ -37,4 +37,3 @@ export default {
 
 }
 </style>
-

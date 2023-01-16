@@ -1,35 +1,38 @@
 <template>
   <div class="header-search">
-
-    <div class="header-search__icon"
-         :class="{'header-search__icon--active': searchText.length}">
+    <div
+      class="header-search__icon"
+      :class="{'header-search__icon--active': searchText.length}"
+    >
       <svg-icon
-          :icon="require('@/assets/images/icons/header/loupe.svg')"/>
+        :icon="require('@/assets/images/icons/header/loupe.svg')"
+      />
     </div>
 
-    <input v-model="searchText"
-           type="text"
-           placeholder="search..."
-           @input="setSearchText">
-
+    <input
+      v-model="searchText"
+      type="text"
+      placeholder="search..."
+      @input="setSearchText"
+    >
   </div>
 </template>
 
 <script>
-import {baseHeaderState} from "@/app/common/baseWrapper/baseHeader/base-header.state";
+import { baseHeaderState } from '@/app/common/baseWrapper/baseHeader/base-header.state'
 
 export default {
-  name: "HeaderInput",
+  name: 'HeaderInput',
   data() {
     return {
-      searchText: ''
+      searchText: '',
     }
   },
   methods: {
     setSearchText() {
       baseHeaderState.searchValue = this.searchText
-    }
-  }
+    },
+  },
 }
 </script>
 

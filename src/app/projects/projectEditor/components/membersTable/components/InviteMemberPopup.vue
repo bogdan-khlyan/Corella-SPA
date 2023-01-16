@@ -1,18 +1,18 @@
 <template>
   <div class="invite-member-popup">
     <base-popup
-        v-model="visible"
-        title='Invite a member to "Corella" Project'
-        :showBtn="false"
-        width="556px"
+      v-model="visible"
+      title="Invite a member to &quot;Corella&quot; Project"
+      :show-btn="false"
+      width="556px"
     >
       <div class="invite-member-popup__content">
         <base-input
-            v-model.trim="usernameOrEmail"
+          v-model.trim="usernameOrEmail"
         />
         <base-button
-            width="106px"
-            title="Invite"
+          width="106px"
+          title="Invite"
         />
       </div>
     </base-popup>
@@ -20,26 +20,26 @@
 </template>
 
 <script>
-import BasePopup from "@/app/common/BasePopup";
-import BaseInput from "@/app/common/BaseInput";
-import BaseButton from "@/app/common/BaseButton";
+import BasePopup from '@/app/common/BasePopup'
+import BaseInput from '@/app/common/BaseInput'
+import BaseButton from '@/app/common/BaseButton'
+
 export default {
-  name: "invite-member-modal",
-  components: {BaseButton, BaseInput, BasePopup},
+  name: 'InviteMemberModal',
+  components: { BaseButton, BaseInput, BasePopup },
   data() {
     return {
       visible: false,
-      usernameOrEmail: ""
+      usernameOrEmail: '',
     }
   },
   methods: {
     openModal() {
       this.visible = true
     },
-  }
+  },
 }
 </script>
-
 
 <style lang="scss">
 .invite-member-popup {

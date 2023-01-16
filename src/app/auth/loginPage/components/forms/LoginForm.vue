@@ -1,49 +1,61 @@
 <template>
-  <form @submit.prevent="submitForm" class="login-form">
-    <login-form-input class="login-form__input"
-                      placeholder="Email or username"
-                      v-model="credentials.login"
-                      :error="errors.login"
-                      @input="validateLogin"/>
-    <login-form-input class="login-form__input"
-                      placeholder="Password"
-                      type="password"
-                      v-model="credentials.password"
-                      :error="errors.password"
-                      @input="validatePassword"/>
+  <form
+    class="login-form"
+    @submit.prevent="submitForm"
+  >
+    <login-form-input
+      v-model="credentials.login"
+      class="login-form__input"
+      placeholder="Email or username"
+      :error="errors.login"
+      @input="validateLogin"
+    />
+    <login-form-input
+      v-model="credentials.password"
+      class="login-form__input"
+      placeholder="Password"
+      type="password"
+      :error="errors.password"
+      @input="validatePassword"
+    />
 
-    <router-link to="/login/recover" class="login-form__forgot">
+    <router-link
+      to="/login/recover"
+      class="login-form__forgot"
+    >
       Forgot my password?
     </router-link>
     <div class="login-form__button">
       <button>Log in</button>
     </div>
     <div class="login-form__register">
-      Don't have an account yet?<router-link to="/login/register">Register</router-link>
+      Don't have an account yet?<router-link to="/login/register">
+        Register
+      </router-link>
     </div>
   </form>
 </template>
 
 <script>
-import LoginFormInput from "@/app/auth/loginPage/components/common/LoginFormInput";
-import {loginPageState} from "@/app/auth/loginPage/login-page.state";
-import {userInstanceController} from "@/app/userInstance/user-instance.controller";
+import LoginFormInput from '@/app/auth/loginPage/components/common/LoginFormInput'
+import { loginPageState } from '@/app/auth/loginPage/login-page.state'
+import { userInstanceController } from '@/app/userInstance/user-instance.controller'
 
 export default {
-  name: 'login-form',
+  name: 'LoginForm',
   components: {
-    LoginFormInput
+    LoginFormInput,
   },
   data() {
     return {
       credentials: {
         login: String(),
-        password: String()
+        password: String(),
       },
       errors: {
         login: false,
-        password: false
-      }
+        password: false,
+      },
     }
   },
   methods: {
@@ -51,7 +63,7 @@ export default {
       if (this.validate()) {
         loginPageState.loading = true
         userInstanceController.login(this.credentials)
-            .finally(() => loginPageState.loading = false)
+          .finally(() => loginPageState.loading = false)
       }
     },
     validate() {
@@ -73,10 +85,9 @@ export default {
       if (this.credentials.login.length > 4) {
         this.errors.login = false
         return true
-      } else {
-        this.errors.login = true
-        return false
-      }
+      } 
+      this.errors.login = true
+      return false
     },
     validatePassword(isEmit) {
       if (isEmit && !this.errors.password) {
@@ -85,12 +96,11 @@ export default {
       if (this.credentials.password.length >= 6) {
         this.errors.password = false
         return true
-      } else {
-        this.errors.password = true
-        return false
-      }
-    }
-  }
+      } 
+      this.errors.password = true
+      return false
+    },
+  },
 }
 </script>
 
@@ -195,7 +205,6 @@ export default {
     @media (max-width: 1280.98px) {
       font-size: 16px;
     }
-
 
     > a {
       font-weight: 500;

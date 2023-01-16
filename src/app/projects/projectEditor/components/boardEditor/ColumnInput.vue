@@ -1,33 +1,40 @@
 <template>
   <div class="column-card">
     <button
-        class="column-card__btn-delete"
-        type="button"
-        :disabled="deleteDisabled"
-        @click="deleteColumn">
-      <el-icon><close/></el-icon>
+      class="column-card__btn-delete"
+      type="button"
+      :disabled="deleteDisabled"
+      @click="deleteColumn"
+    >
+      <el-icon><close /></el-icon>
     </button>
     <div class="column-card__header">
-      <div v-if="inputDisabled">{{ column.name }}</div>
+      <div v-if="inputDisabled">
+        {{ column.name }}
+      </div>
       <input
-          v-else
-          :value="column.name"
-          type="text">
+        v-else
+        :value="column.name"
+        type="text"
+      >
       <hr>
     </div>
     <div class="column-card__content">
-      <div class="column-card__task"/>
-      <div class="column-card__task"/>
-      <div v-show="!twoTask" class="column-card__task"/>
+      <div class="column-card__task" />
+      <div class="column-card__task" />
+      <div
+        v-show="!twoTask"
+        class="column-card__task"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import {Close} from "@element-plus/icons-vue";
+import { Close } from '@element-plus/icons-vue'
 
 export default {
-  name: 'column-input',
+  name: 'ColumnInput',
   components: { Close },
   model: { prop: 'column', event: 'input' },
   props: {
@@ -43,8 +50,8 @@ export default {
     deleteColumn($event) {
       $event.stopPropagation()
       this.$emit('delete', this.column.id)
-    }
-  }
+    },
+  },
 }
 </script>
 

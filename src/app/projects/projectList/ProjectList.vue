@@ -3,15 +3,22 @@
     <div class="project-list__title">
       <h2>Projects</h2>
     </div>
-    <transition name="el-fade-in-linear" mode="out-in">
-      <empty-list v-if="!loading && projects.length === 0"/>
-      <div v-else
-           v-loading="loading"
-           class="project-list__content">
-        <transition-group name="el-fade-in-linear" >
+    <transition
+      name="el-fade-in-linear"
+      mode="out-in"
+    >
+      <empty-list v-if="!loading && projects.length === 0" />
+      <div
+        v-else
+        v-loading="loading"
+        class="project-list__content"
+      >
+        <transition-group name="el-fade-in-linear">
           <project-card
-              v-for="project in projects" :key="project._id"
-              :project="project"/>
+            v-for="project in projects"
+            :key="project._id"
+            :project="project"
+          />
         </transition-group>
       </div>
     </transition>
@@ -19,40 +26,40 @@
 </template>
 
 <script>
-import ProjectCard from "@/app/projects/projectList/components/ProjectCard";
-import EmptyList from "@/app/projects/projectList/components/EmptyList";
-import {projectsController} from "@/app/projects/projects.controller";
-import {baseHeaderState} from "@/app/common/baseWrapper/baseHeader/base-header.state";
+import ProjectCard from '@/app/projects/projectList/components/ProjectCard'
+import EmptyList from '@/app/projects/projectList/components/EmptyList'
+import { projectsController } from '@/app/projects/projects.controller'
+import { baseHeaderState } from '@/app/common/baseWrapper/baseHeader/base-header.state'
 
 export default {
-  name: 'project-list',
+  name: 'ProjectList',
   components: {
     ProjectCard,
-    EmptyList
-  },
-  computed: {
-    searchInput() {
-      return baseHeaderState.searchValue
-    }
+    EmptyList,
   },
   data() {
     return {
       loading: true,
       projects: [],
-      total: 0
+      total: 0,
     }
+  },
+  computed: {
+    searchInput() {
+      return baseHeaderState.searchValue
+    },
   },
   created() {
     projectsController.getProjects()
-        .then(data => {
-          this.projects.push(...data.data)
-          this.total = data.total
-        })
-        .finally(() => this.loading = false)
+      .then((data) => {
+        this.projects.push(...data.data)
+        this.total = data.total
+      })
+      .finally(() => this.loading = false)
   },
   beforeUnmount() {
     baseHeaderState.searchValue = ''
-  }
+  },
 }
 </script>
 

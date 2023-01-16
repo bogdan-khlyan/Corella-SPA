@@ -1,12 +1,15 @@
 <template>
   <div class="banner">
-    <h2><strong>The Corella  CRM system</strong> is a simple and  free  program for  keeping  track of projects and their tasks</h2>
+    <h2>
+      <strong>The Corella CRM system</strong> is a simple and free program for keeping track of projects and their
+      tasks
+    </h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'banner',
+  name: 'Banner',
 }
 </script>
 
@@ -28,6 +31,7 @@ export default {
   @media screen and (max-width: 1500px) {
     width: 40vw;
   }
+
   h2 {
     max-width: 610px;
     text-align: left;

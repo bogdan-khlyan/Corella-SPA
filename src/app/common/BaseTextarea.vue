@@ -1,31 +1,40 @@
 <template>
-  <label class="base-input"
-         :class="{'base-input__error': error}">
-    <div v-if="label" class="base-input__label">
-      <div class="label">{{label}}</div>
-      <div v-if="error && typeof error === 'string'" class="error">{{error}}</div>
+  <label
+    class="base-input"
+    :class="{'base-input__error': error}"
+  >
+    <div
+      v-if="label"
+      class="base-input__label"
+    >
+      <div class="label">{{ label }}</div>
+      <div
+        v-if="error && typeof error === 'string'"
+        class="error"
+      >{{ error }}</div>
     </div>
 
     <textarea
-        cols="30"
-        rows="10"
-        :value="modelValue"
-        :placeholder="placeholder"
-        @input="$emit('update:modelValue', $event.target.value)"/>
+      cols="30"
+      rows="10"
+      :value="modelValue"
+      :placeholder="placeholder"
+      @input="$emit('update:modelValue', $event.target.value)"
+    />
   </label>
 </template>
 
 <script>
 export default {
-  name: 'base-textarea',
+  name: 'BaseTextarea',
   model: { prop: 'modelValue', event: 'input' },
   props: {
     modelValue: { type: String },
     label: { type: String },
     placeholder: { type: String, default: 'Please input' },
 
-    error: { type: Boolean, default: false }
-  }
+    error: { type: Boolean, default: false },
+  },
 }
 </script>
 

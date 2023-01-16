@@ -1,72 +1,103 @@
 <template>
-  <div class="current-user" ref="root">
+  <div
+    ref="root"
+    class="current-user"
+  >
     <div class="current-user__content">
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo._id && windowWidth > 600"
-             class="current-user__avatar"
-             @click="$router.push('/profile')">
-          <base-user-avatar :avatar="userInfo.avatar" :size="40"/>
+        <div
+          v-if="userInfo._id && windowWidth > 600"
+          class="current-user__avatar"
+          @click="$router.push('/profile')"
+        >
+          <base-user-avatar
+            :avatar="userInfo.avatar"
+            :size="40"
+          />
         </div>
       </transition>
       <transition name="el-fade-in-linear">
-        <div v-if="userInfo._id && windowWidth > 600"
-             class="current-user__data">
-          <span>{{userInfo.username}}</span>
-          <span>{{userInfo.email}}</span>
+        <div
+          v-if="userInfo._id && windowWidth > 600"
+          class="current-user__data"
+        >
+          <span>{{ userInfo.username }}</span>
+          <span>{{ userInfo.email }}</span>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
-        <div v-if="!userInfo._id"
-             v-loading="true"
-             class="current-user__content--loading"/>
+        <div
+          v-if="!userInfo._id"
+          v-loading="true"
+          class="current-user__content--loading"
+        />
       </transition>
     </div>
 
     <el-popover
-        placement="bottom"
-        :width="240"
-        trigger="click"
-        @show="isDropDown = true"
-        @hide="isDropDown = false">
+      placement="bottom"
+      :width="240"
+      trigger="click"
+      @show="isDropDown = true"
+      @hide="isDropDown = false"
+    >
       <template #reference>
-        <div v-if="windowWidth > 600" class="current-user__more">
+        <div
+          v-if="windowWidth > 600"
+          class="current-user__more"
+        >
           <a :class="{'active': isDropDown}">
-            <img src="@/assets/images/icons/header/icon-settings.svg" alt="">
+            <img
+              src="@/assets/images/icons/header/icon-settings.svg"
+              alt=""
+            >
           </a>
         </div>
-        <div v-else class="current-user__avatar">
-          <base-user-avatar :avatar="userInfo.avatar" :size="40"/>
+        <div
+          v-else
+          class="current-user__avatar"
+        >
+          <base-user-avatar
+            :avatar="userInfo.avatar"
+            :size="40"
+          />
         </div>
       </template>
       <div class="current-user__drop-down">
         <div class="current-user__drop-down--name">
-          <span>{{userInfo.username}}</span>
+          <span>{{ userInfo.username }}</span>
         </div>
         <div class="current-user__drop-down--email">
-          <span>{{userInfo.email}}</span>
+          <span>{{ userInfo.email }}</span>
         </div>
         <hr>
         <div class="current-user__drop-down--link">
-          <router-link to="/profile">Account settings</router-link>
+          <router-link to="/profile">
+            Account settings
+          </router-link>
         </div>
         <div class="current-user__drop-down--logout">
           <a @click="logout">Log out</a>
         </div>
       </div>
     </el-popover>
-
   </div>
 </template>
 
 <script>
-import BaseUserAvatar from "@/app/common/BaseUserAvatar";
-import {appState} from "@/app/app.state";
-import {userInstanceState} from "@/app/userInstance/user-instance.state";
-import {userInstanceController} from "@/app/userInstance/user-instance.controller";
+import BaseUserAvatar from '@/app/common/BaseUserAvatar'
+import { appState } from '@/app/app.state'
+import { userInstanceState } from '@/app/userInstance/user-instance.state'
+import { userInstanceController } from '@/app/userInstance/user-instance.controller'
 
 export default {
-  name: "currentUser",
+  name: 'CurrentUser',
   components: { BaseUserAvatar },
+  data() {
+    return {
+      isDropDown: false,
+    }
+  },
   computed: {
     userInfo() {
       return userInstanceState.info
@@ -77,23 +108,17 @@ export default {
     avatarSize() {
       if (this.windowWidth > 768) {
         return 42
-      } else if (this.windowWidth > 480) {
-        return  38
-      } else {
-        return 36
+      } if (this.windowWidth > 480) {
+        return 38
       }
-    }
-  },
-  data() {
-    return {
-      isDropDown: false
-    }
+      return 36
+    },
   },
   methods: {
     logout() {
       userInstanceController.logout()
-    }
-  }
+    },
+  },
 }
 </script>
 

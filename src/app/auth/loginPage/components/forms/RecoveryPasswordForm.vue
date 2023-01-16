@@ -1,39 +1,50 @@
 <template>
-  <form @submit.prevent="submitForm" class="recovery-form">
+  <form
+    class="recovery-form"
+    @submit.prevent="submitForm"
+  >
+    <div class="recovery-form__title">
+      Forgot your password?
+    </div>
+    <div class="recovery-form__description">
+      Please, enter your email address
+    </div>
 
-    <div class="recovery-form__title">Forgot your password?</div>
-    <div class="recovery-form__description">Please, enter your email address</div>
-
-    <login-form-input class="recovery-form__input"
-                      placeholder="E-mail"
-                      v-model="email"/>
+    <login-form-input
+      v-model="email"
+      class="recovery-form__input"
+      placeholder="E-mail"
+    />
 
     <div class="recovery-form__button">
       <button>Continue</button>
     </div>
 
-    <router-link to="/login" class="recovery-form__login">
+    <router-link
+      to="/login"
+      class="recovery-form__login"
+    >
       Go back to the sign in page
     </router-link>
   </form>
 </template>
 
 <script>
-import LoginFormInput from "../common/LoginFormInput";
+import LoginFormInput from '../common/LoginFormInput'
 
 export default {
-  name: "RecoveryPasswordForm",
-  components: {LoginFormInput},
+  name: 'RecoveryPasswordForm',
+  components: { LoginFormInput },
   data() {
     return {
-      email: String()
+      email: String(),
     }
   },
   methods: {
     submitForm() {
       this.$emit('submit', this.credentials)
-    }
-  }
+    },
+  },
 }
 </script>
 

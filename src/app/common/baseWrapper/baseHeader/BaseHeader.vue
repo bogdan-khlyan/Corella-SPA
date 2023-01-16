@@ -1,39 +1,53 @@
 <template>
-  <header class="base-header"
-          :style="headerStyles">
-
-    <div v-if="windowWidth <= 980"
-         style="min-width: 32px"
-         @click="clickBurger">
-      <transition name="el-fade-in-linear" appear mode="out-in">
-        <img v-if="isDrawer" src="@/assets/images/icons/sidebar/icon-closed.svg" alt="">
-        <img v-else src="@/assets/images/icons/sidebar/burger.svg" alt="">
+  <header
+    class="base-header"
+    :style="headerStyles"
+  >
+    <div
+      v-if="windowWidth <= 980"
+      style="min-width: 32px"
+      @click="clickBurger"
+    >
+      <transition
+        name="el-fade-in-linear"
+        appear
+        mode="out-in"
+      >
+        <img
+          v-if="isDrawer"
+          src="@/assets/images/icons/sidebar/icon-closed.svg"
+          alt=""
+        >
+        <img
+          v-else
+          src="@/assets/images/icons/sidebar/burger.svg"
+          alt=""
+        >
       </transition>
     </div>
 
     <transition name="showInput">
-      <HeaderInput v-if="isShowInput"/>
+      <header-input v-if="isShowInput" />
     </transition>
     <div class="base-header__info">
+      <header-notifications v-if="windowWidth > 768" />
 
-      <header-notifications v-if="windowWidth > 768"/>
-
-      <AccountInfo/>
+      <account-info />
     </div>
   </header>
 </template>
 
 <script>
-import AccountInfo from "./AccountInfo";
-import sidebarCollapse from "@/app/common/baseWrapper/baseSidebar/sidebar-mixin";
-import HeaderInput from "@/app/common/baseWrapper/baseHeader/HeaderInput";
-import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
-import {appState} from "@/app/app.state";
-import HeaderNotifications from "@/app/common/baseWrapper/baseHeader/HeaderNotifications";
+import sidebarCollapse from '@/app/common/baseWrapper/baseSidebar/sidebar-mixin'
+import HeaderInput from '@/app/common/baseWrapper/baseHeader/HeaderInput'
+import { baseSidebarState } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
+import { appState } from '@/app/app.state'
+import HeaderNotifications from '@/app/common/baseWrapper/baseHeader/HeaderNotifications'
+import AccountInfo from './AccountInfo'
 
 export default {
-  name: 'base-header',
-  components: {HeaderInput, AccountInfo, HeaderNotifications},
+  name: 'BaseHeader',
+  components: { HeaderInput, AccountInfo, HeaderNotifications },
   mixins: [sidebarCollapse],
   computed: {
     isDrawer() {
@@ -45,19 +59,18 @@ export default {
     headerStyles() {
       if (this.windowWidth <= 980) {
         return { minWidth: '100%' }
-      } else {
-        return { minWidth : this.isCollapse ? 'calc(100% - 300px)' : 'calc(100% - 80px)' }
       }
+      return { minWidth: this.isCollapse ? 'calc(100% - 300px)' : 'calc(100% - 80px)' }
     },
     isShowInput() {
       return this.$route.name === 'project-list' && this.windowWidth > 768
-    }
+    },
   },
   methods: {
     clickBurger() {
       baseSidebarState.isDrawer = !baseSidebarState.isDrawer
-    }
-  }
+    },
+  },
 }
 </script>
 

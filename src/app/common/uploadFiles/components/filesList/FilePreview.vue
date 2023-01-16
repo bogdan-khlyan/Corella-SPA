@@ -1,26 +1,31 @@
 <template>
   <div class="file-preview">
     <button
-        v-if="!isViewMode"
-        class="file-preview__btn-delete"
-        @click="$emit('remove-file', file.id)">
-      <el-icon><close/></el-icon>
+      v-if="!isViewMode"
+      class="file-preview__btn-delete"
+      @click="$emit('remove-file', file.id)"
+    >
+      <el-icon><close /></el-icon>
     </button>
 
     <el-image
-        v-if="isImage"
-        :src="file.link"
-        :preview-src-list="[file.link]"
-        :initial-index="1"/>
-    <a v-else
-       class="file-preview__file--wrapper"
-       :href="file.link"
-       :download="file.name">
+      v-if="isImage"
+      :src="file.link"
+      :preview-src-list="[file.link]"
+      :initial-index="1"
+    />
+    <a
+      v-else
+      class="file-preview__file--wrapper"
+      :href="file.link"
+      :download="file.name"
+    >
       <div class="file-preview__file">
         <svg-icon
-            :width="48"
-            :height="48"
-            :icon="icon"/>
+          :width="48"
+          :height="48"
+          :icon="icon"
+        />
         <div class="file-preview__file--name">{{ fileName }}</div>
       </div>
     </a>
@@ -28,14 +33,14 @@
 </template>
 
 <script>
-import {Close} from "@element-plus/icons-vue";
+import { Close } from '@element-plus/icons-vue'
 
 export default {
-  name: 'file-preview',
+  name: 'FilePreview',
   components: { Close },
   props: {
-    file: {type: Object, required: true},
-    isViewMode: { type: Boolean, default: false }
+    file: { type: Object, required: true },
+    isViewMode: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -43,32 +48,30 @@ export default {
       knownFileExtensions: [
         'html', 'css', 'pdf', 'doc',
         'docx', 'txt', 'json', 'svg',
-        'xls', 'xml', 'psd', 'js'
-      ]
+        'xls', 'xml', 'psd', 'js',
+      ],
     }
   },
   computed: {
     icon() {
-      if (this.knownFileExtensions.find(item => this.file.extension === item)) {
+      if (this.knownFileExtensions.find((item) => this.file.extension === item)) {
         return require(`@/assets/images/icons/extensions/${this.file.extension}.svg`)
-      } else {
-        return require('@/assets/images/icons/extensions/stub.svg')
-      }
+      } 
+      return require('@/assets/images/icons/extensions/stub.svg')
     },
     isImage() {
       return (
-          this.imageExtensions.indexOf(this.file.extension) !== -1
+        this.imageExtensions.indexOf(this.file.extension) !== -1
           && this.file.type === 'image'
       )
     },
     fileName() {
       if (this.file.name.length > 10) {
-        return this.file.name.slice(0, 6) + '...' + this.file.name.split('.').pop()
-      } else {
-        return this.file.name
-      }
-    }
-  }
+        return `${this.file.name.slice(0, 6)}...${this.file.name.split('.').pop()}`
+      } 
+      return this.file.name
+    },
+  },
 }
 </script>
 
@@ -153,4 +156,3 @@ export default {
 
 }
 </style>
-

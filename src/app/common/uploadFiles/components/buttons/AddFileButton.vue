@@ -1,15 +1,15 @@
 <template>
   <button class="add-file-button">
-    <el-icon><plus/></el-icon>
+    <el-icon><plus /></el-icon>
   </button>
 </template>
 
 <script>
-import {Plus} from "@element-plus/icons-vue";
+import { Plus } from '@element-plus/icons-vue'
 
 export default {
-  name: "add-file-button",
-  components: { Plus }
+  name: 'AddFileButton',
+  components: { Plus },
 }
 </script>
 

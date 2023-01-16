@@ -1,22 +1,38 @@
 <template>
-  <div class="login-form-wrapper"
-       v-loading="loading"
-       element-loading-background="rgba(0, 0, 0, 0.6)">
+  <div
+    v-loading="loading"
+    class="login-form-wrapper"
+    element-loading-background="rgba(0, 0, 0, 0.6)"
+  >
     <div class="login-form-wrapper__content">
       <div class="login-form-wrapper__logo">
-        <img src="@/assets/images/corella_icon.svg" alt="">
+        <img
+          src="@/assets/images/corella_icon.svg"
+          alt=""
+        >
         <h1>Corella</h1>
       </div>
 
-      <transition appear name="el-fade-in" mode="out-in">
-        <div class="login-form-wrapper__oauth" v-if="showOauthButtons">
-          <socials/>
+      <transition
+        appear
+        name="el-fade-in"
+        mode="out-in"
+      >
+        <div
+          v-if="showOauthButtons"
+          class="login-form-wrapper__oauth"
+        >
+          <socials />
         </div>
       </transition>
 
       <div class="login-form-wrapper__form">
         <router-view v-slot="{ Component }">
-          <transition appear name="el-fade-in" mode="out-in">
+          <transition
+            appear
+            name="el-fade-in"
+            mode="out-in"
+          >
             <component :is="Component" />
           </transition>
         </router-view>
@@ -26,13 +42,13 @@
 </template>
 
 <script>
-import Socials from "../../../oauth/Socials";
-import {loginPageState} from "@/app/auth/loginPage/login-page.state";
+import { loginPageState } from '@/app/auth/loginPage/login-page.state'
+import Socials from '../../../oauth/Socials'
 
 export default {
-  name: 'login-form-wrapper',
+  name: 'LoginFormWrapper',
   components: {
-    Socials
+    Socials,
   },
   computed: {
     loading() {
@@ -40,8 +56,8 @@ export default {
     },
     showOauthButtons() {
       return this.$route.name !== 'recover-form'
-    }
-  }
+    },
+  },
 }
 </script>
 

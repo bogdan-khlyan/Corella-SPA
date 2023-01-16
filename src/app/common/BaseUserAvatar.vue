@@ -1,22 +1,24 @@
 <template>
-  <div class="base-user-avatar"
-       v-html="userAvatar"/>
+  <div
+    class="base-user-avatar"
+    v-html="userAvatar"
+  />
 </template>
 
 <script>
-import {toSvg} from "jdenticon";
+import { toSvg } from 'jdenticon'
 
 export default {
-  name: "base-user-avatar",
+  name: 'BaseUserAvatar',
   props: {
     avatar: { type: String, required: true },
-    size: { type: Number, default: 36 }
+    size: { type: Number, default: 36 },
   },
   computed: {
-    userAvatar: function () {
+    userAvatar() {
       return toSvg(this.avatar, this.size)
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,137 +1,128 @@
 <template>
-  <div class="project-board-column" ref="projectBoardColumn">
-
-    <div v-if="leftArrow"
-         class="project-board-column__arrow"
-         @click="$emit('click-left-arrow')">
-      <img src="@/assets/images/icons/common/circle-sector.png" alt="">
+  <div
+    ref="projectBoardColumn"
+    class="project-board-column"
+  >
+    <div
+      v-if="leftArrow"
+      class="project-board-column__arrow"
+      @click="$emit('click-left-arrow')"
+    >
+      <img
+        src="@/assets/images/icons/common/circle-sector.png"
+        alt=""
+      >
       <a>
-        <img src="@/assets/images/icons/common/icon-arrow.svg" alt="">
+        <img
+          src="@/assets/images/icons/common/icon-arrow.svg"
+          alt=""
+        >
       </a>
     </div>
 
-    <div v-if="rightArrow"
-         class="project-board-column__arrow right"
-         @click="$emit('click-right-arrow')">
-      <img src="@/assets/images/icons/common/circle-sector2.png" alt="">
+    <div
+      v-if="rightArrow"
+      class="project-board-column__arrow right"
+      @click="$emit('click-right-arrow')"
+    >
+      <img
+        src="@/assets/images/icons/common/circle-sector2.png"
+        alt=""
+      >
       <a>
-        <img src="@/assets/images/icons/common/icon-arrow.svg" alt="">
+        <img
+          src="@/assets/images/icons/common/icon-arrow.svg"
+          alt=""
+        >
       </a>
     </div>
 
     <h3 class="project-board-column__title project-board-column--inner-content">
-
       <template v-if="!loading">
         {{ projectColumnData.column }}
       </template>
 
-      <el-skeleton v-else animated>
+      <el-skeleton
+        v-else
+        animated
+      >
         <template #template>
-          <el-skeleton-item variant="text"></el-skeleton-item>
+          <el-skeleton-item variant="text" />
         </template>
       </el-skeleton>
-
     </h3>
 
     <perfect-scrollbar
-        class="project-board-column__scroll-content"
-        :options="scrollOptions">
+      class="project-board-column__scroll-content"
+      :options="scrollOptions"
+    >
       <draggable
-          class="project-board-column__task-list project-board-column--inner-content"
-          v-if="isAllCompleted"
-          v-model="columnData.tasks"
-          v-bind="dragOptions"
-          v-on="dragListeners">
+        v-if="isAllCompleted"
+        v-model="columnData.tasks"
+        class="project-board-column__task-list project-board-column--inner-content"
+        v-bind="dragOptions"
+        v-on="dragListeners"
+      >
         <template #item="{element}">
           <project-board-column-task-card
-              :loading="loading"
-              :project-task="element">
-          </project-board-column-task-card>
-
+            :loading="loading"
+            :project-task="element"
+          />
         </template>
       </draggable>
 
-      <div class="project-board-column__task-list project-board-column--inner-content"
-           ref="projectBoard"
-           v-else>
+      <div
+        v-else
+        ref="projectBoard"
+        class="project-board-column__task-list project-board-column--inner-content"
+      >
         <step-animation
-            v-if="columnTransitionEnd"
-            @item-complete="handleItemComplete"
-            @all-complete="handleAllCompleted">
+          v-if="columnTransitionEnd"
+          @item-complete="handleItemComplete"
+          @all-complete="handleAllCompleted"
+        >
           <project-board-column-task-card
-              v-for="(projectTask, i) in fakeColumnData"
-              :key="projectTask.order"
-              :project-task="projectTask"
-              :loading="loading"
-              :data-index="i">
-          </project-board-column-task-card>
+            v-for="(projectTask, i) in fakeColumnData"
+            :key="projectTask.order"
+            :project-task="projectTask"
+            :loading="loading"
+            :data-index="i"
+          />
         </step-animation>
       </div>
-
     </perfect-scrollbar>
   </div>
 </template>
 
 <script>
-import ProjectBoardColumnTaskCard from "@/app/projects/projectBoard/components/ProjectBoardColumnTaskCard";
+import ProjectBoardColumnTaskCard from '@/app/projects/projectBoard/components/ProjectBoardColumnTaskCard'
 import draggable from 'vuedraggable'
 
 export default {
-  name: "ProjectBoardColumn",
+  name: 'ProjectBoardColumn',
   components: {
     ProjectBoardColumnTaskCard,
     draggable,
   },
   props: {
     projectColumnData: {
-      type: Object
+      type: Object,
     },
     columnTransitionEnd: {
-      type: Boolean
+      type: Boolean,
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     leftArrow: {
       type: Boolean,
-      default: false
+      default: false,
     },
     rightArrow: {
       type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    dragOptions() {
-      return {
-        animation: 200,
-        group: "tasks",
-        disabled: false,
-        itemKey: 'order',
-        ghostClass: "project-task-card--ghost",
-      };
+      default: false,
     },
-    dragListeners() {
-      return {
-        change: data =>
-            this.$emit('status-task-changed', data)
-      }
-    },
-    scrollOptions() {
-      return {
-        suppressScrollY: this.isAllCompleted
-      }
-    },
-    fakeColumnData() {
-      return this.projectColumnData.tasks
-    }
-  },
-  created() {
-    this.columnData = this.projectColumnData
-  },
-  mounted() {
-    this.columnHeight = this.$refs.projectBoard.clientHeight
   },
   data() {
     return {
@@ -139,18 +130,48 @@ export default {
       isAllCompleted: false,
       tasksCount: 0,
       columnHeight: 0,
-      reduceHeight: 0
+      reduceHeight: 0,
     }
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: 'tasks',
+        disabled: false,
+        itemKey: 'order',
+        ghostClass: 'project-task-card--ghost',
+      }
+    },
+    dragListeners() {
+      return {
+        change: (data) => this.$emit('status-task-changed', data),
+      }
+    },
+    scrollOptions() {
+      return {
+        suppressScrollY: this.isAllCompleted,
+      }
+    },
+    fakeColumnData() {
+      return this.projectColumnData.tasks
+    },
+  },
+  created() {
+    this.columnData = this.projectColumnData
+  },
+  mounted() {
+    this.columnHeight = this.$refs.projectBoard.clientHeight
   },
   methods: {
     handleAllCompleted() {
       this.isAllCompleted = true
     },
 
-    handleItemComplete: function ({el}) {
+    handleItemComplete({ el }) {
       this.reduceHeight += el.clientHeight + 20
       if (this.reduceHeight >= this.columnHeight) this.isAllCompleted = true
-    }
+    },
   },
 }
 </script>

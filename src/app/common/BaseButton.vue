@@ -1,28 +1,30 @@
 <template>
-  <button :style="{ maxWidth: width}" :class="['base-button', type]">
-    <slot></slot>
+  <button
+    :style="{ maxWidth: width}"
+    :class="['base-button', type]"
+  >
+    <slot />
     <span>{{ title }}</span>
   </button>
 </template>
 
-
 <script>
 
 export default {
-  name: "base-button",
+  name: 'BaseButton',
   props: {
     title: {
       type: String,
-      default: ""
+      default: '',
     },
     width: {
       type: String,
-      default: "100%"
+      default: '100%',
     },
     type: {
       type: String,
-      default: 'success'
-    }
+      default: 'success',
+    },
   },
 }
 </script>
@@ -42,8 +44,10 @@ export default {
   color: #fff;
   cursor: pointer;
   font-family: "Rubik", sans-serif;
+
   span {
     line-height: 24px;
+
     &:not(:first-child) {
       margin-left: 11px;
     }
@@ -52,11 +56,13 @@ export default {
   &.success {
     background-color: #0AB258;
   }
+
   &.danger {
     background-color: transparent;
     font-size: 16px;
     color: #F61414;
   }
+
   &.outline {
     border: 1px solid #0AB258;
     background-color: #fff;
@@ -68,6 +74,7 @@ export default {
       }
     }
   }
+
   .el-icon {
     color: #fff;
   }

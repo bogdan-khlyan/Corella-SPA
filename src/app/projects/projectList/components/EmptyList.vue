@@ -1,7 +1,10 @@
 <template>
   <div class="empty-list">
     <div class="empty-list__content">
-      <img src="@/assets/images/icons/common/img-empty-list.svg" alt="">
+      <img
+        src="@/assets/images/icons/common/img-empty-list.svg"
+        alt=""
+      >
       <div class="empty-list__title">
         <span>You are not attached to any project</span>
       </div>
@@ -9,7 +12,9 @@
         <span>All projects you create will appear here <br> Let’s create a new project now</span>
       </div>
       <div class="empty-list__button">
-        <button @click="$router.push('/project/create')">Create new project</button>
+        <button @click="$router.push('/project/create')">
+          Create new project
+        </button>
       </div>
     </div>
   </div>
@@ -17,7 +22,7 @@
 
 <script>
 export default {
-  name: 'empty-list'
+  name: 'EmptyList',
 }
 </script>
 

@@ -1,112 +1,161 @@
 <template>
-  <div class="base-sidebar"
-       :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'"
-       :style="drawerStyles">
-
+  <div
+    class="base-sidebar"
+    :class="isCollapse ? 'base-sidebar--open' : 'base-sidebar--close'"
+    :style="drawerStyles"
+  >
     <div class="base-sidebar__logo">
       <router-link to="/">
-        <img src="@/assets/images/corella_icon.svg" alt="">
+        <img
+          src="@/assets/images/corella_icon.svg"
+          alt=""
+        >
         <span class="base-sidebar__logo--show base-sidebar__logo--close">Corella</span>
       </router-link>
     </div>
 
     <div class="base-sidebar__arrow">
-      <div class="arrow-circle arrow-circle--show arrow-circle--close"
-           @click="toggleSidebarMenu()">
-        <img src="@/assets/images/icons/sidebar/icon-arrow.svg" alt="">
+      <div
+        class="arrow-circle arrow-circle--show arrow-circle--close"
+        @click="toggleSidebarMenu()"
+      >
+        <img
+          src="@/assets/images/icons/sidebar/icon-arrow.svg"
+          alt=""
+        >
       </div>
     </div>
 
     <nav class="base-sidebar__nav">
-
       <div class="base-sidebar__menu">
-
-        <div v-if="topBlock" class="base-sidebar__block-menu base-sidebar__block-menu--top">
-          <div class="base-sidebar__item base-sidebar__item--top"
-               v-for="item in topBlock" :key="item.icon">
+        <div
+          v-if="topBlock"
+          class="base-sidebar__block-menu base-sidebar__block-menu--top"
+        >
+          <div
+            v-for="item in topBlock"
+            :key="item.icon"
+            class="base-sidebar__item base-sidebar__item--top"
+          >
             <router-link
-                :class="{'active': item.route === route}"
-                :to="item.path ? item.path : item.getPath(this)">
-              <img :src="item.icon" alt="">
+              :class="{'active': item.route === route}"
+              :to="item.path ? item.path : item.getPath(this)"
+            >
+              <img
+                :src="item.icon"
+                alt=""
+              >
               <span>{{ item.label }}</span>
             </router-link>
           </div>
         </div>
 
-        <transition-group name="emerging-el" appear>
-          <template v-for="option in contentBlock" :key="option.icon">
+        <transition-group
+          name="emerging-el"
+          appear
+        >
+          <template
+            v-for="option in contentBlock"
+            :key="option.icon"
+          >
+            <div
+              v-if="option.type === 'TITLE'"
+              class="base-sidebar__title"
+            >
+              menu
+            </div>
 
-            <div v-if="option.type === 'TITLE'"
-                 class="base-sidebar__title">menu</div>
-
-            <div v-if="option.type !== 'TITLE'" class="base-sidebar__item base-sidebar__item--ordinary">
+            <div
+              v-if="option.type !== 'TITLE'"
+              class="base-sidebar__item base-sidebar__item--ordinary"
+            >
               <router-link
-                  :class="{'active': option.route === route}"
-                  :to="option.path ? option.path : option.getPath(this)">
-                <img :src="option.icon" alt="">
+                :class="{'active': option.route === route}"
+                :to="option.path ? option.path : option.getPath(this)"
+              >
+                <img
+                  :src="option.icon"
+                  alt=""
+                >
                 <span>{{ option.label }}</span>
               </router-link>
             </div>
-
           </template>
         </transition-group>
       </div>
 
-
-      <div v-if="bottomButton && Array.isArray(bottomButton)" style="position: absolute;bottom: 16px;">
-        <transition-group name="emerging-el" appear>
-          <template v-for="option in bottomButton" :key="option.id">
-
-            <div v-if="option.type !== 'TITLE'"
-                 class="base-sidebar__item base-sidebar__item--ordinary">
+      <div
+        v-if="bottomButton && Array.isArray(bottomButton)"
+        style="position: absolute;bottom: 16px;"
+      >
+        <transition-group
+          name="emerging-el"
+          appear
+        >
+          <template
+            v-for="option in bottomButton"
+            :key="option.id"
+          >
+            <div
+              v-if="option.type !== 'TITLE'"
+              class="base-sidebar__item base-sidebar__item--ordinary"
+            >
               <router-link
-                  :class="{'active': option.route === route}"
-                  :to="option.path ? option.path : option.getPath(this)">
-                <img :src="option.icon" alt="">
+                :class="{'active': option.route === route}"
+                :to="option.path ? option.path : option.getPath(this)"
+              >
+                <img
+                  :src="option.icon"
+                  alt=""
+                >
                 <span>{{ option.label }}</span>
               </router-link>
             </div>
-
           </template>
         </transition-group>
       </div>
 
-      <transition name="el-fade-in" mode="out-in">
-        <div v-if="bottomButton && !Array.isArray(bottomButton)"
-             :key="bottomButton.id"
-             class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item">
+      <transition
+        name="el-fade-in"
+        mode="out-in"
+      >
+        <div
+          v-if="bottomButton && !Array.isArray(bottomButton)"
+          :key="bottomButton.id"
+          class="base-sidebar__block-menu base-sidebar__block-menu--end base-sidebar__item"
+        >
           <router-link
-              :class="{'active': bottomButton.route === route}"
-              :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)">
-            <img src="@/assets/images/icons/sidebar/icon-add.svg" alt="">
+            :class="{'active': bottomButton.route === route}"
+            :to="bottomButton.path ? bottomButton.path : bottomButton.getPath(this)"
+          >
+            <img
+              src="@/assets/images/icons/sidebar/icon-add.svg"
+              alt=""
+            >
             <span>{{ bottomButton.label }}</span>
           </router-link>
         </div>
       </transition>
-
     </nav>
   </div>
 </template>
 
 <script>
-import {baseSidebarState} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
-import {setSidebarCollapse} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.state";
-import {baseSidebarConfig} from "@/app/common/baseWrapper/baseSidebar/base-sidebar.config";
-import {appState} from "@/app/app.state";
+import { baseSidebarState, setSidebarCollapse } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
+import { baseSidebarConfig } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.config'
+import { appState } from '@/app/app.state'
 
 export default {
-  name: 'base-sidebar',
+  name: 'BaseSidebar',
   computed: {
     drawerStyles() {
       if (this.windowWidth <= 980) {
         if (baseSidebarState.isDrawer) {
           return null
-        } else {
-          return 'transform: translateX(-300px)'
-        }
-      } else {
-        return null
-      }
+        } 
+        return 'transform: translateX(-300px)'
+      } 
+      return null
     },
     route() {
       return this.$route.name
@@ -115,33 +164,30 @@ export default {
       const currentConfig = baseSidebarConfig.get(this.route) // забираем конфиг соответствующий текущему роуту
       if (currentConfig) {
         return currentConfig // если конфиг есть отдаем его
-      } else {
-        return baseSidebarConfig.get('default') // если конфига нет отдаем конфиг по умолчанию
-      }
+      } 
+      return baseSidebarConfig.get('default') // если конфига нет отдаем конфиг по умолчанию
     },
     topBlock() {
-      const tops = this.options.filter(item => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
+      const tops = this.options.filter((item) => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
       if (tops.length === 0) {
         return null
       }
       if (tops.length === 2) {
         return tops.slice(0, 2)
-      } else {
-        return null
-      }
+      } 
+      return null
     },
     contentBlock() {
       if (this.topBlock) {
-        const ids = this.topBlock.map(item => item.id)
-        return this.options.filter(option => ids.indexOf(option.id) === -1)
-      } else {
-        return this.options
-      }
+        const ids = this.topBlock.map((item) => item.id)
+        return this.options.filter((option) => ids.indexOf(option.id) === -1)
+      } 
+      return this.options
     },
     bottomButton() {
       return baseSidebarConfig
-          .get('bottomButton') // достаем конфиги для нижней кнопки
-          .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
+        .get('bottomButton') // достаем конфиги для нижней кнопки
+        .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
     },
     windowWidth() {
       return appState.windowWidth
@@ -149,17 +195,16 @@ export default {
     isCollapse() {
       if (this.windowWidth <= 980) {
         return true
-      } else {
-        return baseSidebarState.isCollapse
-      }
-    }
+      } 
+      return baseSidebarState.isCollapse
+    },
   },
   watch: {
     route() {
       if (this.windowWidth < 980) {
         baseSidebarState.isDrawer = false
       }
-    }
+    },
   },
   methods: {
     toggleSidebarMenu() {

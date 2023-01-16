@@ -1,44 +1,40 @@
 <template>
   <div class="role-popup">
     <base-popup
-        v-model="visible"
-        width="556px"
-        :image="iconModal"
-        :title="titleModal">
+      v-model="visible"
+      width="556px"
+      :image="iconModal"
+      :title="titleModal"
+    >
       <base-input
-          v-model.trim="roleName"
-          label="Name"
-          placeholder="Enter name role"
+        v-model.trim="roleName"
+        label="Name"
+        placeholder="Enter name role"
       />
       <base-checkbox
-          label="Role features"
-          :checkboxValues="checkboxValues"
+        label="Role features"
+        :checkbox-values="checkboxValues"
       />
     </base-popup>
   </div>
 </template>
 <script>
-import BasePopup from "@/app/common/BasePopup";
-import BaseInput from "@/app/common/BaseInput";
-import BaseCheckbox from "@/app/common/BaseCheckbox";
+import BasePopup from '@/app/common/BasePopup'
+import BaseInput from '@/app/common/BaseInput'
+import BaseCheckbox from '@/app/common/BaseCheckbox'
 
 const iconEdit = require('@/assets/images/icons/modals/icon-edit.svg')
 const iconUsers = require('@/assets/images/icons/modals/icon-users.svg')
 
 export default {
-  components: {BaseCheckbox, BaseInput, BasePopup},
-  name: "role-modal",
+  name: 'RoleModal',
+  components: { BaseCheckbox, BaseInput, BasePopup },
   data() {
     return {
       visible: false,
       isEdit: false,
-      roleName: "",
-      checkboxValues: ["Creating tasks", "Editing tasks", "Deleting tasks"]
-    }
-  },
-  methods: {
-    openModal() {
-      this.visible = true
+      roleName: '',
+      checkboxValues: ['Creating tasks', 'Editing tasks', 'Deleting tasks'],
     }
   },
   computed: {
@@ -46,9 +42,14 @@ export default {
       return this.isEdit ? iconEdit : iconUsers
     },
     titleModal() {
-      return this.isEdit ? "Edit role" : "Add role"
-    }
-  }
+      return this.isEdit ? 'Edit role' : 'Add role'
+    },
+  },
+  methods: {
+    openModal() {
+      this.visible = true
+    },
+  },
 }
 </script>
 

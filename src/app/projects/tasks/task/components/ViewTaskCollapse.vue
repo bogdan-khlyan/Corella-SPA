@@ -6,7 +6,12 @@
     </h4>
     <div class="view-task-collapse__content">
       <el-collapse>
-        <el-collapse-item :name="index" :key="index" v-for="(issue,index) in issues" :title="issue.title">
+        <el-collapse-item
+          v-for="(issue,index) in issues"
+          :key="index"
+          :name="index"
+          :title="issue.title"
+        >
           {{ issue.description }}
         </el-collapse-item>
       </el-collapse>
@@ -14,33 +19,32 @@
   </div>
 </template>
 
-
 <script>
 import { tasksController } from '../../tasks.controller'
 
 export default {
-  name: "ViewTaskCollapse",
+  name: 'ViewTaskCollapse',
   data() {
     return {
-      issues: []
+      issues: [],
     }
-  },
-  created() {
-    this.getIssues()
   },
   computed: {
     issuesCount() {
       return this.issues.length
-    }
+    },
+  },
+  created() {
+    this.getIssues()
   },
   methods: {
     getIssues() {
       tasksController.getIssues()
-      .then(issues => {
-        this.issues = issues
-      })
-    }
-  }
+        .then((issues) => {
+          this.issues = issues
+        })
+    },
+  },
 }
 </script>
 <style lang="scss">
@@ -113,4 +117,3 @@ export default {
 }
 
 </style>
-

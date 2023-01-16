@@ -1,12 +1,16 @@
 <template>
   <el-popover
-      :width="350"
-      trigger="click"
-      placement="bottom">
+    :width="350"
+    trigger="click"
+    placement="bottom"
+  >
     <template #reference>
       <div class="header-notifications__icon header-notifications__icon--red">
         <a>
-          <img src="@/assets/images/icons/header/icon-notification.svg" alt="">
+          <img
+            src="@/assets/images/icons/header/icon-notification.svg"
+            alt=""
+          >
           <span>16</span>
         </a>
       </div>
@@ -19,8 +23,12 @@
       <perfect-scrollbar class="header-notifications__scroll">
         <div class="header-notifications__content">
           <div class="header-notifications__item">
-            <div class="date">16.12.2021</div>
-            <div class="text">Bogdan Khlyan changed the status of the task from backlog to done</div>
+            <div class="date">
+              16.12.2021
+            </div>
+            <div class="text">
+              Bogdan Khlyan changed the status of the task from backlog to done
+            </div>
           </div>
         </div>
       </perfect-scrollbar>
@@ -30,7 +38,7 @@
 
 <script>
 export default {
-  name: 'header-notifications',
+  name: 'HeaderNotifications',
 }
 </script>
 
@@ -102,10 +110,6 @@ export default {
     }
 
   }
-
-
-
-
 
   &__icon {
 

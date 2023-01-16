@@ -1,73 +1,79 @@
 <template>
   <div class="upload-files">
-
-    <div v-if="!hasFiles && !isViewMode"
-         class="upload-files__button">
+    <div
+      v-if="!hasFiles && !isViewMode"
+      class="upload-files__button"
+    >
       <upload-file-button
-          @click="clickUpload"/>
-      <div class="upload-files__button--text">Or drag and drop the file here</div>
+        @click="clickUpload"
+      />
+      <div class="upload-files__button--text">
+        Or drag and drop the file here
+      </div>
     </div>
 
-    <div v-else
-         class="upload-files__files-list">
+    <div
+      v-else
+      class="upload-files__files-list"
+    >
       <files-list
         :files="files"
         :max-file-count="maxFileCount"
         :is-view-mode="isViewMode"
         @upload-file="clickUpload"
-        @remove-file="removeFile"/>
+        @remove-file="removeFile"
+      />
     </div>
 
     <input
-        type="file"
-        style="display: none"
-        ref="input"
-        multiple
-        @change="uploadFiles">
+      ref="input"
+      type="file"
+      style="display: none"
+      multiple
+      @change="uploadFiles"
+    >
   </div>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid'
 
-import {notificationsHelper} from "@/helpers/notifications.helper"
-import {tasksController} from "@/app/projects/tasks/tasks.controller"
-import {baseWrapperState} from "@/app/common/baseWrapper/base-wrapper.state"
+import { notificationsHelper } from '@/helpers/notifications.helper'
+import { tasksController } from '@/app/projects/tasks/tasks.controller'
+import { baseWrapperState } from '@/app/common/baseWrapper/base-wrapper.state'
 
 import UploadFileButton from './components/buttons/UploadFileButton'
 import FilesList from './components/filesList/FilesList'
 
-
-
 export default {
-  name: 'upload-files',
+  name: 'UploadFiles',
   components: { FilesList, UploadFileButton },
+  props: {
+    isViewMode: { type: Boolean, default: false },
+  },
+  data() {
+    return {
+      files: [],
+      maxFileSize: 104857600,
+      maxFileCount: 10,
+    }
+  },
   computed: {
     hasFiles() {
       return this.files.length !== 0
     },
     dragFiles() {
       return baseWrapperState.dragFiles
-    }
-  },
-  props: {
-    isViewMode: { type: Boolean, default: false }
+    },
   },
   watch: {
     dragFiles(newVal) {
       this.uploadFiles({
         target: {
-          files: newVal
-        }
+          files: newVal,
+        },
       })
-    }
-  },
-  data() {
-    return {
-      files: [],
-      maxFileSize: 104857600,
-      maxFileCount: 10
-    }
+    },
   },
   methods: {
     clickUpload() {
@@ -76,7 +82,7 @@ export default {
     uploadFiles($event) {
       const fileList = $event.target.files
 
-      for (let file of Array.from(fileList)) {
+      for (const file of Array.from(fileList)) {
         if (this.maxFileSize < file.size) {
           notificationsHelper.error({ message: `File ${file.name} is too large` })
           continue
@@ -87,7 +93,7 @@ export default {
 
         const type = file.type.split('/')[0]
         const extension = file.name.split('.').pop()
-        const name = file.name
+        const { name } = file
         const link = window.URL.createObjectURL(file)
 
         this.files.push({
@@ -96,18 +102,18 @@ export default {
           link,
           type,
           extension,
-          name
+          name,
         })
       }
       $event.target.value = null
     },
     removeFile(fileId) {
       tasksController.removeFile(1, fileId)
-      const index = this.files.findIndex(file => file.id === fileId)
+      const index = this.files.findIndex((file) => file.id === fileId)
       URL.revokeObjectURL(this.files[index].$file)
       this.files.splice(index, 1)
-    }
-  }
+    },
+  },
 }
 </script>
 

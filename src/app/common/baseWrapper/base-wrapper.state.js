@@ -1,5 +1,5 @@
-import {reactive} from 'vue'
+import { reactive } from 'vue'
 
 export const baseWrapperState = reactive({
-    dragFiles: null
+  dragFiles: null,
 })

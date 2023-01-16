@@ -1,18 +1,18 @@
 <template>
   <form
-      v-loading="loading"
-      class="create-project"
+    v-loading="loading"
+    class="create-project"
   >
-    <board-editor/>
+    <board-editor />
   </form>
 </template>
 
 <script>
-import BoardEditor from "@/app/projects/projectEditor/components/boardEditor/BoardEditor";
+import BoardEditor from '@/app/projects/projectEditor/components/boardEditor/BoardEditor'
 
 export default {
-  name: "board-settings",
-  components: {BoardEditor},
+  name: 'BoardSettings',
+  components: { BoardEditor },
 
   methods: {
 
@@ -32,19 +32,17 @@ export default {
       if (this.newProject.name.length > 4) {
         this.errors.name = false
         return true
-      } else {
-        this.errors.name = true
-        return false
-      }
+      } 
+      this.errors.name = true
+      return false
     },
     validateDescription() {
       if (this.newProject.description.length > 4) {
         this.errors.description = false
         return true
-      } else {
-        this.errors.description = true
-        return false
-      }
+      } 
+      this.errors.description = true
+      return false
     },
     inputName() {
       if (this.errors.name) {
@@ -55,8 +53,8 @@ export default {
       if (this.errors.description) {
         this.validateDescription()
       }
-    }
-  }
+    },
+  },
 }
 
 </script>

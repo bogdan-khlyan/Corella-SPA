@@ -1,5 +1,5 @@
-import {reactive} from 'vue'
+import { reactive } from 'vue'
 
 export const baseHeaderState = reactive({
-    searchValue: ''
+  searchValue: '',
 })

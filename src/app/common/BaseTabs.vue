@@ -5,8 +5,8 @@
       :key="tab"
       type="button"
       :class="['base-tabs__item', { active: currentTab === tab.name }]"
-      @click="$emit('change-tab', tab.name)"
       :disabled="disabledTab(tab.name)"
+      @click="$emit('change-tab', tab.name)"
     >
       {{ tab.text }}
     </button>
@@ -15,26 +15,26 @@
 
 <script>
 export default {
-  name: "base-tabs",
+  name: 'BaseTabs',
   props: {
     disabledTabs: Array,
     tabs: {
       type: Array,
-      required: true
+      required: true,
     },
     currentTab: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
     disabledTab(tab) {
       if (this.disabledTabs) {
-        return !!this.disabledTabs.find(item => tab === item)
+        return !!this.disabledTabs.find((item) => tab === item)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -43,6 +43,7 @@ export default {
 .base-tabs {
   display: flex;
   position: relative;
+
   &::before {
     content: "";
     position: absolute;
@@ -59,6 +60,7 @@ export default {
     &[disabled] {
       color: $primary-text-disabled;
     }
+
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -69,6 +71,7 @@ export default {
     min-width: 164px;
     position: relative;
     transition: 0.3s ease all;
+
     &::before {
       content: "";
       position: absolute;
@@ -81,12 +84,15 @@ export default {
       left: 0;
       bottom: 0;
     }
+
     &.active {
       color: #0AB258;
+
       &::before {
         transform: scale(1);
       }
     }
+
     &:not([disabled]) {
       @media (any-hover: hover) {
         &:hover {
@@ -94,7 +100,6 @@ export default {
         }
       }
     }
-
 
   }
 }

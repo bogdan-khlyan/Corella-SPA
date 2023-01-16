@@ -7,20 +7,24 @@
           alt="User Avatar"
         >
       </div>
-      <button @click="onButtonClick" type="button" class="profile-avatar__btn-edit">
+      <button
+        type="button"
+        class="profile-avatar__btn-edit"
+        @click="onButtonClick"
+      >
         <svg-icon
-            :icon="require('@/assets/images/icons/profile/icon-edit.svg')"
-            :width="20"
-            :height="20"
+          :icon="require('@/assets/images/icons/profile/icon-edit.svg')"
+          :width="20"
+          :height="20"
         />
       </button>
       <input
-          type="file"
-          @change="changeAvatar"
-          style="display: none"
-          ref="input"
-          accept=".jpg,.jpeg,.png"
-      />
+        ref="input"
+        type="file"
+        style="display: none"
+        accept=".jpg,.jpeg,.png"
+        @change="changeAvatar"
+      >
     </div>
   </div>
 </template>
@@ -28,11 +32,11 @@
 <script>
 
 export default {
-  name: 'profile-avatar',
+  name: 'ProfileAvatar',
   data() {
     return {
-      avatarLink: "",
-      $avatar: ""
+      avatarLink: '',
+      $avatar: '',
     }
   },
   methods: {
@@ -40,13 +44,13 @@ export default {
       this.$refs.input.click()
     },
     changeAvatar(e) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
 
-      this.avatarLink = URL.createObjectURL(file);
-      this.$avatar = file;
+      this.avatarLink = URL.createObjectURL(file)
+      this.$avatar = file
 
-      e.target.value = null;
-    }
+      e.target.value = null
+    },
   },
 }
 </script>
@@ -93,6 +97,5 @@ export default {
     }
   }
 }
-
 
 </style>

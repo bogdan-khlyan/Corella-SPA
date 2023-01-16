@@ -1,17 +1,26 @@
 <template>
   <div class="edit-task-select">
     <base-title text="Members" />
-    <el-select @remove-tag="updateSelectedMembers" @change="updateSelectedMembers" v-model="selectedMembers" multiple placeholder="Select members">
+    <el-select
+      v-model="selectedMembers"
+      multiple
+      placeholder="Select members"
+      @remove-tag="updateSelectedMembers"
+      @change="updateSelectedMembers"
+    >
       <el-option
-          v-for="member in dataMembers"
-          :key="member.id"
-          :label="member.name"
-          :value="member.name"
+        v-for="member in dataMembers"
+        :key="member.id"
+        :label="member.name"
+        :value="member.name"
       >
-
-        <div class="edit-task-select__name">{{ member.name }}</div>
-        <div class="edit-task-select__decor"></div>
-        <div class="edit-task-select__speciality">{{ member.speciality }}</div>
+        <div class="edit-task-select__name">
+          {{ member.name }}
+        </div>
+        <div class="edit-task-select__decor" />
+        <div class="edit-task-select__speciality">
+          {{ member.speciality }}
+        </div>
         <div class="edit-task-select__check">
           <svg-icon :icon="require('@/assets/images/icons/tasks/check.svg')" />
         </div>
@@ -21,17 +30,17 @@
 </template>
 
 <script>
-import BaseTitle from "@/app/common/BaseTitle"
+import BaseTitle from '@/app/common/BaseTitle'
 import { tasksController } from '../../tasks.controller'
 
 export default {
-  name: "edit-task-select",
-  components: {BaseTitle},
+  name: 'EditTaskSelect',
+  components: { BaseTitle },
 
   data() {
     return {
       selectedMembers: [],
-      dataMembers: []
+      dataMembers: [],
     }
   },
   created() {
@@ -44,11 +53,11 @@ export default {
     },
     getMembers() {
       tasksController.getMembers()
-      .then(members => {
-        this.dataMembers = members
-      })
-    }
-  }
+        .then((members) => {
+          this.dataMembers = members
+        })
+    },
+  },
 }
 </script>
 

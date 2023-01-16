@@ -1,30 +1,39 @@
 <template>
-<div class="socials-wrapper">
-  <div class="socials-wrapper__title">
-    <span>Submit your profile</span>
-  </div>
+  <div class="socials-wrapper">
+    <div class="socials-wrapper__title">
+      <span>Submit your profile</span>
+    </div>
 
-  <div class="socials-wrapper__buttons">
-    <a href="#" class="socials-wrapper__btn socials-wrapper__btn--google">
-      <img class="socials-wrapper__btn-icon"
-           src="@/assets/images/icons/login/icon-google.svg"
-           alt="google">
-      <span>Google</span>
-    </a>
-    <a href="#" class="socials-wrapper__btn socials-wrapper__btn--telegram">
-      <img class="socials-wrapper__btn-icon"
-           src="@/assets/images/icons/login/icon-telegram.svg"
-           alt="telegram">
-      <span>Telegram</span>
-    </a>
+    <div class="socials-wrapper__buttons">
+      <a
+        href="#"
+        class="socials-wrapper__btn socials-wrapper__btn--google"
+      >
+        <img
+          class="socials-wrapper__btn-icon"
+          src="@/assets/images/icons/login/icon-google.svg"
+          alt="google"
+        >
+        <span>Google</span>
+      </a>
+      <a
+        href="#"
+        class="socials-wrapper__btn socials-wrapper__btn--telegram"
+      >
+        <img
+          class="socials-wrapper__btn-icon"
+          src="@/assets/images/icons/login/icon-telegram.svg"
+          alt="telegram"
+        >
+        <span>Telegram</span>
+      </a>
+    </div>
   </div>
-
-</div>
 </template>
 
 <script>
 export default {
-  name: "Socials"
+  name: 'Socials',
 }
 </script>
 

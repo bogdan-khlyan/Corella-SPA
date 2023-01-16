@@ -1,20 +1,27 @@
 <template>
   <base-page-wrapper
-      :title="title"
-      :show-delete-button="!isCreate"
-      @delete="deleteProject">
+    :title="title"
+    :show-delete-button="!isCreate"
+    @delete="deleteProject"
+  >
     <div class="project-settings">
       <div class="project-settings__tabs">
         <base-tabs
-            :disabled-tabs="disabledTabs"
-            :tabs="tabs"
-            @change-tab="changeTab"
-            :currentTab="currentTab"
+          :disabled-tabs="disabledTabs"
+          :tabs="tabs"
+          :current-tab="currentTab"
+          @change-tab="changeTab"
         />
       </div>
-      <transition name="el-fade-in-linear" mode="out-in">
+      <transition
+        name="el-fade-in-linear"
+        mode="out-in"
+      >
         <keep-alive>
-          <component @change-tab="changeTab" :is="currentTab"></component>
+          <component
+            :is="currentTab"
+            @change-tab="changeTab"
+          />
         </keep-alive>
       </transition>
     </div>
@@ -22,51 +29,57 @@
 </template>
 
 <script>
-import BasePageWrapper from "@/app/common/BasePageWrapper";
-import BaseTabs from "@/app/common/BaseTabs";
-import {projectsController} from "@/app/projects/projects.controller";
-import BoardSettings from "@/app/projects/projectEditor/components/boardSettings/BoardSettings";
-import BasicInfo from "@/app/projects/projectEditor/components/basicInfo/BasicInfo";
-import Members from "@/app/projects/projectEditor/components/membersTable/MembersTable";
+import BasePageWrapper from '@/app/common/BasePageWrapper'
+import BaseTabs from '@/app/common/BaseTabs'
+import { projectsController } from '@/app/projects/projects.controller'
+import BoardSettings from '@/app/projects/projectEditor/components/boardSettings/BoardSettings'
+import BasicInfo from '@/app/projects/projectEditor/components/basicInfo/BasicInfo'
+import Members from '@/app/projects/projectEditor/components/membersTable/MembersTable'
 
 export default {
-  name: 'project-editor',
-  components: {Members, BasePageWrapper, BaseTabs, BoardSettings, BasicInfo },
+  name: 'ProjectEditor',
+  components: {
+    Members, BasePageWrapper, BaseTabs, BoardSettings, BasicInfo, 
+  },
   data() {
     return {
       tabs: [
         {
           name: 'basic-info',
-          text: "Basic info",
+          text: 'Basic info',
         },
         {
           name: 'board-settings',
-          text: "Board settings",
+          text: 'Board settings',
         },
         {
           name: 'members',
           text: 'Roles and members',
-        }
+        },
       ],
-      currentTab: 'basic-info'
+      currentTab: 'basic-info',
     }
   },
   computed: {
     title() {
       if (this.isCreate) {
         return 'Create project'
-      } else {
-        return 'Project settings'
-      }
+      } 
+      return 'Project settings'
     },
     disabledTabs() {
       if (this.isCreate) {
-        return ["board-settings", "members"]
+        return ['board-settings', 'members']
       }
     },
     isCreate() {
       return this.$route.name === 'create-project'
     },
+  },
+  created() {
+    if (!this.isCreate) {
+      this.currentTab = 'board-settings'
+    }
   },
   methods: {
     deleteProject() {
@@ -77,13 +90,8 @@ export default {
     },
     changeTab(tab) {
       this.currentTab = tab
-    }
+    },
   },
-  created() {
-    if (!this.isCreate) {
-      this.currentTab = 'board-settings'
-    }
-  }
 }
 </script>
 

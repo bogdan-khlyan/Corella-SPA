@@ -1,56 +1,60 @@
 <template>
   <form
-      class="basic-info"
-      @submit.prevent="createProject"
-      v-loading="loading"
+    v-loading="loading"
+    class="basic-info"
+    @submit.prevent="createProject"
   >
     <div class="basic-info__items">
       <div class="basic-info__item">
         <base-input
-            v-model.trim="newProject.name"
-            :error="v$.newProject.name.$error"
-            label="Title"
-            placeholder="Enter project name"
+          v-model.trim="newProject.name"
+          :error="v$.newProject.name.$error"
+          label="Title"
+          placeholder="Enter project name"
         />
       </div>
       <div class="basic-info__item">
         <base-textarea
-            v-model="newProject.description"
-            :error="v$.newProject.description.$error"
-            label="Description"
-            placeholder="Enter project description"
-            ref="description"
+          ref="description"
+          v-model="newProject.description"
+          :error="v$.newProject.description.$error"
+          label="Description"
+          placeholder="Enter project description"
         />
-        <div class="basic-info__count">{{ getDescriptionLength }} / 8192</div>
+        <div class="basic-info__count">
+          {{ getDescriptionLength }} / 8192
+        </div>
       </div>
     </div>
     <div class="basic-info__buttons">
       <div class="basic-info__button">
-        <base-button :title="isCreate ? 'Next' : 'Edit'">
-        </base-button>
+        <base-button :title="isCreate ? 'Next' : 'Edit'" />
       </div>
       <div class="basic-info__button">
-        <base-button @click.prevent="$router.push('/')" title="Cancel" type="danger" />
+        <base-button
+          title="Cancel"
+          type="danger"
+          @click.prevent="$router.push('/')"
+        />
       </div>
     </div>
   </form>
-
 </template>
 
 <script>
-import BaseInput from "@/app/common/BaseInput";
-import BaseTextarea from "@/app/common/BaseTextarea";
+import BaseInput from '@/app/common/BaseInput'
+import BaseTextarea from '@/app/common/BaseTextarea'
 
-import {projectsController} from "@/app/projects/projects.controller";
+import { projectsController } from '@/app/projects/projects.controller'
 
-import useVuelidate from "@vuelidate/core";
-import {maxLength, required} from "@vuelidate/validators";
-import BaseButton from "@/app/common/BaseButton";
+import useVuelidate from '@vuelidate/core'
+import { maxLength, required } from '@vuelidate/validators'
+import BaseButton from '@/app/common/BaseButton'
 
 export default {
-  name: "basic-info",
-  components: {BaseButton, BaseTextarea, BaseInput},
-  setup: () => ({v$: useVuelidate()}),
+  name: 'BasicInfo',
+  components: { BaseButton, BaseTextarea, BaseInput },
+  setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       loading: false,
@@ -60,9 +64,17 @@ export default {
       },
       errors: {
         name: false,
-        description: false
+        description: false,
       },
     }
+  },
+  computed: {
+    isCreate() {
+      return this.$route.name === 'create-project'
+    },
+    getDescriptionLength() {
+      return this.v$.newProject.description.$model.length
+    },
   },
   methods: {
     createProject() {
@@ -73,39 +85,30 @@ export default {
         this.loading = true
 
         projectsController.createProject(this.newProject)
-            .then(data => {
-              this.$router.push(`/project/${data._id}/settings`)
-              this.$emit('change-tab', 'board-settings')
-            })
-            .finally(() => this.loading = false)
+          .then((data) => {
+            this.$router.push(`/project/${data._id}/settings`)
+            this.$emit('change-tab', 'board-settings')
+          })
+          .finally(() => this.loading = false)
       } else {
         console.log('user tried to update project')
       }
-
     },
-  },
-  computed: {
-    isCreate() {
-      return this.$route.name === 'create-project'
-    },
-    getDescriptionLength() {
-      return this.v$.newProject.description.$model.length
-    }
   },
   validations() {
     return {
       newProject: {
         name: {
           maxLength: maxLength(128),
-          required
+          required,
         },
         description: {
           maxLength: maxLength(8192),
-          required
-        }
-      }
+          required,
+        },
+      },
     }
-  }
+  },
 }
 </script>
 

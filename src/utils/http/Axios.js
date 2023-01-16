@@ -3,16 +3,16 @@ import axios from 'axios'
 // import Cookies from 'js-cookie'
 
 export class Axios {
-    axiosInstance;
+  axiosInstance
 
-    constructor(options) {
-        this.axiosInstance = axios.create(options)
+  constructor(options) {
+    this.axiosInstance = axios.create(options)
 
-        this.setupInterceptors()
-    }
+    this.setupInterceptors()
+  }
 
-    setupInterceptors() {
-        /*this.axiosInstance.interceptors.response.use(
+  setupInterceptors() {
+    /* this.axiosInstance.interceptors.response.use(
             (response) => response,
             (error) => {
                 if (error.response?.status === 401
@@ -24,51 +24,51 @@ export class Axios {
 
                 return Promise.reject(error)
             },
-        )*/
-    }
+        ) */
+  }
 
-    get(url, config) {
-        return this.request({
-            ...config,
-            url,
-            method: 'GET',
-        })
-    }
+  get(url, config) {
+    return this.request({
+      ...config,
+      url,
+      method: 'GET',
+    })
+  }
 
-    post(url, config) {
-        return this.request({
-            ...config,
-            url,
-            method: 'POST',
-        })
-    }
+  post(url, config) {
+    return this.request({
+      ...config,
+      url,
+      method: 'POST',
+    })
+  }
 
-    patch(url, config) {
-        return this.request({
-            ...config,
-            url,
-            method: 'PATCH',
-        })
-    }
+  patch(url, config) {
+    return this.request({
+      ...config,
+      url,
+      method: 'PATCH',
+    })
+  }
 
-    put(url, config) {
-        return this.request({
-            ...config,
-            url,
-            method: 'PUT',
-        })
-    }
+  put(url, config) {
+    return this.request({
+      ...config,
+      url,
+      method: 'PUT',
+    })
+  }
 
-    delete(url, config) {
-        return this.request({
-            ...config,
-            url,
-            method: 'DELETE',
-        })
-    }
+  delete(url, config) {
+    return this.request({
+      ...config,
+      url,
+      method: 'DELETE',
+    })
+  }
 
-    async request(config) {
-        const data = await this.axiosInstance.request(config)
-        return data.data
-    }
+  async request(config) {
+    const data = await this.axiosInstance.request(config)
+    return data.data
+  }
 }

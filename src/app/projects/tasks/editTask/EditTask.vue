@@ -1,14 +1,16 @@
 <template>
   <base-page-wrapper
-      :title="title"
-      :loading="loading">
+    :title="title"
+    :loading="loading"
+  >
     <div class="edit-task">
       <div class="edit-task__content">
         <div class="edit-task__column">
           <div class="edit-task__input">
             <base-input
-                label="Title"
-                v-model="task.title"/>
+              v-model="task.title"
+              label="Title"
+            />
           </div>
           <div class="edit-task__select">
             <edit-task-select />
@@ -20,7 +22,8 @@
         <div class="edit-task__column">
           <div class="edit-task__description">
             <edit-task-description
-                v-model="task.description"/>
+              v-model="task.description"
+            />
           </div>
         </div>
       </div>
@@ -34,17 +37,19 @@
 </template>
 
 <script>
-import BasePageWrapper from "@/app/common/BasePageWrapper";
-import UploadFile from "@/app/common/uploadFiles/UploadFiles";
-import BaseInput from "@/app/common/BaseInput";
+import BasePageWrapper from '@/app/common/BasePageWrapper'
+import UploadFile from '@/app/common/uploadFiles/UploadFiles'
+import BaseInput from '@/app/common/BaseInput'
 
-import EditTaskDescription from "@/app/projects/tasks/editTask/components/EditTaskDescription";
-import EditTaskSelect from "@/app/projects/tasks/editTask/components/EditTaskSelect";
-import {tasksController} from "@/app/projects/tasks/tasks.controller";
+import EditTaskDescription from '@/app/projects/tasks/editTask/components/EditTaskDescription'
+import EditTaskSelect from '@/app/projects/tasks/editTask/components/EditTaskSelect'
+import { tasksController } from '@/app/projects/tasks/tasks.controller'
 
 export default {
-  name: 'edit-task',
-  components: {EditTaskSelect, BasePageWrapper, BaseInput, EditTaskDescription, UploadFile },
+  name: 'EditTask',
+  components: {
+    EditTaskSelect, BasePageWrapper, BaseInput, EditTaskDescription, UploadFile, 
+  },
   data() {
     return {
       loading: false,
@@ -52,8 +57,8 @@ export default {
         title: '',
         description: '',
         files: [],
-        members: []
-      }
+        members: [],
+      },
     }
   },
   computed: {
@@ -68,14 +73,14 @@ export default {
     },
     taskId() {
       return this.$route.params.taskId
-    }
+    },
   },
   created() {
     tasksController.getTaskById(this.taskId)
-        .then(task => {
-          console.log(task)
-          this.task = task
-        })
+      .then((task) => {
+        console.log(task)
+        this.task = task
+      })
   },
   methods: {
     submit() {
@@ -83,7 +88,7 @@ export default {
       if (this.isEdit) {
         setTimeout(() => {
           tasksController.updateTask(this.task)
-              .finally(() => this.loading = false)
+            .finally(() => this.loading = false)
         }, 700)
       } else {
         console.log('todo')
@@ -91,8 +96,8 @@ export default {
       // setTimeout(() => {
       //   this.loading = false
       // }, 700)
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,55 +1,71 @@
 <template>
   <div class="project-board">
-    <transition name="fade" mode="out-in" appear>
-
-      <div v-if="loading"
-           class="project-board__columns-wrapper">
+    <transition
+      name="fade"
+      mode="out-in"
+      appear
+    >
+      <div
+        v-if="loading"
+        class="project-board__columns-wrapper"
+      >
         <project-board-column
-            class="project-board__column"
-            v-for="projectColumnData in projectTemplate.slice(0, columnsCount)"
-            :key="projectColumnData.column"
-            :loading="loading"
-            :column-transition-end="true"
-            :project-column-data="projectColumnData">
-        </project-board-column>
+          v-for="projectColumnData in projectTemplate.slice(0, columnsCount)"
+          :key="projectColumnData.column"
+          class="project-board__column"
+          :loading="loading"
+          :column-transition-end="true"
+          :project-column-data="projectColumnData"
+        />
       </div>
 
-      <div v-else
-           class="project-board__columns-wrapper">
+      <div
+        v-else
+        class="project-board__columns-wrapper"
+      >
         <step-animation
-            :wrapper="mainWrapper"
-            @item-complete="handleItemComplete">
+          :wrapper="mainWrapper"
+          @item-complete="handleItemComplete"
+        >
           <project-board-column
-              class="project-board__column"
-              v-for="(projectColumnData, i) in columns"
-              :key="projectColumnData.id"
-              :project-column-data="projectColumnData"
-              :column-transition-end="projectColumnData.columnTransitionEnd"
-              :data-index="i"
-              :left-arrow="showArrow && i === 0"
-              :right-arrow="showArrow && i === columns.length - 1"
-              @status-task-changed="handleTaskStatusChanged"
-              @click-left-arrow="clickLeftArrow"
-              @click-right-arrow="clickRightArrow">
-          </project-board-column>
-
+            v-for="(projectColumnData, i) in columns"
+            :key="projectColumnData.id"
+            class="project-board__column"
+            :project-column-data="projectColumnData"
+            :column-transition-end="projectColumnData.columnTransitionEnd"
+            :data-index="i"
+            :left-arrow="showArrow && i === 0"
+            :right-arrow="showArrow && i === columns.length - 1"
+            @status-task-changed="handleTaskStatusChanged"
+            @click-left-arrow="clickLeftArrow"
+            @click-right-arrow="clickRightArrow"
+          />
         </step-animation>
       </div>
-
     </transition>
   </div>
 </template>
 
 <script>
-import {projectsController} from "@/app/projects/projects.controller";
+import { projectsController } from '@/app/projects/projects.controller'
 
-import ProjectBoardColumn from "@/app/projects/projectBoard/components/ProjectBoardColumn";
-import {appState} from "@/app/app.state";
+import ProjectBoardColumn from '@/app/projects/projectBoard/components/ProjectBoardColumn'
+import { appState } from '@/app/app.state'
 
 export default {
   name: 'ProjectBoard',
   components: {
-    ProjectBoardColumn
+    ProjectBoardColumn,
+  },
+  data() {
+    return {
+      loading: false,
+      project: null,
+
+      projectTemplate: projectsController.getProjectTemplate(),
+
+      offset: 0,
+    }
   },
   computed: {
     windowWidth() {
@@ -61,42 +77,33 @@ export default {
     columnsCount() {
       if (this.windowWidth > 1600) {
         return 5
-      } else if (this.windowWidth > 1400) {
-        return 4
-      } else if (this.windowWidth > 850) {
-        return 3
-      } else if (this.windowWidth > 600) {
-        return 2
-      } else {
-        return 1
       }
+      if (this.windowWidth > 1400) {
+        return 4
+      }
+      if (this.windowWidth > 850) {
+        return 3
+      }
+      if (this.windowWidth > 600) {
+        return 2
+      }
+      return 1
     },
     columns() {
       if (this.offset < this.project.length - this.columnsCount) {
         return this.project.slice(this.offset, this.offset + this.columnsCount)
-      } else {
-        const arr = this.project.slice(this.offset)
-        const arr2 = this.project.slice(0, this.columnsCount - arr.length)
-        // console.log(arr.concat(arr2))
-        return arr.concat(arr2)
       }
+      const arr = this.project.slice(this.offset)
+      const arr2 = this.project.slice(0, this.columnsCount - arr.length)
+      // console.log(arr.concat(arr2))
+      return arr.concat(arr2)
     },
     mainWrapper() {
       return document.querySelector('.main-wrapper')
-    }
+    },
   },
   created() {
     this.getProjectById(this.$route.params.projectId)
-  },
-  data() {
-    return {
-      loading: false,
-      project: null,
-
-      projectTemplate: projectsController.getProjectTemplate(),
-
-      offset: 0
-    }
   },
   methods: {
     clickLeftArrow() {
@@ -115,18 +122,18 @@ export default {
       this.loading = true
 
       projectsController.getProjectById(id)
-          .then(project => this.project = project)
-          .finally(() => this.loading = false)
+        .then((project) => this.project = project)
+        .finally(() => this.loading = false)
     },
 
-    handleItemComplete({index}) {
+    handleItemComplete({ index }) {
       this.project[index].columnTransitionEnd = true
     },
 
     handleTaskStatusChanged(data) {
       console.log(data)
-    }
-  }
+    },
+  },
 }
 </script>
 

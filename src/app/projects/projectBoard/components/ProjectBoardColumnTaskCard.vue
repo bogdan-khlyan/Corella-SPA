@@ -1,29 +1,38 @@
 <template>
-  <div class="project-task-card"
-       @click="$router.push(`/project/${$route.params.projectId}/task/${projectTask.id}`)">
+  <div
+    class="project-task-card"
+    @click="$router.push(`/project/${$route.params.projectId}/task/${projectTask.id}`)"
+  >
     <div class="project-task-card__content">
-
       <template v-if="!loading">
-        <div class="project-task-card__title"># {{projectTask.id}}</div>
-        <div class="project-task-card__description">{{projectTask.description}}</div>
+        <div class="project-task-card__title">
+          # {{ projectTask.id }}
+        </div>
+        <div class="project-task-card__description">
+          {{ projectTask.description }}
+        </div>
       </template>
 
-      <el-skeleton animated :rows="1" v-else></el-skeleton>
+      <el-skeleton
+        v-else
+        animated
+        :rows="1"
+      />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ProjectBoardColumnTaskCard",
+  name: 'ProjectBoardColumnTaskCard',
   props: {
     projectTask: {
-      type: Object
+      type: Object,
     },
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 }
 </script>

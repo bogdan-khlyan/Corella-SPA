@@ -1,64 +1,52 @@
-import TasksRepository from "@/app/projects/tasks/tasks.repository"
+import TasksRepository from '@/app/projects/tasks/tasks.repository'
 
 export default class TasksService {
+  #repository = new TasksRepository()
 
-    #repository = new TasksRepository()
+  async getTaskById(taskId) {
+    return await this.#repository.getTaskById(taskId)
+  }
 
+  async updateTask(task) {
+    return await this.#repository.updateTask(task)
+  }
 
-    async getTaskById(taskId) {
-        return await this.#repository.getTaskById(taskId)
+  async getUploadedFiles(id) {
+    const data = await this.#repository.getUploadedFiles(id)
+    return data
+  }
+
+  async getIssues(id) {
+    const data = await this.#repository.getIssues(id)
+    return data
+  }
+
+  async getMembers(id) {
+    const data = await this.#repository.getMembers(id)
+    return data
+  }
+
+  async getSelectedMembers(id) {
+    const data = await this.#repository.getSelectedMembers(id)
+    return data
+  }
+
+  async removeFile(taskId, fileId) {
+    const data = await this.#repository.removeFile(taskId, fileId)
+    return data
+  }
+
+  async uploadFiles(files) {
+    const data = await this.#repository.uploadFiles(files)
+    return data
+  }
+
+  async updateSelectedMembers(members) {
+    try {
+      const data = await this.#repository.updateSelectedMembers(members)
+      return data
+    } catch (err) {
+      console.log(err)
     }
-
-    async updateTask(task) {
-        return await this.#repository.updateTask(task)
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    async getUploadedFiles(id) {
-        const data = await this.#repository.getUploadedFiles(id)
-        return data
-    }
-
-    async getIssues(id) {
-        const data = await this.#repository.getIssues(id)
-        return data
-    }
-    async getMembers(id) {
-        const data = await this.#repository.getMembers(id)
-        return data
-    }
-    async getSelectedMembers(id) {
-        const data = await this.#repository.getSelectedMembers(id);
-        return data;
-    }
-    async removeFile(taskId, fileId) {
-        const data = await this.#repository.removeFile(taskId, fileId);
-        return data;
-    }
-    async uploadFiles(files) {
-        const data = await this.#repository.uploadFiles(files)
-        return data
-    }
-
-    async updateSelectedMembers(members) {
-        try {
-            const data = await this.#repository.updateSelectedMembers(members)
-            return data
-        } catch (err) {
-            console.log(err)
-        }
-
-
-    }
+  }
 }

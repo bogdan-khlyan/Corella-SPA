@@ -1,37 +1,55 @@
 <template>
   <div class="files-list">
-    <div class="files-list__item"
-         v-for="file in files" :key="file.id">
+    <div
+      v-for="file in files"
+      :key="file.id"
+      class="files-list__item"
+    >
       <file-preview
-          :is-view-mode="isViewMode"
-          :file="file"
-          @remove-file="$emit('remove-file', $event)"/>
+        :is-view-mode="isViewMode"
+        :file="file"
+        @remove-file="$emit('remove-file', $event)"
+      />
     </div>
-    <div v-if="showAddFileButton"
-         class="files-list__item">
-      <add-file-button @click="$emit('upload-file', $event)"/>
+    <div
+      v-if="showAddFileButton"
+      class="files-list__item"
+    >
+      <add-file-button @click="$emit('upload-file', $event)" />
     </div>
   </div>
 </template>
 
 <script>
-import FilePreview from './FilePreview';
-import AddFileButton from "@/app/common/uploadFiles/components/buttons/AddFileButton";
+import AddFileButton from '@/app/common/uploadFiles/components/buttons/AddFileButton'
+import FilePreview from './FilePreview'
 
 export default {
-  name: "files-list",
-  components: {FilePreview, AddFileButton},
-  emits: ['remove-file', 'upload-file'],
-  props: {
-    files: { type: Array, required: true },
-    maxFileCount: { type: Number, default: 10 },
-    isViewMode: { type: Boolean, default: false }
+  name: 'FilesList',
+  components: {
+    FilePreview,
+    AddFileButton,
   },
+  props: {
+    files: {
+      type: Array,
+      required: true,
+    },
+    maxFileCount: {
+      type: Number,
+      default: 10,
+    },
+    isViewMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['remove-file', 'upload-file'],
   computed: {
     showAddFileButton() {
       return this.files.length < this.maxFileCount && !this.isViewMode
-    }
-  }
+    },
+  },
 }
 
 </script>

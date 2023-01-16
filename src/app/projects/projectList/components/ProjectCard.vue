@@ -1,36 +1,38 @@
 <template>
-  <router-link class="project-card" :to="`/project/${project._id}/board`">
-
+  <router-link
+    class="project-card"
+    :to="`/project/${project._id}/board`"
+  >
     <div class="project-card__content">
       <div class="project-card__name">
-        <span>{{project.name}}</span>
+        <span>{{ project.name }}</span>
         <hr>
       </div>
       <div class="project-card__description">
-        <span>{{project.description}}</span>
+        <span>{{ project.description }}</span>
       </div>
       <div class="project-card__info">
         <div class="project-card__info--item">
-          <span>{{project.membersCount || 0}} members</span>
+          <span>{{ project.membersCount || 0 }} members</span>
         </div>
         <div class="project-card__info--item">
-          <span>{{project.tasksCount || 0}} tasks</span>
+          <span>{{ project.tasksCount || 0 }} tasks</span>
         </div>
       </div>
     </div>
 
     <div class="project-card__hover">
-      <span>{{project.name}}</span>
+      <span>{{ project.name }}</span>
     </div>
   </router-link>
 </template>
 
 <script>
 export default {
-  name: 'project-list',
+  name: 'ProjectList',
   props: {
-    project: { type: Object, required: true }
-  }
+    project: { type: Object, required: true },
+  },
 }
 </script>
 

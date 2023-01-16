@@ -1,15 +1,17 @@
 <template>
   <button class="upload-file-button">
     <svg-icon
-        :icon="require('@/assets/images/icons/common/upload.svg')"
-        :height="14" :width="14"/>
+      :icon="require('@/assets/images/icons/common/upload.svg')"
+      :height="14"
+      :width="14"
+    />
     <span class="upload-file-button__text">Select a file</span>
   </button>
 </template>
 
 <script>
 export default {
-  name: "upload-file-button"
+  name: 'UploadFileButton',
 }
 </script>
 

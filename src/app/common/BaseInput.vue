@@ -1,24 +1,33 @@
 <template>
-  <label class="base-input"
-         :class="{'base-input__error': error}">
+  <label
+    class="base-input"
+    :class="{'base-input__error': error}"
+  >
 
-    <div v-if="label" class="base-input__label">
-      <div class="label">{{label}}</div>
-      <div v-if="error && typeof error === 'string'" class="error">{{error}}</div>
+    <div
+      v-if="label"
+      class="base-input__label"
+    >
+      <div class="label">{{ label }}</div>
+      <div
+        v-if="error && typeof error === 'string'"
+        class="error"
+      >{{ error }}</div>
     </div>
 
     <input
-        :type="type || 'text'"
-        :value="modelValue"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        @input="$emit('update:modelValue', $event.target.value)">
+      :type="type || 'text'"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      @input="$emit('update:modelValue', $event.target.value)"
+    >
   </label>
 </template>
 
 <script>
 export default {
-  name: 'base-input',
+  name: 'BaseInput',
   model: { prop: 'modelValue', event: 'input' },
   props: {
     modelValue: { type: String },
@@ -26,8 +35,8 @@ export default {
     placeholder: { type: String, default: 'Please input' },
     disabled: { type: Boolean, default: false },
     type: { type: String },
-    error: { type: [Boolean, String], default: false }
-  }
+    error: { type: [Boolean, String], default: false },
+  },
 }
 </script>
 

@@ -5,92 +5,100 @@
     </div>
     <div class="board-editor__content">
       <column-input
-          :column="backlogColumn"
-          :delete-disabled="true"
-          :two-task="true"/>
+        :column="backlogColumn"
+        :delete-disabled="true"
+        :two-task="true"
+      />
 
-      <draggable v-model="columns"
+      <draggable
+        v-model="columns"
 
-                 v-bind="dragOptions"
-                 v-on="dragListeners"
+        v-bind="dragOptions"
+        style="display: flex"
 
-                 style="display: flex">
+        v-on="dragListeners"
+      >
         <template #item="{element}">
           <column-input
-              :column="element"
-              @delete="deleteColumn"/>
+            :column="element"
+            @delete="deleteColumn"
+          />
         </template>
       </draggable>
       <button
-          class="board-editor__button-added-column"
-          type="button"
-          @click="addColumn">
-        <el-icon color="#000000"><plus/></el-icon>
+        class="board-editor__button-added-column"
+        type="button"
+        @click="addColumn"
+      >
+        <el-icon color="#000000">
+          <plus />
+        </el-icon>
       </button>
 
       <column-input
-          :column="doneColumn"
-          :delete-disabled="true"/>
+        :column="doneColumn"
+        :delete-disabled="true"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
-import ColumnInput from "@/app/projects/projectEditor/components/boardEditor/ColumnInput";
-import {Plus} from "@element-plus/icons-vue";
-import { v4 as uuid } from 'uuid';
+import draggable from 'vuedraggable'
+import ColumnInput from '@/app/projects/projectEditor/components/boardEditor/ColumnInput'
+import { Plus } from '@element-plus/icons-vue'
+import { v4 as uuid } from 'uuid'
 
 export default {
-  name: 'columns-input',
+  name: 'ColumnsInput',
   components: { ColumnInput, Plus, draggable },
-  computed: {
-    dragOptions() {
-      return {
-        animation: 200,
-        group: "tasks",
-        disabled: false,
-        itemKey: 'order',
-        ghostClass: "project-task-card--ghost",
-      };
-    },
-    dragListeners() {
-      return {
-        change: data => {
-          console.log(data)
-        }
-      }
-    },
-  },
   data() {
     return {
       backlogColumn: {
         id: uuid(),
         name: 'Backlog',
         isDefault: true,
-        order: 1
+        order: 1,
       },
       doneColumn: {
         id: uuid(),
         name: 'Done',
         isDefault: true,
-        order: 2
+        order: 2,
       },
-      columns: []
+      columns: [],
     }
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: 'tasks',
+        disabled: false,
+        itemKey: 'order',
+        ghostClass: 'project-task-card--ghost',
+      }
+    },
+    dragListeners() {
+      return {
+        change: (data) => {
+          console.log(data)
+        },
+      }
+    },
   },
   methods: {
     deleteColumn(columnId) {
-      const index = this.columns.findIndex(column => column.id === columnId)
+      const index = this.columns.findIndex((column) => column.id === columnId)
       this.columns.splice(index, 1)
     },
     addColumn() {
       this.columns.push({
         id: uuid(),
-        name: 'New column' + (this.columns.length + 1)
+        name: `New column${this.columns.length + 1}`,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

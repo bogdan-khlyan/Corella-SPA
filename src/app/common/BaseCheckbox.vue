@@ -1,30 +1,36 @@
 <template>
   <div class="base-checkbox">
-    <base-title v-if="label" :text="label" />
+    <base-title
+      v-if="label"
+      :text="label"
+    />
     <el-checkbox-group v-model="checkList">
-      <el-checkbox v-for="value in checkboxValues" :key="value" :label="value"/>
+      <el-checkbox
+        v-for="value in checkboxValues"
+        :key="value"
+        :label="value"
+      />
     </el-checkbox-group>
   </div>
 </template>
 
 <script>
-import BaseTitle from "@/app/common/BaseTitle";
+import BaseTitle from '@/app/common/BaseTitle'
 
 export default {
-  name: "base-checkbox",
-  components: {BaseTitle},
+  name: 'BaseCheckbox',
+  components: { BaseTitle },
   props: {
-    checkboxValues: {type: Array, required: true},
-    label: String
+    checkboxValues: { type: Array, required: true },
+    label: String,
   },
   data() {
     return {
-      checkList: []
+      checkList: [],
     }
-  }
+  },
 }
 </script>
-
 
 <style lang="scss">
 .el-checkbox {

@@ -1,21 +1,25 @@
 <template>
   <div class="profile-page">
-    <h1 class="profile-page__title">Account settings</h1>
-    <div class="profile-page__description">Change your account settings</div>
+    <h1 class="profile-page__title">
+      Account settings
+    </h1>
+    <div class="profile-page__description">
+      Change your account settings
+    </div>
     <div class="profile-page__content">
-      <profile-settings/>
+      <profile-settings />
     </div>
   </div>
 </template>
 
 <script>
-import ProfileSettings from "@/app/userInstance/profile/profileSettings/ProfileSettings";
+import ProfileSettings from '@/app/userInstance/profile/profileSettings/ProfileSettings'
 
 export default {
-  name: "profile-page",
+  name: 'ProfilePage',
   components: {
-    ProfileSettings
-  }
+    ProfileSettings,
+  },
 }
 </script>
 

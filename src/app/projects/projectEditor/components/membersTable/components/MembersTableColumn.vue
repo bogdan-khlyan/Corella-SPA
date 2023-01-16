@@ -3,90 +3,130 @@
     <span class="table-items__label">Members</span>
     <div class="table-items__main">
       <div class="table-items__header">
-        <div v-if="showMembers" class="table-items__header--item">Member</div>
-        <div class="table-items__header--item">Role</div>
+        <div
+          v-if="showMembers"
+          class="table-items__header--item"
+        >
+          Member
+        </div>
+        <div class="table-items__header--item">
+          Role
+        </div>
       </div>
       <div class="table-items__body">
         <ul class="table-items__list">
-          <li v-for="member in members" :key="member.id">
-            <div v-if="showMembers" class="table-items__member">
+          <li
+            v-for="member in members"
+            :key="member.id"
+          >
+            <div
+              v-if="showMembers"
+              class="table-items__member"
+            >
               <div class="table-items__member--avatar">
-                <img src="@/assets/images/profile/default-avatar.jpg" alt="">
+                <img
+                  src="@/assets/images/profile/default-avatar.jpg"
+                  alt=""
+                >
               </div>
-              <div class="table-items__member--username">{{ member.username }}</div>
+              <div class="table-items__member--username">
+                {{ member.username }}
+              </div>
               <div class="table-items__member--select">
                 <base-select
-                    @update:modelValue="updateRole"
-                    :options="options"
-                    :modelValue="member.role"
-                    :id="member.id"
+                  :id="member.id"
+                  :options="options"
+                  :model-value="member.role"
+                  @update:modelValue="updateRole"
                 />
               </div>
             </div>
-            <div v-else class="table-items__role">
-              <div class="table-items__role--name">{{ member.role }}</div>
+            <div
+              v-else
+              class="table-items__role"
+            >
+              <div class="table-items__role--name">
+                {{ member.role }}
+              </div>
               <button class="table-items__role--edit-button">
-                <svg-icon :icon="require('@/assets/images/icons/tasks/edit.svg')"></svg-icon>
+                <svg-icon :icon="require('@/assets/images/icons/tasks/edit.svg')" />
               </button>
             </div>
-            <button type="button" class="table-items__btn-delete">
-              <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')"></svg-icon>
+            <button
+              type="button"
+              class="table-items__btn-delete"
+            >
+              <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')" />
             </button>
           </li>
         </ul>
         <div class="table-items__button">
-          <base-button @click="openModal" type="outline" :title="btnTitle">
+          <base-button
+            type="outline"
+            :title="btnTitle"
+            @click="openModal"
+          >
             <el-icon><plus /></el-icon>
           </base-button>
         </div>
       </div>
     </div>
-    <invite-member-modal  ref="inviteMemberModal"/>
-    <role-modal ref="rolePopup"/>
+    <invite-member-modal ref="inviteMemberModal" />
+    <role-modal ref="rolePopup" />
   </div>
 </template>
 
 <script>
-import BaseSelect from "@/app/common/BaseSelect";
-import BaseButton from "@/app/common/BaseButton";
-import {Plus} from "@element-plus/icons-vue";
-import InviteMemberModal from "@/app/projects/projectEditor/components/membersTable/components/InviteMemberPopup";
-import RoleModal from "@/app/projects/projectEditor/components/membersTable/components/RolePopup";
+import BaseSelect from '@/app/common/BaseSelect'
+import BaseButton from '@/app/common/BaseButton'
+import { Plus } from '@element-plus/icons-vue'
+import InviteMemberModal from '@/app/projects/projectEditor/components/membersTable/components/InviteMemberPopup'
+import RoleModal from '@/app/projects/projectEditor/components/membersTable/components/RolePopup'
 
 export default {
-  name: "members-table-column",
-  components: {RoleModal, InviteMemberModal, BaseButton, BaseSelect, Plus},
+  name: 'MembersTableColumn',
+  components: {
+    RoleModal, InviteMemberModal, BaseButton, BaseSelect, Plus, 
+  },
 
   props: {
     columnNames: Array,
     tableData: Array,
     tableName: String,
-    showMembers: {type: Boolean, default: false},
+    showMembers: { type: Boolean, default: false },
   },
   data() {
     return {
       options: [
-        {value: "Owner", label: "Owner"},
-        {value: "Admin", label: "Admin"},
-        {value: "Moderator", label: "Moderator"},
-        {value: "Developer", label: "Developer"},
-        {value: "Guest", label: "Guest"},
+        { value: 'Owner', label: 'Owner' },
+        { value: 'Admin', label: 'Admin' },
+        { value: 'Moderator', label: 'Moderator' },
+        { value: 'Developer', label: 'Developer' },
+        { value: 'Guest', label: 'Guest' },
       ],
       members: [
         {
           id: '1',
-          username: "Lana",
-          role: "Admin",
-          avatar: ""
+          username: 'Lana',
+          role: 'Admin',
+          avatar: '',
         },
         {
           id: '2',
-          username: "Alexandra",
-          role: "Developer",
-          avatar: ""
+          username: 'Alexandra',
+          role: 'Developer',
+          avatar: '',
         },
-      ]
+      ],
     }
+  },
+  computed: {
+    label() {
+      return this.showMembers ? 'Members' : 'Roles'
+    },
+    btnTitle() {
+      return this.showMembers ? 'Invite member' : 'Add role'
+    },
   },
   methods: {
     updateRole(value, id) {
@@ -98,19 +138,10 @@ export default {
       } else {
         this.$refs.rolePopup.openModal()
       }
-    }
-  },
-  computed: {
-    label() {
-      return this.showMembers ? "Members" : "Roles"
     },
-    btnTitle() {
-      return this.showMembers ? "Invite member" : "Add role"
-    }
-  }
+  },
 }
 </script>
-
 
 <style scoped lang="scss">
 .table-items {
