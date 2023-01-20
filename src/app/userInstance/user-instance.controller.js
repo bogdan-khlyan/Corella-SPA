@@ -8,7 +8,7 @@ class UserInstanceController {
     try {
       return await this.#service.logout()
     } finally {
-      router.push('/login')
+      router.push('/login-page')
     }
   }
 

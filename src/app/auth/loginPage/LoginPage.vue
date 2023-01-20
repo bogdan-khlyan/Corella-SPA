@@ -32,10 +32,9 @@ export default {
 
 <style scoped lang="scss">
 .login-page {
-
   &__content {
     @media screen and (max-width: 1280.98px) {
-      background: linear-gradient(218.31deg, #20C560 0%, #05A580 100%);
+      background: linear-gradient(218.31deg, #20c560 0%, #05a580 100%);
       min-height: 100vh;
       padding: 20px;
     }
@@ -56,6 +55,5 @@ export default {
       }
     }
   }
-
 }
 </style>

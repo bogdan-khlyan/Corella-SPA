@@ -28,11 +28,11 @@ export default class UserInstanceRepository {
   }
 
   /**
-     * @param {object} credentials
-     * @param {string} credentials.login
-     * @param {string} credentials.password
-     * @returns {Promise<any>}
-     */
+   * @param {object} credentials
+   * @param {string} credentials.login-page
+   * @param {string} credentials.password
+   * @returns {Promise<any>}
+   */
   async login(credentials) {
     let config = null
     if (process.env.NODE_ENV === 'development') {
@@ -45,11 +45,11 @@ export default class UserInstanceRepository {
   }
 
   /**
-     * @param {object} user
-     * @param {object} user.email
-     * @param {object} user.password
-     * @returns {Promise<any>}
-     */
+   * @param {object} user
+   * @param {object} user.email
+   * @param {object} user.password
+   * @returns {Promise<any>}
+   */
   async register(user) {
     const response = await http.post('/register', user)
     return response.data

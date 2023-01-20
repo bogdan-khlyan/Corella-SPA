@@ -1,5 +1,8 @@
 import UserInstanceRepository from '@/app/userInstance/user-instance.repository'
-import { setIsLoggedIn, userInstanceState } from '@/app/userInstance/user-instance.state'
+import {
+  setIsLoggedIn,
+  userInstanceState,
+} from '@/app/userInstance/user-instance.state'
 import { notificationsHelper } from '@/helpers/notifications.helper'
 
 export default class UserInstanceService {
@@ -14,7 +17,9 @@ export default class UserInstanceService {
       }
       this.logoutPromise = this.#repository.logout()
       const data = await this.logoutPromise
-      notificationsHelper.success({ message: 'You have successfully logged out of your account' })
+      notificationsHelper.success({
+        message: 'You have successfully logged out of your account',
+      })
       return data
     } finally {
       notificationsHelper.success({ message: 'Session time expired' })
@@ -43,7 +48,9 @@ export default class UserInstanceService {
     try {
       const userInfo = await this.#repository.updateProfile(profile)
       userInstanceState.info = userInfo
-      notificationsHelper.success({ message: 'Profile has been successfully updated' })
+      notificationsHelper.success({
+        message: 'Profile has been successfully updated',
+      })
       return userInfo
     } catch (error) {
       console.log(error)

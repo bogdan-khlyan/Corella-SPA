@@ -1,8 +1,5 @@
 <template>
-  <form
-    class="login-form"
-    @submit.prevent="submitForm"
-  >
+  <form class="login-form" @submit.prevent="submitForm">
     <login-form-input
       v-model="credentials.login"
       class="login-form__input"
@@ -10,6 +7,7 @@
       :error="errors.login"
       @input="validateLogin"
     />
+
     <login-form-input
       v-model="credentials.password"
       class="login-form__input"
@@ -19,19 +17,15 @@
       @input="validatePassword"
     />
 
-    <router-link
-      to="/login/recover"
-      class="login-form__forgot"
-    >
+    <router-link to="/login/recover" class="login-form__forgot">
       Forgot my password?
     </router-link>
     <div class="login-form__button">
       <button>Log in</button>
     </div>
     <div class="login-form__register">
-      Don't have an account yet?<router-link to="/login/register">
-        Register
-      </router-link>
+      Don't have an account yet?
+      <router-link to="/login/register"> Register</router-link>
     </div>
   </form>
 </template>
@@ -62,8 +56,9 @@ export default {
     submitForm() {
       if (this.validate()) {
         loginPageState.loading = true
-        userInstanceController.login(this.credentials)
-          .finally(() => loginPageState.loading = false)
+        userInstanceController
+          .login(this.credentials)
+          .finally(() => (loginPageState.loading = false))
       }
     },
     validate() {
@@ -85,7 +80,7 @@ export default {
       if (this.credentials.login.length > 4) {
         this.errors.login = false
         return true
-      } 
+      }
       this.errors.login = true
       return false
     },
@@ -96,7 +91,7 @@ export default {
       if (this.credentials.password.length >= 6) {
         this.errors.password = false
         return true
-      } 
+      }
       this.errors.password = true
       return false
     },
@@ -106,7 +101,6 @@ export default {
 
 <style scoped lang="scss">
 .login-form {
-
   &__input {
     &:first-child {
       margin-bottom: 30px;
@@ -134,7 +128,7 @@ export default {
     transition: 0.2s;
     @media (any-hover: hover) {
       &:hover {
-        color: #0AB258;
+        color: #0ab258;
       }
     }
     @media (max-width: 1280.98px) {
@@ -145,6 +139,7 @@ export default {
   &__button {
     text-align: left;
     margin-top: 50px;
+
     &:not(:last-child) {
       margin-bottom: 18px;
     }
@@ -163,11 +158,11 @@ export default {
       font-size: 32px;
       line-height: 37px;
 
-      color: #FFFFFF;
+      color: #ffffff;
 
       border-radius: 8px;
       border: none;
-      background-color: #20C462;
+      background-color: #20c462;
 
       cursor: pointer;
       transition: 200ms;
@@ -189,7 +184,6 @@ export default {
           background-color: #61dd93;
         }
       }
-
     }
   }
 
@@ -208,7 +202,7 @@ export default {
 
     > a {
       font-weight: 500;
-      color: #0AB258;
+      color: #0ab258;
       text-decoration: none;
 
       margin-left: 10px;

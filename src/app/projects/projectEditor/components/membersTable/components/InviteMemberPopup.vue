@@ -2,18 +2,13 @@
   <div class="invite-member-popup">
     <base-popup
       v-model="visible"
-      title="Invite a member to &quot;Corella&quot; Project"
+      title='Invite a member to "Corella" Project'
       :show-btn="false"
       width="556px"
     >
       <div class="invite-member-popup__content">
-        <base-input
-          v-model.trim="usernameOrEmail"
-        />
-        <base-button
-          width="106px"
-          title="Invite"
-        />
+        <base-input v-model.trim="usernameOrEmail" />
+        <base-button width="106px" title="Invite" />
       </div>
     </base-popup>
   </div>
@@ -26,7 +21,11 @@ import BaseButton from '@/app/common/BaseButton'
 
 export default {
   name: 'InviteMemberModal',
-  components: { BaseButton, BaseInput, BasePopup },
+  components: {
+    BaseButton,
+    BaseInput,
+    BasePopup,
+  },
   data() {
     return {
       visible: false,
@@ -46,12 +45,14 @@ export default {
   &__content {
     display: flex;
     align-items: center;
-    border: 1px solid #E7E7E7;
+    border: 1px solid #e7e7e7;
     padding-right: 4px;
   }
+
   .base-input {
     margin: 0;
     flex: 1 1 auto;
+
     input {
       border: none;
     }
@@ -60,9 +61,11 @@ export default {
   .base-button {
     min-height: 48px;
   }
+
   .el-dialog__body {
     padding: 40px 20px 20px 20px;
   }
 }
+
 //.base-popup
 </style>

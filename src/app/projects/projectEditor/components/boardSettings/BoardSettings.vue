@@ -1,8 +1,5 @@
 <template>
-  <form
-    v-loading="loading"
-    class="create-project"
-  >
+  <form v-loading="loading" class="create-project">
     <board-editor />
   </form>
 </template>
@@ -15,7 +12,6 @@ export default {
   components: { BoardEditor },
 
   methods: {
-
     validate() {
       let error = false
 
@@ -32,7 +28,7 @@ export default {
       if (this.newProject.name.length > 4) {
         this.errors.name = false
         return true
-      } 
+      }
       this.errors.name = true
       return false
     },
@@ -40,7 +36,7 @@ export default {
       if (this.newProject.description.length > 4) {
         this.errors.description = false
         return true
-      } 
+      }
       this.errors.description = true
       return false
     },
@@ -56,12 +52,10 @@ export default {
     },
   },
 }
-
 </script>
 
 <style lang="scss" scoped>
 .create-project {
-
   &__columns {
     display: flex;
     max-width: 1400px;
@@ -95,15 +89,14 @@ export default {
       font-size: 16px;
       line-height: 24px;
 
-      color: #FFFFFF;
+      color: #ffffff;
       border: none;
 
-      background: #0AB258;
+      background: #0ab258;
       border-radius: 4px;
 
       cursor: pointer;
     }
   }
-
 }
 </style>

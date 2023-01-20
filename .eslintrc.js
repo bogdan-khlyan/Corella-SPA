@@ -9,7 +9,9 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
+    'plugin:vue/essential',
     'plugin:vue/vue3-recommended',
+    'plugin:prettier/recommended',
   ],
   rules: {
     'import/prefer-default-export': 'off',
@@ -17,6 +19,20 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-throw-literal': 'off',
     'global-require': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        jsxSingleQuote: true,
+        arrowParens: 'always',
+        tabWidth: 2,
+        printWidth: 80,
+        trailingComma: 'es5',
+        endOfLine: 'auto',
+        semi: false,
+        useTabs: false,
+      },
+    ],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -39,7 +55,6 @@ module.exports = {
     'consistent-return': 'off',
     'spaced-comment': 'off',
     'no-trailing-spaces': 'off',
-    'prettier/prettier': 'off',
     'no-multi-spaces': 'error',
     'object-curly-spacing': 'error',
     'vue/require-default-prop': 'off',
@@ -60,6 +75,7 @@ module.exports = {
     'vue/valid-v-slot': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'linebreak-style': 'off',
+    quotes: [2, 'single', { avoidEscape: true }],
     semi: ['error', 'never'],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

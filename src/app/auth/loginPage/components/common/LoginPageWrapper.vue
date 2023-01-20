@@ -6,33 +6,19 @@
   >
     <div class="login-form-wrapper__content">
       <div class="login-form-wrapper__logo">
-        <img
-          src="@/assets/images/corella_icon.svg"
-          alt=""
-        >
+        <img src="@/assets/images/corella_icon.svg" alt="" />
         <h1>Corella</h1>
       </div>
 
-      <transition
-        appear
-        name="el-fade-in"
-        mode="out-in"
-      >
-        <div
-          v-if="showOauthButtons"
-          class="login-form-wrapper__oauth"
-        >
+      <transition appear name="el-fade-in" mode="out-in">
+        <div v-if="showOauthButtons" class="login-form-wrapper__oauth">
           <socials />
         </div>
       </transition>
 
       <div class="login-form-wrapper__form">
         <router-view v-slot="{ Component }">
-          <transition
-            appear
-            name="el-fade-in"
-            mode="out-in"
-          >
+          <transition appear name="el-fade-in" mode="out-in">
             <component :is="Component" />
           </transition>
         </router-view>
@@ -63,7 +49,7 @@ export default {
 
 <style scoped lang="scss">
 .login-form-wrapper {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   @media screen and (min-width: 1280.98px) {
     display: flex;
     justify-content: center;
@@ -97,10 +83,8 @@ export default {
     }
     @media screen and (min-width: 1280.98px) {
       padding: 60px 40px;
-
     }
     @media screen and (max-width: 1760px) {
-
     }
     @media screen and (min-width: 1620px) {
       padding: 60px 60px;
@@ -113,6 +97,7 @@ export default {
   &__logo {
     display: flex;
     align-items: center;
+
     &:not(:last-child) {
       margin-bottom: 60px;
     }
@@ -122,6 +107,7 @@ export default {
         margin-bottom: 27px;
       }
     }
+
     img {
       @media screen and (max-width: 1280.98px) {
         max-width: 75px;
@@ -130,6 +116,7 @@ export default {
         max-width: 60px;
       }
     }
+
     > h1 {
       margin-left: 40px;
 
@@ -139,7 +126,7 @@ export default {
       font-size: 46px;
       line-height: calc(56 / 46 * 100%);
 
-      color: #1B1A18;
+      color: #1b1a18;
       @media screen and (max-width: 1280.98px) {
         margin-left: 25px;
         font-size: 30px;
@@ -148,7 +135,6 @@ export default {
         font-size: 27px;
       }
     }
-
   }
 
   &__oauth {
@@ -159,8 +145,6 @@ export default {
   }
 
   &__form {
-
   }
-
 }
 </style>

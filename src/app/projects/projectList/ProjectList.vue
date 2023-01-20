@@ -3,16 +3,9 @@
     <div class="project-list__title">
       <h2>Projects</h2>
     </div>
-    <transition
-      name="el-fade-in-linear"
-      mode="out-in"
-    >
+    <transition name="el-fade-in-linear" mode="out-in">
       <empty-list v-if="!loading && projects.length === 0" />
-      <div
-        v-else
-        v-loading="loading"
-        class="project-list__content"
-      >
+      <div v-else v-loading="loading" class="project-list__content">
         <transition-group name="el-fade-in-linear">
           <project-card
             v-for="project in projects"
@@ -50,12 +43,13 @@ export default {
     },
   },
   created() {
-    projectsController.getProjects()
+    projectsController
+      .getProjects()
       .then((data) => {
         this.projects.push(...data.data)
         this.total = data.total
       })
-      .finally(() => this.loading = false)
+      .finally(() => (this.loading = false))
   },
   beforeUnmount() {
     baseHeaderState.searchValue = ''
@@ -65,7 +59,6 @@ export default {
 
 <style scoped lang="scss">
 .project-list {
-
   &__title {
     > h2 {
       width: max-content;
@@ -78,7 +71,7 @@ export default {
       text-align: center;
       text-transform: capitalize;
 
-      color: #3B3B3B;
+      color: #3b3b3b;
     }
   }
 
@@ -111,8 +104,6 @@ export default {
       grid-template-columns: 1fr;
       grid-column-gap: 24px;
     }
-
   }
-
 }
 </style>

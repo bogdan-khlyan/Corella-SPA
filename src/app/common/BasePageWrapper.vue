@@ -6,10 +6,7 @@
   >
     <div class="task-page-wrapper__header">
       <div class="task-page-wrapper__header--icon">
-        <img
-          src="@/assets/images/icons/sidebar/icon-projects.svg"
-          alt=""
-        >
+        <img src="@/assets/images/icons/sidebar/icon-projects.svg" alt="" />
       </div>
       <div class="task-page-wrapper__header--text">
         <span>{{ title }}</span>
@@ -20,10 +17,7 @@
           class="task-page-wrapper__header--actions-item"
         >
           <button @click="$emit('edit', $event)">
-            <img
-              src="@/assets/images/icons/tasks/edit.svg"
-              alt=""
-            >
+            <img src="@/assets/images/icons/tasks/edit.svg" alt="" />
           </button>
         </div>
         <div
@@ -38,7 +32,9 @@
           >
             <template #reference>
               <button class="red">
-                <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')" />
+                <svg-icon
+                  :icon="require('@/assets/images/icons/tasks/delete.svg')"
+                />
               </button>
             </template>
           </el-popconfirm>
@@ -55,13 +51,25 @@
 export default {
   name: 'TaskPageWrapper',
   props: {
-    title: { type: String, required: true },
+    title: {
+      type: String,
+      required: true,
+    },
 
-    showEditButton: { type: Boolean, default: false },
-    showDeleteButton: { type: Boolean, default: false },
-
-    loading: { type: Boolean, default: false },
+    showEditButton: {
+      type: Boolean,
+      default: false,
+    },
+    showDeleteButton: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
+  emits: ['delete', 'edit'],
 }
 </script>
 
@@ -71,7 +79,7 @@ export default {
 
   width: 100%;
 
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 8px;
 
   &__header {
@@ -81,7 +89,7 @@ export default {
     width: 100%;
     height: 80px;
 
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #eeeeee;
 
     &--icon {
       display: flex;
@@ -135,7 +143,7 @@ export default {
 
           border: none;
           fill: #fff;
-          background: #20C561;
+          background: #20c561;
           border-radius: 8px;
 
           cursor: pointer;
@@ -146,28 +154,28 @@ export default {
           }
 
           &.red {
-            background: #F97066;
+            background: #f97066;
 
             &:hover {
               background: #ff9b95;
             }
           }
-
         }
       }
-
     }
-
   }
 
   &__content {
     //padding-top: 16px;
   }
-
 }
 </style>
 
 <style lang="scss">
+.el-popper {
+  padding: 10px !important;
+}
+
 .task-page-wrapper {
   .el-loading-mask {
     border-radius: 10px !important;

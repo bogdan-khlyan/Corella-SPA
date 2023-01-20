@@ -32,9 +32,7 @@
       />
     </div>
     <div class="change-password-profile__submit">
-      <button :disabled="isDisabledSubmitButton">
-        Change password
-      </button>
+      <button :disabled="isDisabledSubmitButton">Change password</button>
     </div>
   </form>
 </template>
@@ -65,18 +63,23 @@ export default {
   },
   computed: {
     isDisabledSubmitButton() {
-      return !(this.form.currentPassword && this.form.newPassword && this.form.confirmedPassword)
+      return !(
+        this.form.currentPassword &&
+        this.form.newPassword &&
+        this.form.confirmedPassword
+      )
     },
   },
   methods: {
     clearData() {
-      Object.keys(this.form).forEach((key) => this.form[key] = '')
-      Object.keys(this.errors).forEach((key) => this.errors[key] = null)
+      Object.keys(this.form).forEach((key) => (this.form[key] = ''))
+      Object.keys(this.errors).forEach((key) => (this.errors[key] = null))
     },
     submit() {
       if (this.validate()) {
         this.loading = true
-        userInstanceController.changePassword(this.form)
+        userInstanceController
+          .changePassword(this.form)
           .then(() => this.clearData())
           .catch((error) => {
             this.errors = {
@@ -84,7 +87,7 @@ export default {
               ...error,
             }
           })
-          .finally(() => this.loading = false)
+          .finally(() => (this.loading = false))
       }
     },
     handleInput($event) {
@@ -120,7 +123,7 @@ export default {
       if (this.form[fieldName] && this.form[fieldName].length > 5) {
         this.errors[fieldName] = false
         return true
-      } 
+      }
       this.errors[fieldName] = 'Must be at least 6 characters long'
       return false
     },
@@ -131,8 +134,8 @@ export default {
       if (this.form.newPassword === this.form.confirmedPassword) {
         this.errors.matchPasswords = false
         return true
-      } 
-      this.errors.matchPasswords = 'Passwords don\'t match'
+      }
+      this.errors.matchPasswords = "Passwords don't match"
       return false
     },
   },
@@ -146,7 +149,7 @@ export default {
       width: 306px;
       height: 56px;
 
-      background: #0AB258;
+      background: #0ab258;
       border-radius: 4px;
       border: none;
 
@@ -156,23 +159,23 @@ export default {
       font-size: 16px;
       line-height: 24px;
 
-      color: #FFFFFF;
+      color: #ffffff;
 
       cursor: pointer;
       transition: 200ms;
 
       &:disabled {
-        background-color: #7B7B7B;
+        background-color: #7b7b7b;
         cursor: no-drop;
+
         &:hover {
-          background-color: #7B7B7B;
+          background-color: #7b7b7b;
         }
       }
 
       &:hover {
         background: #2bc271;
       }
-
     }
   }
 }

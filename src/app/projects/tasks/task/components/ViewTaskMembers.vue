@@ -35,11 +35,10 @@ export default {
   },
   methods: {
     getSelectedMembers() {
-      tasksController.getSelectedMembers()
-        .then((selectedMembers) => {
-          this.selectedMember = selectedMembers
-          console.log(this.$data)
-        })
+      tasksController.getSelectedMembers().then((selectedMembers) => {
+        this.selectedMember = selectedMembers
+        console.log(this.$data)
+      })
     },
   },
 }
@@ -51,7 +50,8 @@ export default {
   display: flex;
   align-items: center;
   padding: 8px 12px;
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
+
   &__count {
     display: inline-flex;
     height: 40px;
@@ -61,21 +61,25 @@ export default {
     align-items: center;
     font-family: Open Sans, sans-serif;
     font-size: 16px;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
   }
+
   &__list {
     display: flex;
     flex: 1 1 auto;
     padding: 0px 0px 0px 16px;
   }
+
   &__item {
-    font-family: "Rubik";
+    font-family: 'Rubik';
+
     &:not(:last-child) {
       padding: 0px 16px 0px 0px;
       margin: 0px 12px 0px 0px;
       position: relative;
+
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 50%;
         width: 4px;

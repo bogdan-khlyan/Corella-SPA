@@ -1,9 +1,5 @@
 <template>
-  <form
-    v-loading="loading"
-    class="basic-info"
-    @submit.prevent="createProject"
-  >
+  <form v-loading="loading" class="basic-info" @submit.prevent="createProject">
     <div class="basic-info__items">
       <div class="basic-info__item">
         <base-input
@@ -21,9 +17,7 @@
           label="Description"
           placeholder="Enter project description"
         />
-        <div class="basic-info__count">
-          {{ getDescriptionLength }} / 8192
-        </div>
+        <div class="basic-info__count">{{ getDescriptionLength }} / 8192</div>
       </div>
     </div>
     <div class="basic-info__buttons">
@@ -53,7 +47,11 @@ import BaseButton from '@/app/common/BaseButton'
 
 export default {
   name: 'BasicInfo',
-  components: { BaseButton, BaseTextarea, BaseInput },
+  components: {
+    BaseButton,
+    BaseTextarea,
+    BaseInput,
+  },
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
@@ -84,12 +82,13 @@ export default {
 
         this.loading = true
 
-        projectsController.createProject(this.newProject)
+        projectsController
+          .createProject(this.newProject)
           .then((data) => {
             this.$router.push(`/project/${data._id}/settings`)
             this.$emit('change-tab', 'board-settings')
           })
-          .finally(() => this.loading = false)
+          .finally(() => (this.loading = false))
       } else {
         console.log('user tried to update project')
       }
@@ -117,6 +116,7 @@ export default {
   max-width: 510px;
   display: flex;
   flex-direction: column;
+
   &__item {
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -127,8 +127,8 @@ export default {
     display: flex;
     justify-content: flex-end;
     line-height: 1;
-    font-family: "Rubik", sans-serif;
-    color: #7B7B7B;
+    font-family: 'Rubik', sans-serif;
+    color: #7b7b7b;
     font-size: 12px;
     margin-top: 4px;
   }
@@ -137,15 +137,19 @@ export default {
     margin: 0;
     line-height: 1;
   }
+
   &__items {
     flex: 1 1 auto;
   }
+
   &__buttons {
     margin-top: 30px;
     display: flex;
   }
+
   &__button {
     flex: 0 0 222px;
+
     &:not(:last-child) {
       margin-right: 10px;
     }

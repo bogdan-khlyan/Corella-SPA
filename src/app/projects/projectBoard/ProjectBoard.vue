@@ -1,14 +1,7 @@
 <template>
   <div class="project-board">
-    <transition
-      name="fade"
-      mode="out-in"
-      appear
-    >
-      <div
-        v-if="loading"
-        class="project-board__columns-wrapper"
-      >
+    <transition name="fade" mode="out-in" appear>
+      <div v-if="loading" class="project-board__columns-wrapper">
         <project-board-column
           v-for="projectColumnData in projectTemplate.slice(0, columnsCount)"
           :key="projectColumnData.column"
@@ -19,10 +12,7 @@
         />
       </div>
 
-      <div
-        v-else
-        class="project-board__columns-wrapper"
-      >
+      <div v-else class="project-board__columns-wrapper">
         <step-animation
           :wrapper="mainWrapper"
           @item-complete="handleItemComplete"
@@ -121,9 +111,10 @@ export default {
     getProjectById(id) {
       this.loading = true
 
-      projectsController.getProjectById(id)
-        .then((project) => this.project = project)
-        .finally(() => this.loading = false)
+      projectsController
+        .getProjectById(id)
+        .then((project) => (this.project = project))
+        .finally(() => (this.loading = false))
     },
 
     handleItemComplete({ index }) {

@@ -1,23 +1,19 @@
 <template>
   <div
     class="project-task-card"
-    @click="$router.push(`/project/${$route.params.projectId}/task/${projectTask.id}`)"
+    @click="
+      $router.push(`/project/${$route.params.projectId}/task/${projectTask.id}`)
+    "
   >
     <div class="project-task-card__content">
       <template v-if="!loading">
-        <div class="project-task-card__title">
-          # {{ projectTask.id }}
-        </div>
+        <div class="project-task-card__title"># {{ projectTask.id }}</div>
         <div class="project-task-card__description">
           {{ projectTask.description }}
         </div>
       </template>
 
-      <el-skeleton
-        v-else
-        animated
-        :rows="1"
-      />
+      <el-skeleton v-else animated :rows="1" />
     </div>
   </div>
 </template>

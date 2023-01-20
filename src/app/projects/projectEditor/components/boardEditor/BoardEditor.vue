@@ -12,17 +12,12 @@
 
       <draggable
         v-model="columns"
-
         v-bind="dragOptions"
         style="display: flex"
-
         v-on="dragListeners"
       >
-        <template #item="{element}">
-          <column-input
-            :column="element"
-            @delete="deleteColumn"
-          />
+        <template #item="{ element }">
+          <column-input :column="element" @delete="deleteColumn" />
         </template>
       </draggable>
       <button
@@ -35,10 +30,7 @@
         </el-icon>
       </button>
 
-      <column-input
-        :column="doneColumn"
-        :delete-disabled="true"
-      />
+      <column-input :column="doneColumn" :delete-disabled="true" />
     </div>
   </div>
 </template>
@@ -51,7 +43,11 @@ import { v4 as uuid } from 'uuid'
 
 export default {
   name: 'ColumnsInput',
-  components: { ColumnInput, Plus, draggable },
+  components: {
+    ColumnInput,
+    Plus,
+    draggable,
+  },
   data() {
     return {
       backlogColumn: {
@@ -109,6 +105,7 @@ export default {
 
   &__label {
     padding-left: 12px;
+
     > label {
       font-family: Rubik;
       font-style: normal;
@@ -116,7 +113,7 @@ export default {
       font-size: 12px;
       line-height: 16px;
 
-      color: #7B7B7B;
+      color: #7b7b7b;
     }
   }
 
@@ -129,7 +126,7 @@ export default {
     margin: 12px;
 
     width: 160px;
-    border: 2px dashed #04A481;
+    border: 2px dashed #04a481;
     border-radius: 4px;
 
     background-color: transparent;
@@ -137,9 +134,8 @@ export default {
     cursor: pointer;
 
     .el-icon {
-      font-size: 24px!important;
+      font-size: 24px !important;
     }
   }
-
 }
 </style>

@@ -1,0 +1,62 @@
+<template>
+  <div
+    class="project-task-card"
+    @click="
+      $router.push(`/project/${$route.params.projectId}/task/${projectTask.id}`)
+    "
+  >
+    <div class="project-task-card__content">
+      <template v-if="!loading">
+        <div class="project-task-card__title"># {{ projectTask.id }}</div>
+        <div
+          class="project-task-card__description"
+          v-html="projectTask.description"
+        ></div>
+      </template>
+
+      <el-skeleton v-else animated :rows="1" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ProjectBoardColumnTaskCard',
+  props: {
+    projectTask: {
+      type: Object,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
+}
+</script>
+
+<style scoped lang="scss">
+.project-task-card {
+  font-family: Open Sans, sans-serif;
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &__content {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 12px;
+    line-height: 16px;
+    color: $text-grey;
+  }
+
+  &__description {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 19px;
+    color: #212121;
+  }
+}
+</style>

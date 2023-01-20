@@ -3,17 +3,15 @@
     title="Task #242"
     :show-edit-button="true"
     :show-delete-button="false"
-    @edit="$router.push(`/project/${$route.params.projectId}/task/${$route.params.taskId}/edit`)"
+    @edit="
+      $router.push(
+        `/project/${$route.params.projectId}/task/${$route.params.taskId}/edit`
+      )
+    "
     @delete="$router.push('/project/1/board')"
   >
-    <transition
-      name="el-fade-in-linear"
-      mode="out-in"
-    >
-      <div
-        v-if="task"
-        class="view-task"
-      >
+    <transition name="el-fade-in-linear" mode="out-in">
+      <div v-if="task" class="view-task">
         <div class="view-task__row">
           <div class="view-task__column">
             <div class="view-task__main">
@@ -38,11 +36,7 @@
           </div>
         </div>
       </div>
-      <div
-        v-else
-        v-loading="true"
-        style="height: 440px"
-      />
+      <div v-else v-loading="true" style="height: 440px" />
     </transition>
   </task-page-wrapper>
 </template>
@@ -58,7 +52,11 @@ import { tasksController } from '@/app/projects/tasks/tasks.controller'
 export default {
   name: 'Task',
   components: {
-    ViewTaskMembers, UploadFiles, ViewTaskCollapse, ViewTaskDescription, TaskPageWrapper, 
+    ViewTaskMembers,
+    UploadFiles,
+    ViewTaskCollapse,
+    ViewTaskDescription,
+    TaskPageWrapper,
   },
   data() {
     return {
@@ -73,12 +71,13 @@ export default {
   },
   created() {
     setTimeout(() => {
-      tasksController.getTaskById(this.taskId)
+      tasksController
+        .getTaskById(this.taskId)
         .then((task) => {
           console.log(task)
           this.task = task
         })
-        .finally(() => this.loading = false)
+        .finally(() => (this.loading = false))
     }, 700)
   },
 }
@@ -90,25 +89,30 @@ export default {
     display: flex;
     margin: 24px -12px 0px -12px;
   }
+
   &__item {
     margin: 0px 0px 27px 0px;
   }
+
   &__column {
     flex: 0 1 50%;
     padding: 0px 12px;
   }
+
   &__members {
     margin: 0px 0px 44px 0px;
   }
+
   &__collapse {
-     margin: 50px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
   }
 }
+
 .view-task-item {
   &__text {
     padding: 15px 20px;
-    background-color: #FBFBFB;
-    font-family: "Rubik";
+    background-color: #fbfbfb;
+    font-family: 'Rubik';
   }
 }
 </style>

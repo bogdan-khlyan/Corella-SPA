@@ -1,9 +1,6 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition
-      name="el-fade-in-linear"
-      mode="out-in"
-    >
+    <transition name="el-fade-in-linear" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>
@@ -21,5 +18,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/scss/index";
+@import './assets/scss/index';
 </style>

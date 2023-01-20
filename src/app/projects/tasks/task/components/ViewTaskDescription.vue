@@ -2,10 +2,7 @@
   <div class="view-task-description">
     <base-title text="Task Description" />
     <div class="view-task-description__content">
-      <quill-editor
-        v-model:value="test"
-        :disabled="true"
-      />
+      <quill-editor v-model:value="test" :disabled="true" />
     </div>
   </div>
 </template>
@@ -16,7 +13,10 @@ import { quillEditor } from 'vue3-quill'
 
 export default {
   name: 'ViewTaskDescription',
-  components: { BaseTitle, quillEditor },
+  components: {
+    BaseTitle,
+    quillEditor,
+  },
   props: {
     description: { type: String },
   },
@@ -36,13 +36,13 @@ export default {
   display: flex;
   height: 100%;
   flex-direction: column;
+
   &__content {
     flex: 1 1 auto;
     //padding: 16px 20px;
-    background-color: #FBFBFB;
+    background-color: #fbfbfb;
     border-radius: 4px;
   }
-
 }
 </style>
 
@@ -51,6 +51,7 @@ export default {
   .ql-toolbar {
     display: none;
   }
+
   .ql-container {
     border: none;
   }

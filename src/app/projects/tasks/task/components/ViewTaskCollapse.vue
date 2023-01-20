@@ -7,7 +7,7 @@
     <div class="view-task-collapse__content">
       <el-collapse>
         <el-collapse-item
-          v-for="(issue,index) in issues"
+          v-for="(issue, index) in issues"
           :key="index"
           :name="index"
           :title="issue.title"
@@ -39,10 +39,9 @@ export default {
   },
   methods: {
     getIssues() {
-      tasksController.getIssues()
-        .then((issues) => {
-          this.issues = issues
-        })
+      tasksController.getIssues().then((issues) => {
+        this.issues = issues
+      })
     },
   },
 }
@@ -50,22 +49,25 @@ export default {
 <style lang="scss">
 .view-task-collapse {
   padding: 24px 0px;
-  border-top: 1px solid #EEEEEE;
-  border-bottom: 1px solid #EEEEEE;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+
   &__title {
     margin: 0px 0px 16px 0px;
     position: relative;
     display: inline-block;
+
     &--text {
-      font-family: "Rubik";
+      font-family: 'Rubik';
       font-size: 18px;
     }
+
     &--count {
       position: absolute;
       top: -3px;
       right: -30px;
       border-radius: 50%;
-      background-color: #F2301A;
+      background-color: #f2301a;
       color: #fff;
       padding: 2px;
       min-height: 24px;
@@ -79,41 +81,44 @@ export default {
     }
   }
 }
+
 .el-collapse {
   border: none;
 }
+
 .el-collapse-item {
   margin: 0px 0px 16px 0px;
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
 
   &:last-child {
     margin: 0;
   }
+
   &__wrap {
     border: none;
-    background-color: #FBFBFB;
-
+    background-color: #fbfbfb;
   }
+
   &__header {
     border: none;
-    background-color: #FBFBFB;
+    background-color: #fbfbfb;
     padding: 16px 20px;
     font-weight: 400;
-    font-family: "Rubik";
+    font-family: 'Rubik';
     font-size: 16px;
     min-height: 48px;
     height: auto;
     line-height: 18px;
   }
+
   &__content {
     padding: 0px 20px 16px 20px;
-    font-family: "Rubik";
+    font-family: 'Rubik';
     font-size: 14px;
     line-height: 16px;
   }
-  &__arrow {
 
+  &__arrow {
   }
 }
-
 </style>

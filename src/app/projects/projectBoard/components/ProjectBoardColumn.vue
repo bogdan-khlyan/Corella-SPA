@@ -1,22 +1,13 @@
 <template>
-  <div
-    ref="projectBoardColumn"
-    class="project-board-column"
-  >
+  <div ref="projectBoardColumn" class="project-board-column">
     <div
       v-if="leftArrow"
       class="project-board-column__arrow"
       @click="$emit('click-left-arrow')"
     >
-      <img
-        src="@/assets/images/icons/common/circle-sector.png"
-        alt=""
-      >
+      <img src="@/assets/images/icons/common/circle-sector.png" alt="" />
       <a>
-        <img
-          src="@/assets/images/icons/common/icon-arrow.svg"
-          alt=""
-        >
+        <img src="@/assets/images/icons/common/icon-arrow.svg" alt="" />
       </a>
     </div>
 
@@ -25,15 +16,9 @@
       class="project-board-column__arrow right"
       @click="$emit('click-right-arrow')"
     >
-      <img
-        src="@/assets/images/icons/common/circle-sector2.png"
-        alt=""
-      >
+      <img src="@/assets/images/icons/common/circle-sector2.png" alt="" />
       <a>
-        <img
-          src="@/assets/images/icons/common/icon-arrow.svg"
-          alt=""
-        >
+        <img src="@/assets/images/icons/common/icon-arrow.svg" alt="" />
       </a>
     </div>
 
@@ -42,10 +27,7 @@
         {{ projectColumnData.column }}
       </template>
 
-      <el-skeleton
-        v-else
-        animated
-      >
+      <el-skeleton v-else animated>
         <template #template>
           <el-skeleton-item variant="text" />
         </template>
@@ -63,7 +45,7 @@
         v-bind="dragOptions"
         v-on="dragListeners"
       >
-        <template #item="{element}">
+        <template #item="{ element }">
           <project-board-column-task-card
             :loading="loading"
             :project-task="element"
@@ -178,7 +160,7 @@ export default {
 
 <style scoped lang="scss">
 .project-board-column {
-  background-color: #EFF3EF;
+  background-color: #eff3ef;
   border-radius: 8px;
   flex-basis: 346px;
   max-width: 400px;
@@ -245,7 +227,6 @@ export default {
 
       z-index: 1;
     }
-
   }
 
   &--inner-content {

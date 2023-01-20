@@ -1,16 +1,10 @@
 <template>
-  <base-page-wrapper
-    :title="title"
-    :loading="loading"
-  >
+  <base-page-wrapper :title="title" :loading="loading">
     <div class="edit-task">
       <div class="edit-task__content">
         <div class="edit-task__column">
           <div class="edit-task__input">
-            <base-input
-              v-model="task.title"
-              label="Title"
-            />
+            <base-input v-model="task.title" label="Title" />
           </div>
           <div class="edit-task__select">
             <edit-task-select />
@@ -21,9 +15,7 @@
         </div>
         <div class="edit-task__column">
           <div class="edit-task__description">
-            <edit-task-description
-              v-model="task.description"
-            />
+            <edit-task-description v-model="task.description" />
           </div>
         </div>
       </div>
@@ -48,7 +40,11 @@ import { tasksController } from '@/app/projects/tasks/tasks.controller'
 export default {
   name: 'EditTask',
   components: {
-    EditTaskSelect, BasePageWrapper, BaseInput, EditTaskDescription, UploadFile, 
+    EditTaskSelect,
+    BasePageWrapper,
+    BaseInput,
+    EditTaskDescription,
+    UploadFile,
   },
   data() {
     return {
@@ -76,19 +72,19 @@ export default {
     },
   },
   created() {
-    tasksController.getTaskById(this.taskId)
-      .then((task) => {
-        console.log(task)
-        this.task = task
-      })
+    tasksController.getTaskById(this.taskId).then((task) => {
+      console.log(task)
+      this.task = task
+    })
   },
   methods: {
     submit() {
       this.loading = true
       if (this.isEdit) {
         setTimeout(() => {
-          tasksController.updateTask(this.task)
-            .finally(() => this.loading = false)
+          tasksController
+            .updateTask(this.task)
+            .finally(() => (this.loading = false))
         }, 700)
       } else {
         console.log('todo')
@@ -103,7 +99,6 @@ export default {
 
 <style scoped lang="scss">
 .edit-task {
-
   &__content {
     display: flex;
     max-width: 1600px;
@@ -131,6 +126,7 @@ export default {
       width: 100% !important;
     }
   }
+
   &__input {
     margin: 0px 0px 24px 0px;
 
@@ -138,15 +134,17 @@ export default {
       max-width: 600px;
     }
   }
+
   &__select {
     margin: 0px 0px 24px 0px;
   }
-  &__description {
 
+  &__description {
   }
 
   &__submit-button {
     padding: 12px;
+
     > button {
       width: 222px;
       height: 56px;
@@ -157,9 +155,9 @@ export default {
       font-size: 16px;
       line-height: 24px;
 
-      color: #FFFFFF;
+      color: #ffffff;
 
-      background: #0AB258;
+      background: #0ab258;
       border-radius: 4px;
       border: none;
 
@@ -171,6 +169,5 @@ export default {
       }
     }
   }
-
 }
 </style>

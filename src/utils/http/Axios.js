@@ -19,7 +19,7 @@ export class Axios {
                     && !error.config.url.includes('signout')) {
                     Cookies.set('redirectAfterLogin', window.location.href)
                     store.dispatch('user/logout')
-                    window.location.href = `${store.state.appUrl}/login`
+                    window.location.href = `${store.state.appUrl}/login-page`
                 }
 
                 return Promise.reject(error)

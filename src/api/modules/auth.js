@@ -1,5 +1,8 @@
 export default (http) => ({
-  signIn() {
-    console.log(http)
+  signIn(data) {
+    return http.post('/signin', { data })
+  },
+  getMe() {
+    return http.get('/users/me')
   },
 })

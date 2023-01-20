@@ -2,10 +2,12 @@
   <div class="info-profile__avatar">
     <div class="profile-avatar">
       <div class="profile-avatar__image">
-        <img 
-          :src="avatarLink || require('@/assets/images/profile/default-avatar.jpg')" 
+        <img
+          :src="
+            avatarLink || require('@/assets/images/profile/default-avatar.jpg')
+          "
           alt="User Avatar"
-        >
+        />
       </div>
       <button
         type="button"
@@ -24,13 +26,12 @@
         style="display: none"
         accept=".jpg,.jpeg,.png"
         @change="changeAvatar"
-      >
+      />
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'ProfileAvatar',
   data() {
@@ -58,7 +59,7 @@ export default {
 <style lang="scss">
 .profile-avatar {
   position: relative;
- 
+
   &__image {
     width: 90px;
     height: 90px;
@@ -67,6 +68,7 @@ export default {
     object-fit: cover;
     position: relative;
     overflow: hidden;
+
     &:before {
       content: '';
       position: absolute;
@@ -75,7 +77,7 @@ export default {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border: 4px solid #20C560;
+      border: 4px solid #20c560;
     }
   }
 
@@ -83,7 +85,7 @@ export default {
     position: absolute;
     bottom: -10px;
     right: -15px;
-    background-color: #7280FF;
+    background-color: #7280ff;
     border: none;
     cursor: pointer;
     border-radius: 50%;
@@ -92,10 +94,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
     svg {
       fill: #fff;
     }
   }
 }
-
 </style>

@@ -52,10 +52,9 @@ export default {
       tasksController.updateSelectedMembers(this.selectedMembers)
     },
     getMembers() {
-      tasksController.getMembers()
-        .then((members) => {
-          this.dataMembers = members
-        })
+      tasksController.getMembers().then((members) => {
+        this.dataMembers = members
+      })
     },
   },
 }
@@ -70,6 +69,7 @@ export default {
     background-color: #212121;
     border-radius: 50%;
   }
+
   &__check {
     margin: 0px 0px 0px auto;
     display: none;
@@ -80,42 +80,47 @@ export default {
 <style lang="scss">
 .el-select {
   width: 100%;
-  &__popper {
 
+  &__popper {
   }
+
   &__tags {
     border: none;
+
     ~ span {
       width: 100%;
     }
   }
+
   &__tags-text {
     font-size: 16px;
     color: #212121;
   }
 }
-.el-input {
 
+.el-input {
   &__inner {
     min-height: 56px;
     padding: 0px 20px;
     border-radius: 4px;
-    border: 1px solid #E7E7E7;
+    border: 1px solid #e7e7e7;
   }
 }
+
 .el-select .el-select__tags .el-tag {
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   border-radius: 4px;
   height: 40px;
   display: inline-flex;
   align-items: center;
   margin: 8px 0px 8px 8px;
 }
+
 .el-select .el-select__tags > span {
   display: block;
 }
-.el-select-dropdown {
 
+.el-select-dropdown {
   &__item {
     display: flex;
     align-items: center;
@@ -123,33 +128,40 @@ export default {
     line-height: 58px;
     padding: 0px 22.5px 0px 15px;
     font-weight: 400;
-    font-family: "Rubik";
+    font-family: 'Rubik';
     font-size: 16px;
     color: #212121;
+
     &:hover {
-      background-color: #FAFAFA;
+      background-color: #fafafa;
     }
   }
+
   &__wrap {
     max-height: 290px;
     overflow: auto;
   }
+
   &__list {
     margin: 0 !important;
   }
 }
+
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
+
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   color: inherit;
   font-weight: 400;
   color: #212121;
+
   .edit-task-select__check {
     display: block;
   }
 }
+
 .el-tag {
   &__close {
     height: 16px;
@@ -161,26 +173,29 @@ export default {
       width: 16px;
     }
   }
+
   .el-icon svg {
     margin: 0;
   }
+
   &--small {
     padding: 2px 15px 2px 8px;
   }
 }
+
 .el-tag .el-icon {
   right: 0;
   top: 0;
 }
+
 .el-popper {
   &__arrow {
     display: none;
   }
 }
 
-.el-select__popper.el-popper[role=tooltip] {
+.el-select__popper.el-popper[role='tooltip'] {
   box-shadow: 0px 0px 0px transparent;
-  border: 1px solid #E7E7E7;
+  border: 1px solid #e7e7e7;
 }
-
 </style>

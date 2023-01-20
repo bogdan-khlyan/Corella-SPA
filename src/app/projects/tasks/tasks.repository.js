@@ -44,13 +44,19 @@ export default class TasksRepository {
   async getIssues(id) {
     // const response = await http.get(`/tasks?id={id}`)
     // return response.data.issues
-    return [{
-      title: 'As a user, I want to be able to create new versions for projects and',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur! Iusto natus ratione sequi.',
-    }, {
-      title: 'As user, I want to be able to drag and drop files',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur! Iusto natus ratione sequi.',
-    }]
+    return [
+      {
+        title:
+          'As a user, I want to be able to create new versions for projects and',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur! Iusto natus ratione sequi.',
+      },
+      {
+        title: 'As user, I want to be able to drag and drop files',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eius in quas quisquam sequi, temporibus tenetur! Iusto natus ratione sequi.',
+      },
+    ]
   }
 
   async uploadFiles(files) {
@@ -86,23 +92,28 @@ export default class TasksRepository {
         id: 1,
         name: 'Lana',
         speciality: 'Designer',
-      }, {
+      },
+      {
         id: 2,
         name: 'Anastasiya',
         speciality: 'Front-end',
-      }, {
+      },
+      {
         id: 3,
         name: 'Mary-Anna',
         speciality: 'Back-end',
-      }, {
+      },
+      {
         id: 4,
         name: 'Stanislav',
         speciality: 'Front-end',
-      }, {
+      },
+      {
         id: 5,
         name: 'Alex',
         speciality: 'Front-end',
-      }, {
+      },
+      {
         id: 6,
         name: 'Bogdan',
         speciality: 'Back-end',

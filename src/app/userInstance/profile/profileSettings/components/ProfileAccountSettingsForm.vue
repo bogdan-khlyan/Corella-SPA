@@ -22,9 +22,7 @@
       />
     </div>
     <div class="profile-account-settings__submit">
-      <button :disabled="!isChangeData">
-        Save
-      </button>
+      <button :disabled="!isChangeData">Save</button>
     </div>
   </form>
 </template>
@@ -71,8 +69,9 @@ export default {
     submit() {
       if (this.validate()) {
         this.loading = true
-        userInstanceController.updateProfile(this.profile)
-          .finally(() => this.loading = false)
+        userInstanceController
+          .updateProfile(this.profile)
+          .finally(() => (this.loading = false))
       }
     },
     validate() {
@@ -91,7 +90,7 @@ export default {
       if (this.profile.username && this.profile.username.length > 4) {
         this.errors.username = false
         return true
-      } 
+      }
       this.errors.username = true
       return false
     },
@@ -106,7 +105,7 @@ export default {
       width: 306px;
       height: 56px;
 
-      background: #0AB258;
+      background: #0ab258;
       border-radius: 4px;
       border: none;
 
@@ -116,23 +115,23 @@ export default {
       font-size: 16px;
       line-height: 24px;
 
-      color: #FFFFFF;
+      color: #ffffff;
 
       cursor: pointer;
       transition: 200ms;
 
       &:disabled {
-        background-color: #7B7B7B;
+        background-color: #7b7b7b;
         cursor: no-drop;
+
         &:hover {
-          background-color: #7B7B7B;
+          background-color: #7b7b7b;
         }
       }
 
       &:hover {
         background: #2bc271;
       }
-
     }
   }
 }

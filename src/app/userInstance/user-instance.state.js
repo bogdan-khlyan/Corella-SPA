@@ -23,10 +23,9 @@ export function setIsLoggedIn(isLoggedIn) {
   } else {
     localStorage.removeItem('isLoggedIn')
     userInstanceState.isLoggedIn = false
-    Object.keys(userInstanceState.info)
-      .forEach((key) => {
-        userInstanceState.info[key] = null
-      })
+    Object.keys(userInstanceState.info).forEach((key) => {
+      userInstanceState.info[key] = null
+    })
   }
 }
 

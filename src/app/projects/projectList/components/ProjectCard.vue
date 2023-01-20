@@ -1,12 +1,9 @@
 <template>
-  <router-link
-    class="project-card"
-    :to="`/project/${project._id}/board`"
-  >
+  <router-link class="project-card" :to="`/project/${project._id}/board`">
     <div class="project-card__content">
       <div class="project-card__name">
         <span>{{ project.name }}</span>
-        <hr>
+        <hr />
       </div>
       <div class="project-card__description">
         <span>{{ project.description }}</span>
@@ -31,7 +28,10 @@
 export default {
   name: 'ProjectList',
   props: {
-    project: { type: Object, required: true },
+    project: {
+      type: Object,
+      required: true,
+    },
   },
 }
 </script>
@@ -47,7 +47,7 @@ export default {
 
   &:hover {
     .project-card__content {
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0.0);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     }
   }
 
@@ -62,7 +62,8 @@ export default {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     background: #f2f3f2;
-    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.10), -6px -6px 16px rgba(255, 255, 255, 0.25);
+    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.1),
+      -6px -6px 16px rgba(255, 255, 255, 0.25);
 
     z-index: 0;
 
@@ -93,13 +94,13 @@ export default {
       border: none;
       border-radius: 2px;
 
-      background: linear-gradient(180deg, #20C561 0%, #06A680 100%);
+      background: linear-gradient(180deg, #20c561 0%, #06a680 100%);
     }
-
   }
 
   &__description {
     height: 48px;
+
     > span {
       font-family: Rubik, sans-serif;
       font-style: normal;
@@ -107,7 +108,7 @@ export default {
       font-size: 14px;
       line-height: 17px;
 
-      color: #3F3F3F;
+      color: #3f3f3f;
     }
   }
 
@@ -122,8 +123,10 @@ export default {
       &:first-child {
         padding-left: 0;
       }
+
       &:last-child {
         padding-right: 0;
+
         &:after {
           display: none;
         }
@@ -154,7 +157,6 @@ export default {
         color: #656565;
       }
     }
-
   }
 
   &__hover {
@@ -172,9 +174,9 @@ export default {
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 8px;
     box-sizing: border-box;
-    box-shadow: -5px -5px 10px #FAFBFF, 5px 5px 10px rgba(208, 209, 212, 0.52);
+    box-shadow: -5px -5px 10px #fafbff, 5px 5px 10px rgba(208, 209, 212, 0.52);
 
-    background: linear-gradient(258.69deg, #20C460 0.53%, #04A580 118.49%);
+    background: linear-gradient(258.69deg, #20c460 0.53%, #04a580 118.49%);
 
     z-index: 1;
 
@@ -195,13 +197,11 @@ export default {
 
       text-transform: capitalize;
 
-      color: #FFFFFF;
+      color: #ffffff;
 
       transition: 100ms;
       opacity: inherit;
     }
-
   }
-
 }
 </style>

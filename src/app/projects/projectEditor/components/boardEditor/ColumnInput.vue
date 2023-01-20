@@ -6,26 +6,21 @@
       :disabled="deleteDisabled"
       @click="deleteColumn"
     >
-      <el-icon><close /></el-icon>
+      <el-icon>
+        <close />
+      </el-icon>
     </button>
     <div class="column-card__header">
       <div v-if="inputDisabled">
         {{ column.name }}
       </div>
-      <input
-        v-else
-        :value="column.name"
-        type="text"
-      >
-      <hr>
+      <input v-else :value="column.name" type="text" />
+      <hr />
     </div>
     <div class="column-card__content">
       <div class="column-card__task" />
       <div class="column-card__task" />
-      <div
-        v-show="!twoTask"
-        class="column-card__task"
-      />
+      <div v-show="!twoTask" class="column-card__task" />
     </div>
   </div>
 </template>
@@ -36,12 +31,24 @@ import { Close } from '@element-plus/icons-vue'
 export default {
   name: 'ColumnInput',
   components: { Close },
-  model: { prop: 'column', event: 'input' },
+  model: {
+    prop: 'column',
+    event: 'input',
+  },
   props: {
-    twoTask: { type: Boolean, default: false },
+    twoTask: {
+      type: Boolean,
+      default: false,
+    },
     column: { type: Object },
-    inputDisabled: { type: Boolean, default: false },
-    deleteDisabled: { type: Boolean, default: false },
+    inputDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    deleteDisabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   mounted() {
     console.log(this.column)
@@ -67,7 +74,7 @@ export default {
   width: 175px;
   height: 242px;
 
-  background: #EFF3EF;
+  background: #eff3ef;
   border-radius: 4px;
 
   cursor: pointer;
@@ -84,26 +91,25 @@ export default {
     width: 24px;
     height: 24px;
 
-    background: #F32B2A;
-    border: 2px solid #FFFFFF;
+    background: #f32b2a;
+    border: 2px solid #ffffff;
     border-radius: 50%;
 
     cursor: pointer;
 
     .el-icon {
-      --color: #FFFFFF;
+      --color: #ffffff;
     }
 
     &:disabled {
       cursor: no-drop;
       background: #979797;
     }
-
   }
 
   &__header {
-
-    input, div {
+    input,
+    div {
       padding-top: 12px;
       padding-bottom: 12px;
 
@@ -130,9 +136,8 @@ export default {
       border-radius: 2px;
       border: none;
 
-      background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
+      background: linear-gradient(180deg, #20c560 0%, #04a481 100%);
     }
-
   }
 
   &__task {
@@ -142,7 +147,7 @@ export default {
     width: 100%;
     height: 40px;
 
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 6px;
   }
 
@@ -151,6 +156,5 @@ export default {
       display: none;
     }
   }
-
 }
 </style>

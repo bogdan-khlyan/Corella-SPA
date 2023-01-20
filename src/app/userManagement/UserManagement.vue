@@ -1,50 +1,30 @@
 <template>
   <div class="user-management">
     <div class="user-management__header">
-      <div class="user-management__header-title">
-        User Management
-      </div>
+      <div class="user-management__header-title">User Management</div>
       <button @click="addNewUser">
-        <img
-          src="@/assets/images/icons/buttons/icon-plus.svg"
-          alt="add"
-        >
+        <img src="@/assets/images/icons/buttons/icon-plus.svg" alt="add" />
         <span>Add user</span>
       </button>
     </div>
 
     <div class="user-management__table">
-      <el-table
-        v-loading="loading"
-        :data="users"
-      >
+      <el-table v-loading="loading" :data="users">
         <el-table-column width="60">
           <template #default="scope">
             <base-user-avatar :avatar="scope.row.avatar" />
           </template>
         </el-table-column>
 
-        <el-table-column
-          prop="email"
-          label="E-mail"
-          min-width="200"
-        />
+        <el-table-column prop="email" label="E-mail" min-width="200" />
 
-        <el-table-column
-          prop="username"
-          label="Username"
-          min-width="200"
-        >
+        <el-table-column prop="username" label="Username" min-width="200">
           <template #default="scope">
             {{ scope.row.username }}
           </template>
         </el-table-column>
 
-        <el-table-column
-          prop="isBan"
-          label="Ban"
-          width="200px"
-        >
+        <el-table-column prop="isBan" label="Ban" width="200px">
           <template #default="scope">
             <el-switch
               v-model="scope.row.isBan"
@@ -55,11 +35,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column
-          fixed="right"
-          label="Actions"
-          width="120px"
-        >
+        <el-table-column fixed="right" label="Actions" width="120px">
           <template #default="scope">
             <button
               class="user-management__edit-btn"
@@ -68,7 +44,7 @@
               <img
                 src="@/assets/images/icons/buttons/icon-edit.svg"
                 alt="add"
-              >
+              />
             </button>
           </template>
         </el-table-column>
@@ -87,10 +63,7 @@
       />
     </div>
 
-    <user-management-modal
-      ref="userManagementModal"
-      @update="getUsers"
-    />
+    <user-management-modal ref="userManagementModal" @update="getUsers" />
   </div>
 </template>
 
@@ -117,7 +90,7 @@ export default {
     }
   },
   watch: {
-    '$route'() {
+    $route() {
       if (this.$route.query['create-user'] === null) {
         this.$refs.userManagementModal.openModal()
       }
@@ -138,7 +111,10 @@ export default {
       this.loading = true
       const { limit } = this.pagination
       const { page } = this.pagination
-      const result = await userManagementController.getUsers({ limit, page })
+      const result = await userManagementController.getUsers({
+        limit,
+        page,
+      })
 
       this.users = result.data
       this.total = result.total
@@ -155,14 +131,12 @@ export default {
     editUser(user) {
       this.$refs.userManagementModal.openModal(user)
     },
-
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .user-management {
-
   &__header {
     display: flex;
     align-items: center;
@@ -205,7 +179,7 @@ export default {
         margin-right: 8px;
       }
 
-      transition: .3s ease-in;
+      transition: 0.3s ease-in;
 
       &:hover {
         background: $primary-bg-hover;
@@ -226,7 +200,7 @@ export default {
     border-radius: 6px;
     cursor: pointer;
 
-    transition: .3s ease-in;
+    transition: 0.3s ease-in;
 
     &:hover {
       background: $primary-bg-hover;
@@ -241,8 +215,8 @@ export default {
     border-radius: 100%;
     margin-right: 16px;
   }
-
-}</style>
+}
+</style>
 
 <style lang="scss">
 .user-management {
@@ -257,7 +231,7 @@ export default {
       text-align: left;
       color: $text-title;
 
-      border-bottom: 1px solid #06A680 !important;
+      border-bottom: 1px solid #06a680 !important;
     }
 
     .el-table__row {
@@ -280,7 +254,8 @@ export default {
   &__pagination {
     margin-top: 20px;
 
-    .el-pagination, .el-pager {
+    .el-pagination,
+    .el-pager {
       display: flex;
     }
 
@@ -305,9 +280,10 @@ export default {
 
     .el-pager li.active {
       color: $text-white;
-      background: linear-gradient(180deg, #20C560 0%, #04A481 100%);
+      background: linear-gradient(180deg, #20c560 0%, #04a481 100%);
       border-radius: 100%;
       cursor: default;
     }
   }
-}</style>
+}
+</style>

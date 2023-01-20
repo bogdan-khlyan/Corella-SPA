@@ -3,31 +3,15 @@
     <span class="table-items__label">Members</span>
     <div class="table-items__main">
       <div class="table-items__header">
-        <div
-          v-if="showMembers"
-          class="table-items__header--item"
-        >
-          Member
-        </div>
-        <div class="table-items__header--item">
-          Role
-        </div>
+        <div v-if="showMembers" class="table-items__header--item">Member</div>
+        <div class="table-items__header--item">Role</div>
       </div>
       <div class="table-items__body">
         <ul class="table-items__list">
-          <li
-            v-for="member in members"
-            :key="member.id"
-          >
-            <div
-              v-if="showMembers"
-              class="table-items__member"
-            >
+          <li v-for="member in members" :key="member.id">
+            <div v-if="showMembers" class="table-items__member">
               <div class="table-items__member--avatar">
-                <img
-                  src="@/assets/images/profile/default-avatar.jpg"
-                  alt=""
-                >
+                <img src="@/assets/images/profile/default-avatar.jpg" alt="" />
               </div>
               <div class="table-items__member--username">
                 {{ member.username }}
@@ -41,32 +25,28 @@
                 />
               </div>
             </div>
-            <div
-              v-else
-              class="table-items__role"
-            >
+            <div v-else class="table-items__role">
               <div class="table-items__role--name">
                 {{ member.role }}
               </div>
               <button class="table-items__role--edit-button">
-                <svg-icon :icon="require('@/assets/images/icons/tasks/edit.svg')" />
+                <svg-icon
+                  :icon="require('@/assets/images/icons/tasks/edit.svg')"
+                />
               </button>
             </div>
-            <button
-              type="button"
-              class="table-items__btn-delete"
-            >
-              <svg-icon :icon="require('@/assets/images/icons/tasks/delete.svg')" />
+            <button type="button" class="table-items__btn-delete">
+              <svg-icon
+                :icon="require('@/assets/images/icons/tasks/delete.svg')"
+              />
             </button>
           </li>
         </ul>
         <div class="table-items__button">
-          <base-button
-            type="outline"
-            :title="btnTitle"
-            @click="openModal"
-          >
-            <el-icon><plus /></el-icon>
+          <base-button type="outline" :title="btnTitle" @click="openModal">
+            <el-icon>
+              <plus />
+            </el-icon>
           </base-button>
         </div>
       </div>
@@ -86,23 +66,45 @@ import RoleModal from '@/app/projects/projectEditor/components/membersTable/comp
 export default {
   name: 'MembersTableColumn',
   components: {
-    RoleModal, InviteMemberModal, BaseButton, BaseSelect, Plus, 
+    RoleModal,
+    InviteMemberModal,
+    BaseButton,
+    BaseSelect,
+    Plus,
   },
 
   props: {
     columnNames: Array,
     tableData: Array,
     tableName: String,
-    showMembers: { type: Boolean, default: false },
+    showMembers: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       options: [
-        { value: 'Owner', label: 'Owner' },
-        { value: 'Admin', label: 'Admin' },
-        { value: 'Moderator', label: 'Moderator' },
-        { value: 'Developer', label: 'Developer' },
-        { value: 'Guest', label: 'Guest' },
+        {
+          value: 'Owner',
+          label: 'Owner',
+        },
+        {
+          value: 'Admin',
+          label: 'Admin',
+        },
+        {
+          value: 'Moderator',
+          label: 'Moderator',
+        },
+        {
+          value: 'Developer',
+          label: 'Developer',
+        },
+        {
+          value: 'Guest',
+          label: 'Guest',
+        },
       ],
       members: [
         {
@@ -148,39 +150,44 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+
   &__main {
-    border: 1px solid #E7E7E7;
+    border: 1px solid #e7e7e7;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
   }
+
   &__label {
     font-family: Rubik, sans-serif;
     font-size: 12px;
-    color: #7B7B7B;
+    color: #7b7b7b;
     margin-bottom: 4px;
   }
+
   &__header {
     display: flex;
     justify-content: space-between;
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
     padding: 12px 34px;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
 
     &--item {
       font-family: Rubik, sans-serif;
-      color: #7C7B86;
+      color: #7c7b86;
       font-size: 14px;
     }
   }
-  &__action {
 
+  &__action {
   }
+
   &__button {
     padding: 20px;
   }
+
   &__body {
     padding-right: 20px;
     padding-left: 20px;
@@ -219,7 +226,7 @@ export default {
 
     &--name {
       flex: 1 1 auto;
-      font-family: "Rubik", sans-serif;
+      font-family: 'Rubik', sans-serif;
     }
 
     &--edit-button {
@@ -229,6 +236,7 @@ export default {
       cursor: pointer;
       display: flex;
       align-items: center;
+
       path {
         fill: #212121;
       }
@@ -239,10 +247,11 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+
     li {
       flex: 1 1 auto;
       padding: 16px 14px;
-      border-bottom: 1px solid #E7E7E7;
+      border-bottom: 1px solid #e7e7e7;
       cursor: pointer;
       transition: all 0.3s ease 0s;
       position: relative;
@@ -250,7 +259,7 @@ export default {
       align-items: center;
 
       &:before {
-        content: "";
+        content: '';
         position: absolute;
         transition: all 0.3s ease 0s;
         z-index: 2;
@@ -261,13 +270,12 @@ export default {
         height: calc(100% + 2px);
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
-        background-color: #06A680;
-
+        background-color: #06a680;
       }
 
       @media (any-hover: hover) {
         &:hover {
-          background-color: #FAFAFA;
+          background-color: #fafafa;
 
           &:before {
             transform: translate(0, -50%) scale(1);
@@ -285,9 +293,7 @@ export default {
     margin-left: 41px;
     border: none;
     padding: 0;
-
   }
-
 }
 </style>
 
@@ -295,7 +301,7 @@ export default {
 .table-items {
   &__btn-delete {
     svg {
-      fill: #F32B2A;
+      fill: #f32b2a;
       width: 22px;
       height: 22px;
     }
@@ -306,6 +312,7 @@ export default {
       width: 20px;
       height: 20px;
     }
+
     path {
       fill: #212121;
     }
@@ -332,7 +339,5 @@ export default {
       }
     }
   }
-
 }
-
 </style>
