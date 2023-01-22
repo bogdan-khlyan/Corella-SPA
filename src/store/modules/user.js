@@ -18,13 +18,16 @@ export const useUserStore = defineStore({
     },
     async getMe() {
       this.user = await api.auth.getMe()
-      console.log(this.user)
     },
     async logout() {
       try {
-        console.log('asd')
+        await api.auth.signout()
       } catch (e) {
         console.log(e)
+        cookies.remove('.AspNetCore.Cookies')
+      } finally {
+        this.user = null
+        this.loggedIn = false
       }
     },
   },

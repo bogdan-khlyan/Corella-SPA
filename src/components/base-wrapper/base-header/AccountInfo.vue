@@ -7,7 +7,7 @@
           class="current-user__avatar"
           @click="$router.push('/profile')"
         >
-          <base-user-avatar :avatar="userInfo.avatar" :size="40" />
+          <base-user-avatar :avatar="user.login" :size="40" />
         </div>
       </transition>
       <transition name="el-fade-in-linear">
@@ -39,15 +39,15 @@
           </a>
         </div>
         <div v-else class="current-user__avatar">
-          <base-user-avatar :avatar="userInfo.avatar" :size="40" />
+          <base-user-avatar :avatar="user.avatar" :size="40" />
         </div>
       </template>
-      <div class="current-user__drop-down">
+      <div v-if="user" class="current-user__drop-down">
         <div class="current-user__drop-down--name">
-          <span>{{ userInfo.username }}</span>
+          <span>{{ user.login }}</span>
         </div>
-        <div class="current-user__drop-down--email">
-          <span>{{ userInfo.email }}</span>
+        <div v-if="user" class="current-user__drop-down--email">
+          <span>{{ user.login }}</span>
         </div>
         <hr />
         <div class="current-user__drop-down--link">
@@ -62,10 +62,9 @@
 </template>
 
 <script>
-import BaseUserAvatar from '@/app/common/BaseUserAvatar'
-import { appState } from '@/app/app.state'
-import { userInstanceState } from '@/app/userInstance/user-instance.state'
-import { userInstanceController } from '@/app/userInstance/user-instance.controller'
+import BaseUserAvatar from '@/components/BaseUserAvatar'
+// import { appState } from '@/app/app.state'
+// import { userInstanceState } from '@/app/userInstance/user-instance.state'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/store/modules/user'
 
@@ -81,12 +80,10 @@ export default {
   computed: {
     ...mapState(useUserStore, ['user']),
 
-    userInfo() {
-      return userInstanceState.info
-    },
     windowWidth() {
-      return appState.windowWidth
+      return window.innerWidth
     },
+
     avatarSize() {
       if (this.windowWidth > 768) {
         return 42
@@ -98,8 +95,9 @@ export default {
     },
   },
   methods: {
-    logout() {
-      userInstanceController.logout()
+    async logout() {
+      await this.userStore.logout()
+      this.$router.push('/login-page')
     },
   },
 }

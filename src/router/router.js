@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/',
     name: 'base-wrapper',
-    component: () => import('@/app/common/baseWrapper/BaseWrapper'),
+    component: () => import('@/components/base-wrapper/BaseWrapper'),
     children: [
       {
         path: '/',

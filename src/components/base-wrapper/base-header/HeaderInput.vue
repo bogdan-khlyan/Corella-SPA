@@ -2,11 +2,9 @@
   <div class="header-search">
     <div
       class="header-search__icon"
-      :class="{'header-search__icon--active': searchText.length}"
+      :class="{ 'header-search__icon--active': searchText.length }"
     >
-      <svg-icon
-        :icon="require('@/assets/images/icons/header/loupe.svg')"
-      />
+      <svg-icon :icon="require('@/assets/images/icons/header/loupe.svg')" />
     </div>
 
     <input
@@ -14,12 +12,12 @@
       type="text"
       placeholder="search..."
       @input="setSearchText"
-    >
+    />
   </div>
 </template>
 
 <script>
-import { baseHeaderState } from '@/app/common/baseWrapper/baseHeader/base-header.state'
+// import { baseHeaderState } from '@/app/common/baseWrapper/baseHeader/base-header.state'
 
 export default {
   name: 'HeaderInput',
@@ -30,7 +28,7 @@ export default {
   },
   methods: {
     setSearchText() {
-      baseHeaderState.searchValue = this.searchText
+      // baseHeaderState.searchValue = this.searchText
     },
   },
 }
@@ -81,9 +79,8 @@ export default {
     }
 
     &:focus {
-      border-color: #0AB258;
+      border-color: #0ab258;
     }
-
   }
 
   input::placeholder {
@@ -93,7 +90,7 @@ export default {
     font-size: 12px;
     line-height: 14px;
     text-transform: capitalize;
-    color: #BDBCC8;
+    color: #bdbcc8;
   }
 }
 </style>
@@ -101,7 +98,7 @@ export default {
 <style lang="scss">
 .header-search__icon--active {
   path {
-    fill: #0AB258;
+    fill: #0ab258;
   }
 }
 </style>

@@ -136,11 +136,18 @@ export default {
       this.createStageLoading = true
 
       const lastDraggableProjectStage =
-        this.draggableProjectStages[this.draggableProjectStages.length - 1]
+        this.draggableProjectStages[this.draggableProjectStages.length - 1] ||
+        null
 
       const projectStage = await this.$api.projects.createStage(
         this.projectId,
-        { name: `New column${lastDraggableProjectStage.position + 1}` }
+        {
+          name: `New column${
+            lastDraggableProjectStage
+              ? lastDraggableProjectStage.position + 1
+              : 1
+          }`,
+        }
       )
 
       this.draggableProjectStages.push(projectStage)

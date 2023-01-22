@@ -45,14 +45,14 @@
 </template>
 
 <script>
-import BaseHeader from '@/app/common/baseWrapper/baseHeader/BaseHeader'
-import BaseSidebar from '@/app/common/baseWrapper/baseSidebar/BaseSidebar'
-import sidebarCollapse from '@/app/common/baseWrapper/baseSidebar/sidebar-mixin'
-import { baseWrapperConfig } from '@/app/common/baseWrapper/base-wrapper.config'
-import { baseWrapperState } from '@/app/common/baseWrapper/base-wrapper.state'
-import { appState } from '@/app/app.state'
-import { baseSidebarState } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
-import { userInstanceStateInit } from '@/app/userInstance/user-instance.state'
+import BaseHeader from '@/components/base-wrapper/base-header/BaseHeader'
+import BaseSidebar from '@/components/base-wrapper/base-sidebar/BaseSidebar'
+import sidebarCollapse from '@/components/base-wrapper/base-sidebar/sidebar-mixin'
+import { baseWrapperConfig } from '@/components/base-wrapper/base-wrapper.config'
+import { baseWrapperState } from '@/components/base-wrapper/base-wrapper.state'
+// import { appState } from '@/app/app.state'
+import { baseSidebarState } from '@/components/base-wrapper/base-sidebar/base-sidebar.state'
+// import { userInstanceStateInit } from '@/app/userInstance/user-instance.state'
 import { useUserStore } from '@/store/modules/user'
 
 export default {
@@ -82,7 +82,7 @@ export default {
       return { 'base-wrapper__sidebar--collapsed': this.isCollapse }
     },
     windowWidth() {
-      return appState.windowWidth
+      return window.innerWidth
     },
     contentStyles() {
       if (this.windowWidth <= 980) {

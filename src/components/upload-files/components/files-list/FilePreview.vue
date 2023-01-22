@@ -12,14 +12,14 @@
 
     <el-image
       v-if="isImage"
-      :src="file.link"
-      :preview-src-list="[file.link]"
+      :src="fileInfo.link"
+      :preview-src-list="[fileInfo.link]"
       :initial-index="1"
     />
     <a
       v-else
       class="file-preview__file--wrapper"
-      :href="file.link"
+      :href="fileInfo.link"
       :download="file.name"
     >
       <div class="file-preview__file">
@@ -46,6 +46,7 @@ export default {
       default: false,
     },
   },
+  emits: ['remove-file'],
   data() {
     return {
       imageExtensions: ['png', 'jpg', 'jpeg'],
@@ -63,30 +64,61 @@ export default {
         'psd',
         'js',
       ],
+      fileInfo: {
+        extension: '',
+        type: '',
+        name: '',
+        link: '',
+      },
+      isLoadedFile: false,
     }
   },
   computed: {
     icon() {
       if (
-        this.knownFileExtensions.find((item) => this.file.extension === item)
+        this.knownFileExtensions.find(
+          (item) => this.fileInfo.extension === item
+        )
       ) {
-        return require(`@/assets/images/icons/extensions/${this.file.extension}.svg`)
+        // eslint-disable-next-line import/no-dynamic-require
+        return require(`@/assets/images/icons/extensions/${this.fileInfo.extension}.svg`)
       }
       return require('@/assets/images/icons/extensions/stub.svg')
     },
+
     isImage() {
       return (
-        this.imageExtensions.indexOf(this.file.extension) !== -1 &&
-        this.file.type === 'image'
+        this.imageExtensions.indexOf(this.fileInfo.extension) !== -1 &&
+        this.fileInfo.type === 'image'
       )
     },
+
     fileName() {
-      if (this.file.name.length > 10) {
-        return `${this.file.name.slice(0, 6)}...${this.file.name
+      if (this.fileInfo.name.length > 10) {
+        return `${this.fileInfo.name.slice(0, 6)}...${this.fileInfo.name
           .split('.')
           .pop()}`
       }
-      return this.file.name
+      return this.fileInfo.name
+    },
+  },
+  created() {
+    console.log(this.file)
+    this.createFileInfo()
+  },
+  methods: {
+    createFileInfo() {
+      if (!this.file.path) {
+        this.fileInfo = this.file
+      } else {
+        this.fileInfo.name = this.file.name
+        this.fileInfo.link = `${process.env.VUE_APP_BACKEND_HOST}${this.file.path}`
+        const extension = this.file.name.split('.').pop()
+        this.fileInfo.extension = extension
+        if (this.imageExtensions.includes(extension)) {
+          this.fileInfo.type = 'image'
+        }
+      }
     },
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <task-page-wrapper
-    title="Task #242"
+    :title="`Task #${task.id}`"
     :show-edit-button="true"
     :show-delete-button="false"
     @edit="
@@ -24,7 +24,7 @@
                 <view-task-members />
               </div>
               <div class="view-task__files">
-                <upload-files :is-view-mode="true" />
+                <upload-files v-model="task.attachments" :is-view-mode="true" />
               </div>
               <div class="view-task__collapse">
                 <view-task-collapse />
@@ -60,7 +60,10 @@ export default {
   data() {
     return {
       loading: false,
-      task: null,
+      task: {
+        attachments: [],
+        description: '',
+      },
     }
   },
   computed: {

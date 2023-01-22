@@ -2,7 +2,7 @@
   <div class="view-task-description">
     <base-title text="Task Description" />
     <div class="view-task-description__content">
-      <quill-editor v-model:value="test" :disabled="true" />
+      <quill-editor v-model:value="taskDescription" :disabled="true" />
     </div>
   </div>
 </template>
@@ -20,13 +20,13 @@ export default {
   props: {
     description: { type: String },
   },
-  data() {
-    return {
-      test: null,
-    }
-  },
-  created() {
-    this.test = this.description
+  computed: {
+    taskDescription: {
+      get() {
+        return this.description
+      },
+      set(value) {},
+    },
   },
 }
 </script>

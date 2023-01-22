@@ -2,6 +2,7 @@ import { imgToSvgByRef } from '@/helpers/imgToSvg'
 
 const SvgIcon = (props, context) => {
   const onload = (e) => {
+    console.log(e)
     if (e.path) {
       imgToSvgByRef(e.path[0]).then((svg) => {
         svg.addEventListener('click', (e) => context.emit('click', e))

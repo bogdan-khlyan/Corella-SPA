@@ -112,9 +112,9 @@
 import {
   baseSidebarState,
   setSidebarCollapse,
-} from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
-import { baseSidebarConfig } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.config'
-import { appState } from '@/app/app.state'
+} from '@/components/base-wrapper/base-sidebar/base-sidebar.state'
+import { baseSidebarConfig } from '@/components/base-wrapper/base-sidebar/base-sidebar.config'
+// import { appState } from '@/app/app.state'
 
 export default {
   name: 'BaseSidebar',
@@ -161,7 +161,7 @@ export default {
         .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
     },
     windowWidth() {
-      return appState.windowWidth
+      return window.innerWidth
     },
     isCollapse() {
       if (this.windowWidth <= 980) {

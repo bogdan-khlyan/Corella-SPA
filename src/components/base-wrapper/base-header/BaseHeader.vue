@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import sidebarCollapse from '@/app/common/baseWrapper/baseSidebar/sidebar-mixin'
-import HeaderInput from '@/app/common/baseWrapper/baseHeader/HeaderInput'
-import { baseSidebarState } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
-import { appState } from '@/app/app.state'
-import HeaderNotifications from '@/app/common/baseWrapper/baseHeader/HeaderNotifications'
-import AccountInfo from './AccountInfo'
+import sidebarCollapse from '@/components/base-wrapper/base-sidebar/sidebar-mixin'
+import HeaderInput from '@/components/base-wrapper/base-header/HeaderInput'
+// import { baseSidebarState } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
+// import { appState } from '@/app/app.state'
+import HeaderNotifications from '@/components/base-wrapper/base-header/HeaderNotifications'
+import AccountInfo from '@/components/base-wrapper/base-header/AccountInfo'
 
 export default {
   name: 'BaseHeader',
@@ -40,10 +40,11 @@ export default {
   mixins: [sidebarCollapse],
   computed: {
     isDrawer() {
-      return baseSidebarState.isDrawer
+      return false
+      // return baseSidebarState.isDrawer
     },
     windowWidth() {
-      return appState.windowWidth
+      return window.innerWidth
     },
     headerStyles() {
       if (this.windowWidth <= 980) {
@@ -59,7 +60,7 @@ export default {
   },
   methods: {
     clickBurger() {
-      baseSidebarState.isDrawer = !baseSidebarState.isDrawer
+      // baseSidebarState.isDrawer = !baseSidebarState.isDrawer
     },
   },
 }

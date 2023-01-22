@@ -10,7 +10,7 @@
             <edit-task-select />
           </div>
           <div class="edit-task__uploading">
-            <upload-file />
+            <upload-file v-model="task.attachments" />
           </div>
         </div>
         <div class="edit-task__column">
@@ -51,7 +51,7 @@ export default {
       task: {
         title: '',
         description: '',
-        files: [],
+        attachments: [],
         members: [],
       },
     }
@@ -88,28 +88,38 @@ export default {
     submitHandler() {
       if (!this.isEdit) {
         this.createTask()
-      }
-      /* this.loading = true
-      if (this.isEdit) {
-        setTimeout(() => {
-          tasksController
-            .updateTask(this.task)
-            .finally(() => (this.loading = false))
-        }, 700)
       } else {
-        console.log('todo')
-      } */
-      // setTimeout(() => {
-      //   this.loading = false
-      // }, 700)
+        this.updateTask()
+      }
     },
+
     async createTask() {
       this.loading = true
-      await this.$api.projects.createTask(this.projectId, {
+      const task = await this.$api.projects.createTask(this.projectId, {
+        title: this.task.title,
+        description: this.task.description,
+      })
+      if (this.task.files) {
+        await this.addAttachments(task.id)
+      }
+      this.loading = false
+    },
+
+    async updateTask() {
+      this.loading = true
+      await this.$api.projects.patchTask(this.task.id, {
         title: this.task.title,
         description: this.task.description,
       })
       this.loading = false
+    },
+
+    async addAttachments(taskId) {
+      const formData = new FormData()
+      this.task.attachments.forEach((file) => {
+        formData.append('files', file.$file)
+      })
+      await this.$api.projects.addTaskAttachments(taskId, formData)
     },
   },
 }

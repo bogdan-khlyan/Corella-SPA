@@ -62,6 +62,7 @@ export default {
     async login() {
       try {
         await this.userStore.login(this.credentials)
+        this.$router.push('/')
       } catch (e) {
         console.log(e)
       }

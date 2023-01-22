@@ -42,4 +42,12 @@ export default (http) => ({
   loadTaskById(taskId) {
     return http.get(`/projects/stages/tasks/${taskId}`)
   },
+
+  addTaskAttachments(taskId, data) {
+    return http.post(`/projects/stages/tasks/${taskId}/attachments`, { data })
+  },
+
+  patchTask(taskId, data) {
+    return http.put(`/projects/stages/tasks/${taskId}`, { data })
+  },
 })

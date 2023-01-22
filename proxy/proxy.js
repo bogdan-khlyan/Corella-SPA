@@ -11,6 +11,13 @@ app.use(
   })
 )
 app.use(
+  '/files',
+  createProxyMiddleware({
+    target: 'http://localhost:17142',
+    changeOrigin: true,
+  })
+)
+app.use(
   '/',
   createProxyMiddleware({
     target: 'http://localhost:8081',

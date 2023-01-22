@@ -32,7 +32,7 @@ import { v4 as uuid } from 'uuid'
 
 // import { notificationsHelper } from '@/helpers/notifications.helper'
 // import { tasksController } from '@/app/projects/tasks/tasks.controller'
-// import { baseWrapperState } from '@/app/common/baseWrapper/base-wrapper.state'
+// import { baseWrapperState } from '@/app/common/base-wrapper/base-wrapper.state'
 
 import UploadFileButton from '@/components/upload-files/components/buttons/UploadFileButton'
 import FilesList from '@/components/upload-files/components/files-list/FilesList'
@@ -44,19 +44,31 @@ export default {
     UploadFileButton,
   },
   props: {
+    modelValue: {
+      type: Array,
+    },
     isViewMode: {
       type: Boolean,
       default: false,
     },
   },
+  emits: ['update:modelValue'],
   data() {
     return {
-      files: [],
       maxFileSize: 104857600,
       maxFileCount: 10,
     }
   },
   computed: {
+    files: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      },
+    },
+
     hasFiles() {
       return this.files.length !== 0
     },
@@ -77,16 +89,16 @@ export default {
     clickUpload() {
       this.$refs.input.click()
     },
-    uploadFiles($event) {
-      const fileList = $event.target.files
+    uploadFiles(e) {
+      const fileList = e.target.files
 
-      /* for (const file of Array.from(fileList)) {
-        if (this.maxFileSize < file.size) {
+      for (const file of Array.from(fileList)) {
+        /* if (this.maxFileSize < file.size) {
           notificationsHelper.error({
             message: `File ${file.name} is too large`,
           })
           continue
-        }
+        } */
         if (this.files.length >= this.maxFileCount) {
           return
         }
@@ -105,13 +117,13 @@ export default {
           name,
         })
       }
-      $event.target.value = null */
+      e.target.value = null
     },
     removeFile(fileId) {
-      /*  tasksController.removeFile(1, fileId)
-       const index = this.files.findIndex((file) => file.id === fileId)
-       URL.revokeObjectURL(this.files[index].$file)
-       this.files.splice(index, 1) */
+      // tasksController.removeFile(1, fileId)
+      const index = this.files.findIndex((file) => file.id === fileId)
+      URL.revokeObjectURL(this.files[index].$file)
+      this.files.splice(index, 1)
     },
   },
 }
@@ -121,7 +133,7 @@ export default {
 .upload-files {
   &__button {
     width: 100%;
-    max-width: 454px;
+    //max-width: 454px;
     text-align: center;
 
     &--text {
