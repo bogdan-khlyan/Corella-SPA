@@ -103,7 +103,6 @@ export default {
     },
   },
   created() {
-    console.log(this.file)
     this.createFileInfo()
   },
   methods: {

@@ -10,7 +10,11 @@
             <edit-task-select />
           </div>
           <div class="edit-task__uploading">
-            <upload-file v-model="task.attachments" />
+            <upload-file
+              v-model="task.attachments"
+              @add="addFileHandler"
+              @remove="removeFileHandler"
+            />
           </div>
         </div>
         <div class="edit-task__column">
@@ -54,6 +58,8 @@ export default {
         attachments: [],
         members: [],
       },
+      addedAttachments: [],
+      removedAttachmentIds: [],
     }
   },
   computed: {
@@ -99,7 +105,8 @@ export default {
         title: this.task.title,
         description: this.task.description,
       })
-      if (this.task.files) {
+
+      if (this.task.attachments) {
         await this.addAttachments(task.id)
       }
       this.loading = false
@@ -107,10 +114,14 @@ export default {
 
     async updateTask() {
       this.loading = true
-      await this.$api.projects.patchTask(this.task.id, {
+
+      await this.$api.projects.patchTask(this.taskId, {
         title: this.task.title,
         description: this.task.description,
       })
+
+      await this.updateTaskAttachments()
+
       this.loading = false
     },
 
@@ -119,7 +130,51 @@ export default {
       this.task.attachments.forEach((file) => {
         formData.append('files', file.$file)
       })
-      await this.$api.projects.addTaskAttachments(taskId, formData)
+
+      return this.$api.projects.addTaskAttachments(taskId, formData)
+    },
+
+    async updateTaskAttachments() {
+      const promises = []
+      if (this.addedAttachments.length) {
+        promises.push(this.addAttachments(this.task.id))
+      }
+
+      if (this.removedAttachmentIds.length) {
+        promises.push(
+          this.$api.projects.removeTaskAttachments(
+            this.taskId,
+            this.removedAttachmentIds
+          )
+        )
+      }
+
+      const response = await Promise.all(promises)
+      if (this.addedAttachments.length) {
+        // eslint-disable-next-line prefer-destructuring
+        this.task.attachments = response[0]
+      }
+
+      this.addedAttachments = []
+      this.removedAttachmentIds = []
+    },
+
+    addFileHandler(files) {
+      if (this.isEdit) {
+        this.addedAttachments = this.addedAttachments.concat(files)
+      }
+    },
+
+    removeFileHandler(fileId) {
+      if (this.isEdit) {
+        if (typeof fileId === 'number') {
+          this.removedAttachmentIds.push(fileId)
+        } else {
+          this.addedAttachments = this.addedAttachments.filter(
+            (attachment) => attachment.id !== fileId
+          )
+        }
+      }
     },
   },
 }

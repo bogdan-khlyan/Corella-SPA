@@ -47,6 +47,18 @@ export default (http) => ({
     return http.post(`/projects/stages/tasks/${taskId}/attachments`, { data })
   },
 
+  removeTaskAttachments(taskId, attachmentIds) {
+    const params = new URLSearchParams()
+
+    attachmentIds.forEach((id) => {
+      params.append('ids', id)
+    })
+
+    return http.delete(`/projects/stages/tasks/${taskId}/attachments`, {
+      params,
+    })
+  },
+
   patchTask(taskId, data) {
     return http.put(`/projects/stages/tasks/${taskId}`, { data })
   },

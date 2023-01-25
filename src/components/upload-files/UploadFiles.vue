@@ -52,7 +52,7 @@ export default {
       default: false,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'add', 'remove'],
   data() {
     return {
       maxFileSize: 104857600,
@@ -91,6 +91,7 @@ export default {
     },
     uploadFiles(e) {
       const fileList = e.target.files
+      const addedFiles = []
 
       for (const file of Array.from(fileList)) {
         /* if (this.maxFileSize < file.size) {
@@ -108,15 +109,21 @@ export default {
         const { name } = file
         const link = window.URL.createObjectURL(file)
 
-        this.files.push({
+        const newFile = {
           id: uuid(),
           $file: file,
           link,
           type,
           extension,
           name,
-        })
+        }
+
+        addedFiles.push(newFile)
       }
+
+      this.files = this.files.concat(addedFiles)
+      this.$emit('add', addedFiles)
+
       e.target.value = null
     },
     removeFile(fileId) {
@@ -124,6 +131,7 @@ export default {
       const index = this.files.findIndex((file) => file.id === fileId)
       URL.revokeObjectURL(this.files[index].$file)
       this.files.splice(index, 1)
+      this.$emit('remove', fileId)
     },
   },
 }
