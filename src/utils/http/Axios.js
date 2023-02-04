@@ -1,9 +1,12 @@
 import axios from 'axios'
-// import store from '@/store'
-// import Cookies from 'js-cookie'
+import router from '@/router/router'
+import { useUserStore } from '@/store/modules/user'
+import { toast } from 'vue3-toastify'
 
 export class Axios {
   axiosInstance
+
+  #controller = new AbortController()
 
   constructor(options) {
     this.axiosInstance = axios.create(options)
@@ -12,58 +15,90 @@ export class Axios {
   }
 
   setupInterceptors() {
-    /* this.axiosInstance.interceptors.response.use(
-            (response) => response,
-            (error) => {
-                if (error.response?.status === 401
-                    && !error.config.url.includes('signout')) {
-                    Cookies.set('redirectAfterLogin', window.location.href)
-                    store.dispatch('user/logout')
-                    window.location.href = `${store.state.appUrl}/login-page`
-                }
+    this.axiosInstance.interceptors.request.use((config) => {
+      config.signal = this.#controller.signal
+      return config
+    })
 
-                return Promise.reject(error)
-            },
-        ) */
+    this.axiosInstance.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const userStore = useUserStore()
+
+        this.showErrorMessage(error)
+
+        const errorStatus = error.response?.status
+
+        if (
+          (errorStatus === 401 || errorStatus === 403) &&
+          !error.config.url.includes('signout')
+        ) {
+          this.#controller.abort()
+
+          await userStore.logout(false)
+          await router.push('/login-page')
+
+          this.#controller = new AbortController()
+        }
+
+        return Promise.reject(error)
+      }
+    )
   }
 
-  get(url, config) {
+  showErrorMessage(error) {
+    if (!axios.isCancel(error)) {
+      const isInterceptErrorMessage =
+        error.response.config.interceptErrorMessage
+
+      if (isInterceptErrorMessage) {
+        toast.error(error.response.data.message || 'Something went wrong')
+      }
+    }
+  }
+
+  get(url, config, interceptErrorMessage = true) {
     return this.request({
       ...config,
       url,
       method: 'GET',
+      interceptErrorMessage,
     })
   }
 
-  post(url, config) {
+  post(url, config, interceptErrorMessage = true) {
     return this.request({
       ...config,
       url,
       method: 'POST',
+      interceptErrorMessage,
     })
   }
 
-  patch(url, config) {
+  patch(url, config, interceptErrorMessage = true) {
     return this.request({
       ...config,
       url,
       method: 'PATCH',
+      interceptErrorMessage,
     })
   }
 
-  put(url, config) {
+  put(url, config, interceptErrorMessage = true) {
     return this.request({
       ...config,
       url,
       method: 'PUT',
+      interceptErrorMessage,
     })
   }
 
-  delete(url, config) {
+  delete(url, config, interceptErrorMessage) {
     return this.request({
       ...config,
       url,
       method: 'DELETE',
+      interceptErrorMessage,
     })
   }
 

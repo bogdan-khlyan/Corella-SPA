@@ -23,6 +23,10 @@ export default (http) => ({
     return http.get(`/projects/${projectId}/stages`)
   },
 
+  loadProjectStagesWithTasks(projectId) {
+    return http.get(`/projects/${projectId}/stages/tasks`)
+  },
+
   createStage(projectId, data) {
     return http.post(`/projects/${projectId}/stages`, { data })
   },
@@ -60,6 +64,6 @@ export default (http) => ({
   },
 
   patchTask(taskId, data) {
-    return http.put(`/projects/stages/tasks/${taskId}`, { data })
+    return http.patch(`/projects/stages/tasks/${taskId}`, { data })
   },
 })

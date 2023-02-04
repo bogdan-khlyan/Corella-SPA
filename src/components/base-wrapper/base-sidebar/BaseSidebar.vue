@@ -109,19 +109,26 @@
 </template>
 
 <script>
-import {
-  baseSidebarState,
-  setSidebarCollapse,
-} from '@/components/base-wrapper/base-sidebar/base-sidebar.state'
+import { useSidebarStore } from '@/store/modules/sidebar'
+
+import windowWidthMixin from '@/mixins/window-width-mixin'
+
+import { setSidebarCollapse } from '@/components/base-wrapper/base-sidebar/base-sidebar.state'
 import { baseSidebarConfig } from '@/components/base-wrapper/base-sidebar/base-sidebar.config'
 // import { appState } from '@/app/app.state'
 
 export default {
   name: 'BaseSidebar',
+  mixins: [windowWidthMixin],
+  data() {
+    return {
+      sidebarStore: useSidebarStore(),
+    }
+  },
   computed: {
     drawerStyles() {
       if (this.windowWidth <= 980) {
-        if (baseSidebarState.isDrawer) {
+        if (this.sidebarStore.isDrawer) {
           return null
         }
         return 'transform: translateX(-300px)'
@@ -160,26 +167,24 @@ export default {
         .get('bottomButton') // достаем конфиги для нижней кнопки
         .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
     },
-    windowWidth() {
-      return window.innerWidth
-    },
     isCollapse() {
       if (this.windowWidth <= 980) {
         return true
       }
-      return baseSidebarState.isCollapse
+
+      return this.sidebarStore.isCollapse
     },
   },
   watch: {
     route() {
       if (this.windowWidth < 980) {
-        baseSidebarState.isDrawer = false
+        this.sidebarStore.isDrawer = false
       }
     },
   },
   methods: {
     toggleSidebarMenu() {
-      setSidebarCollapse(!this.isCollapse)
+      this.sidebarStore.setSidebarCollapse(!this.isCollapse)
     },
   },
 }

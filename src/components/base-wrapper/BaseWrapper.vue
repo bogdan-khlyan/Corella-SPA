@@ -45,15 +45,16 @@
 </template>
 
 <script>
+import windowWidthMixin from '@/mixins/window-width-mixin'
+
 import BaseHeader from '@/components/base-wrapper/base-header/BaseHeader'
 import BaseSidebar from '@/components/base-wrapper/base-sidebar/BaseSidebar'
 import sidebarCollapse from '@/components/base-wrapper/base-sidebar/sidebar-mixin'
 import { baseWrapperConfig } from '@/components/base-wrapper/base-wrapper.config'
 import { baseWrapperState } from '@/components/base-wrapper/base-wrapper.state'
-// import { appState } from '@/app/app.state'
-import { baseSidebarState } from '@/components/base-wrapper/base-sidebar/base-sidebar.state'
-// import { userInstanceStateInit } from '@/app/userInstance/user-instance.state'
+import { useSidebarStore } from '@/store/modules/sidebar'
 import { useUserStore } from '@/store/modules/user'
+import { mapState } from 'pinia'
 
 export default {
   name: 'BaseWrapper',
@@ -61,14 +62,17 @@ export default {
     BaseHeader,
     BaseSidebar,
   },
-  mixins: [sidebarCollapse],
+  mixins: [sidebarCollapse, windowWidthMixin],
   data() {
     return {
       drag: false,
       userStore: useUserStore(),
+      sidebarStore: useSidebarStore(),
     }
   },
   computed: {
+    ...mapState(useSidebarStore, ['isDrawer', 'isCollapse']),
+
     sidebarStyles() {
       if (this.windowWidth <= 980) {
         return this.isDrawer ? null : 'pointer-events: none'
@@ -80,9 +84,6 @@ export default {
         return 'base-wrapper__sidebar--collapsed'
       }
       return { 'base-wrapper__sidebar--collapsed': this.isCollapse }
-    },
-    windowWidth() {
-      return window.innerWidth
     },
     contentStyles() {
       if (this.windowWidth <= 980) {
@@ -101,20 +102,27 @@ export default {
     },
   },
   created() {
-    this.userStore.getMe()
+    this.loadMe()
   },
   methods: {
-    closeDrawer() {
-      baseSidebarState.isDrawer = false
+    loadMe() {
+      this.userStore.getMe()
     },
+
+    closeDrawer() {
+      this.isDrawer = false
+    },
+
     dragOver() {
       if (document.querySelector('.upload-files')) {
         this.drag = true
       }
     },
+
     dragLeave() {
       this.drag = false
     },
+
     dropFile(event) {
       this.drag = false
       baseWrapperState.dragFiles = event.dataTransfer.files

@@ -106,6 +106,7 @@ export default {
       default: false,
     },
   },
+  emits: ['status-task-changed'],
   data() {
     return {
       columnData: null,
@@ -127,7 +128,11 @@ export default {
     },
     dragListeners() {
       return {
-        change: (data) => this.$emit('status-task-changed', data),
+        change: (data) => {
+          const field = Object.values(data)[0]
+          field.column = this.columnData
+          this.$emit('status-task-changed', data)
+        },
       }
     },
     scrollOptions() {

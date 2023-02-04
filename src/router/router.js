@@ -66,7 +66,7 @@ const routes = [
       {
         path: '/admin/user-management',
         name: 'user-management',
-        component: () => import('@/app/userManagement/UserManagement'),
+        component: () => import('@/views/user-management/UserManagement'),
         meta: { requiresAuth: true },
       },
       {

@@ -43,6 +43,8 @@ export default {
   }
 
   &__column {
+    flex: 1;
+
     &:first-child {
       @media screen and (max-width: 1280.98px) {
         width: 100%;

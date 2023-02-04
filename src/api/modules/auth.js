@@ -5,7 +5,4 @@ export default (http) => ({
   signout() {
     return http.post('/signout')
   },
-  getMe() {
-    return http.get('/users/me')
-  },
 })

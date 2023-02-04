@@ -22,7 +22,11 @@
         <form @submit.prevent>
           <slot />
 
-          <button v-if="showBtn" class="base-popup__button">
+          <button
+            v-if="showBtn"
+            class="base-popup__button"
+            :disabled="disabledBtn"
+          >
             <img src="@/assets/images/icons/buttons/icon-check.svg" alt="" />
             {{ titleBtn }}
           </button>
@@ -55,6 +59,10 @@ export default {
     width: {
       type: String,
       default: '420px',
+    },
+    disabledBtn: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

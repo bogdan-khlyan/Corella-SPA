@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import windowWidthMixin from '@/mixins/window-width-mixin'
 // import { projectsController } from '@/app/projects/projects.controller'
 
 import ProjectBoardColumn from '@/views/projects/project-board/components/ProjectBoardColumn'
@@ -47,9 +48,12 @@ export default {
   components: {
     ProjectBoardColumn,
   },
+  mixins: [windowWidthMixin],
   data() {
     return {
       loading: false,
+      updateTaskTimeoutId: null,
+      groupedChangeTaskData: null,
       stages: [],
 
       boardTemplate: [
@@ -71,10 +75,6 @@ export default {
     }
   },
   computed: {
-    windowWidth() {
-      return window.innerWidth
-    },
-
     showArrow() {
       return !(this.stages.length <= this.columnsCount)
     },
@@ -96,16 +96,28 @@ export default {
     },
 
     columns() {
-      if (this.offset < this.stages.length - this.columnsCount) {
-        return this.stages.slice(this.offset, this.offset + this.columnsCount)
+      if (this.offset !== 0) {
+        if (this.offset < this.columnsCount) {
+          return this.stages.slice(this.offset, this.columnsCount + 1)
+        }
+
+        let remains = []
+        if (this.columnsCount > 1) {
+          remains = this.stages.slice(0, this.columnsCount - this.offset + 1)
+        }
+        return [this.stages[this.offset]].concat(remains)
       }
-      const arr = this.stages.slice(this.offset)
-      const arr2 = this.stages.slice(0, this.columnsCount - arr.length)
-      return arr.concat(arr2)
+
+      return this.stages.slice(this.offset, this.columnsCount)
     },
 
     mainWrapper() {
       return document.querySelector('.main-wrapper')
+    },
+  },
+  watch: {
+    columnsCount() {
+      this.offset = 0
     },
   },
   created() {
@@ -114,29 +126,27 @@ export default {
   methods: {
     clickLeftArrow() {
       if (this.offset === 0) {
-        this.offset = this.stages.length
+        this.offset = this.stages.length - 1
+      } else {
+        --this.offset
       }
-      --this.offset
     },
 
     clickRightArrow() {
-      if (this.offset === this.stages.length) {
+      if (this.offset === this.stages.length - 1) {
         this.offset = 0
+      } else {
+        ++this.offset
       }
-      ++this.offset
     },
 
     async loadProjectStages() {
       this.loading = true
-      this.stages = await this.$api.projects.loadProjectStages(
+      this.stages = await this.$api.projects.loadProjectStagesWithTasks(
         this.$route.params.projectId
       )
+
       this.loading = false
-      console.log(this.stages)
-      /* projectsController
-        .getProjectById(id)
-        .then((project) => (this.project = project))
-        .finally(() => (this.loading = false)) */
     },
 
     handleItemComplete({ index }) {
@@ -144,7 +154,40 @@ export default {
     },
 
     handleTaskStatusChanged(data) {
-      console.log(data)
+      this.groupedChangeTaskData = {
+        ...this.groupedChangeTaskData,
+        ...data,
+      }
+
+      if (this.updateTaskTimeoutId) {
+        clearTimeout(this.updateTaskTimeoutId)
+      }
+
+      this.updateTaskTimeoutId = setTimeout(() => {
+        if (this.groupedChangeTaskData.moved) {
+          const newPosition = data.moved.newIndex + 1
+          const taskId = this.groupedChangeTaskData.moved.element.id
+          this.patchTaskPosition(taskId, newPosition)
+        } else {
+          const taskId = this.groupedChangeTaskData.added.element.id
+          const newPosition = this.groupedChangeTaskData.added.newIndex + 1
+          const stageId = this.groupedChangeTaskData.added.column.id
+          this.patchTaskPosition(taskId, newPosition, stageId)
+        }
+        this.groupedChangeTaskData = null
+      })
+    },
+
+    async patchTaskPosition(taskId, position, stageId) {
+      const data = {
+        position,
+      }
+
+      if (stageId) {
+        data.stageId = stageId
+      }
+
+      await this.$api.projects.patchTask(taskId, data)
     },
   },
 }

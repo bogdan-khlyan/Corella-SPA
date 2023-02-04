@@ -23,10 +23,13 @@
 </template>
 
 <script>
+import { mapState } from 'pinia'
+import { useSidebarStore } from '@/store/modules/sidebar'
+
+import windowWidthMixin from '@/mixins/window-width-mixin'
+
 import sidebarCollapse from '@/components/base-wrapper/base-sidebar/sidebar-mixin'
 import HeaderInput from '@/components/base-wrapper/base-header/HeaderInput'
-// import { baseSidebarState } from '@/app/common/baseWrapper/baseSidebar/base-sidebar.state'
-// import { appState } from '@/app/app.state'
 import HeaderNotifications from '@/components/base-wrapper/base-header/HeaderNotifications'
 import AccountInfo from '@/components/base-wrapper/base-header/AccountInfo'
 
@@ -37,15 +40,15 @@ export default {
     AccountInfo,
     HeaderNotifications,
   },
-  mixins: [sidebarCollapse],
+  mixins: [sidebarCollapse, windowWidthMixin],
+  data() {
+    return {
+      sidebarStore: useSidebarStore(),
+    }
+  },
   computed: {
-    isDrawer() {
-      return false
-      // return baseSidebarState.isDrawer
-    },
-    windowWidth() {
-      return window.innerWidth
-    },
+    ...mapState(useSidebarStore, ['isCollapse', 'isDrawer']),
+
     headerStyles() {
       if (this.windowWidth <= 980) {
         return { minWidth: '100%' }
@@ -60,7 +63,7 @@ export default {
   },
   methods: {
     clickBurger() {
-      // baseSidebarState.isDrawer = !baseSidebarState.isDrawer
+      this.sidebarStore.isDrawer = !this.sidebarStore.isDrawer
     },
   },
 }

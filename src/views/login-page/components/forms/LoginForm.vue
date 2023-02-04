@@ -21,7 +21,7 @@
       Forgot my password?
     </router-link>
     <div class="login-form__button">
-      <button>Log in</button>
+      <base-button :loading="loading" type="outlined">Log in</base-button>
     </div>
     <div class="login-form__register">
       Don't have an account yet?
@@ -31,18 +31,23 @@
 </template>
 
 <script>
+import { toast } from 'vue3-toastify'
+
 import { useUserStore } from '@/store/modules/user'
 
 import LoginFormInput from '@/app/auth/loginPage/components/common/LoginFormInput'
+import BaseButton from '@/components/BaseButton'
 
 export default {
   name: 'LoginForm',
   components: {
+    BaseButton,
     LoginFormInput,
   },
   data() {
     return {
       userStore: useUserStore(),
+      loading: false,
       credentials: {
         login: String(),
         password: String(),
@@ -53,6 +58,7 @@ export default {
       },
     }
   },
+  created() {},
   methods: {
     submitForm() {
       if (this.validate()) {
@@ -61,10 +67,11 @@ export default {
     },
     async login() {
       try {
+        this.loading = true
         await this.userStore.login(this.credentials)
         this.$router.push('/')
-      } catch (e) {
-        console.log(e)
+      } finally {
+        this.loading = false
       }
     },
     validate() {
@@ -129,7 +136,6 @@ export default {
     text-decoration: none;
 
     color: #878787;
-    cursor: pointer;
 
     transition: 0.2s;
     @media (any-hover: hover) {
@@ -170,7 +176,6 @@ export default {
       border: none;
       background-color: #20c462;
 
-      cursor: pointer;
       transition: 200ms;
 
       @media screen and (max-height: 920px) {
@@ -184,11 +189,6 @@ export default {
       }
       @media (max-width: 560.98px) {
         width: 100%;
-      }
-      @media (any-hover: hover) {
-        &:hover {
-          background-color: #61dd93;
-        }
       }
     }
   }

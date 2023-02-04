@@ -8,10 +8,9 @@
     <div class="project-task-card__content">
       <template v-if="!loading">
         <div class="project-task-card__title"># {{ projectTask.id }}</div>
-        <div
-          class="project-task-card__description"
-          v-html="projectTask.description"
-        ></div>
+        <div class="project-task-card__description">
+          {{ projectTask.title }}
+        </div>
       </template>
 
       <el-skeleton v-else animated :rows="1" />

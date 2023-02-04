@@ -17,7 +17,6 @@ export default {
 .banner {
   display: none;
   @media screen and (min-width: 1280.98px) {
-    width: 50vw;
     min-height: 100vh;
     height: 100%;
 

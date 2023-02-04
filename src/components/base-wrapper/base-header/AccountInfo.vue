@@ -13,7 +13,7 @@
       <transition name="el-fade-in-linear">
         <div v-if="user && windowWidth > 600" class="current-user__data">
           <span>{{ user.login }}</span>
-          <span>{{ user.login }}</span>
+          <span>{{ user.name }}</span>
         </div>
       </transition>
       <transition name="el-fade-in-linear">
@@ -39,7 +39,7 @@
           </a>
         </div>
         <div v-else class="current-user__avatar">
-          <base-user-avatar :avatar="user.avatar" :size="40" />
+          <base-user-avatar v-if="user" :avatar="user.login" :size="40" />
         </div>
       </template>
       <div v-if="user" class="current-user__drop-down">
@@ -47,7 +47,7 @@
           <span>{{ user.login }}</span>
         </div>
         <div v-if="user" class="current-user__drop-down--email">
-          <span>{{ user.login }}</span>
+          <span>{{ user.name }}</span>
         </div>
         <hr />
         <div class="current-user__drop-down--link">
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import windowWidthMixin from '@/mixins/window-width-mixin'
+
 import BaseUserAvatar from '@/components/BaseUserAvatar'
 // import { appState } from '@/app/app.state'
 // import { userInstanceState } from '@/app/userInstance/user-instance.state'
@@ -71,6 +73,7 @@ import { useUserStore } from '@/store/modules/user'
 export default {
   name: 'CurrentUser',
   components: { BaseUserAvatar },
+  mixins: [windowWidthMixin],
   data() {
     return {
       isDropDown: false,
@@ -79,10 +82,6 @@ export default {
   },
   computed: {
     ...mapState(useUserStore, ['user']),
-
-    windowWidth() {
-      return window.innerWidth
-    },
 
     avatarSize() {
       if (this.windowWidth > 768) {

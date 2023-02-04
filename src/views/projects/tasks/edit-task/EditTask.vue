@@ -106,9 +106,12 @@ export default {
         description: this.task.description,
       })
 
-      if (this.task.attachments) {
+      if (this.task.attachments.length) {
         await this.addAttachments(task.id)
       }
+
+      this.goToTaskInfo(task.id)
+
       this.loading = false
     },
 
@@ -121,6 +124,8 @@ export default {
       })
 
       await this.updateTaskAttachments()
+
+      this.goToTaskInfo(this.taskId)
 
       this.loading = false
     },
@@ -175,6 +180,16 @@ export default {
           )
         }
       }
+    },
+
+    goToTaskInfo(taskId) {
+      this.$router.push({
+        name: 'task',
+        params: {
+          projectId: this.projectId,
+          taskId,
+        },
+      })
     },
   },
 }

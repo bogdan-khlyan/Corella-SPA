@@ -1,8 +1,9 @@
 <template>
   <task-page-wrapper
-    :title="`Task #${task.id}`"
+    :title="taskTitle"
     :show-edit-button="true"
     :show-delete-button="false"
+    :loading="loading"
     @edit="
       $router.push(
         `/project/${$route.params.projectId}/task/${$route.params.taskId}/edit`
@@ -67,6 +68,14 @@ export default {
     }
   },
   computed: {
+    taskTitle() {
+      if (!this.loading) {
+        return `Task #${this.task.id}`
+      }
+
+      return ''
+    },
+
     taskId() {
       return this.$route.params.taskId
     },

@@ -34,17 +34,19 @@
           </div>
         </transition>
 
-        <router-view v-slot="{ Component }">
+        <!--        <router-view v-if="!loadingGetMe && user" v-slot="{ Component }">
           <transition name="el-fade-in-linear" mode="out-in">
             <component :is="Component" />
           </transition>
-        </router-view>
+        </router-view>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'pinia'
+
 import BaseHeader from '@/app/common/baseWrapper/baseHeader/BaseHeader'
 import BaseSidebar from '@/app/common/baseWrapper/baseSidebar/BaseSidebar'
 import sidebarCollapse from '@/app/common/baseWrapper/baseSidebar/sidebar-mixin'
@@ -65,10 +67,13 @@ export default {
   data() {
     return {
       drag: false,
+      loadingGetMe: true,
       userStore: useUserStore(),
     }
   },
   computed: {
+    ...mapState(useUserStore, ['user']),
+
     sidebarStyles() {
       if (this.windowWidth <= 980) {
         return this.isDrawer ? null : 'pointer-events: none'
@@ -101,9 +106,19 @@ export default {
     },
   },
   created() {
-    this.userStore.getMe()
+    this.loadMe()
   },
   methods: {
+    async loadMe() {
+      this.loadingGetMe = true
+
+      try {
+        await this.userStore.getMe()
+      } finally {
+        this.loadingGetMe = false
+      }
+    },
+
     closeDrawer() {
       baseSidebarState.isDrawer = false
     },

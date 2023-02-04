@@ -1,13 +1,27 @@
 <template>
-  <button :style="{ maxWidth: width }" :class="['base-button', type]">
-    <slot />
-    <span>{{ title }}</span>
+  <button
+    :style="{ maxWidth: width }"
+    :class="['base-button', type, loading ? 'base-button--loading' : '']"
+    :disabled="disabled || loading"
+  >
+    <template v-if="!loading">
+      <slot />
+      <span>{{ title }}</span>
+    </template>
+    <loading
+      v-else
+      class="base-button__loading"
+      :class="{ rotate: loading }"
+    ></loading>
   </button>
 </template>
 
 <script>
+import { Loading } from '@element-plus/icons-vue'
+
 export default {
   name: 'BaseButton',
+  components: { Loading },
   props: {
     title: {
       type: String,
@@ -16,6 +30,12 @@ export default {
     width: {
       type: String,
       default: '100%',
+    },
+    loading: {
+      type: Boolean,
+    },
+    disabled: {
+      type: Boolean,
     },
     type: {
       type: String,
@@ -63,6 +83,7 @@ export default {
     border: 1px solid #0ab258;
     background-color: #fff;
     color: #3b3b3b;
+
     @media (any-hover: hover) {
       &:hover {
         background-color: #0ab258;
@@ -71,8 +92,24 @@ export default {
     }
   }
 
+  &--loading {
+    cursor: not-allowed;
+  }
+
   .el-icon {
     color: #fff;
+  }
+
+  &__loading {
+    height: calc(100% - 20px);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    opacity: 0.9;
   }
 }
 </style>
