@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { WebSocketEvents } from '@/utils/ws/ws'
+
 import windowWidthMixin from '@/mixins/window-width-mixin'
 // import { projectsController } from '@/app/projects/projects.controller'
 
@@ -97,15 +99,15 @@ export default {
 
     columns() {
       if (this.offset !== 0) {
-        if (this.offset < this.columnsCount) {
-          return this.stages.slice(this.offset, this.columnsCount + 1)
-        }
-
-        let remains = []
-        if (this.columnsCount > 1) {
-          remains = this.stages.slice(0, this.columnsCount - this.offset + 1)
-        }
-        return [this.stages[this.offset]].concat(remains)
+        const remains = this.stages.slice(this.offset)
+        return remains
+          .concat(
+            this.stages.slice(
+              0,
+              this.columnsCount - (this.stages.length - this.offset)
+            )
+          )
+          .slice(0, this.columnsCount)
       }
 
       return this.stages.slice(this.offset, this.columnsCount)
@@ -122,8 +124,49 @@ export default {
   },
   created() {
     this.loadProjectStages()
+
+    this.$ws.subscribe(WebSocketEvents.UPDATE_TASK, this.updateTaskHandler)
   },
   methods: {
+    updateTaskHandler(newTask) {
+      let oldStage
+      let oldTask
+      let oldTaskIndex
+
+      for (let i = 0; i < this.stages.length; ++i) {
+        const stage = this.stages[i]
+        for (let j = 0; j < stage.tasks.length; ++j) {
+          const task = stage.tasks[j]
+          if (task.id === newTask.id) {
+            oldStage = stage
+            oldTask = task
+            oldTaskIndex = j
+            break
+          }
+        }
+      }
+
+      if (newTask.stageId !== oldTask.stageId) {
+        oldStage.tasks = oldStage.tasks.filter((task) => task.id !== oldTask.id)
+        const newStage = this.stages.find(
+          (stage) => stage.id === newTask.stageId
+        )
+
+        this.insertInPosition(newStage.tasks, newTask, newTask.position)
+      } else if (newTask.position !== oldTask.position) {
+        oldStage.tasks.splice(oldTaskIndex, 1)
+        this.insertInPosition(oldStage.tasks, newTask, newTask.position)
+      }
+
+      oldTask.title = newTask.title
+      oldTask.position = newTask.position
+      oldTask.stageId = newTask.stageId
+    },
+
+    insertInPosition(arr, item, position) {
+      arr.splice(position - 1, 0, item)
+    },
+
     clickLeftArrow() {
       if (this.offset === 0) {
         this.offset = this.stages.length - 1

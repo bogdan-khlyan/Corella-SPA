@@ -10,6 +10,7 @@ app.use(
     changeOrigin: true,
   })
 )
+
 app.use(
   '/files',
   createProxyMiddleware({
@@ -17,6 +18,15 @@ app.use(
     changeOrigin: true,
   })
 )
+
+app.use(
+  '/hub',
+  createProxyMiddleware({
+    target: 'http://localhost:17142',
+    changeOrigin: true,
+  })
+)
+
 app.use(
   '/',
   createProxyMiddleware({

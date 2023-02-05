@@ -91,6 +91,10 @@ export default {
         change: this.updateProjectStagePosition,
       }
     },
+
+    draggableStageNames() {
+      return this.draggableProjectStages.map((stage) => stage.name)
+    },
   },
   created() {
     this.loadProjectStages()
@@ -135,24 +139,24 @@ export default {
     async createProjectStage() {
       this.createStageLoading = true
 
-      const lastDraggableProjectStage =
-        this.draggableProjectStages[this.draggableProjectStages.length - 1] ||
-        null
-
       const projectStage = await this.$api.projects.createStage(
         this.projectId,
         {
-          name: `New column${
-            lastDraggableProjectStage
-              ? lastDraggableProjectStage.position + 1
-              : 1
-          }`,
+          name: this.getNextStageName(),
         }
       )
 
       this.draggableProjectStages.push(projectStage)
 
       this.createStageLoading = false
+    },
+
+    getNextStageName(number = 1) {
+      const stageName = `New column${number}`
+      if (!this.draggableStageNames.includes(stageName)) {
+        return stageName
+      }
+      return this.getNextStageName(number + 1)
     },
 
     updateProjectStage(projectStageId, data) {

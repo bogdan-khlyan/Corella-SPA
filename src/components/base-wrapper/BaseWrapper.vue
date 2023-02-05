@@ -101,8 +101,12 @@ export default {
       return baseWrapperConfig.get('default').styles
     },
   },
+  beforeUnmount() {
+    this.$ws.disconnect()
+  },
   created() {
     this.loadMe()
+    this.$ws.connect()
   },
   methods: {
     loadMe() {

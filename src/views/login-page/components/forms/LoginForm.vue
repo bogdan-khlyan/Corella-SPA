@@ -58,7 +58,6 @@ export default {
       },
     }
   },
-  created() {},
   methods: {
     submitForm() {
       if (this.validate()) {
