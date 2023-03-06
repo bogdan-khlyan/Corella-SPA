@@ -19,7 +19,7 @@
       </template>
 
       <div v-loading="loading" class="base-popup__content">
-        <form @submit.prevent>
+        <form @submit.prevent="$emit('submit')">
           <slot />
 
           <button
@@ -65,9 +65,11 @@ export default {
       default: false,
     },
   },
+  emits: ['submit', 'update:modelValue', 'close'],
   methods: {
     handleClose() {
       this.$emit('update:modelValue', false)
+      this.$emit('close')
     },
   },
 }

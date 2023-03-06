@@ -52,7 +52,19 @@ export class Axios {
         error.response.config.interceptErrorMessage
 
       if (isInterceptErrorMessage) {
-        toast.error(error.response.data.message || 'Something went wrong')
+        let errorMessage
+
+        if (error.response.status === 403) {
+          if (error.response.data.message) {
+            errorMessage = error.response.data.message
+          } else {
+            errorMessage = 'No rights to access this action'
+          }
+        } else {
+          errorMessage = error.response.data.message || 'Something went wrong'
+        }
+
+        toast.error(errorMessage)
       }
     }
   }

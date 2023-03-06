@@ -1,18 +1,10 @@
 <template>
-  <label
-    class="base-input"
-    :class="{'base-input__error': error}"
-  >
-
-    <div
-      v-if="label"
-      class="base-input__label"
-    >
+  <label class="base-input" :class="{ 'base-input__error': error }">
+    <div v-if="label" class="base-input__label">
       <div class="label">{{ label }}</div>
-      <div
-        v-if="error && typeof error === 'string'"
-        class="error"
-      >{{ error }}</div>
+      <div v-if="error && typeof error === 'string'" class="error">
+        {{ error }}
+      </div>
     </div>
 
     <input
@@ -21,7 +13,7 @@
       :placeholder="placeholder"
       :disabled="disabled"
       @input="$emit('update:modelValue', $event.target.value)"
-    >
+    />
   </label>
 </template>
 
@@ -47,11 +39,13 @@ export default {
   margin-bottom: 12px;
 
   &__error {
-    .label, .error {
-      color: $text-error!important;
+    .label,
+    .error {
+      color: $text-error !important;
     }
+
     input {
-      border-color: $text-error!important;
+      border-color: $text-error !important;
     }
   }
 
@@ -68,7 +62,7 @@ export default {
     font-size: 12px;
     line-height: 16px;
 
-    color: #7B7B7B;
+    color: #7b7b7b;
 
     .error {
       margin-left: auto;
@@ -82,7 +76,7 @@ export default {
     font-size: 12px;
     line-height: 16px;
 
-    color: #7B7B7B;
+    color: #7b7b7b;
   }
 
   input {
@@ -92,7 +86,7 @@ export default {
     width: 100%;
     height: 56px;
 
-    border: 1px solid #E7E7E7;
+    border: 1px solid #e7e7e7;
     box-sizing: border-box;
     border-radius: 4px;
 
@@ -102,7 +96,7 @@ export default {
     font-size: 14px;
     line-height: 24px;
 
-    color: #3D3D3D;
+    color: #3d3d3d;
 
     &::placeholder {
       font-family: Rubik, sans-serif;
@@ -111,14 +105,12 @@ export default {
       font-size: 14px;
       line-height: 24px;
 
-      color: #BDBCC8;
+      color: #bdbcc8;
     }
 
     &:focus {
       border-color: $fields-stroke-focused;
     }
-
   }
-
 }
 </style>

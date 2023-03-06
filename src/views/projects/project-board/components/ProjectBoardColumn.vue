@@ -77,6 +77,10 @@
 </template>
 
 <script>
+import rightsList from '@/utils/rightsList'
+import { useUserStore } from '@/store/modules/user'
+import { mapState } from 'pinia'
+
 import ProjectBoardColumnTaskCard from '@/views/projects/project-board/components/ProjectBoardColumnTaskCard'
 import draggable from 'vuedraggable'
 
@@ -117,11 +121,13 @@ export default {
     }
   },
   computed: {
+    ...mapState(useUserStore, ['projectRoles']),
+
     dragOptions() {
       return {
         animation: 200,
         group: 'tasks',
-        disabled: false,
+        disabled: !this.isAllowManageTasks,
         itemKey: 'order',
         ghostClass: 'project-task-card--ghost',
       }
@@ -142,6 +148,12 @@ export default {
     },
     fakeColumnData() {
       return this.projectColumnData.tasks
+    },
+    isAllowManageTasks() {
+      const { projectId } = this.$route.params
+      return this.projectRoles
+        .get(projectId)
+        .rightIds?.includes(rightsList.manageProjectTasks.id)
     },
   },
   created() {

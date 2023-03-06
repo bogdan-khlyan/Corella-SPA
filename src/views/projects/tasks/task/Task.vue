@@ -1,9 +1,10 @@
 <template>
   <task-page-wrapper
     :title="taskTitle"
-    :show-edit-button="true"
-    :show-delete-button="false"
+    :show-edit-button="isAllowManageTask"
+    :show-delete-button="isAllowManageTask"
     :loading="loading"
+    delete-button-text="Are you sure you want to delete the task?"
     @edit="
       $router.push(
         `/project/${$route.params.projectId}/task/${$route.params.taskId}/edit`
@@ -43,6 +44,10 @@
 </template>
 
 <script>
+import { useUserStore } from '@/store/modules/user'
+import rightsList from '@/utils/rightsList'
+import rightsMixin from '@/mixins/rights-mixin'
+
 import TaskPageWrapper from '@/components/BasePageWrapper'
 import ViewTaskDescription from '@/views/projects/tasks/task/components/ViewTaskDescription'
 import ViewTaskCollapse from '@/views/projects/tasks/task/components/ViewTaskCollapse'
@@ -58,9 +63,11 @@ export default {
     ViewTaskDescription,
     TaskPageWrapper,
   },
+  mixins: [rightsMixin],
   data() {
     return {
       loading: false,
+      userStore: useUserStore(),
       task: {
         attachments: [],
         description: '',
@@ -78,6 +85,12 @@ export default {
 
     taskId() {
       return this.$route.params.taskId
+    },
+
+    isAllowManageTask() {
+      return this.userStore.projectRoles
+        .get(this.$route.params.projectId)
+        ?.rightIds.includes(rightsList.manageProjectTasks.id)
     },
   },
   created() {

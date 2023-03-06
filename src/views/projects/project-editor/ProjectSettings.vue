@@ -2,13 +2,14 @@
   <base-page-wrapper
     :title="title"
     :show-delete-button="!isCreate"
+    delete-button-text="Are you sure you want to delete the project?"
     @delete="deleteProject"
   >
     <div class="project-settings">
       <div class="project-settings__tabs">
         <base-tabs
           :disabled-tabs="disabledTabs"
-          :tabs="tabs"
+          :tabs="allowTabs"
           :current-tab="currentTab"
           @change-tab="changeTab"
         />
@@ -23,6 +24,10 @@
 </template>
 
 <script>
+import rightsList from '@/utils/rightsList'
+import { useUserStore } from '@/store/modules/user'
+import { mapState } from 'pinia'
+
 import BasePageWrapper from '@/components/BasePageWrapper'
 import BaseTabs from '@/components/BaseTabs'
 import { projectsController } from '@/app/projects/projects.controller'
@@ -45,20 +50,31 @@ export default {
         {
           name: 'basic-info',
           text: 'Basic info',
+          right: rightsList.manageProjectSettings.id,
         },
         {
           name: 'board-settings',
           text: 'Board settings',
+          right: rightsList.manageProjectStages.id,
         },
         {
           name: 'members',
           text: 'Roles and members',
+          right: rightsList.manageProjectMembers.id,
         },
       ],
       currentTab: 'basic-info',
     }
   },
   computed: {
+    ...mapState(useUserStore, ['projectRoles']),
+
+    allowTabs() {
+      const { projectId } = this.$route.params
+      const projectRights = this.projectRoles.get(projectId)?.rightIds
+
+      return this.tabs.filter((tab) => projectRights?.includes(tab.right))
+    },
     title() {
       if (this.isCreate) {
         return 'Create project'
@@ -76,7 +92,7 @@ export default {
   },
   created() {
     if (!this.isCreate) {
-      this.currentTab = 'board-settings'
+      this.currentTab = 'basic-info'
     }
   },
   methods: {

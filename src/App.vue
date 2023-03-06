@@ -7,11 +7,20 @@
 </template>
 
 <script>
+import { useUserStore } from '@/store/modules/user'
 import { appStateInit } from '@/app/app.state'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      userStore: useUserStore(),
+    }
+  },
   created() {
+    if (this.userStore.loggedIn) {
+      this.userStore.getMe()
+    }
     appStateInit()
   },
 }

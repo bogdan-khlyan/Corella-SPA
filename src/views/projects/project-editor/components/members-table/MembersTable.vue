@@ -1,7 +1,7 @@
 <template>
   <div class="members">
     <div class="members__column">
-      <members-table-column />
+      <roles-table-column></roles-table-column>
     </div>
     <div class="members__column">
       <members-table-column :show-members="true" />
@@ -11,10 +11,11 @@
 
 <script>
 import MembersTableColumn from '@/views/projects/project-editor/components/members-table/components/MembersTableColumn'
+import RolesTableColumn from '@/views/projects/project-editor/components/members-table/components/RolesTableColumn'
 
 export default {
   name: 'Members',
-  components: { MembersTableColumn },
+  components: { MembersTableColumn, RolesTableColumn },
   data() {
     return {}
   },

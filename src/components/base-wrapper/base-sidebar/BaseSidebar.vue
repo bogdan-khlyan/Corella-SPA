@@ -109,13 +109,13 @@
 </template>
 
 <script>
+import { mapState } from 'pinia'
+import { useUserStore } from '@/store/modules/user'
 import { useSidebarStore } from '@/store/modules/sidebar'
 
 import windowWidthMixin from '@/mixins/window-width-mixin'
 
-import { setSidebarCollapse } from '@/components/base-wrapper/base-sidebar/base-sidebar.state'
 import { baseSidebarConfig } from '@/components/base-wrapper/base-sidebar/base-sidebar.config'
-// import { appState } from '@/app/app.state'
 
 export default {
   name: 'BaseSidebar',
@@ -123,9 +123,17 @@ export default {
   data() {
     return {
       sidebarStore: useSidebarStore(),
+      userStore: useUserStore(),
     }
   },
   computed: {
+    ...mapState(useUserStore, [
+      'user',
+      'userRights',
+      'userRightList',
+      'projectRoles',
+    ]),
+
     drawerStyles() {
       if (this.windowWidth <= 980) {
         if (this.sidebarStore.isDrawer) {
@@ -135,9 +143,11 @@ export default {
       }
       return null
     },
+
     route() {
       return this.$route.name
     },
+
     options() {
       const currentConfig = baseSidebarConfig.get(this.route) // забираем конфиг соответствующий текущему роуту
       if (currentConfig) {
@@ -145,28 +155,82 @@ export default {
       }
       return baseSidebarConfig.get('default') // если конфига нет отдаем конфиг по умолчанию
     },
+
     topBlock() {
-      const tops = this.options.filter((item) => item.top === true) // ищем элементы для верхнего блока с двумя кнопками
+      if (!this.user) {
+        return null
+      }
+
+      const tops = this.options.filter(
+        (item) =>
+          item.top === true &&
+          this.userRights.find((right) => {
+            return right.id === item.right
+          })
+      ) // ищем элементы для верхнего блока с двумя кнопками
+
       if (tops.length === 0) {
         return null
       }
+
       if (tops.length === 2) {
         return tops.slice(0, 2)
       }
       return null
     },
+
     contentBlock() {
+      const projectRights = this.projectRoles.get(
+        this.$route.params?.projectId
+      )?.rightIds
+
+      const options = this.options.filter((option) => {
+        if (!option.right) {
+          return true
+        }
+
+        const rights = option.projectRight ? projectRights : this.userRightList
+
+        return rights.includes(option.right)
+      })
+
       if (this.topBlock) {
         const ids = this.topBlock.map((item) => item.id)
-        return this.options.filter((option) => ids.indexOf(option.id) === -1)
+        return options.filter((option) => ids.indexOf(option.id) === -1)
       }
-      return this.options
+
+      return options
     },
+
     bottomButton() {
-      return baseSidebarConfig
+      const button = baseSidebarConfig
         .get('bottomButton') // достаем конфиги для нижней кнопки
         .get(this.route) // достаем конфиг для нижней кнопки для текущего роута
+
+      if (button) {
+        if (button.projectRight) {
+          const projectId = this.$route.params?.projectId
+          if (
+            projectId &&
+            this.projectRoles.get(projectId)?.rightIds.includes(button.right)
+          ) {
+            return button
+          }
+
+          return null
+        }
+
+        if (
+          !button.right ||
+          (button.right && this.userRightList.includes(button.right))
+        ) {
+          return button
+        }
+      }
+
+      return null
     },
+
     isCollapse() {
       if (this.windowWidth <= 980) {
         return true

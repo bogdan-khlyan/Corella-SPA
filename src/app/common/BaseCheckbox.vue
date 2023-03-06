@@ -1,13 +1,13 @@
 <template>
   <div class="base-checkbox">
     <base-title v-if="label" :text="label" />
-    <el-checkbox-group v-model="checkList">
+    <div class="base-checkbox__group">
       <el-checkbox
-        v-for="value in checkboxValues"
-        :key="value"
-        :label="value"
+        v-for="option in options"
+        :key="option.value"
+        :label="option.label"
       />
-    </el-checkbox-group>
+    </div>
   </div>
 </template>
 
@@ -18,9 +18,12 @@ export default {
   name: 'BaseCheckbox',
   components: { BaseTitle },
   props: {
-    checkboxValues: {
+    value: {
       type: Array,
       required: true,
+    },
+    options: {
+      type: Array,
     },
     label: String,
   },
@@ -29,13 +32,27 @@ export default {
       checkList: [],
     }
   },
+  watch: {
+    checkList() {
+      console.log(this.checkList)
+    },
+  },
 }
 </script>
 
 <style lang="scss">
+.base-checkbox {
+  &__group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+}
+
 .el-checkbox {
   height: auto;
   font-weight: 400;
+  margin: 0;
 
   &__label {
     font-size: 16px;

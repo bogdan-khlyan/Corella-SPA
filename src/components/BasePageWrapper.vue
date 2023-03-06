@@ -25,7 +25,7 @@
           class="task-page-wrapper__header--actions-item"
         >
           <el-popconfirm
-            title="Are you sure you want to delete the project?"
+            :title="deleteButtonText"
             class="delete-project-popper"
             confirm-button-text="Delete"
             cancel-button-text="Cancel"
@@ -61,9 +61,14 @@ export default {
       type: Boolean,
       default: false,
     },
+
     showDeleteButton: {
       type: Boolean,
       default: false,
+    },
+
+    deleteButtonText: {
+      type: String,
     },
 
     loading: {

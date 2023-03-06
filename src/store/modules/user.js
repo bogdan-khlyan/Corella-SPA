@@ -9,15 +9,26 @@ export const useUserStore = defineStore({
   id: 'app-user',
   state: () => ({
     user: null,
+    loadUserPromise: null,
     loggedIn: !!cookies.get('.AspNetCore.Cookies'),
+    projectRoles: new Map(),
   }),
+  getters: {
+    userRights(state) {
+      return state.user?.role?.rights || []
+    },
+    userRightList(state) {
+      return state.user?.role?.rights.map((right) => right.id) || []
+    },
+  },
   actions: {
     async login(data) {
       this.user = await api.auth.signIn(data)
       this.loggedIn = true
     },
     async getMe() {
-      this.user = await api.users.getMe()
+      this.loadUserPromise = api.users.getMe()
+      this.user = await this.loadUserPromise
     },
     async logout(sendRequest = true) {
       try {
@@ -29,6 +40,17 @@ export const useUserStore = defineStore({
         this.loggedIn = false
         cookies.remove('.AspNetCore.Cookies')
       }
+    },
+    async getProjectRole(projectId) {
+      const foundProjectRole = this.projectRoles.get(projectId)
+
+      if (!foundProjectRole) {
+        const projectRole = await api.projects.getProjectRole(projectId)
+        this.projectRoles.set(projectId, projectRole)
+        return projectRole
+      }
+
+      return foundProjectRole
     },
   },
 })

@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid'
+import rightsList from '@/utils/rightsList'
 
 const projectListButton = {
   id: uuid(),
@@ -12,6 +13,7 @@ const projectListButton = {
 const userManagementButton = {
   id: uuid(),
   top: true,
+  right: rightsList.userManagement.id,
   path: '/admin/user-management',
   route: 'user-management',
   label: 'User Management',
@@ -34,6 +36,8 @@ const boardButton = {
 
 const projectSettingsButton = {
   id: uuid(),
+  projectRight: true,
+  right: rightsList.manageProjectSettings.id,
   getPath: (context) => `/project/${context.$route.params.projectId}/settings`,
   route: 'project-settings',
   label: 'Settings',
@@ -43,9 +47,12 @@ const projectSettingsButton = {
 const createTaskButton = {
   id: uuid(),
   label: 'Create New Task',
+  projectRight: true,
+  right: rightsList.manageProjectTasks.id,
   icon: require('@/assets/images/icons/sidebar/icon-add.svg'),
   route: 'create-task',
-  getPath: (context) => `/project/${context.$route.params.projectId}/create-task`,
+  getPath: (context) =>
+    `/project/${context.$route.params.projectId}/create-task`,
 }
 
 const createUser = {
@@ -57,6 +64,7 @@ const createUser = {
 
 const createProjectButton = {
   id: uuid(),
+  right: rightsList.creatingProjects.id,
   route: 'create-project',
   label: 'Create New Project',
   path: '/project/create',
@@ -72,14 +80,8 @@ const bottomButton = new Map()
   .set('user-management', createUser)
 
 export const baseSidebarConfig = new Map()
-  .set('default', [
-    projectListButton,
-    userManagementButton,
-  ])
-  .set('project-list', [
-    projectListButton,
-    userManagementButton,
-  ])
+  .set('default', [projectListButton, userManagementButton])
+  .set('project-list', [projectListButton, userManagementButton])
   .set('board', [
     projectListButton,
     userManagementButton,

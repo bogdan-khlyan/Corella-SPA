@@ -66,4 +66,20 @@ export default (http) => ({
   patchTask(taskId, data) {
     return http.patch(`/projects/stages/tasks/${taskId}`, { data })
   },
+
+  getProjectRole(projectId) {
+    return http.get(`/projects/${projectId}/roles/me`)
+  },
+
+  getProjectRoles(projectId) {
+    return http.get(`/projects/${projectId}/roles`)
+  },
+
+  addProjectRole(projectId, data) {
+    return http.post(`/projects/${projectId}/roles`, { data })
+  },
+
+  patchProjectRole(projectId, roleId, data) {
+    return http.patch(`/projects/${projectId}/roles/${roleId}`, { data })
+  },
 })
