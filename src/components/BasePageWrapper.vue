@@ -24,21 +24,19 @@
           v-if="showDeleteButton"
           class="task-page-wrapper__header--actions-item"
         >
-          <el-popconfirm
+          <base-popconfirm
             :title="deleteButtonText"
-            class="delete-project-popper"
             confirm-button-text="Delete"
             cancel-button-text="Cancel"
+            reference-class="red"
             @confirm="$emit('delete', $event)"
           >
-            <template #reference>
-              <button class="red">
-                <svg-icon
-                  :icon="require('@/assets/images/icons/tasks/delete.svg')"
-                />
-              </button>
+            <template>
+              <svg-icon
+                :icon="require('@/assets/images/icons/tasks/delete.svg')"
+              />
             </template>
-          </el-popconfirm>
+          </base-popconfirm>
         </div>
       </div>
     </div>
@@ -49,8 +47,11 @@
 </template>
 
 <script>
+import BasePopconfirm from '@/components/BasePopconfirm'
+
 export default {
   name: 'TaskPageWrapper',
+  components: { BasePopconfirm },
   props: {
     title: {
       type: String,
@@ -139,7 +140,7 @@ export default {
           margin-right: 0;
         }
 
-        > button {
+        :deep > button {
           display: flex;
           justify-content: center;
           align-items: center;

@@ -82,4 +82,8 @@ export default (http) => ({
   patchProjectRole(projectId, roleId, data) {
     return http.patch(`/projects/${projectId}/roles/${roleId}`, { data })
   },
+
+  deleteProjectRole(projectId, roleId) {
+    return http.delete(`/projects/${projectId}/roles/${roleId}`)
+  },
 })

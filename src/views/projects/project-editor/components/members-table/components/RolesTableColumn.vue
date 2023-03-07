@@ -17,21 +17,27 @@
               <div class="table-items__role--name">
                 {{ role.name }}
               </div>
-              <button class="table-items__role--edit-button">
-                <svg-icon
-                  :icon="require('@/assets/images/icons/tasks/edit.svg')"
-                />
-              </button>
             </div>
-            <button type="button" class="table-items__btn-delete">
+            <base-popconfirm
+              title="Are you sure you want to delete the role?"
+              confirm-button-text="Delete"
+              cancel-button-text="Cancel"
+              :disabled="!isAllowEditRole(role)"
+              @confirm="deleteRole(role)"
+            >
               <svg-icon
                 :icon="require('@/assets/images/icons/tasks/delete.svg')"
               />
-            </button>
+            </base-popconfirm>
           </li>
         </ul>
+
         <div class="table-items__button">
-          <base-button type="outline" :title="btnTitle" @click="openModal()">
+          <base-button
+            type="outline"
+            :title="btnTitle"
+            @click.stop="openModal()"
+          >
             <el-icon>
               <plus />
             </el-icon>
@@ -39,6 +45,7 @@
         </div>
       </div>
     </div>
+
     <role-modal
       ref="rolePopup"
       @add="addRoleHandler"
@@ -48,6 +55,8 @@
 </template>
 
 <script>
+import { toast } from 'vue3-toastify'
+
 import { mapState } from 'pinia'
 import { useUserStore } from '@/store/modules/user'
 
@@ -56,10 +65,12 @@ import BaseButton from '@/components/BaseButton'
 import { Plus } from '@element-plus/icons-vue'
 import InviteMemberModal from '@/views/projects/project-editor/components/members-table/components/InviteMemberPopup'
 import RoleModal from '@/views/projects/project-editor/components/members-table/components/RolePopup'
+import BasePopconfirm from '@/components/BasePopconfirm.vue'
 
 export default {
   name: 'RolesTableColumn',
   components: {
+    BasePopconfirm,
     RoleModal,
     BaseButton,
     Plus,
@@ -137,7 +148,11 @@ export default {
   },
   methods: {
     isAllowEditRole(role) {
-      return role.name !== 'Admin' && role.id !== this.userProjectRoleId
+      return (
+        role.name !== 'Admin' &&
+        role.name !== 'Guest' &&
+        role.id !== this.userProjectRoleId
+      )
     },
     async getRoles() {
       this.roles = await this.$api.projects.getProjectRoles(this.projectId)
@@ -146,7 +161,7 @@ export default {
       console.log(value)
     },
     openModal(role) {
-      if (this.isAllowEditRole(role)) {
+      if (!role || this.isAllowEditRole(role)) {
         this.$refs.rolePopup.openModal(role)
       }
     },
@@ -157,6 +172,15 @@ export default {
       const foundRole = this.roles.find((roleItem) => roleItem.id === role.id)
       foundRole.name = role.name
       foundRole.rightIds = role.rightIds
+    },
+    async deleteRole(role) {
+      try {
+        await this.$api.projects.deleteProjectRole(this.projectId, role.id)
+        this.roles = this.roles.filter((roleItem) => roleItem.id !== role.id)
+        toast.success('The role was successfully deleted')
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }
