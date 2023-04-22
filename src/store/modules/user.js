@@ -37,6 +37,7 @@ export const useUserStore = defineStore({
         }
       } finally {
         this.user = null
+        this.projectRoles = new Map()
         this.loggedIn = false
         cookies.remove('.AspNetCore.Cookies')
       }

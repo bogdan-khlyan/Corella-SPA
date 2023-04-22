@@ -168,5 +168,13 @@ export default {
       background: $primary-bg-hover;
     }
   }
+
+  @media (max-width: 650px) {
+    .el-dialog {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: unset;
+    }
+  }
 }
 </style>

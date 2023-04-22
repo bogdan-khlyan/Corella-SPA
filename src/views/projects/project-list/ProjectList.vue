@@ -4,7 +4,12 @@
       <h2>Projects</h2>
     </div>
     <transition name="el-fade-in-linear" mode="out-in">
-      <empty-list v-if="!loading && projects.length === 0" />
+      <not-found-list
+        v-if="!loading && !projects.length && searchData.length"
+      ></not-found-list>
+      <empty-list
+        v-else-if="!loading && projects.length === 0 && !searchData.length"
+      />
       <div v-else v-loading="loading" class="project-list__content">
         <transition-group name="el-fade-in-linear">
           <project-card
@@ -19,37 +24,49 @@
 </template>
 
 <script>
+import { useHeaderStore } from '@/store/modules/header'
+import { mapWritableState } from 'pinia'
+
 import ProjectCard from '@/views/projects/project-list/components/ProjectCard'
 import EmptyList from '@/views/projects/project-list/components/EmptyList'
+import NotFoundList from '@/views/projects/project-list/components/NotFoundList'
 
 export default {
   name: 'ProjectList',
   components: {
+    NotFoundList,
     ProjectCard,
     EmptyList,
   },
   data() {
     return {
       loading: false,
+      timeoutId: null,
       projects: [],
     }
   },
   computed: {
-    searchInput() {
-      return ''
-      // return baseHeaderState.searchValue
+    ...mapWritableState(useHeaderStore, ['searchData']),
+  },
+  watch: {
+    searchData() {
+      clearTimeout(this.timeoutId)
+
+      this.timeoutId = setTimeout(() => {
+        this.loadProjects()
+      }, 500)
     },
+  },
+  beforeUnmount() {
+    this.searchData = ''
   },
   created() {
     this.loadProjects()
   },
-  beforeUnmount() {
-    // baseHeaderState.searchValue = ''
-  },
   methods: {
     async loadProjects() {
       this.loading = true
-      this.projects = await this.$api.projects.loadProjects()
+      this.projects = await this.$api.projects.loadProjects(this.searchData)
       this.loading = false
     },
   },

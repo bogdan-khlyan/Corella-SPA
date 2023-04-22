@@ -30,6 +30,9 @@
 <script>
 import { v4 as uuid } from 'uuid'
 
+import { mapState } from 'pinia'
+import { useDragStore } from '@/store/modules/drag'
+
 // import { notificationsHelper } from '@/helpers/notifications.helper'
 // import { tasksController } from '@/app/projects/tasks/tasks.controller'
 // import { baseWrapperState } from '@/app/common/base-wrapper/base-wrapper.state'
@@ -57,9 +60,12 @@ export default {
     return {
       maxFileSize: 104857600,
       maxFileCount: 10,
+      dragStore: useDragStore(),
     }
   },
   computed: {
+    ...mapState(useDragStore, ['dropFiles']),
+
     files: {
       get() {
         return this.modelValue
@@ -72,12 +78,9 @@ export default {
     hasFiles() {
       return this.files.length !== 0
     },
-    /*  dragFiles() {
-       return baseWrapperState.dragFiles
-     }, */
   },
   watch: {
-    dragFiles(newVal) {
+    dropFiles(newVal) {
       this.uploadFiles({
         target: {
           files: newVal,

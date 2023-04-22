@@ -187,5 +187,11 @@ export default {
       margin-right: 10px;
     }
   }
+
+  @media (max-width: 600px) {
+    &__button {
+      flex: 1;
+    }
+  }
 }
 </style>

@@ -2,7 +2,6 @@
   <task-page-wrapper
     :title="taskTitle"
     :show-edit-button="isAllowManageTask"
-    :show-delete-button="isAllowManageTask"
     :loading="loading"
     delete-button-text="Are you sure you want to delete the task?"
     @edit="
@@ -10,7 +9,6 @@
         `/project/${$route.params.projectId}/task/${$route.params.taskId}/edit`
       )
     "
-    @delete="$router.push('/project/1/board')"
   >
     <transition name="el-fade-in-linear" mode="out-in">
       <div v-if="task" class="view-task">
@@ -22,15 +20,15 @@
                   {{ task.title }}
                 </div>
               </div>
-              <div class="view-task__members">
+              <!--              <div class="view-task__members">
                 <view-task-members />
-              </div>
+              </div>-->
               <div class="view-task__files">
                 <upload-files v-model="task.attachments" :is-view-mode="true" />
               </div>
-              <div class="view-task__collapse">
+              <!--              <div class="view-task__collapse">
                 <view-task-collapse />
-              </div>
+              </div>-->
             </div>
           </div>
           <div class="view-task__column">
@@ -52,12 +50,12 @@ import TaskPageWrapper from '@/components/BasePageWrapper'
 import ViewTaskDescription from '@/views/projects/tasks/task/components/ViewTaskDescription'
 import ViewTaskCollapse from '@/views/projects/tasks/task/components/ViewTaskCollapse'
 import UploadFiles from '@/components/upload-files/UploadFiles'
-import ViewTaskMembers from '@/views/projects/tasks/task/components/ViewTaskMembers'
+// import ViewTaskMembers from '@/views/projects/tasks/task/components/ViewTaskMembers'
 
 export default {
   name: 'Task',
   components: {
-    ViewTaskMembers,
+    // ViewTaskMembers,
     UploadFiles,
     ViewTaskCollapse,
     ViewTaskDescription,
@@ -128,6 +126,12 @@ export default {
 
   &__collapse {
     margin: 50px 0px 0px 0px;
+  }
+
+  @media (max-width: 1400px) {
+    &__row {
+      flex-direction: column;
+    }
   }
 }
 

@@ -2,34 +2,23 @@
   <div class="header-search">
     <div
       class="header-search__icon"
-      :class="{ 'header-search__icon--active': searchText.length }"
+      :class="{ 'header-search__icon--active': searchData.length }"
     >
       <svg-icon :icon="require('@/assets/images/icons/header/loupe.svg')" />
     </div>
 
-    <input
-      v-model="searchText"
-      type="text"
-      placeholder="search..."
-      @input="setSearchText"
-    />
+    <input v-model="searchData" type="text" placeholder="search..." />
   </div>
 </template>
 
 <script>
-// import { baseHeaderState } from '@/app/common/baseWrapper/baseHeader/base-header.state'
+import { useHeaderStore } from '@/store/modules/header'
+import { mapWritableState } from 'pinia'
 
 export default {
   name: 'HeaderInput',
-  data() {
-    return {
-      searchText: '',
-    }
-  },
-  methods: {
-    setSearchText() {
-      // baseHeaderState.searchValue = this.searchText
-    },
+  computed: {
+    ...mapWritableState(useHeaderStore, ['searchData']),
   },
 }
 </script>

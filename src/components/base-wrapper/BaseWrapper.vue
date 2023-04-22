@@ -54,6 +54,7 @@ import { baseWrapperConfig } from '@/components/base-wrapper/base-wrapper.config
 import { baseWrapperState } from '@/components/base-wrapper/base-wrapper.state'
 import { useSidebarStore } from '@/store/modules/sidebar'
 import { useUserStore } from '@/store/modules/user'
+import { useDragStore } from '@/store/modules/drag'
 import { mapState } from 'pinia'
 
 export default {
@@ -68,6 +69,7 @@ export default {
       drag: false,
       userStore: useUserStore(),
       sidebarStore: useSidebarStore(),
+      dragStore: useDragStore(),
     }
   },
   computed: {
@@ -87,7 +89,7 @@ export default {
     },
     contentStyles() {
       if (this.windowWidth <= 980) {
-        return { minWidth: '100%' }
+        return { minWidth: '100vw' }
       }
       return {
         minWidth: this.isCollapse ? 'calc(100% - 300px)' : 'calc(100% - 80px)',
@@ -124,7 +126,7 @@ export default {
 
     dropFile(event) {
       this.drag = false
-      baseWrapperState.dragFiles = event.dataTransfer.files
+      this.dragStore.dropFiles = event.dataTransfer.files
     },
   },
 }

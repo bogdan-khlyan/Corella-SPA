@@ -161,5 +161,11 @@ export default {
   .base-input {
     margin-bottom: 24px;
   }
+
+  @media (max-width: 550px) {
+    .base-checkbox__group {
+      grid-template-columns: 1fr;
+    }
+  }
 }
 </style>

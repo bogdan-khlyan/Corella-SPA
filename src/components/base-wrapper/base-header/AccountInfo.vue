@@ -51,7 +51,7 @@
         </div>
         <hr />
         <div class="current-user__drop-down--link">
-          <router-link to="/profile"> Account settings</router-link>
+          <!--          <router-link to="/profile"> Account settings</router-link>-->
         </div>
         <div class="current-user__drop-down--logout">
           <a @click="logout">Log out</a>

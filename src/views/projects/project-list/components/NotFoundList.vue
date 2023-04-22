@@ -3,38 +3,15 @@
     <div class="empty-list__content">
       <img src="@/assets/images/icons/common/img-empty-list.svg" alt="" />
       <div class="empty-list__title">
-        <span>You are not attached to any project</span>
-      </div>
-      <div class="empty-list__text">
-        <span v-if="isAllowCreateProject"
-          >All projects you create will appear here <br />
-          Let’s create a new project now</span
-        >
-      </div>
-      <div v-if="isAllowCreateProject" class="empty-list__button">
-        <button @click="$router.push('/project/create')">
-          Create new project
-        </button>
+        <span>No projects found</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import rightsList from '@/utils/rightsList'
-
-import { useUserStore } from '@/store/modules/user'
-import { mapState } from 'pinia'
-
 export default {
-  name: 'EmptyList',
-  computed: {
-    ...mapState(useUserStore, ['userRightList']),
-
-    isAllowCreateProject() {
-      return this.userRightList.includes(rightsList.creatingProjects.id)
-    },
-  },
+  name: 'NotFoundList',
 }
 </script>
 
@@ -53,6 +30,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 
     > img {
       @media screen and (max-height: 768px) {
@@ -67,6 +45,7 @@ export default {
   &__title {
     margin-top: 36px;
     margin-bottom: 32px;
+    margin-left: 10px;
 
     @media screen and (max-height: 650px) {
       margin-top: 20px;

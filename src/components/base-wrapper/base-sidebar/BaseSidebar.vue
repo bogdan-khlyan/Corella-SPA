@@ -191,6 +191,10 @@ export default {
 
         const rights = option.projectRight ? projectRights : this.userRightList
 
+        if (Array.isArray(option.right)) {
+          return option.right.some((right) => rights.includes(right))
+        }
+
         return rights.includes(option.right)
       })
 

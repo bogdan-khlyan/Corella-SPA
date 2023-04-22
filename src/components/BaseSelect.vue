@@ -1,9 +1,9 @@
 <template>
   <div class="base-select">
     <el-select
-      :model-value="modelValue"
+      v-model="selectedItem"
       :placeholder="placeholder"
-      @change="$emit('update:modelValue', $event, id)"
+      :disabled="disabled"
     >
       <el-option
         v-for="item in options"
@@ -23,21 +23,30 @@ export default {
     placeholder: { type: String, default: 'Select' },
     options: { type: Array, required: true },
     modelValue: String,
+    disabled: {
+      type: Boolean,
+    },
     id: String,
   },
-  data() {
-    return {
-      // value: '', // TODO modelValue
-    }
+  emits: ['update:modelValue', 'change'],
+  computed: {
+    selectedItem: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+        this.$emit('change', value)
+      },
+    },
   },
 }
 </script>
 
 <style lang="scss">
 .base-select {
-
   input {
-    border: 1px solid #E7E7E7;
+    border: 1px solid #e7e7e7;
     box-sizing: border-box;
     border-radius: 4px;
 
@@ -49,8 +58,12 @@ export default {
     color: #212121;
 
     &::placeholder {
-      color: #BDBCC8;
+      color: #bdbcc8;
     }
+  }
+
+  .el-input.is-disabled .el-input__inner {
+    background-color: transparent;
   }
 }
 </style>

@@ -6,9 +6,9 @@
           <div class="edit-task__input">
             <base-input v-model="task.title" label="Title" />
           </div>
-          <div class="edit-task__select">
+          <!--          <div class="edit-task__select">
             <edit-task-select />
-          </div>
+          </div>-->
           <div class="edit-task__uploading">
             <upload-file
               v-model="task.attachments"

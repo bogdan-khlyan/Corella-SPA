@@ -1,6 +1,10 @@
 export default (http) => ({
-  loadProjects() {
-    return http.get('/projects')
+  loadProjects(q) {
+    return http.get('/projects', {
+      params: {
+        q,
+      },
+    })
   },
 
   loadProjectById(projectId) {
@@ -85,5 +89,27 @@ export default (http) => ({
 
   deleteProjectRole(projectId, roleId) {
     return http.delete(`/projects/${projectId}/roles/${roleId}`)
+  },
+
+  updateProjectMemberRole(projectId, roleId, data) {
+    return http.post(`/projects/${projectId}/roles/${roleId}`, {
+      data,
+    })
+  },
+
+  inviteMember(projectId, login) {
+    return http.post(`/projects/${projectId}/members`, {
+      data: {
+        login,
+      },
+    })
+  },
+
+  getProjectMembers(projectId) {
+    return http.get(`/projects/${projectId}/members`)
+  },
+
+  deleteProjectMember(projectId, memberId) {
+    return http.delete(`/projects/${projectId}/members/${memberId}`)
   },
 })

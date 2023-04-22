@@ -42,6 +42,7 @@ export default {
 .base-tabs {
   display: flex;
   position: relative;
+  overflow: auto;
 
   &::before {
     content: '';
@@ -50,9 +51,13 @@ export default {
     bottom: 0;
     transform: translate(-50%, 0);
     height: 4px;
-    width: 100%;
+    min-width: 100%;
     border-radius: 8px;
     background-color: #eeeeee;
+  }
+
+  &::-webkit-scrollbar {
+    height: 0;
   }
 
   &__item {

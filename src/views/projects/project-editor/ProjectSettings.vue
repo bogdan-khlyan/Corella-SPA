@@ -50,30 +50,44 @@ export default {
         {
           name: 'basic-info',
           text: 'Basic info',
-          right: rightsList.manageProjectSettings.id,
+          right: [rightsList.manageProjectSettings.id],
         },
         {
           name: 'board-settings',
           text: 'Board settings',
-          right: rightsList.manageProjectStages.id,
+          right: [rightsList.manageProjectStages.id],
         },
         {
           name: 'members',
           text: 'Roles and members',
-          right: rightsList.manageProjectMembers.id,
+          right: [
+            rightsList.manageProjectRoles.id,
+            rightsList.manageProjectMembers.id,
+          ],
         },
       ],
       currentTab: 'basic-info',
     }
   },
   computed: {
-    ...mapState(useUserStore, ['projectRoles']),
+    ...mapState(useUserStore, ['userRights', 'projectRoles']),
 
     allowTabs() {
       const { projectId } = this.$route.params
       const projectRights = this.projectRoles.get(projectId)?.rightIds
 
-      return this.tabs.filter((tab) => projectRights?.includes(tab.right))
+      if (
+        !projectId &&
+        this.userRights.find(
+          (right) => right.id === rightsList.creatingProjects.id
+        )
+      ) {
+        return this.tabs
+      }
+
+      return this.tabs.filter((tab) =>
+        tab.right.some((right) => projectRights?.includes(right))
+      )
     },
     title() {
       if (this.isCreate) {
@@ -91,9 +105,7 @@ export default {
     },
   },
   created() {
-    if (!this.isCreate) {
-      this.currentTab = 'basic-info'
-    }
+    this.currentTab = this.allowTabs[0].name
   },
   methods: {
     async deleteProject() {

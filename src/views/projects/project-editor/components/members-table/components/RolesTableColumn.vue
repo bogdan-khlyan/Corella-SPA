@@ -85,6 +85,7 @@ export default {
       default: false,
     },
   },
+  emits: ['update'],
   data() {
     return {
       options: [
@@ -167,17 +168,20 @@ export default {
     },
     addRoleHandler(newRole) {
       this.roles.push(newRole)
+      this.$emit('update')
     },
     updateRoleHandler(role) {
       const foundRole = this.roles.find((roleItem) => roleItem.id === role.id)
       foundRole.name = role.name
       foundRole.rightIds = role.rightIds
+      this.$emit('update')
     },
     async deleteRole(role) {
       try {
         await this.$api.projects.deleteProjectRole(this.projectId, role.id)
         this.roles = this.roles.filter((roleItem) => roleItem.id !== role.id)
         toast.success('The role was successfully deleted')
+        this.$emit('update')
       } catch (e) {
         console.log(e)
       }

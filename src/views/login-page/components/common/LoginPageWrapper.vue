@@ -41,7 +41,8 @@ export default {
       return loginPageState.loading
     },
     showOauthButtons() {
-      return this.$route.name !== 'recover-form'
+      // return this.$route.name !== 'recover-form'
+      return false
     },
   },
 }

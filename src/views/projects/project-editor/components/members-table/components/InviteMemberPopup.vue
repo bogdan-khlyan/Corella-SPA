@@ -2,19 +2,22 @@
   <div class="invite-member-popup">
     <base-popup
       v-model="visible"
-      title='Invite a member to "Corella" Project'
+      title="Invite a member to the Project"
       :show-btn="false"
       width="556px"
+      @submit="submitHandler"
     >
       <div class="invite-member-popup__content">
-        <base-input v-model.trim="usernameOrEmail" />
-        <base-button width="106px" title="Invite" />
+        <base-input v-model.trim="userLogin" />
+        <base-button width="106px" title="Invite" :disabled="!userLogin" />
       </div>
     </base-popup>
   </div>
 </template>
 
 <script>
+import { toast } from 'vue3-toastify'
+
 import BasePopup from '@/components/BasePopup'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
@@ -26,15 +29,39 @@ export default {
     BaseInput,
     BasePopup,
   },
+  emits: ['add'],
   data() {
     return {
       visible: false,
-      usernameOrEmail: '',
+      userLogin: '',
     }
   },
   methods: {
     openModal() {
       this.visible = true
+    },
+    closeModal() {
+      this.visible = false
+      this.userLogin = ''
+    },
+    submitHandler() {
+      if (this.userLogin) {
+        this.inviteMember()
+      }
+    },
+    async inviteMember() {
+      try {
+        const newMember = await this.$api.projects.inviteMember(
+          this.$route.params.projectId,
+          this.userLogin
+        )
+
+        toast.success('Member successfully added')
+        this.$emit('add', newMember)
+        this.closeModal()
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }

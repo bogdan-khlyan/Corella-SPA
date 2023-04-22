@@ -49,7 +49,12 @@ const routes = [
           import('@/views/projects/project-editor/ProjectSettings'),
         meta: {
           requiresAuth: true,
-          right: rightsList.manageProjectSettings.id,
+          right: [
+            rightsList.manageProjectSettings.id,
+            rightsList.manageProjectStages.id,
+            rightsList.manageProjectRoles.id,
+            rightsList.manageProjectMembers.id,
+          ],
           projectRight: true,
         },
       },
@@ -124,7 +129,15 @@ router.beforeEach(async (to, from, next) => {
       next('/login-page')
     } else if (to.meta.projectRight) {
       const projectRole = await store.getProjectRole(to.params.projectId)
-      if (!to.meta.right || projectRole.rightIds.includes(to.meta.right)) {
+      let hasRight
+      if (Array.isArray(to.meta.right)) {
+        hasRight = to.meta.right.some((right) =>
+          projectRole.rightIds.includes(right)
+        )
+      } else {
+        hasRight = projectRole.rightIds.includes(to.meta.right)
+      }
+      if (!to.meta.right || hasRight) {
         next()
       } else {
         next('/')

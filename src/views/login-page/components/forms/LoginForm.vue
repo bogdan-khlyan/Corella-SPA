@@ -17,16 +17,16 @@
       @input="validatePassword"
     />
 
-    <router-link to="/login/recover" class="login-form__forgot">
+    <!--    <router-link to="/login/recover" class="login-form__forgot">
       Forgot my password?
-    </router-link>
+    </router-link>-->
     <div class="login-form__button">
       <base-button :loading="loading" type="outlined">Log in</base-button>
     </div>
-    <div class="login-form__register">
+    <!--    <div class="login-form__register">
       Don't have an account yet?
       <router-link to="/login/register"> Register</router-link>
-    </div>
+    </div>-->
   </form>
 </template>
 

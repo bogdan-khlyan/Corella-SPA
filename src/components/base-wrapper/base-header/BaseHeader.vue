@@ -15,7 +15,7 @@
       <header-input v-if="isShowInput" />
     </transition>
     <div class="base-header__info">
-      <header-notifications v-if="windowWidth > 768" />
+      <!--      <header-notifications v-if="windowWidth > 768" />-->
 
       <account-info />
     </div>

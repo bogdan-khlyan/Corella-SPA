@@ -37,7 +37,12 @@ const boardButton = {
 const projectSettingsButton = {
   id: uuid(),
   projectRight: true,
-  right: rightsList.manageProjectSettings.id,
+  right: [
+    rightsList.manageProjectSettings.id,
+    rightsList.manageProjectStages.id,
+    rightsList.manageProjectRoles.id,
+    rightsList.manageProjectMembers.id,
+  ],
   getPath: (context) => `/project/${context.$route.params.projectId}/settings`,
   route: 'project-settings',
   label: 'Settings',

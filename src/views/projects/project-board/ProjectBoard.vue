@@ -23,7 +23,7 @@
             class="project-board__column"
             :project-column-data="projectColumnData"
             :column-transition-end="projectColumnData.columnTransitionEnd"
-            :data-index="i"
+            :data-index="projectColumnData.index"
             :left-arrow="showArrow && i === 0"
             :right-arrow="showArrow && i === columns.length - 1"
             @status-task-changed="handleTaskStatusChanged"
@@ -185,9 +185,14 @@ export default {
 
     async loadProjectStages() {
       this.loading = true
-      this.stages = await this.$api.projects.loadProjectStagesWithTasks(
-        this.$route.params.projectId
-      )
+      this.stages = (
+        await this.$api.projects.loadProjectStagesWithTasks(
+          this.$route.params.projectId
+        )
+      ).map((stage, i) => ({
+        ...stage,
+        index: i,
+      }))
 
       this.loading = false
     },

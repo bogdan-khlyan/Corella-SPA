@@ -15,6 +15,7 @@
       v-if="rightArrow"
       class="project-board-column__arrow right"
       @click="$emit('click-right-arrow')"
+      @mouseenter="mouseenterHandler"
     >
       <img src="@/assets/images/icons/common/circle-sector2.png" alt="" />
       <a>
@@ -54,7 +55,6 @@
       </draggable>
 
       <div
-        v-else
         ref="projectBoard"
         class="project-board-column__task-list project-board-column--inner-content"
       >
@@ -110,7 +110,7 @@ export default {
       default: false,
     },
   },
-  emits: ['status-task-changed'],
+  emits: ['status-task-changed', 'click-left-arrow', 'click-right-arrow'],
   data() {
     return {
       columnData: null,

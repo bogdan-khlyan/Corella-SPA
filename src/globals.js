@@ -1,4 +1,4 @@
-import ColumnsAnimate from '@/app/common/StepAnimation'
+import ColumnsAnimate from '@/components/StepAnimation'
 import SvgIcon from './app/common/SvgIcon'
 
 export default [
